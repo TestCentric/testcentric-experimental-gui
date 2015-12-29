@@ -117,7 +117,7 @@ namespace NUnit.Gui.Presenters
 
         public static string GetTestType(TestNode testNode)
         {
-            if (testNode.RunState == RunState.NotRunnable)
+            if (testNode.RunState == RunState.NotRunnable && testNode.Type == "Assembly")
             {
                 var fi = new FileInfo(testNode.FullName);
                 string extension = fi.Extension.ToLower();

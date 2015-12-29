@@ -34,27 +34,31 @@ namespace NUnit.Gui.Presenters
 {
   public class TestPropertiesPresenterTests
   {
-    [TestCase("test.dll", "Runnable", ExpectedResult = "Assembly")]
-    [TestCase("test.dll", "NotRunnable", ExpectedResult = "Assembly")]
-    [TestCase("test.dll", "Ignored", ExpectedResult = "Assembly")]
-    [TestCase("test.dll", "Explicit", ExpectedResult = "Assembly")]
-    [TestCase("test.dll", "Skipped", ExpectedResult = "Assembly")]
-    [TestCase("test.dll", "Unknown", ExpectedResult = "Assembly")]
-    [TestCase("test.exe", "Runnable", ExpectedResult = "Assembly")]
-    [TestCase("test.exe", "NotRunnable", ExpectedResult = "Assembly")]
-    [TestCase("test.exe", "Ignored", ExpectedResult = "Assembly")]
-    [TestCase("test.exe", "Explicit", ExpectedResult = "Assembly")]
-    [TestCase("test.exe", "Skipped", ExpectedResult = "Assembly")]
-    [TestCase("test.exe", "Unknown", ExpectedResult = "Assembly")]
-    [TestCase("test.png", "Runnable", ExpectedResult = "Assembly")]
-    [TestCase("test.png", "NotRunnable", ExpectedResult = "Unknown")]
-    [TestCase("test.png", "Ignored", ExpectedResult = "Assembly")]
-    [TestCase("test.png", "Explicit", ExpectedResult = "Assembly")]
-    [TestCase("test.png", "Skipped", ExpectedResult = "Assembly")]
-    [TestCase("test.png", "Unknown", ExpectedResult = "Assembly")]
-    public string GetTestTypeTest(string fullname, string runstate)
+    [TestCase("Assembly", "test.dll", "Runnable", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.dll", "NotRunnable", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.dll", "Ignored", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.dll", "Explicit", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.dll", "Skipped", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.dll", "Unknown", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.exe", "Runnable", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.exe", "NotRunnable", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.exe", "Ignored", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.exe", "Explicit", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.exe", "Skipped", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.exe", "Unknown", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.png", "Runnable", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.png", "NotRunnable", ExpectedResult = "Unknown")]
+    [TestCase("Assembly", "test.png", "Ignored", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.png", "Explicit", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.png", "Skipped", ExpectedResult = "Assembly")]
+    [TestCase("Assembly", "test.png", "Unknown", ExpectedResult = "Assembly")]
+    [TestCase("SomethingElse", "test.png", "Runnable", ExpectedResult = "SomethingElse")]
+    [TestCase("SomethingElse", "test.png", "NotRunnable", ExpectedResult = "SomethingElse")]
+    [TestCase("SomethingElse", "test.dll", "Runnable", ExpectedResult = "SomethingElse")]
+    [TestCase("SomethingElse", "test.dll", "NotRunnable", ExpectedResult = "SomethingElse")]
+    public string GetTestTypeTest(string type, string fullname, string runstate)
     {
-      TestNode testNode = new TestNode(XmlHelper.CreateXmlNode(string.Format("<test-run id='1' type='Assembly' fullname='{0}' runstate='{1}'><test-suite id='42'/></test-run>", fullname, runstate)));
+      TestNode testNode = new TestNode(XmlHelper.CreateXmlNode(string.Format("<test-run id='1' type='{0}' fullname='{1}' runstate='{2}'><test-suite id='42'/></test-run>", type, fullname, runstate)));
 
       return TestPropertiesPresenter.GetTestType(testNode);
     }
