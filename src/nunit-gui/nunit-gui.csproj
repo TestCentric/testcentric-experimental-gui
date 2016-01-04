@@ -70,11 +70,10 @@
     <Compile Include="Model\TestStartNotice.cs" />
     <Compile Include="Model\TestStatus.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Presenters\ResultGrouping.cs" />
-    <Compile Include="Presenters\GroupByCategory.cs" />
-    <Compile Include="Presenters\GroupDisplay.cs" />
-    <Compile Include="Presenters\GroupByDuration.cs" />
-    <Compile Include="Presenters\GroupByOutcome.cs" />
+    <Compile Include="Presenters\CategoryGrouping.cs" />
+    <Compile Include="Presenters\GroupDisplayStrategy.cs" />
+    <Compile Include="Presenters\DurationGrouping.cs" />
+    <Compile Include="Presenters\OutcomeGrouping.cs" />
     <Compile Include="Presenters\TestGroup.cs" />
     <Compile Include="Presenters\FixtureListDisplayStrategy.cs" />
     <Compile Include="Presenters\NUnitTreeDisplayStrategy.cs" />

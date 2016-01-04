@@ -39,14 +39,16 @@ namespace NUnit.Gui.Presenters
     {
         /// <summary>
         /// Image indices for various test states - the values 
-        /// must match the indices of the image list used
+        /// must match the indices of the image list used and
+        /// are ordered so that the higher values are those
+        /// that propogate upwards.
         /// </summary>
         public const int InitIndex = 0;
         public const int SkippedIndex = 0;
-        public const int FailureIndex = 1;
+        public const int InconclusiveIndex = 1;
         public const int SuccessIndex = 2;
         public const int IgnoredIndex = 3;
-        public const int InconclusiveIndex = 4;
+        public const int FailureIndex = 4;
 
         private ITestTreeView _view;
         private ITestModel _model;
@@ -84,7 +86,7 @@ namespace NUnit.Gui.Presenters
             {
                 // Necessary test because we don't disable the button click
                 if (_model.HasTests && !_model.IsTestRunning)
-                    _model.RunSelectedTest();
+                    _model.RunTests(TestFilter.Empty);
             };
             _view.RunAllCommand.Execute += () => _model.RunTests(TestFilter.Empty);
             _view.RunSelectedCommand.Execute += () => _model.RunSelectedTest();

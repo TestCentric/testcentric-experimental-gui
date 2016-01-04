@@ -134,10 +134,10 @@
             this.treeImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeImages.ImageStream")));
             this.treeImages.TransparentColor = System.Drawing.Color.Transparent;
             this.treeImages.Images.SetKeyName(0, "Skipped.png");
-            this.treeImages.Images.SetKeyName(1, "Failure.png");
+            this.treeImages.Images.SetKeyName(1, "Inconclusive.png");
             this.treeImages.Images.SetKeyName(2, "Success.png");
             this.treeImages.Images.SetKeyName(3, "Ignored.png");
-            this.treeImages.Images.SetKeyName(4, "Inconclusive.png");
+            this.treeImages.Images.SetKeyName(4, "Failure.png");
             // 
             // toolStrip
             // 
@@ -164,6 +164,7 @@
             this.runButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(32, 22);
+            this.runButton.ToolTipText = "Run All Tests";
             // 
             // runAllMenuItem
             // 
@@ -222,61 +223,61 @@
             // nunitTreeMenuItem
             // 
             this.nunitTreeMenuItem.Name = "nunitTreeMenuItem";
-            this.nunitTreeMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nunitTreeMenuItem.Size = new System.Drawing.Size(141, 22);
             this.nunitTreeMenuItem.Tag = "NUNIT_TREE";
             this.nunitTreeMenuItem.Text = "NUnit Tree";
             // 
             // fixtureListMenuItem
             // 
             this.fixtureListMenuItem.Name = "fixtureListMenuItem";
-            this.fixtureListMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fixtureListMenuItem.Size = new System.Drawing.Size(141, 22);
             this.fixtureListMenuItem.Tag = "FIXTURE_LIST";
             this.fixtureListMenuItem.Text = "Fixture List";
             // 
             // testListMenuItem
             // 
             this.testListMenuItem.Name = "testListMenuItem";
-            this.testListMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testListMenuItem.Size = new System.Drawing.Size(141, 22);
             this.testListMenuItem.Tag = "TEST_LIST";
             this.testListMenuItem.Text = "Test List";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
             // 
             // byAssemblyMenuItem
             // 
             this.byAssemblyMenuItem.Name = "byAssemblyMenuItem";
-            this.byAssemblyMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byAssemblyMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byAssemblyMenuItem.Tag = "ASSEMBLY";
             this.byAssemblyMenuItem.Text = "By Assembly";
             // 
             // byFixtureMenuItem
             // 
             this.byFixtureMenuItem.Name = "byFixtureMenuItem";
-            this.byFixtureMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byFixtureMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byFixtureMenuItem.Tag = "FIXTURE";
             this.byFixtureMenuItem.Text = "By Fixture";
             // 
             // byCategoryMenuItem
             // 
             this.byCategoryMenuItem.Name = "byCategoryMenuItem";
-            this.byCategoryMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byCategoryMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byCategoryMenuItem.Tag = "CATEGORY";
             this.byCategoryMenuItem.Text = "By Category";
             // 
             // byOutcomeMenuItem
             // 
             this.byOutcomeMenuItem.Name = "byOutcomeMenuItem";
-            this.byOutcomeMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byOutcomeMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byOutcomeMenuItem.Tag = "OUTCOME";
             this.byOutcomeMenuItem.Text = "By Outcome";
             // 
             // byDurationMenuItem
             // 
             this.byDurationMenuItem.Name = "byDurationMenuItem";
-            this.byDurationMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byDurationMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byDurationMenuItem.Tag = "DURATION";
             this.byDurationMenuItem.Text = "By Duration";
             // 

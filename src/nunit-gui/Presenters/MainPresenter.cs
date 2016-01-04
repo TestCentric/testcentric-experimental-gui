@@ -268,7 +268,10 @@ namespace NUnit.Gui.Presenters
 
         private static TestPackage ApplyOptionsToPackage(TestPackage package, GuiOptions options)
         {
+            // TODO: Remove temporary Settings used in testing GUI
             package.Settings["ProcessModel"] = "InProcess";
+            package.Settings["NumberOfTestWorkers"] = 0;
+
             if (options.InternalTraceLevel != null)
                 package.Settings["InternalTraceLevel"] = options.InternalTraceLevel;
 

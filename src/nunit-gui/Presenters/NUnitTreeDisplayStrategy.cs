@@ -32,6 +32,10 @@ namespace NUnit.Gui.Presenters
     using Model;
     using Engine;
 
+    /// <summary>
+    /// NUnitTreeDisplayStrategy is used to display a the tests
+    /// in the traditional NUnit tree format.
+    /// </summary>
     public class NUnitTreeDisplayStrategy : DisplayStrategy
     {
         #region Construction and Initialization

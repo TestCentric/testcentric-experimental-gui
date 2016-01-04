@@ -34,12 +34,12 @@ namespace NUnit.Gui.Presenters.TestTree
     public class CommandTests : TestTreePresenterTestBase
     {
         [Test]
-        public void ToolStrip_RunButton_RunsSelectedTest()
+        public void ToolStrip_RunButton_RunsAllTests()
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
             _view.RunButton.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunSelectedTest();
+            _model.Received().RunTests(TestFilter.Empty);
         }
 
         [Test]

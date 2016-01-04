@@ -34,25 +34,29 @@ namespace NUnit.Gui.Presenters
     using NUnit.UiKit.Elements;
 
     /// <summary>
-    /// DisplayStrategy is the abstract base the various
+    /// DisplayStrategy is the abstract base for the various
     /// strategies used to display tests in the tree control.
     /// It works both as a traditional strategy, with methods
     /// called by the TreeViewPresenter, and as a presenter
     /// in it's own right, since it is created with references
-    /// to the view and settingsService and can handle certain events.
+    /// to the view and model and can handle certain events.
+    /// We currently support three different strategies:
+    /// NunitTreeDisplay, TestListDisplay and FixtureListDisplay.
     /// </summary>
     public abstract class DisplayStrategy
     {
         /// <summary>
         /// Image indices for various test states - the values 
-        /// must match the indices of the image list used
+        /// must match the indices of the image list used and
+        /// are ordered so that the higher values are those
+        /// that propogate upwards.
         /// </summary>
         public const int InitIndex = 0;
         public const int SkippedIndex = 0;
-        public const int FailureIndex = 1;
+        public const int InconclusiveIndex = 1;
         public const int SuccessIndex = 2;
         public const int IgnoredIndex = 3;
-        public const int InconclusiveIndex = 4;
+        public const int FailureIndex = 4;
 
         protected ITestTreeView _view;
         protected ITestModel _model;
@@ -96,6 +100,17 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
+        #region Properties
+
+        public bool HasResults
+        {
+            get { return _model.HasResults; }
+        }
+
+        #endregion
+
+        #region Protected Methods
+
         /// <summary>
         /// Load all tests into the tree, starting from a root TestNode.
         /// </summary>
@@ -107,6 +122,10 @@ namespace NUnit.Gui.Presenters
             foreach(TreeNode treeNode in GetTreeNodesForTest(result))
                 Tree.SetImageIndex(treeNode, imageIndex);
         }
+
+        #endregion
+
+        #region Public Methods
 
         // Called when either the display strategy or the grouping
         // changes. May need to distinguish these cases.
@@ -125,6 +144,8 @@ namespace NUnit.Gui.Presenters
             }
         }
 
+        #endregion
+
         #region Helper Methods
 
         protected void ClearTree()
@@ -135,7 +156,7 @@ namespace NUnit.Gui.Presenters
 
         protected TreeNode MakeTreeNode(TestGroup group, bool recursive)
         {
-            TreeNode treeNode = new TreeNode(group.DisplayName, group.ImageIndex, group.ImageIndex);
+            TreeNode treeNode = new TreeNode(GroupDisplayName(group), group.ImageIndex, group.ImageIndex);
             treeNode.Tag = group;
 
             if (recursive)
@@ -145,7 +166,7 @@ namespace NUnit.Gui.Presenters
             return treeNode;
         }
 
-        protected TreeNode MakeTreeNode(TestNode testNode, bool recursive)
+        public TreeNode MakeTreeNode(TestNode testNode, bool recursive)
         {
             TreeNode treeNode = new TreeNode(testNode.Name);
             treeNode.Tag = testNode;
@@ -181,7 +202,12 @@ namespace NUnit.Gui.Presenters
             return treeNode;
         }
 
-        private int CalcImageIndex(ResultState outcome)
+        public string GroupDisplayName(TestGroup group)
+        {
+            return string.Format("{0} ({1})", group.Name, group.Count);
+        }
+
+        public int CalcImageIndex(ResultState outcome)
         {
             switch (outcome.Status)
             {
@@ -193,15 +219,9 @@ namespace NUnit.Gui.Presenters
                     return FailureIndex;
                 case TestStatus.Skipped:
                 default:
-                    switch (outcome.Label)
-                    {
-                        case "Ignored":
-                            return IgnoredIndex;
-                        case "Invalid":
-                            return FailureIndex;
-                        default:
-                            return SkippedIndex;
-                    }
+                    return outcome.Label == "Ignored"
+                        ? IgnoredIndex
+                        : SkippedIndex;
             }
         }
 

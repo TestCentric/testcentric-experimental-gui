@@ -40,9 +40,13 @@
             this.progressBarView = new NUnit.Gui.Views.ProgressBarView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,10 +104,6 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutNUnitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -251,6 +251,15 @@
             this.tabPage2.Text = "Results";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(90, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Not yet implemented";
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label2);
@@ -260,6 +269,15 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stack Trace";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(106, 88);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Not yet implemented";
             // 
             // tabPage4
             // 
@@ -271,6 +289,15 @@
             this.tabPage4.Text = "Text Output";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(106, 88);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(103, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Not yet implemented";
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.label4);
@@ -280,6 +307,15 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Xml View";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(106, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Not yet implemented";
             // 
             // fileToolStripMenuItem
             // 
@@ -718,42 +754,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(488, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(90, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Not yet implemented";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(106, 88);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Not yet implemented";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Not yet implemented";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(106, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Not yet implemented";
             // 
             // MainForm
             // 

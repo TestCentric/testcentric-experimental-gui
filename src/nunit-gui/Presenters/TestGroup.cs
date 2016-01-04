@@ -31,52 +31,42 @@ namespace NUnit.Gui.Presenters
 
     /// <summary>
     /// A TestGroup is essentially a TestSelection with a
-    /// name, display name and image index. It maintains
-    /// a TreeNode property synchronized with the members
-    /// of the group and implements ITestItem so that the
-    /// settingsServiceServiceService can use it as the currently selected test.
+    /// name and image index for use in the tree display.
+    /// Its TreeNode property is externally set and updated.
     /// It can create a filter for running all the tests
     /// in the group.
     /// </summary>
     public class TestGroup : TestSelection, ITestItem
     {
+        #region Constructors
+
         public TestGroup(string name) : this(name, -1) { }
 
         public TestGroup(string name, int imageIndex)
         {
-            this.Name = name;
-            this.ImageIndex = imageIndex;
-            this.TreeNode = new TreeNode(DisplayName, imageIndex, imageIndex);
+            Name = name;
+            ImageIndex = imageIndex;
         }
+
+        #endregion
+
+        #region Properties
 
         public string Name { get; private set; }
 
-        public string DisplayName
-        {
-            get { return string.Format("{0} ({1})", Name, Count); }
-        }
+        public int ImageIndex { get; set; }
 
-        public int ImageIndex { get; private set; }
+        public TreeNode TreeNode { get; set;  }
 
-        private TreeNode _treeNode;
-        public TreeNode TreeNode
-        {
-            get
-            {
-                if (_treeNode != null)
-                    _treeNode.Name = DisplayName; // Just refresh display name
-
-                return _treeNode;
-            }
-            set { _treeNode = value; }
-        }
+        #endregion
 
         public TestFilter GetTestFilter()
         {
             StringBuilder sb = new StringBuilder("<filter><or>");
 
             foreach (TestNode test in this)
-                sb.AppendFormat("<id>{0}</id>", test.Id);
+                if (test.RunState != RunState.Explicit)
+                    sb.AppendFormat("<id>{0}</id>", test.Id);
 
             sb.Append("</or></filter>");
 

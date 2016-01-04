@@ -31,7 +31,11 @@ namespace NUnit.Gui.Presenters
     using Views;
     using Model;
 
-    public class TestListDisplayStrategy : GroupDisplay
+    /// <summary>
+    /// TestListDisplayStrategy is used to display lists
+    /// of test cases grouped in various ways.
+    /// </summary>
+    public class TestListDisplayStrategy : GroupDisplayStrategy
     {
         #region Construction and Initialization
 
@@ -66,9 +70,9 @@ namespace NUnit.Gui.Presenters
                     foreach (TestNode assembly in testNode
                         .Select((node) => node.IsSuite && node.Type == "Assembly"))
                     {
-                        TreeNode treeNode = MakeTreeNode(testNode, false);
+                        TreeNode treeNode = MakeTreeNode(assembly, false);
 
-                        foreach (TestNode test in GetTestCases(testNode))
+                        foreach (TestNode test in GetTestCases(assembly))
                             treeNode.Nodes.Add(MakeTreeNode(test, true));
 
                         _view.Tree.Add(treeNode);
