@@ -54,6 +54,7 @@
     <Compile Include="Model\TestNodeTests.cs" />
     <Compile Include="Presenters\TestGroupTests.cs" />
     <Compile Include="Presenters\StatusBarPresenterTests.cs" />
+    <Compile Include="Presenters\TestPropertiesPresenterTests.cs" />
     <Compile Include="Presenters\TestTree\CommandTests.cs" />
     <Compile Include="Presenters\TestTree\NUnitTreeDisplayStrategyTests.cs" />
     <Compile Include="Presenters\TestTree\TestTreePresenterTestBase.cs" />
