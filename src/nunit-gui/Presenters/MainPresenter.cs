@@ -150,7 +150,11 @@ namespace NUnit.Gui.Presenters
             // Set the font to use
             _view.Font = _model.Settings.Gui.MainForm.Font;
 
-            if (recentFileService.Entries.Count > 0)
+            if (_options.InputFiles.Count > 0)
+            {
+                _model.LoadTests(MakeTestPackage(_options.InputFiles, _options));
+            }
+            else if (recentFileService.Entries.Count > 0)
             {
                 var entry = recentFileService.Entries[0];
                 if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
@@ -259,7 +263,7 @@ namespace NUnit.Gui.Presenters
             return package;
         }
 
-        private static TestPackage MakeTestPackage(string[] testFiles, GuiOptions options)
+        private static TestPackage MakeTestPackage(IList<string> testFiles, GuiOptions options)
         {
             var package = new TestPackage(testFiles);
             ApplyOptionsToPackage(package, options);
