@@ -34,12 +34,12 @@ namespace NUnit.Gui.Presenters.TestTree
     public class CommandTests : TestTreePresenterTestBase
     {
         [Test]
-        public void ToolStrip_RunButton_RunsSelectedTest()
+        public void ToolStrip_RunButton_RunsAllTests()
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
             _view.RunButton.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunSelectedTest();
+            _model.Received().RunTests(TestFilter.Empty);
         }
 
         [Test]
@@ -74,24 +74,6 @@ namespace NUnit.Gui.Presenters.TestTree
             _view.RunContextCommand.Execute += Raise.Event<CommandHandler>();
 
             _model.Received().RunTests(Arg.Is<TestNode>((t) => t.Id == "5"));
-        }
-
-        [Test]
-        public void ContextMenu_ShowCheckboxes_TurnsOffCheckBoxes()
-        {
-            _view.ShowCheckBoxesCommand.Checked.Returns(false);
-            _view.ShowCheckBoxesCommand.CheckedChanged += Raise.Event<CommandHandler>();
-
-            _view.Tree.Received().CheckBoxes = false;
-        }
-
-        [Test]
-        public void ContextMenu_ShowCheckBoxes_TurnsOnCheckBoxes()
-        {
-            _view.ShowCheckBoxesCommand.Checked.Returns(true);
-            _view.ShowCheckBoxesCommand.CheckedChanged += Raise.Event<CommandHandler>();
-
-            _view.Tree.Received().CheckBoxes = true;
         }
 
         [Test]

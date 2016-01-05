@@ -40,7 +40,6 @@ namespace NUnit.Gui.Views
         ISelection GroupBy { get; }
 
         ICommand RunContextCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
         ICommand ExpandAllCommand { get; }
         ICommand CollapseAllCommand { get; }
         ICommand CollapseToFixturesCommand { get; }

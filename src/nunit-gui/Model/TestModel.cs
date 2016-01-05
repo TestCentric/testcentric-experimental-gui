@@ -92,7 +92,10 @@ namespace NUnit.Gui.Model
             get { return Runner != null && Runner.IsTestRunning;  }
         }
 
-        public bool HasResults { get; set; }
+        public bool HasResults
+        {
+            get { return _resultIndex.Count > 0; }
+        }
 
         private ITestItem _selectedTest;
         public ITestItem SelectedTest

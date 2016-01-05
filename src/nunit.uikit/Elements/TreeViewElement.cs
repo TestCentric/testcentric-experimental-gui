@@ -116,6 +116,14 @@ namespace NUnit.UiKit.Elements
             Add(treeNode, false);
         }
 
+        public void Insert(int index, TreeNode treeNode)
+        {
+            InvokeIfRequired(() =>
+            {
+                Control.Nodes.Insert(index, treeNode);
+            });
+        }
+
         public void Load(TreeNode treeNode)
         {
             Add(treeNode, true);

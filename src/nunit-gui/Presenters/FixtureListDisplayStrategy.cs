@@ -31,7 +31,11 @@ namespace NUnit.Gui.Presenters
     using Views;
     using Model;
 
-    public class FixtureListDisplayStrategy : GroupDisplay
+    /// <summary>
+    /// FixtureListDisplayStrategy is used to display lists
+    /// of fixtures grouped in various ways.
+    /// </summary>
+    public class FixtureListDisplayStrategy : GroupDisplayStrategy
     {
         #region Construction and Initialization
 
@@ -62,6 +66,11 @@ namespace NUnit.Gui.Presenters
         //}
 
         #endregion
+
+        public override string Description
+        {
+            get { return "Fixtures By " + _groupBy; }
+        }
 
         protected override void OnGroupByChanged()
         {

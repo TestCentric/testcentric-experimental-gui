@@ -32,92 +32,137 @@ namespace NUnit.Gui.Presenters
     using Model;
     using Views;
 
-    public abstract class TestGrouping : IEnumerable<TestGroup>
+    /// <summary>
+    /// TestGrouping is the base class of all groupings. It represents a
+    /// set of TestGroups containing tests. In the base class, the contents
+    /// of each group is stable once created.
+    /// </summary>
+    public abstract class TestGrouping
     {
-        protected GroupDisplay _display;
+        protected GroupDisplayStrategy _displayStrategy;
 
-        private Dictionary<string, TestGroup> _groupDictionary = new Dictionary<string, TestGroup>();
-        protected List<TestGroup> _groupList = new List<TestGroup>();
+        #region Constructor
 
-        public TestGrouping(GroupDisplay display)
+        /// <summary>
+        /// Construct a TestGrouping for a given GroupDisplayStrategy
+        /// </summary>
+        /// <param name="displayStrategy"></param>
+        public TestGrouping(GroupDisplayStrategy displayStrategy)
         {
-            _display = display;
+            _displayStrategy = displayStrategy;
+            Groups = new List<TestGroup>();
         }
 
-        public TestGroup this[string name]
+        #endregion
+
+        #region Properties
+
+        public List<TestGroup> Groups { get; private set; }
+
+        #endregion
+
+        public TestGroup GetGroup(string name)
         {
-            get { return _groupDictionary[name]; }
+            return Groups.Find((g) => g.Name == name);
         }
 
-        public TestGroup this[int index]
+        public virtual void Load(IEnumerable<TestNode> tests)
         {
-            get { return _groupList[index]; }
-        }
-
-        public void AddGroup(string name)
-        {
-            AddGroup(name, -1);
-        }
-
-        public void AddGroup(string name, int imageIndex)
-        {
-            AddGroup(new TestGroup(name, imageIndex));
-        }
-
-        protected virtual void AddGroup(TestGroup group)
-        {
-            _groupDictionary.Add(group.Name, group);
-            _groupList.Add(group);
-        }
-
-        private void ClearGroups()
-        {
-            _groupDictionary.Clear();
-            _groupList.Clear();
-        }
-
-        public void Load(TestSelection selection)
-        {
-            ClearGroups();
-
-            foreach (TestNode testNode in selection)
-            {
-                foreach (string groupName in SelectGroups(testNode))
-                {
-                    TestGroup group = null;
-                    if (_groupDictionary.ContainsKey(groupName))
-                        group = _groupDictionary[groupName];
-                    else
-                    {
-                        group = new TestGroup(groupName);
-                        AddGroup(group);
-                    }
+            foreach (TestNode testNode in tests)
+                foreach (var group in SelectGroups(testNode))
                     group.Add(testNode);
+        }
+
+        /// <summary>
+        /// Returns an array of groups in which the a TestNode 
+        /// should be categorized.
+        /// </summary>
+        public abstract TestGroup[] SelectGroups(TestNode testNode);
+
+        public void ChangeGroupsBasedOnTestResult(TestNode result, bool updateImages)
+        {
+            var treeNodes = _displayStrategy.GetTreeNodesForTest(result);
+
+            // Result may be for a TestNode not shown in the tree
+            if (treeNodes.Count == 0)
+                return;
+
+            // This implementation ignores any but the first node
+            // since changing of groups is currently only needed
+            // for groupings that display each node once.
+            var treeNode = treeNodes[0];
+            var oldParent = treeNode.Parent;
+            var oldGroup = oldParent.Tag as TestGroup;
+
+            // We only have to proceed for tests that are direct
+            // descendants of a group node.
+            if (oldGroup == null)
+                return;
+
+            var newGroup = SelectGroups(result)[0];
+
+            // If the group didn't change, we can get out of here
+            if (oldGroup == newGroup)
+                return;
+
+            var newParent = newGroup.TreeNode;
+
+            _displayStrategy.Tree.InvokeIfRequired(() =>
+            {
+                oldGroup.RemoveId(result.Id);
+                // TODO: Insert in order
+                newGroup.Add(result);
+
+                // Remove test from tree
+                treeNode.Remove();
+
+                // If it was last test in group, remove group
+                if (oldGroup.Count == 0)
+                    oldParent.Remove();
+                else // update old group
+                {
+                    oldParent.Text = _displayStrategy.GroupDisplayName(oldGroup);
+                    if (updateImages)
+                        oldParent.ImageIndex = oldParent.SelectedImageIndex = oldGroup.ImageIndex =
+                            _displayStrategy.CalcImageIndexForGroup(oldGroup);
                 }
-            }
+
+                newParent.Nodes.Add(treeNode);
+                newParent.Text = _displayStrategy.GroupDisplayName(newGroup);
+                newParent.Expand();
+
+                if (updateImages)
+                {
+                    var imageIndex = _displayStrategy.CalcImageIndex(result.Outcome);
+                    if (imageIndex >= DisplayStrategy.SuccessIndex && imageIndex > newGroup.ImageIndex)
+                        newParent.ImageIndex = newParent.SelectedImageIndex = newGroup.ImageIndex = imageIndex;
+                }
+
+                if (newGroup.Count == 1)
+                {
+                    _displayStrategy.Tree.Clear();
+                    TreeNode topNode = null;
+                    foreach (var group in Groups)
+                        if (group.Count > 0)
+                        {
+                            _displayStrategy.Tree.Add(group.TreeNode);
+                            if (topNode == null)
+                                topNode = group.TreeNode;
+                        }
+
+                    if (topNode != null)
+                        topNode.EnsureVisible();
+                }
+            });
         }
 
-        public string SelectSingleGroup(TestNode testNode)
+        /// <summary>
+        /// Post a test result to the tree, changing the treeNode
+        /// color to reflect success or failure.
+        /// </summary>
+        public virtual void OnTestFinished(TestNode result)
         {
-            var groups = SelectGroups(testNode);
-            return groups.Length > 0 ? groups[0] : null;
-        }
-
-        public abstract string[] SelectGroups(TestNode testNode);
-
-        public virtual void AdjustGroupsBasedOnTestResult(TestNode result)
-        {
-            // Base implementation does nothing
-        }
-
-        public IEnumerator<TestGroup> GetEnumerator()
-        {
-            return _groupList.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _groupList.GetEnumerator();
+            // Override to take any necessary action
         }
     }
 }

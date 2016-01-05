@@ -33,14 +33,18 @@ namespace NUnit.Gui.Presenters
     using Engine;
     using NUnit.UiKit.Elements;
 
-    public abstract class GroupDisplay : DisplayStrategy
+    /// <summary>
+    /// GroupDisplayStrategy is the abstract base class for 
+    /// DisplayStrategies that list tests in various groupings.
+    /// </summary>
+    public abstract class GroupDisplayStrategy : DisplayStrategy
     {
         protected string _groupBy;
         protected TestGrouping _grouping;
 
         #region Construction and Initialization
 
-        public GroupDisplay(ITestTreeView view, ITestModel model)
+        public GroupDisplayStrategy(ITestTreeView view, ITestModel model)
             : base(view, model) 
         {
             _view.GroupBy.Enabled = true;
@@ -59,7 +63,7 @@ namespace NUnit.Gui.Presenters
         {
             base.OnTestFinished(result);
 
-            _grouping.AdjustGroupsBasedOnTestResult(result);
+            _grouping.OnTestFinished(result);
         }
 
         protected abstract void OnGroupByChanged();
@@ -69,31 +73,51 @@ namespace NUnit.Gui.Presenters
             switch (_groupBy)
             {
                 case "OUTCOME":
-                    return new GroupByOutcome(this);
+                    return new OutcomeGrouping(this);
                 case "DURATION":
-                    return new GroupByDuration(this);
+                    return new DurationGrouping(this);
                 case "CATEGORY":
-                    return new GroupByCategory(this);
+                    return new CategoryGrouping(this);
             }
 
             return null;
+        }
+        
+        // TODO: Move this to TestGroup? Would need access to results.
+        public int CalcImageIndexForGroup(TestGroup group)
+        {
+            var groupIndex = -1;
+
+            foreach (var testNode in group)
+            {
+                var result = GetResultForTest(testNode);
+                if (result != null)
+                {
+                    var imageIndex = CalcImageIndex(result.Outcome);
+
+                    if (imageIndex == FailureIndex)
+                        return FailureIndex; // Early return - can't get any worse!
+
+                    if (imageIndex >= SuccessIndex) // Only those values propagate
+                        groupIndex = Math.Max(groupIndex, imageIndex);
+                }
+            }
+
+            return groupIndex;
         }
 
         protected void UpdateDisplay()
         {
             this.ClearTree();
             TreeNode topNode = null;
-            foreach (var group in _grouping)
+            foreach (var group in _grouping.Groups)
             {
                 var treeNode = MakeTreeNode(group, true);
                 group.TreeNode = treeNode;
                 treeNode.Expand();
                 if (group.Count > 0)
                 {
-                    // We use Group.TreeNode for its side effect
-                    // of updating the test count on the node.
-                    // TODO: Move this responsibility to the strategy.
-                    _view.Tree.Add(group.TreeNode);
+                    _view.Tree.Add(treeNode);
                     if (topNode == null)
                         topNode = treeNode;
                 }
