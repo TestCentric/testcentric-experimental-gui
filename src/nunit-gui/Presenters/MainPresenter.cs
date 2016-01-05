@@ -154,12 +154,15 @@ namespace NUnit.Gui.Presenters
             {
                 _model.LoadTests(MakeTestPackage(_options.InputFiles, _options));
             }
-            else if (recentFileService.Entries.Count > 0)
+            else if (!_options.NoLoad && recentFileService.Entries.Count > 0)
             {
                 var entry = recentFileService.Entries[0];
                 if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
                     _model.LoadTests(MakeTestPackage(entry, _options));
             }
+
+            if (_options.RunAllTests && _model.IsPackageLoaded)
+                _model.RunTests(TestFilter.Empty);
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs ea)
