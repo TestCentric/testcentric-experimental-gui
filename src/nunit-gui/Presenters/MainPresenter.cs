@@ -279,6 +279,15 @@ namespace NUnit.Gui.Presenters
             package.Settings["ProcessModel"] = "InProcess";
             package.Settings["NumberOfTestWorkers"] = 0;
 
+            //if (options.ProcessModel != null)
+            //    package.AddSetting("ProcessModel", options.ProcessModel);
+
+            //if (options.DomainUsage != null)
+            //    package.AddSetting("DomainUsage", options.DomainUsage);
+
+            //if (options.ActiveConfig != null)
+            //    package.AddSetting("ActiveConfig", options.ActiveConfig);
+
             if (options.InternalTraceLevel != null)
                 package.Settings["InternalTraceLevel"] = options.InternalTraceLevel;
 
