@@ -59,7 +59,7 @@ namespace NUnit.Gui.Presenters
         /// to allow for moving nodes from one group to another
         /// based on the result of running the test.
         /// </summary>
-        protected override void OnTestFinished(TestNode result)
+        protected override void OnTestFinished(ResultNode result)
         {
             base.OnTestFinished(result);
 

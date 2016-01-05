@@ -55,26 +55,6 @@ namespace NUnit.Gui.Model
         }
 
         [Test]
-        public void SortByResultTest()
-        {
-            var sorted = selection.SortBy((x, y) => x.Outcome.ToString().CompareTo(y.Outcome.ToString()));
-
-            Assert.That(sorted, Is.SameAs(selection));
-            Assert.That(sorted[0].Name, Is.EqualTo("Dick"));
-        }
-
-        [Test]
-        public void GroupByResultTest()
-        {
-            var groups = selection.GroupBy((tn) => tn.Outcome.Status.ToString());
-
-            Assert.That(groups.Keys, Is.EqualTo(new string[] { "Passed", "Failed" }));
-            Assert.That(groups["Passed"].Count, Is.EqualTo(2));
-            Assert.That(groups["Failed"].Count, Is.EqualTo(1));
-            Assert.That(groups["Failed"][0].Name, Is.EqualTo("Dick"));
-        }
-
-        [Test]
         public void RemoveTestNode()
         {
             selection.RemoveId("2");

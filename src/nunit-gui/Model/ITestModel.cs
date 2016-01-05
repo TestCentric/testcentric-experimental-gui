@@ -129,7 +129,7 @@ namespace NUnit.Gui.Model
         void CancelTestRun();
 
         // Get the result for a test if available
-        TestNode GetResultForTest(TestNode testNode);
+        ResultNode GetResultForTest(TestNode testNode);
         
         #endregion
     }
