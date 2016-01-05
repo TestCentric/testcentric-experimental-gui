@@ -49,6 +49,11 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
+        public override string Description
+        {
+            get { return "Tests By " + _groupBy; }
+        }
+
         protected override void OnGroupByChanged()
         {
             _groupBy = _view.GroupBy.SelectedItem;

@@ -67,6 +67,7 @@ namespace NUnit.Gui.Presenters
             // both by providing public methods and by handling events.
             _displayFormat = _model.Settings.Gui.TestTree.DisplayFormat;
             _display = CreateDisplayStrategy(_displayFormat);
+            _view.FormatButton.ToolStripItem.ToolTipText = _display.Description;
 
             InitializeRunCommands();
             WireUpEvents();
@@ -102,6 +103,8 @@ namespace NUnit.Gui.Presenters
                 // Replace the existing display, which functions as an 
                 // adjunct to the presenter by handling certain events.
                 _display = CreateDisplayStrategy(_displayFormat);
+
+                _view.FormatButton.ToolStripItem.ToolTipText = _display.Description;
 
                 _display.Reload();
             };

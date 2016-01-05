@@ -91,7 +91,6 @@ namespace NUnit.Gui.Presenters
             _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
             _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
             _view.CollapseToFixturesCommand.Execute += () => CollapseToFixtures();
-            _view.ShowCheckBoxesCommand.CheckedChanged += () => _view.Tree.CheckBoxes = _view.ShowCheckBoxesCommand.Checked;
             _view.RunContextCommand.Execute += () => _model.RunTests(_view.Tree.ContextNode.Tag as ITestItem);
 
             // Node selected in tree
@@ -106,6 +105,8 @@ namespace NUnit.Gui.Presenters
         {
             get { return _model.HasResults; }
         }
+
+        public abstract string Description { get; }
 
         #endregion
 

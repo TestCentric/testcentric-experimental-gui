@@ -60,6 +60,11 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
+        public override string Description
+        {
+            get { return "NUnit Tree"; }
+        }
+
         protected override void Load(TestNode testNode)
         {
             ClearTree();
