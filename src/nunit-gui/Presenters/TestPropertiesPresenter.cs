@@ -22,12 +22,8 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
+using System.IO;
 using System.Text;
-using System.Windows.Forms;
-using System.Xml;
-using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Presenters
 {
@@ -36,11 +32,11 @@ namespace NUnit.Gui.Presenters
 
     public class TestPropertiesPresenter
     {
-        private ITestPropertiesView _view;
-        private ITestModel _model;
+        private readonly ITestPropertiesView _view;
+        private readonly ITestModel _model;
 
-        int maxY = 0;
-        int nextY = 4;
+        private int _maxY = 0;
+        private int _nextY = 4;
 
         public TestPropertiesPresenter(ITestPropertiesView view, ITestModel model)
         {
@@ -79,7 +75,7 @@ namespace NUnit.Gui.Presenters
                 _view.SuspendLayout();
 
                 _view.Header = testNode.Name;
-                _view.TestType = testNode.Type;
+                _view.TestType = GetTestType(testNode);
                 _view.FullName = testNode.FullName;
                 _view.Description = testNode.GetProperty("Description");
                 _view.Categories = testNode.GetPropertyList("Category");
@@ -87,7 +83,7 @@ namespace NUnit.Gui.Presenters
                 _view.RunState = testNode.RunState.ToString();
                 _view.SkipReason = testNode.GetProperty("_SKIPREASON");
 
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 foreach (string item in testNode.GetAllProperties(_view.DisplayHiddenProperties))
                 {
                     if (sb.Length > 0)
@@ -118,6 +114,19 @@ namespace NUnit.Gui.Presenters
                 _view.Header = testItem.Name;
             }
         }
+
+        public static string GetTestType(TestNode testNode)
+        {
+            if (testNode.RunState == RunState.NotRunnable && testNode.Type == "Assembly")
+            {
+                var fi = new FileInfo(testNode.FullName);
+                string extension = fi.Extension.ToLower();
+                if (extension != ".exe" && extension != ".dll")
+                  return "Unknown";
+            }
+            return testNode.Type;
+        }
+
         #region Helper Methods
 
         // Sometimes, the message may have leading blank lines and/or
