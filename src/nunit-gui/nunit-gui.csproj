@@ -62,6 +62,7 @@
     <Compile Include="Model\Settings\SettingsModel.cs" />
     <Compile Include="Model\TestAction.cs" />
     <Compile Include="Model\TestEventArgs.cs" />
+    <Compile Include="Model\ResultNode.cs" />
     <Compile Include="Model\TestSelection.cs" />
     <Compile Include="Model\ResultState.cs" />
     <Compile Include="Model\RunState.cs" />
@@ -236,6 +237,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="nunit.engine.addins">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

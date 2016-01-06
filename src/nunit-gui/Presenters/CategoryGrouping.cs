@@ -96,7 +96,7 @@ namespace NUnit.Gui.Presenters
             return groups.ToArray();
         }
 
-        public override void OnTestFinished(TestNode result)
+        public override void OnTestFinished(ResultNode result)
         {
             var imageIndex = _displayStrategy.CalcImageIndex(result.Outcome);
             if (imageIndex >= DisplayStrategy.SuccessIndex)

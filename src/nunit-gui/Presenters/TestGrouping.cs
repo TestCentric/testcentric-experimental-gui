@@ -74,12 +74,11 @@ namespace NUnit.Gui.Presenters
         }
 
         /// <summary>
-        /// Returns an array of groups in which the a TestNode 
-        /// should be categorized.
+        /// Returns an array of groups in which a TestNode is categorized.
         /// </summary>
         public abstract TestGroup[] SelectGroups(TestNode testNode);
 
-        public void ChangeGroupsBasedOnTestResult(TestNode result, bool updateImages)
+        public void ChangeGroupsBasedOnTestResult(ResultNode result, bool updateImages)
         {
             var treeNodes = _displayStrategy.GetTreeNodesForTest(result);
 
@@ -160,7 +159,7 @@ namespace NUnit.Gui.Presenters
         /// Post a test result to the tree, changing the treeNode
         /// color to reflect success or failure.
         /// </summary>
-        public virtual void OnTestFinished(TestNode result)
+        public virtual void OnTestFinished(ResultNode result)
         {
             // Override to take any necessary action
         }

@@ -48,6 +48,8 @@ namespace NUnit.Gui
             // Old Options no longer supported:
             //   test
             //   console
+            //   include
+            //   exclude
 
             // Old Options to continue supporting:
             //   lang
@@ -62,12 +64,6 @@ namespace NUnit.Gui
             //this.Insert("test=", "Comma-separated list of {NAMES} of tests to run or explore. This option may be repeated.",
             //    v => ((List<string>)TestList).AddRange(TestNameParser.Parse(RequiredValue(v, "--test"))));
 
-            this.Add("include=", "Test {CATEGORIES} to be included.",
-                v => Include = RequiredValue(v, "--include"));
-
-            this.Add("exclude=", "Test {CATEGORIES} to be excluded.",
-                v => Exclude = RequiredValue(v, "--exclude"));
-
             this.Add("config=", "Project {CONFIG} to load (e.g.: Debug).", 
                 v => ActiveConfig = RequiredValue(v, "--config"));
 
@@ -77,8 +73,8 @@ namespace NUnit.Gui
             this.Add("run", "Automatically run the loaded project.",
                 v => RunAllTests = v != null);
 
-            this.Add("runselected", "Automatically run last selected tests.",
-                v => RunSelectedTests = v != null);
+            //this.Add("runselected", "Automatically run last selected tests.",
+            //    v => RunSelectedTests = v != null);
 
             // Output GuiELement
             this.Add("trace=", "Set internal trace {LEVEL}.",
@@ -109,27 +105,23 @@ namespace NUnit.Gui
         public bool ShowHelp { get; private set; }
         public bool NoLoad { get; private set; }
         public bool RunAllTests { get; private set; }
-        public bool RunSelectedTests { get; private set; }
+        //public bool RunSelectedTests { get; private set; }
 
         // Select tests
 
         private List<string> inputFiles = new List<string>();
         public IList<string> InputFiles { get { return inputFiles; } }
 
-        private List<string> testList = new List<string>();
-        public IList<string> TestList { get { return testList; } }
-
-        public string Include { get; private set; }
-
-        public string Exclude { get; private set; }
+        //private List<string> testList = new List<string>();
+        //public IList<string> TestList { get { return testList; } }
 
         public string ActiveConfig { get; private set; }
 
         // Where to Run Tests
 
-        public string ProcessModel { get; private set; }
+        //public string ProcessModel { get; private set; }
 
-        public string DomainUsage { get; private set; }
+        //public string DomainUsage { get; private set; }
 
         // Output GuiELement
 

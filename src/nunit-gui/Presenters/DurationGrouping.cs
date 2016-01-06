@@ -60,7 +60,9 @@ namespace NUnit.Gui.Presenters
         {
             var group = Groups[3]; // NotRun
 
-            var result = _displayStrategy.GetResultForTest(testNode);
+            var result = testNode as ResultNode;
+            if (result == null)
+                result = _displayStrategy.GetResultForTest(testNode);
 
             if (result != null)
             {
@@ -85,7 +87,7 @@ namespace NUnit.Gui.Presenters
         /// to allow for moving nodes from one group to another
         /// based on the result of running the test.
         /// </summary>
-        public override void OnTestFinished(TestNode result)
+        public override void OnTestFinished(ResultNode result)
         {
             ChangeGroupsBasedOnTestResult(result, true);
         }

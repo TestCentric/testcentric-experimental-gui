@@ -84,9 +84,14 @@ namespace NUnit.Gui.Presenters
             // Model actions
             _model.TestLoaded += (ea) => Load(ea.Test);
             _model.TestUnloaded += (ea) => ClearTree();
+<<<<<<< HEAD
             _model.TestReloaded += (ea) => { ClearTree(); Load(ea.Test); };
             _model.TestFinished += (ea) => OnTestFinished(ea.Test);
             _model.SuiteFinished += (ea) => OnTestFinished(ea.Test);
+=======
+            _model.TestFinished += (ea) => OnTestFinished(ea.Result);
+            _model.SuiteFinished += (ea) => OnTestFinished(ea.Result);
+>>>>>>> refs/remotes/nunit/master
 
             // View actions
             _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
@@ -118,7 +123,7 @@ namespace NUnit.Gui.Presenters
         /// </summary>
         protected abstract void Load(TestNode testNode);
 
-        protected virtual void OnTestFinished(TestNode result)
+        protected virtual void OnTestFinished(ResultNode result)
         {
             int imageIndex = CalcImageIndex(result.Outcome);
             foreach(TreeNode treeNode in GetTreeNodesForTest(result))
@@ -233,7 +238,7 @@ namespace NUnit.Gui.Presenters
 
             if (testNode != null)
             {
-                TestNode resultNode = GetResultForTest(testNode);
+                ResultNode resultNode = GetResultForTest(testNode);
                 if (resultNode != null)
                     treeNode.ImageIndex = treeNode.SelectedImageIndex = CalcImageIndex(resultNode.Outcome);
             }
@@ -272,7 +277,7 @@ namespace NUnit.Gui.Presenters
             return treeNodes;
         }
 
-        public TestNode GetResultForTest(TestNode testNode)
+        public ResultNode GetResultForTest(TestNode testNode)
         {
             return _model.GetResultForTest(testNode);
         }

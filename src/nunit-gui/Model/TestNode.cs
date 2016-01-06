@@ -44,7 +44,8 @@ namespace NUnit.Gui.Model
     /// 
     /// 3. When a test completes, information about the 
     /// result of running it is added to the full test
-    /// information.
+    /// information and the derived class ResultNode
+    /// is created from it.
     /// </summary>
     public class TestNode : ITestItem
     {
@@ -52,7 +53,7 @@ namespace NUnit.Gui.Model
         {
             Xml = xmlNode;
 
-            InitializeProperties();
+            InitializeTestProperties();
         }
 
         public TestNode(string xmlText)
@@ -61,67 +62,31 @@ namespace NUnit.Gui.Model
             doc.LoadXml(xmlText);
             Xml = doc.FirstChild;
 
-            InitializeProperties();
+            InitializeTestProperties();
         }
 
-        private void InitializeProperties()
+        private void InitializeTestProperties()
         {
             // Initialize properties that should always be present in a TestNode
             IsSuite = Xml.Name == "test-suite" || Xml.Name == "test-run";
             Id = Xml.GetAttribute("id");
             Name = Xml.GetAttribute("name");
             FullName = Xml.GetAttribute("fullname");
+            Type = IsSuite ? GetAttribute("type") : "TestCase";
+            TestCount = IsSuite ? GetAttribute("testcasecount", 0) : 0;
+            RunState = GetRunState();
         }
 
         #region Public Properties
-
-        #region Test Properties
 
         public XmlNode Xml { get; private set; }
         public bool IsSuite { get; private set; }
         public string Id { get; private set; }
         public string Name { get; private set; }
         public string FullName  { get; private set; }
-
-        private string _type;
-        public string Type
-        {
-            get
-            {
-                if (_type == null)
-                    _type = IsSuite ? GetAttribute("type") : "TestCase";
-
-                return _type;
-            }
-        }
-
-        private bool _needTestCount = true;
-        private int _testCount;
-        public int TestCount 
-        {
-            get
-            {
-                if (_needTestCount)
-                {
-                    _testCount = IsSuite ? GetAttribute("testcasecount", 0) : 1;
-                    _needTestCount = false;
-                }
-
-                return _testCount;
-            }
-        }
-
-        private RunState _runState = RunState.Unknown;
-        public RunState RunState
-        {
-            get
-            {
-                if (_runState == RunState.Unknown)
-                    _runState = GetRunState();
-
-                return _runState;
-            }
-        }
+        public string Type { get; private set; }
+        public int TestCount { get; private set; }
+        public RunState RunState { get; private set; }
 
         private List<TestNode> _children;
         public IList<TestNode> Children
@@ -139,73 +104,6 @@ namespace NUnit.Gui.Model
                 return _children;
             }
         }
-
-        #endregion
-
-        #region Result Properties
-
-        private ResultState _outcome;
-        public ResultState Outcome
-        {
-            get
-            {
-                if (_outcome == null)
-                    _outcome = new ResultState(Status, Label);
-
-                return _outcome;
-            }
-        }
-
-        private bool _needAssertCount = true;
-        private int _assertCount;
-        public int AssertCount
-        {
-            get 
-            {
-                if (_needAssertCount)
-                {
-                    _assertCount = GetAttribute("asserts", 0);
-                    _needAssertCount = false;
-                }
-
-                return _assertCount;
-            }
-        }
-
-        private bool _needDuration = true;
-        private double _duration;
-        public double Duration
-        {
-            get 
-            {
-                if (_needDuration)
-                {
-                    _duration = double.Parse(GetAttribute("duration"));
-                    _needDuration = false;
-                }
-
-                return _duration;
-            }
-        }
-
-        //public int CountTestCases(TestFilter filter)
-        //{
-        //    // TODO: Actually pay attention to the filter
-        //    if (RunState == RunState.Explicit)
-        //        return 0;
-
-        //    if (!IsSuite)
-        //        return 1;
-
-        //    int count = 0;
-
-        //    foreach(TestNode test in Children)
-        //        count += test.CountTestCases(filter);
-
-        //    return count;
-        //}
-
-        #endregion
 
         #endregion
 
@@ -325,35 +223,6 @@ namespace NUnit.Gui.Model
                     return RunState.Skipped;
                 default:
                     return RunState.Unknown;
-            }
-        }
-
-        private TestStatus Status
-        {
-            get
-            {
-                string status = GetAttribute("result");
-                switch (status)
-                {
-                    case "Passed":
-                    default:
-                        return TestStatus.Passed;
-                    case "Inconclusive":
-                        return TestStatus.Inconclusive;
-                    case "Failed":
-                        return TestStatus.Failed;
-                    case "Skipped":
-                        return TestStatus.Skipped;
-                }
-            }
-        }
-
-        private string Label
-        {
-            get
-            {
-                string label = GetAttribute("label");
-                return label == null ? string.Empty : label;
             }
         }
 
