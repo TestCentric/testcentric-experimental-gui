@@ -76,6 +76,7 @@ namespace NUnit.Gui.Presenters
         private void WireUpEvents()
         {
             _model.TestLoaded += (ea) => InitializeRunCommands();
+            _model.TestReloaded += (ea) => InitializeRunCommands();
             _model.TestUnloaded += (ea) => InitializeRunCommands();
             _model.RunStarting += (ea) => InitializeRunCommands();
             _model.RunFinished += (ea) => InitializeRunCommands();
