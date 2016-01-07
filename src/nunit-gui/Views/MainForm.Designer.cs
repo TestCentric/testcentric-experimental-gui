@@ -30,23 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.propertiesView = new NUnit.Gui.Views.TestPropertiesView();
-            this.testName = new System.Windows.Forms.Label();
-            this.testResult = new System.Windows.Forms.Label();
-            this.statusBarView = new NUnit.Gui.Views.StatusBarView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.testTreeView = new NUnit.Gui.Views.TestTreeView();
-            this.progressBarView = new NUnit.Gui.Views.ProgressBarView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,16 +87,24 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutNUnitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.tabPage1.SuspendLayout();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.testTreeView = new NUnit.Gui.Views.TestTreeView();
+            this.progressBarView = new NUnit.Gui.Views.ProgressBarView();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.propertiesView = new NUnit.Gui.Views.TestPropertiesView();
+            this.testName = new System.Windows.Forms.Label();
+            this.testResult = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.statusBarView = new NUnit.Gui.Views.StatusBarView();
+            this.menuStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -121,201 +112,6 @@
             this.toolTip1.AutoPopDelay = 5000;
             this.toolTip1.InitialDelay = 500;
             this.toolTip1.ReshowDelay = 100;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.propertiesView);
-            this.tabPage1.Controls.Add(this.testName);
-            this.tabPage1.Controls.Add(this.testResult);
-            this.tabPage1.Location = new System.Drawing.Point(4, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(314, 188);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Test Properties";
-            this.toolTip1.SetToolTip(this.tabPage1, "This tab displays the properties of the test, which NUnit V2 displayed in the Pro" +
-        "perties Window.");
-            this.tabPage1.ToolTipText = "Some text";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // propertiesView
-            // 
-            this.propertiesView.AssertCount = "";
-            this.propertiesView.AutoScroll = true;
-            this.propertiesView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.propertiesView.Categories = "";
-            this.propertiesView.Description = "";
-            this.propertiesView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertiesView.ElapsedTime = "";
-            this.propertiesView.FullName = "";
-            this.propertiesView.Header = "";
-            this.propertiesView.Location = new System.Drawing.Point(3, 3);
-            this.propertiesView.Message = "";
-            this.propertiesView.Name = "propertiesView";
-            this.propertiesView.Outcome = "";
-            this.propertiesView.Properties = "";
-            this.propertiesView.RunState = "";
-            this.propertiesView.Size = new System.Drawing.Size(308, 182);
-            this.propertiesView.SkipReason = "";
-            this.propertiesView.StackTrace = "";
-            this.propertiesView.TabIndex = 2;
-            this.propertiesView.TestCount = "";
-            this.propertiesView.TestType = "";
-            // 
-            // testName
-            // 
-            this.testName.Location = new System.Drawing.Point(113, 2);
-            this.testName.Name = "testName";
-            this.testName.Size = new System.Drawing.Size(226, 13);
-            this.testName.TabIndex = 1;
-            // 
-            // testResult
-            // 
-            this.testResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testResult.Location = new System.Drawing.Point(6, 3);
-            this.testResult.Name = "testResult";
-            this.testResult.Size = new System.Drawing.Size(97, 13);
-            this.testResult.TabIndex = 0;
-            // 
-            // statusBarView
-            // 
-            this.statusBarView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusBarView.ElapsedTime = 0D;
-            this.statusBarView.Location = new System.Drawing.Point(0, 238);
-            this.statusBarView.Name = "statusBarView";
-            this.statusBarView.Size = new System.Drawing.Size(488, 24);
-            this.statusBarView.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.statusBarView, "Name of the currently executing or selected test plus stats about it.");
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.testTreeView);
-            this.splitContainer1.Panel1.Controls.Add(this.progressBarView);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(488, 214);
-            this.splitContainer1.SplitterDistance = 162;
-            this.splitContainer1.TabIndex = 4;
-            // 
-            // testTreeView
-            // 
-            this.testTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testTreeView.Location = new System.Drawing.Point(0, 12);
-            this.testTreeView.Name = "testTreeView";
-            this.testTreeView.Size = new System.Drawing.Size(162, 202);
-            this.testTreeView.TabIndex = 2;
-            // 
-            // progressBarView
-            // 
-            this.progressBarView.BackColor = System.Drawing.SystemColors.Control;
-            this.progressBarView.Dock = System.Windows.Forms.DockStyle.Top;
-            this.progressBarView.ForeColor = System.Drawing.Color.LimeGreen;
-            this.progressBarView.Location = new System.Drawing.Point(0, 0);
-            this.progressBarView.Name = "progressBarView";
-            this.progressBarView.Progress = 0;
-            this.progressBarView.Size = new System.Drawing.Size(162, 12);
-            this.progressBarView.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
-            this.progressBarView.TabIndex = 1;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(322, 214);
-            this.tabControl1.TabIndex = 1;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(314, 188);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Results";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(90, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Not yet implemented";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.label2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(314, 188);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Stack Trace";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(106, 88);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Not yet implemented";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.label3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(314, 188);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Text Output";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Not yet implemented";
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.label4);
-            this.tabPage5.Location = new System.Drawing.Point(4, 4);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(314, 188);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Xml View";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(106, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Not yet implemented";
             // 
             // fileToolStripMenuItem
             // 
@@ -755,6 +551,144 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.testTreeView);
+            this.splitContainer1.Panel1.Controls.Add(this.progressBarView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
+            this.splitContainer1.Size = new System.Drawing.Size(488, 214);
+            this.splitContainer1.SplitterDistance = 162;
+            this.splitContainer1.TabIndex = 4;
+            // 
+            // testTreeView
+            // 
+            this.testTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.testTreeView.Location = new System.Drawing.Point(0, 12);
+            this.testTreeView.Name = "testTreeView";
+            this.testTreeView.Size = new System.Drawing.Size(162, 202);
+            this.testTreeView.TabIndex = 2;
+            // 
+            // progressBarView
+            // 
+            this.progressBarView.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBarView.Dock = System.Windows.Forms.DockStyle.Top;
+            this.progressBarView.ForeColor = System.Drawing.Color.LimeGreen;
+            this.progressBarView.Location = new System.Drawing.Point(0, 0);
+            this.progressBarView.Name = "progressBarView";
+            this.progressBarView.Progress = 0;
+            this.progressBarView.Size = new System.Drawing.Size(162, 12);
+            this.progressBarView.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
+            this.progressBarView.TabIndex = 1;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(0, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(322, 202);
+            this.tabControl1.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.propertiesView);
+            this.tabPage1.Controls.Add(this.testName);
+            this.tabPage1.Controls.Add(this.testResult);
+            this.tabPage1.Location = new System.Drawing.Point(4, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(314, 176);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Properties";
+            this.toolTip1.SetToolTip(this.tabPage1, "This tab displays the properties of the test, which NUnit V2 displayed in the Pro" +
+        "perties Window.");
+            this.tabPage1.ToolTipText = "Some text";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // propertiesView
+            // 
+            this.propertiesView.AssertCount = "";
+            this.propertiesView.AutoScroll = true;
+            this.propertiesView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.propertiesView.Categories = "";
+            this.propertiesView.Description = "";
+            this.propertiesView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertiesView.ElapsedTime = "";
+            this.propertiesView.FullName = "";
+            this.propertiesView.Header = "";
+            this.propertiesView.Location = new System.Drawing.Point(3, 3);
+            this.propertiesView.Message = "";
+            this.propertiesView.Name = "propertiesView";
+            this.propertiesView.Outcome = "";
+            this.propertiesView.Output = "";
+            this.propertiesView.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.propertiesView.Properties = "";
+            this.propertiesView.RunState = "";
+            this.propertiesView.Size = new System.Drawing.Size(308, 170);
+            this.propertiesView.SkipReason = "";
+            this.propertiesView.StackTrace = "";
+            this.propertiesView.TabIndex = 2;
+            this.propertiesView.TestCount = "";
+            this.propertiesView.TestType = "";
+            // 
+            // testName
+            // 
+            this.testName.Location = new System.Drawing.Point(113, 2);
+            this.testName.Name = "testName";
+            this.testName.Size = new System.Drawing.Size(226, 13);
+            this.testName.TabIndex = 1;
+            // 
+            // testResult
+            // 
+            this.testResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testResult.Location = new System.Drawing.Point(6, 3);
+            this.testResult.Name = "testResult";
+            this.testResult.Size = new System.Drawing.Size(97, 13);
+            this.testResult.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(314, 176);
+            this.tabPage2.TabIndex = 4;
+            this.tabPage2.Text = "XML";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(106, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Not yet implemented";
+            // 
+            // statusBarView
+            // 
+            this.statusBarView.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.statusBarView.ElapsedTime = 0D;
+            this.statusBarView.Location = new System.Drawing.Point(0, 238);
+            this.statusBarView.Name = "statusBarView";
+            this.statusBarView.Size = new System.Drawing.Size(488, 24);
+            this.statusBarView.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.statusBarView, "Name of the currently executing or selected test plus stats about it.");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -766,21 +700,15 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "NUnit";
-            this.tabPage1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -793,9 +721,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
         private NUnit.Gui.Views.ProgressBarView progressBarView;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newProjectToolStripMenuItem;
@@ -857,11 +782,8 @@
         private System.Windows.Forms.Label testName;
         private TestTreeView testTreeView;
         private TestPropertiesView propertiesView;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ToolStripMenuItem notYetImplementedToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
     }
 }
