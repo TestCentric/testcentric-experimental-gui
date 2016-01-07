@@ -192,12 +192,29 @@ namespace NUnit.Gui.Model
 
         public void ReloadTests()
         {
-            MessageBox.Show("This should reload all the files", "Not Yet Implemented");
             //if (TestReloading != null)
             //    TestReloading(new TestEventArgs(TestAction.TestReloading));
+            TestPackage package = _package;
+            Runner.Unload();
+            _resultIndex.Clear();
+            Tests = null;
 
-            //if (TestReloaded != null)
-            //    TestReloaded(new TestEventArgs(TestAction.TestReloaded, Tests));
+            try
+            {
+                Runner = _testEngine.GetRunner(package);
+                // TODO: Error here when multiple files are run
+                Tests = new TestNode(Runner.Explore(TestFilter.Empty));
+
+                _resultIndex.Clear();
+            }
+            catch (Exception ex)
+            {
+                //if (TestException != null)
+                //    TestException(new TestEventArgs(TestAction.TestLoadFailed, ex));
+            }
+
+            if (TestReloaded != null)
+                TestReloaded(new TestEventArgs(TestAction.TestReloaded, Tests));
         }
 
         public void RunTests(ITestItem testItem)

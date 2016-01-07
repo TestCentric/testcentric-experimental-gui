@@ -61,6 +61,7 @@ namespace NUnit.Gui.Presenters
             // Model Events
             _model.TestLoaded += (ea) => InitializeMainMenu();
             _model.TestUnloaded += (ea) => InitializeMainMenu();
+            _model.TestReloaded += (ea) => InitializeMainMenu();
             _model.RunStarting += (ea) => InitializeMainMenu();
             _model.RunFinished += (ea) => InitializeMainMenu();
             _model.RunFailed += OnFailure;
