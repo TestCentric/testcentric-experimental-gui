@@ -34,7 +34,7 @@ namespace NUnit.Gui.Model
     {
         private ITestEngine _testEngine;
         private TestPackage _package;
-        private IDictionary<string, TestNode> _resultIndex = new Dictionary<string, TestNode>();
+        private IDictionary<string, ResultNode> _resultIndex = new Dictionary<string, ResultNode>();
 
         public TestModel(ITestEngine testEngine)
         {
@@ -229,11 +229,11 @@ namespace NUnit.Gui.Model
             Runner.StopRun(false);
         }
 
-        public TestNode GetResultForTest(TestNode testNode)
+        public ResultNode GetResultForTest(TestNode testNode)
         {
             if (testNode != null)
             {
-                TestNode result;
+                ResultNode result;
                 if (_resultIndex.TryGetValue(testNode.Id, out result))
                     return result;
             }
@@ -263,47 +263,44 @@ namespace NUnit.Gui.Model
 
         public void OnTestEvent(string report)
         {
+            XmlNode xmlNode = XmlHelper.CreateXmlNode(report);
 
-            TestNode testEvent = new TestNode(report);
-
-            switch (testEvent.Xml.Name)
+            switch (xmlNode.Name)
             {
                 case "start-test":
                     if (TestStarting != null)
-                        TestStarting(new TestEventArgs(TestAction.TestStarting, testEvent));
+                        TestStarting(new TestEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-suite":
                     if (SuiteStarting != null)
-                        SuiteStarting(new TestEventArgs(TestAction.SuiteStarting, testEvent));
+                        SuiteStarting(new TestEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-run":
                     if (RunStarting != null)
-                        RunStarting(new TestEventArgs(TestAction.RunStarting, testEvent.GetAttribute("count", -1)));
+                        RunStarting(new TestEventArgs(TestAction.RunStarting, xmlNode.GetAttribute("count", -1)));
                     break;
 
                 case "test-case":
-                    _resultIndex[testEvent.Id] = testEvent;
+                    ResultNode result = new ResultNode(xmlNode);
+                    _resultIndex[result.Id] = result;
                     if (TestFinished != null)
-                        TestFinished(new TestEventArgs(TestAction.TestFinished, testEvent));
+                        TestFinished(new TestEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-suite":
-                    _resultIndex[testEvent.Id] = testEvent;
+                    result = new ResultNode(xmlNode);
+                    _resultIndex[result.Id] = result;
                     if (SuiteFinished != null)
-                        SuiteFinished(new TestEventArgs(TestAction.TestFinished, testEvent));
+                        SuiteFinished(new TestEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-run":
-                    _resultIndex[testEvent.Id] = testEvent;
+                    result = new ResultNode(xmlNode);
+                    _resultIndex[result.Id] = result;
                     if (RunFinished != null)
-                        RunFinished(new TestEventArgs(TestAction.RunFinished, testEvent));
-                    break;
-
-                case "output":
-                    if (TestOutput != null)
-                        TestOutput(new TestEventArgs(TestAction.TestOutput, testEvent));
+                        RunFinished(new TestEventArgs(TestAction.RunFinished, result));
                     break;
             }
         }

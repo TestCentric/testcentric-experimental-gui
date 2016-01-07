@@ -150,12 +150,19 @@ namespace NUnit.Gui.Presenters
             // Set the font to use
             _view.Font = _model.Settings.Gui.MainForm.Font;
 
-            if (recentFileService.Entries.Count > 0)
+            if (_options.InputFiles.Count > 0)
+            {
+                _model.LoadTests(MakeTestPackage(_options.InputFiles, _options));
+            }
+            else if (!_options.NoLoad && recentFileService.Entries.Count > 0)
             {
                 var entry = recentFileService.Entries[0];
                 if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
                     _model.LoadTests(MakeTestPackage(entry, _options));
             }
+
+            if (_options.RunAllTests && _model.IsPackageLoaded)
+                _model.RunTests(TestFilter.Empty);
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs ea)
@@ -259,7 +266,7 @@ namespace NUnit.Gui.Presenters
             return package;
         }
 
-        private static TestPackage MakeTestPackage(string[] testFiles, GuiOptions options)
+        private static TestPackage MakeTestPackage(IList<string> testFiles, GuiOptions options)
         {
             var package = new TestPackage(testFiles);
             ApplyOptionsToPackage(package, options);
@@ -271,6 +278,15 @@ namespace NUnit.Gui.Presenters
             // TODO: Remove temporary Settings used in testing GUI
             package.Settings["ProcessModel"] = "InProcess";
             package.Settings["NumberOfTestWorkers"] = 0;
+
+            //if (options.ProcessModel != null)
+            //    package.AddSetting("ProcessModel", options.ProcessModel);
+
+            //if (options.DomainUsage != null)
+            //    package.AddSetting("DomainUsage", options.DomainUsage);
+
+            //if (options.ActiveConfig != null)
+            //    package.AddSetting("ActiveConfig", options.ActiveConfig);
 
             if (options.InternalTraceLevel != null)
                 package.Settings["InternalTraceLevel"] = options.InternalTraceLevel;

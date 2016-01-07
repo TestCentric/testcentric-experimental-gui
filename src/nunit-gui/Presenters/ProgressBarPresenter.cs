@@ -47,8 +47,8 @@ namespace NUnit.Gui.Presenters
             //_settings.ProjectUnloaded += (ea) => { Initialize(100); };
             _model.TestUnloaded += (ea) => { Initialize(100); };
             _model.RunStarting += (ea) => { Initialize(ea.TestCount); };
-            _model.TestFinished += (ea) => { ReportTestOutcome(ea.Test); };
-            _model.SuiteFinished += (ea) => { ReportTestOutcome(ea.Test); };
+            _model.TestFinished += (ea) => { ReportTestOutcome(ea.Result); };
+            _model.SuiteFinished += (ea) => { ReportTestOutcome(ea.Result); };
         }
 
         public void Initialize(int max)
@@ -56,7 +56,7 @@ namespace NUnit.Gui.Presenters
             _progressBar.Initialize(max);
         }
 
-        public void ReportTestOutcome(TestNode result)
+        public void ReportTestOutcome(ResultNode result)
         {
             
             UpdateProgress(result);

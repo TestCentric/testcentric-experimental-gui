@@ -84,7 +84,7 @@ namespace NUnit.Gui.Presenters
 
         private void OnRunFinished(TestEventArgs ea)
         {
-            _view.RunFinished(ea.Test.Duration);
+            _view.RunFinished(ea.Result.Duration);
         }
 
         private void OnRunFailed(TestEventArgs ea)
@@ -99,7 +99,7 @@ namespace NUnit.Gui.Presenters
 
         private void OnTestFinished(TestEventArgs ea)
         {
-            var result = ea.Test.Outcome;
+            var result = ea.Result.Outcome;
             if (result.Status == TestStatus.Passed)
                 _view.RecordSuccess();
             else if (result == ResultState.Failure)

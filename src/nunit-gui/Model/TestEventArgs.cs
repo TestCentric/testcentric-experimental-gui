@@ -43,6 +43,13 @@ namespace NUnit.Gui.Model
             this.Test = test;
         }
 
+        public TestEventArgs(TestAction action, ResultNode result)
+        {
+            // TODO: Add Guard for test
+            this.Action = action;
+            this.Result = result;
+        }
+
         public TestEventArgs(TestAction action, int testCount)
         {
             this.Action = action;
@@ -51,6 +58,7 @@ namespace NUnit.Gui.Model
 
         public TestAction Action { get; private set; }
         public TestNode Test { get; private set; }
+        public ResultNode Result { get; private set; }
         public int TestCount { get; private set; }
         //public TestOutput TestOutput { get; private set; }
     }
