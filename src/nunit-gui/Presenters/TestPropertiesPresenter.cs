@@ -51,6 +51,7 @@ namespace NUnit.Gui.Presenters
         private void WireUpEvents()
         {
             _model.TestLoaded += (ea) => _view.Visible = true;
+            _model.TestReloaded += (ea) => _view.Visible = true;
             _model.TestUnloaded += (ea) => _view.Visible = false;
             _model.RunFinished += (ea) => DisplayTestProperties();
             _model.SelectedTestChanged += (s, ea) => DisplayTestProperties();
