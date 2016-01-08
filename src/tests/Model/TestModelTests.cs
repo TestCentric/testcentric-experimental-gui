@@ -21,7 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using NUnit.Engine;
 using NUnit.Framework;
 using NUnit.Gui.Tests.Assemblies;
