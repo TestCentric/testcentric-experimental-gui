@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml;
 using NUnit.Engine;
@@ -52,7 +53,7 @@ namespace NUnit.Gui.Model
             Label = GetAttribute("label");
             Outcome = new ResultState(Status, Label);
             AssertCount = GetAttribute("asserts", 0);
-            Duration = double.Parse(GetAttribute("duration"));
+            Duration = double.Parse(GetAttribute("duration"), CultureInfo.InvariantCulture);
         }
 
         #endregion
