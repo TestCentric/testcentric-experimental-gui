@@ -54,6 +54,7 @@ namespace NUnit.Gui.Views
         string AssertCount { get; set;  }
         string Message { get; set;  }
         string StackTrace { get; set;  }
+        string Output { get; set; }
     }
 
     public partial class TestPropertiesView : UserControl, ITestPropertiesView
@@ -164,6 +165,12 @@ namespace NUnit.Gui.Views
         {
             get { return stackTrace.Text; }
             set { InvokeIfRequired(() => { stackTrace.Text = value; }); }
+        }
+
+        public string Output
+        {
+            get { return output.Text; }
+            set { InvokeIfRequired(() => { output.Text = value; }); }
         }
 
         #region Helper Methods

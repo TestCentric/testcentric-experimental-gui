@@ -106,6 +106,9 @@ namespace NUnit.Gui.Presenters
 
                     var stackTrace = resultNode.Xml.SelectSingleNode("failure/stack-trace");
                     _view.StackTrace = stackTrace != null ? stackTrace.InnerText : "";
+
+                    var output = resultNode.Xml.SelectSingleNode("output");
+                    _view.Output = output != null ? output.InnerText : "";
                 }
 
                 _view.ResumeLayout();
