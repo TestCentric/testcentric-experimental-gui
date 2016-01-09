@@ -107,13 +107,13 @@ namespace NUnit.Gui.Model
         void SaveProject();
 
         // Load a TestPackage
-        void LoadTests(TestPackage package);
+        void LoadTests(IList<string> files, GuiOptions options);
 
         // Unload current TestPackage
         void UnloadTests();
 
         // Reload current TestPackage
-        void ReloadTests();
+        void ReloadTests(GuiOptions options);
 
         // Run just the specified ITestItem
         void RunTests(ITestItem testItem);
