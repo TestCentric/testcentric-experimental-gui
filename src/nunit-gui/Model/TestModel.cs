@@ -36,9 +36,10 @@ namespace NUnit.Gui.Model
         private TestPackage _package;
         private IDictionary<string, ResultNode> _resultIndex = new Dictionary<string, ResultNode>();
 
-        public TestModel(ITestEngine testEngine)
+        public TestModel(ITestEngine testEngine, CommandLineOptions options)
         {
             _testEngine = testEngine;
+            Options = options;
             RecentFiles = testEngine.Services.GetService<IRecentFiles>();
             Settings = new Settings.SettingsModel(testEngine.Services.GetService<ISettings>());
         }
@@ -77,6 +78,8 @@ namespace NUnit.Gui.Model
         #endregion
 
         #region Properties
+
+        public CommandLineOptions Options { get; private set; }
 
         public IRecentFiles RecentFiles { get; private set; }
 
@@ -136,6 +139,23 @@ namespace NUnit.Gui.Model
 
         #region Methods
 
+        public void OnStartup()
+        {
+            if (Options.InputFiles.Count > 0)
+            {
+                LoadTests(Options.InputFiles);
+            }
+            else if (!Options.NoLoad && RecentFiles.Entries.Count > 0)
+            {
+                var entry = RecentFiles.Entries[0];
+                if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
+                    LoadTests(new[] { entry });
+            }
+
+            if (Options.RunAllTests && IsPackageLoaded)
+                RunTests(TestFilter.Empty);
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();
@@ -156,13 +176,13 @@ namespace NUnit.Gui.Model
             MessageBox.Show("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
         }
 
-        public void LoadTests(IList<string> files, GuiOptions options)
+        public void LoadTests(IList<string> files)
         {
             if (IsPackageLoaded)
                 UnloadTests();
 
             _files = files;
-            _package = MakeTestPackage(files, options);
+            _package = MakeTestPackage(files);
 
             //if (TestLoading != null)
             //    TestLoading(new TestEventArgs(TestAction.TestLoading));
@@ -184,7 +204,6 @@ namespace NUnit.Gui.Model
             if (TestLoaded != null)
                 TestLoaded(new TestEventArgs(TestAction.TestLoaded, Tests));
 
-            // TODO: Handle this on the presenter?
             foreach (var subPackage in _package.SubPackages)
                 RecentFiles.SetMostRecent(subPackage.FullName);
         }
@@ -212,7 +231,7 @@ namespace NUnit.Gui.Model
                 TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
         }
 
-        public void ReloadTests(GuiOptions options)
+        public void ReloadTests()
         {
             //if (TestReloading != null)
             //    TestReloading(new TestEventArgs(TestAction.TestReloading));
@@ -222,7 +241,7 @@ namespace NUnit.Gui.Model
 
             try
             {
-                _package = MakeTestPackage(_files, options);
+                _package = MakeTestPackage(_files);
                 Runner = _testEngine.GetRunner(_package);
                 // TODO: Error here when multiple files are run
                 Tests = new TestNode(Runner.Explore(TestFilter.Empty));
@@ -242,21 +261,21 @@ namespace NUnit.Gui.Model
 
         #region Helper Methods
 
-        private static TestPackage MakeTestPackage(string name, GuiOptions options)
+        private TestPackage MakeTestPackage(string name)
         {
             var package = new TestPackage(name);
-            ApplyOptionsToPackage(package, options);
+            ApplyOptionsToPackage(package);
             return package;
         }
 
-        private static TestPackage MakeTestPackage(IList<string> testFiles, GuiOptions options)
+        private TestPackage MakeTestPackage(IList<string> testFiles)
         {
             var package = new TestPackage(testFiles);
-            ApplyOptionsToPackage(package, options);
+            ApplyOptionsToPackage(package);
             return package;
         }
 
-        private static TestPackage ApplyOptionsToPackage(TestPackage package, GuiOptions options)
+        private TestPackage ApplyOptionsToPackage(TestPackage package)
         {
             // TODO: Remove temporary Settings used in testing GUI
             package.Settings["ProcessModel"] = "InProcess";
@@ -271,8 +290,8 @@ namespace NUnit.Gui.Model
             //if (options.ActiveConfig != null)
             //    package.AddSetting("ActiveConfig", options.ActiveConfig);
 
-            if (options.InternalTraceLevel != null)
-                package.Settings["InternalTraceLevel"] = options.InternalTraceLevel;
+            if (Options.InternalTraceLevel != null)
+                package.Settings["InternalTraceLevel"] = Options.InternalTraceLevel;
 
             return package;
         }

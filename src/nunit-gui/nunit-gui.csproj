@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GuiOptions.cs" />
+    <Compile Include="CommandLineOptions.cs" />
     <Compile Include="Model\ITestItem.cs" />
     <Compile Include="Model\ITestModel.cs" />
     <Compile Include="Model\Settings\EngineSettings.cs" />

@@ -36,21 +36,15 @@ namespace NUnit.Gui.Presenters
     {
         IMainView _view;
         ITestModel _model;
-        GuiOptions _options;
-
-        IRecentFiles _recentFilesService;
 
         private Dictionary<string, TreeNode> _nodeIndex = new Dictionary<string, TreeNode>();
 
         #region Construction and Initialization
 
-        public MainPresenter(IMainView view, ITestModel model, GuiOptions options)
+        public MainPresenter(IMainView view, ITestModel model)
         {
             _view = view;
             _model = model;
-            _options = options;
-
-            _recentFilesService = _model.GetService<IRecentFiles>();
 
             InitializeMainMenu();
             WireUpEvents();
@@ -126,8 +120,6 @@ namespace NUnit.Gui.Presenters
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            var recentFileService = _model.GetService<IRecentFiles>();
-
             var location = _model.Settings.Gui.MainForm.Location;
             var size = _model.Settings.Gui.MainForm.Size;
             if (size == Size.Empty)
@@ -149,19 +141,7 @@ namespace NUnit.Gui.Presenters
             // Set the font to use
             _view.Font = _model.Settings.Gui.MainForm.Font;
 
-            if (_options.InputFiles.Count > 0)
-            {
-                _model.LoadTests(_options.InputFiles, _options);
-            }
-            else if (!_options.NoLoad && recentFileService.Entries.Count > 0)
-            {
-                var entry = recentFileService.Entries[0];
-                if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
-                    _model.LoadTests(new [] { entry }, _options);
-            }
-
-            if (_options.RunAllTests && _model.IsPackageLoaded)
-                _model.RunTests(TestFilter.Empty);
+            _model.OnStartup();
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs ea)
@@ -192,12 +172,12 @@ namespace NUnit.Gui.Presenters
         {
             string[] files = _view.DialogManager.GetFilesToOpen();
             if (files.Length > 0)
-                _model.LoadTests(files, _options);
+                _model.LoadTests(files);
         }
 
         private void OnReloadTestsCommand()
         {
-           _model.ReloadTests(_options);
+           _model.ReloadTests();
         }
 
         void OpenSettingsDialogCommand_Execute()
@@ -220,14 +200,14 @@ namespace NUnit.Gui.Presenters
             var dropDownItems = _view.RecentProjectsMenu.ToolStripItem.DropDownItems;
             dropDownItems.Clear();
             int num = 0;
-            foreach (string entry in _recentFilesService.Entries)
+            foreach (string entry in _model.RecentFiles.Entries)
             {
                 var menuText = string.Format("{0} {1}", ++num, entry);
                 var menuItem = new ToolStripMenuItem(menuText);
                 menuItem.Click += (sender, ea) =>
                 {
                     string path = ((ToolStripMenuItem)sender).Text.Substring(2);
-                    _model.LoadTests(new [] {path}, _options);
+                    _model.LoadTests(new [] {path});
                 };
                 dropDownItems.Add(menuItem);
             }

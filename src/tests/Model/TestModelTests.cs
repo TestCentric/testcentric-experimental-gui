@@ -40,9 +40,9 @@ namespace NUnit.Gui.Model
             var engine = TestEngineActivator.CreateInstance();
             Assert.NotNull(engine, "Unable to create engine instance for testing");
 
-            _model = new TestModel(engine);
+            _model = new TestModel(engine, new CommandLineOptions());
 
-            _model.LoadTests(new []{MOCK_ASSEMBLY}, new GuiOptions());
+            _model.LoadTests(new []{MOCK_ASSEMBLY});
         }
 
         [Test]

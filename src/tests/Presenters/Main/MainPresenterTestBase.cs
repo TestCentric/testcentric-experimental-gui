@@ -41,7 +41,7 @@ namespace NUnit.Gui.Presenters.Main
             View = Substitute.For<IMainView>();
             Model = Substitute.For<ITestModel>();
 
-            Presenter = new MainPresenter(View, Model, new GuiOptions());
+            Presenter = new MainPresenter(View, Model);
         }
 
         [TearDown]

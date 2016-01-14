@@ -73,6 +73,10 @@ namespace NUnit.Gui.Model
 
         #region Properties
 
+        CommandLineOptions Options { get; }
+
+        IRecentFiles RecentFiles { get; }
+
         bool IsPackageLoaded { get; }
 
         // TestNode hierarchy representing the discovered tests
@@ -100,6 +104,9 @@ namespace NUnit.Gui.Model
 
         #region Methods
 
+        // Perform initial actions on startup, loading and possibly running tests
+        void OnStartup();
+
         // Create a new empty project using a default name
         void NewProject();
 
@@ -109,13 +116,13 @@ namespace NUnit.Gui.Model
         void SaveProject();
 
         // Load a TestPackage
-        void LoadTests(IList<string> files, GuiOptions options);
+        void LoadTests(IList<string> files);
 
         // Unload current TestPackage
         void UnloadTests();
 
         // Reload current TestPackage
-        void ReloadTests(GuiOptions options);
+        void ReloadTests();
 
         // Run just the specified ITestItem
         void RunTests(ITestItem testItem);

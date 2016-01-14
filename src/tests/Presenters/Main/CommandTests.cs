@@ -51,8 +51,8 @@ namespace NUnit.Gui.Presenters.Main
             View.DialogManager.GetFilesToOpen().Returns(files);
 
             View.OpenProjectCommand.Execute += Raise.Event<CommandHandler>();
-            Model.Received().LoadTests(Arg.Any<IList<string>>(), Arg.Any<GuiOptions>());
-            Model.Received().LoadTests(Arg.Is<IList<string>>((p) => p.Count == 1), Arg.Any<GuiOptions>());
+            Model.Received().LoadTests(Arg.Any<IList<string>>());
+            Model.Received().LoadTests(Arg.Is<IList<string>>((p) => p.Count == 1));
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace NUnit.Gui.Presenters.Main
             Model.HasTests.Returns(false);
 
             View.OpenProjectCommand.Execute += Raise.Event<CommandHandler>();
-            Model.DidNotReceive().LoadTests(Arg.Any<IList<string>>(), Arg.Any<GuiOptions>());
+            Model.DidNotReceive().LoadTests(Arg.Any<IList<string>>());
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace NUnit.Gui.Presenters.Main
         public void ReloadTestsCommand_CallsReloadTests()
         {
             View.ReloadTestsCommand.Execute += Raise.Event<CommandHandler>();
-            Model.Received().ReloadTests(Arg.Any<GuiOptions>());
+            Model.Received().ReloadTests();
         }
 
         public void SelectRuntimeCommand_PopsUpMenu()

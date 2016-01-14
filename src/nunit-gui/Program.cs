@@ -44,7 +44,7 @@ namespace NUnit.Gui
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            GuiOptions options = new GuiOptions();
+            CommandLineOptions options = new CommandLineOptions();
             try
             {
                 options.Parse(args);
@@ -66,10 +66,10 @@ namespace NUnit.Gui
             if (options.InternalTraceLevel != null)
                 testEngine.InternalTraceLevel = (InternalTraceLevel)Enum.Parse(typeof(InternalTraceLevel), options.InternalTraceLevel);
 
-            var model = new TestModel(testEngine);
+            var model = new TestModel(testEngine, options);
 
             var form = new MainForm();
-            new MainPresenter(form, model, options);
+            new MainPresenter(form, model);
             new ProgressBarPresenter(form.ProgressBarView, model);
             new TreeViewPresenter(form.TestTreeView, model);
             new StatusBarPresenter(form.StatusBarView, model);
@@ -90,7 +90,7 @@ namespace NUnit.Gui
 
         private static readonly string NL = Environment.NewLine;
 
-        private static void ShowHelpText(GuiOptions options)
+        private static void ShowHelpText(CommandLineOptions options)
         {
             StringWriter writer = new StringWriter();
 

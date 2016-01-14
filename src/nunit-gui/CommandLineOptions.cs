@@ -34,13 +34,13 @@ namespace NUnit.Gui
     /// Options OptionSet class and provides a central location
     /// for defining and parsing options.
     /// </summary>
-    public class GuiOptions : OptionSet
+    public class CommandLineOptions : OptionSet
     {
         private bool validated;
 
         #region Constructor
 
-        public GuiOptions(params string[] args)
+        public CommandLineOptions(params string[] args)
         {
             // NOTE: The order in which patterns are added 
             // determines the display order for the help.
