@@ -261,22 +261,10 @@ namespace NUnit.Gui.Model
 
         #region Helper Methods
 
-        private TestPackage MakeTestPackage(string name)
-        {
-            var package = new TestPackage(name);
-            ApplyOptionsToPackage(package);
-            return package;
-        }
-
         private TestPackage MakeTestPackage(IList<string> testFiles)
         {
             var package = new TestPackage(testFiles);
-            ApplyOptionsToPackage(package);
-            return package;
-        }
 
-        private TestPackage ApplyOptionsToPackage(TestPackage package)
-        {
             // TODO: Remove temporary Settings used in testing GUI
             package.Settings["ProcessModel"] = "InProcess";
             package.Settings["NumberOfTestWorkers"] = 0;
