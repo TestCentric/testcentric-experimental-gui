@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -55,16 +55,9 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
-        #region Properties
+        #region Public Members
 
         public List<TestGroup> Groups { get; private set; }
-
-        #endregion
-
-        public TestGroup GetGroup(string name)
-        {
-            return Groups.Find((g) => g.Name == name);
-        }
 
         public virtual void Load(IEnumerable<TestNode> tests)
         {
@@ -72,11 +65,6 @@ namespace NUnit.Gui.Presenters
                 foreach (var group in SelectGroups(testNode))
                     group.Add(testNode);
         }
-
-        /// <summary>
-        /// Returns an array of groups in which a TestNode is categorized.
-        /// </summary>
-        public abstract TestGroup[] SelectGroups(TestNode testNode);
 
         public void ChangeGroupsBasedOnTestResult(ResultNode result, bool updateImages)
         {
@@ -132,8 +120,8 @@ namespace NUnit.Gui.Presenters
 
                 if (updateImages)
                 {
-                    var imageIndex = _displayStrategy.CalcImageIndex(result.Outcome);
-                    if (imageIndex >= DisplayStrategy.SuccessIndex && imageIndex > newGroup.ImageIndex)
+                    var imageIndex = DisplayStrategy.CalcImageIndex(result.Outcome);
+                    if (imageIndex >= TestTreeView.SuccessIndex && imageIndex > newGroup.ImageIndex)
                         newParent.ImageIndex = newParent.SelectedImageIndex = newGroup.ImageIndex = imageIndex;
                 }
 
@@ -163,5 +151,16 @@ namespace NUnit.Gui.Presenters
         {
             // Override to take any necessary action
         }
+
+        #endregion
+
+        #region Protected Members
+
+        /// <summary>
+        /// Returns an array of groups in which a TestNode is categorized.
+        /// </summary>
+        protected abstract TestGroup[] SelectGroups(TestNode testNode);
+
+        #endregion
     }
 }

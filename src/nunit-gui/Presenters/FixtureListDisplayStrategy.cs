@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -39,11 +39,9 @@ namespace NUnit.Gui.Presenters
     {
         #region Construction and Initialization
 
-        public FixtureListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model) 
+        public FixtureListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model)
         {
-            _groupBy = _model.Settings.Gui.TestTree.FixtureList.GroupBy;
-            _grouping = CreateTestGrouping(_groupBy);
-            _view.GroupBy.SelectedItem = _groupBy;
+            SetDefaultTestGrouping();
             _view.CollapseToFixturesCommand.Enabled = true;
 
             // Ugly Hack! We should not be referencing view components here.
@@ -53,40 +51,20 @@ namespace NUnit.Gui.Presenters
                 checkedMenuGroup.EnableItem("FIXTURE", false);
         }
 
-        //protected override void CreateContextMenu()
-        //{
-        //    base.CreateContextMenu();
-
-        //    Tree.ContextMenu.Add(new ToolStripMenuItem("Collapse to Fixtures", null,
-        //        (s, e) =>
-        //        {
-        //            foreach (TreeNode node in _view.Tree.Control.Nodes)
-        //                CollapseToFixtures(node);
-        //        }));
-        //}
-
         #endregion
+
+        #region Public Members
 
         public override string Description
         {
-            get { return "Fixtures By " + _groupBy; }
+            get { return "Fixtures By " + DefaultGroupSetting; }
         }
 
-        protected override void OnGroupByChanged()
+        public override void OnTestLoaded(TestNode testNode)
         {
-            _groupBy = _view.GroupBy.SelectedItem;
-            _grouping = CreateTestGrouping(_groupBy);
+            ClearTree();
 
-            Reload();
-
-            _model.Settings.Gui.TestTree.FixtureList.GroupBy = _groupBy;
-        }
-
-        protected override void Load(TestNode testNode)
-        {
-            this.ClearTree();
-
-            switch (_groupBy)
+            switch (DefaultGroupSetting)
             {
                 default:
                 case "ASSEMBLY":
@@ -114,6 +92,20 @@ namespace NUnit.Gui.Presenters
             }
         }
 
+        #endregion
+
+        #region Protected Members
+
+        protected override string DefaultGroupSetting
+        {
+            get { return _model.Settings.Gui.TestTree.FixtureList.GroupBy; }
+            set { _model.Settings.Gui.TestTree.FixtureList.GroupBy = value; }
+        }
+
+        #endregion
+
+        #region Private Members
+
         private TestSelection GetTestFixtures(TestNode testNode)
         {
             return testNode
@@ -121,5 +113,6 @@ namespace NUnit.Gui.Presenters
                 .SortBy((x, y) => x.Name.CompareTo(y.Name));
         }
 
+        #endregion
     }
 }

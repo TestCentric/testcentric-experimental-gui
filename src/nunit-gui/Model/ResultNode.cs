@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -52,7 +52,10 @@ namespace NUnit.Gui.Model
             Label = GetAttribute("label");
             Outcome = new ResultState(Status, Label);
             AssertCount = GetAttribute("asserts", 0);
-            Duration = double.Parse(GetAttribute("duration"));
+            var duration = GetAttribute("duration");
+            Duration = duration != null
+                ? double.Parse(duration)
+                : 0.0;
         }
 
         #endregion

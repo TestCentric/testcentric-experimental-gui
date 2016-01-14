@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -44,7 +44,6 @@ namespace NUnit.Gui.Views
             SaveCommand = new MenuElement(saveToolStripMenuItem);
             SaveAsCommand = new MenuElement(saveAsToolStripMenuItem);
             SaveResultsCommand = new MenuElement(saveResultsToolStripMenuItem);
-            ReloadProjectCommand = new MenuElement(reloadProjectToolStripMenuItem);
             ReloadTestsCommand = new MenuElement(reloadTestsToolStripMenuItem);
             SelectRuntimeMenu = new MenuElement(selectRuntimeToolStripMenuItem);
             RecentProjectsMenu = new MenuElement(recentProjectsToolStripMenuItem);
@@ -82,7 +81,6 @@ namespace NUnit.Gui.Views
         public ICommand SaveCommand { get; private set; }
         public ICommand SaveAsCommand { get; private set; }
         public ICommand SaveResultsCommand { get; private set; }
-        public ICommand ReloadProjectCommand { get; private set; }
         public ICommand ReloadTestsCommand { get; private set; }
         public IPopup SelectRuntimeMenu { get; private set; }
         public IPopup RecentProjectsMenu { get; private set; }

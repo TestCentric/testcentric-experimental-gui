@@ -1,5 +1,5 @@
 // ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -38,14 +38,18 @@ namespace NUnit.Gui.Model
 
         public TestEventArgs(TestAction action, TestNode test)
         {
-            // TODO: Add Guard for test
+            if (test == null)
+                throw new ArgumentNullException("test");
+
             this.Action = action;
             this.Test = test;
         }
 
         public TestEventArgs(TestAction action, ResultNode result)
         {
-            // TODO: Add Guard for test
+            if (result == null)
+                throw new ArgumentNullException("result");
+
             this.Action = action;
             this.Result = result;
         }

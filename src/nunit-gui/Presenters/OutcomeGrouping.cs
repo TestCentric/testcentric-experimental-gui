@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -38,21 +38,50 @@ namespace NUnit.Gui.Presenters
     /// </summary>
     public class OutcomeGrouping : TestGrouping
     {
+        #region Constructor
+
         public OutcomeGrouping(GroupDisplayStrategy display) : base(display)
         {
             // Predefine all TestGroups and TreeNodes
-            Groups.Add(new TestGroup("Failed", TreeViewPresenter.FailureIndex));
-            Groups.Add(new TestGroup("Passed", TreeViewPresenter.SuccessIndex));
-            Groups.Add(new TestGroup("Ignored", TreeViewPresenter.IgnoredIndex));
-            Groups.Add(new TestGroup("Inconclusive", TreeViewPresenter.InconclusiveIndex));
-            Groups.Add(new TestGroup("Skipped", TreeViewPresenter.SkippedIndex));
-            Groups.Add(new TestGroup("Not Run", TreeViewPresenter.InitIndex));
+            Groups.Add(new TestGroup("Failed", TestTreeView.FailureIndex));
+            Groups.Add(new TestGroup("Passed", TestTreeView.SuccessIndex));
+            Groups.Add(new TestGroup("Ignored", TestTreeView.IgnoredIndex));
+            Groups.Add(new TestGroup("Inconclusive", TestTreeView.InconclusiveIndex));
+            Groups.Add(new TestGroup("Skipped", TestTreeView.SkippedIndex));
+            Groups.Add(new TestGroup("Not Run", TestTreeView.InitIndex));
         }
 
-        public override TestGroup[] SelectGroups(TestNode testNode)
+        #endregion
+
+        #region Overrides
+
+        public override void Load(IEnumerable<TestNode> tests)
+        {
+            foreach (TestGroup group in Groups)
+                group.Clear();
+
+            base.Load(tests);
+        }
+
+        /// <summary>
+        /// Post a test result to the tree, changing the treeNode
+        /// color to reflect success or failure. Overridden here
+        /// to allow for moving nodes from one group to another
+        /// based on the result of running the test.
+        /// </summary>
+        public override void OnTestFinished(ResultNode result)
+        {
+            ChangeGroupsBasedOnTestResult(result, false);
+        }
+
+        protected override TestGroup[] SelectGroups(TestNode testNode)
         {
             return new TestGroup[] { SelectGroup(testNode) };
         }
+
+        #endregion
+
+        #region Helper Methods
 
         private TestGroup SelectGroup(TestNode testNode)
         {
@@ -76,15 +105,6 @@ namespace NUnit.Gui.Presenters
             return Groups[5]; // Not Run
         }
 
-        /// <summary>
-        /// Post a test result to the tree, changing the treeNode
-        /// color to reflect success or failure. Overridden here
-        /// to allow for moving nodes from one group to another
-        /// based on the result of running the test.
-        /// </summary>
-        public override void OnTestFinished(ResultNode result)
-        {
-            ChangeGroupsBasedOnTestResult(result, false);
-        }
+        #endregion
     }
 }

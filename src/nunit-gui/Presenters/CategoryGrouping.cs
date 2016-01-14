@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -42,11 +42,71 @@ namespace NUnit.Gui.Presenters
     {
         public CategoryGrouping(GroupDisplayStrategy display) : base(display)
         {
-            Groups.Add(new TestGroup("None"));
-            // Additional groups are added dynamically
         }
 
-        protected void AddGroup(TestGroup group)
+        #region Overrides
+
+        public override void Load(IEnumerable<TestNode> tests)
+        {
+            Groups.Clear();
+            Groups.Add(new TestGroup("None"));
+            // Additional groups are added dynamically.
+
+            base.Load(tests);
+
+            if (_displayStrategy.HasResults)
+                foreach (var group in Groups)
+                    group.ImageIndex = _displayStrategy.CalcImageIndexForGroup(group);
+        }
+
+        public override void OnTestFinished(ResultNode result)
+        {
+            var imageIndex = DisplayStrategy.CalcImageIndex(result.Outcome);
+            if (imageIndex >= TestTreeView.SuccessIndex)
+            {
+                var treeNodes = _displayStrategy.GetTreeNodesForTest(result);
+                foreach (var treeNode in treeNodes)
+                {
+                    var parentNode = treeNode.Parent;
+                    if (parentNode != null)
+                    {
+                        var group = parentNode.Tag as TestGroup;
+                        if (group != null && imageIndex > group.ImageIndex)
+                        {
+                            parentNode.SelectedImageIndex = parentNode.ImageIndex = group.ImageIndex = imageIndex;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected override TestGroup[] SelectGroups(TestNode testNode)
+        {
+            List<TestGroup> groups = new List<TestGroup>();
+
+            foreach (XmlNode node in testNode.Xml.SelectNodes("properties/property[@name='Category']"))
+            {
+                var groupName = node.Attributes["value"].Value;
+                var group = Groups.Find((g) => g.Name == groupName);//GetGroup(groupName);
+                if (group == null)
+                {
+                    group = new TestGroup(groupName);
+                    Groups.Add(group);
+                    groups.Add(group);
+                }
+            }
+
+            if (groups.Count == 0)
+                groups.Add(Groups[0]);
+
+            return groups.ToArray();
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private void AddGroup(TestGroup group)
         {
             Groups.Add(group);
 
@@ -65,56 +125,6 @@ namespace NUnit.Gui.Presenters
             });
         }
 
-        public override void Load(IEnumerable<TestNode> tests)
-        {
-            base.Load(tests);
-
-            if (_displayStrategy.HasResults)
-                foreach (var group in Groups)
-                    group.ImageIndex = _displayStrategy.CalcImageIndexForGroup(group);
-        }
-
-        public override TestGroup[] SelectGroups(TestNode testNode)
-        {
-            List<TestGroup> groups = new List<TestGroup>();
-
-            foreach (XmlNode node in testNode.Xml.SelectNodes("properties/property[@name='Category']"))
-            {
-                var groupName = node.Attributes["value"].Value;
-                var group = GetGroup(groupName);
-                if (group == null)
-                {
-                    group = new TestGroup(groupName);
-                    Groups.Add(group);
-                    groups.Add(group);
-                }
-            }
-
-            if (groups.Count == 0)
-                groups.Add(Groups[0]);
-
-            return groups.ToArray();
-        }
-
-        public override void OnTestFinished(ResultNode result)
-        {
-            var imageIndex = _displayStrategy.CalcImageIndex(result.Outcome);
-            if (imageIndex >= DisplayStrategy.SuccessIndex)
-            {
-                var treeNodes = _displayStrategy.GetTreeNodesForTest(result);
-                foreach (var treeNode in treeNodes)
-                {
-                    var parentNode = treeNode.Parent;
-                    if (parentNode != null)
-                    {
-                        var group = parentNode.Tag as TestGroup;
-                        if (group != null && imageIndex > group.ImageIndex)
-                        {
-                            parentNode.SelectedImageIndex = parentNode.ImageIndex = group.ImageIndex = imageIndex;
-                        }
-                    }
-                }
-            }
-        }
+        #endregion
     }
 }

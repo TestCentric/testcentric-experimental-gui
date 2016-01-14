@@ -43,6 +43,9 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.Settings.Returns<SettingsModel>(new SettingsModel( new UserSettingsFake() ));
 
             new TreeViewPresenter(_view, _model);
+
+            // Make it look like the view loaded
+            _view.Load += Raise.Event<System.EventHandler>(null, new System.EventArgs());
         }
     }
 }

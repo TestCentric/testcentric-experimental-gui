@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -111,6 +111,25 @@ namespace NUnit.Gui.Model
 
         public Settings.SettingsModel Settings { get; private set; }
 
+        // TODO: We are directly using an engine class here rather
+        // than going through the API - need to fix this.
+        private List<RuntimeFramework> _runtimes;
+        public IList<RuntimeFramework> AvailableRuntimes
+        {
+            get
+            {
+                if (_runtimes == null)
+                {
+                    _runtimes = new List<RuntimeFramework>();
+                    foreach (var runtime in RuntimeFramework.AvailableFrameworks)
+                        _runtimes.Add(runtime);
+                    _runtimes.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
+                }
+
+                return _runtimes;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -187,7 +206,7 @@ namespace NUnit.Gui.Model
             }
 
             if (TestUnloaded != null)
-                TestUnloaded(new TestEventArgs(TestAction.TestUnloaded, null));
+                TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
         }
 
         public void ReloadTests()

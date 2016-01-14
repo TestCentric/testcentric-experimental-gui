@@ -77,12 +77,6 @@ namespace NUnit.Gui.Presenters.Main
         }
 
         [Test]
-        public void ReloadProject_IsDisabled()
-        {
-            Assert.That(View.ReloadProjectCommand.Enabled == false);
-        }
-
-        [Test]
         public void ReloadTests_IsDisabled()
         {
             Assert.That(View.ReloadTestsCommand.Enabled == false);

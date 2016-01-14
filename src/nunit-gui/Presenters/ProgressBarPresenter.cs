@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -44,8 +44,9 @@ namespace NUnit.Gui.Presenters
 
         private void WireUpEvents()
         {
-            //_settings.ProjectUnloaded += (ea) => { Initialize(100); };
+            _model.TestLoaded += (ea) => { Initialize(100); };
             _model.TestUnloaded += (ea) => { Initialize(100); };
+            _model.TestReloaded += (ea) => { Initialize(100); };
             _model.RunStarting += (ea) => { Initialize(ea.TestCount); };
             _model.TestFinished += (ea) => { ReportTestOutcome(ea.Result); };
             _model.SuiteFinished += (ea) => { ReportTestOutcome(ea.Result); };

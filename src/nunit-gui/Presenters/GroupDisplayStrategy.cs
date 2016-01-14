@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -39,7 +39,6 @@ namespace NUnit.Gui.Presenters
     /// </summary>
     public abstract class GroupDisplayStrategy : DisplayStrategy
     {
-        protected string _groupBy;
         protected TestGrouping _grouping;
 
         #region Construction and Initialization
@@ -53,36 +52,22 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
+        #region Public Methods
+
         /// <summary>
         /// Post a test result to the tree, changing the treeNode
         /// color to reflect success or failure. Overridden here
         /// to allow for moving nodes from one group to another
         /// based on the result of running the test.
         /// </summary>
-        protected override void OnTestFinished(ResultNode result)
+        public override void OnTestFinished(ResultNode result)
         {
             base.OnTestFinished(result);
 
-            _grouping.OnTestFinished(result);
+            if (_grouping != null)
+                _grouping.OnTestFinished(result);
         }
 
-        protected abstract void OnGroupByChanged();
-
-        protected TestGrouping CreateTestGrouping(string groupBy)
-        {
-            switch (_groupBy)
-            {
-                case "OUTCOME":
-                    return new OutcomeGrouping(this);
-                case "DURATION":
-                    return new DurationGrouping(this);
-                case "CATEGORY":
-                    return new CategoryGrouping(this);
-            }
-
-            return null;
-        }
-        
         // TODO: Move this to TestGroup? Would need access to results.
         public int CalcImageIndexForGroup(TestGroup group)
         {
@@ -95,10 +80,10 @@ namespace NUnit.Gui.Presenters
                 {
                     var imageIndex = CalcImageIndex(result.Outcome);
 
-                    if (imageIndex == FailureIndex)
-                        return FailureIndex; // Early return - can't get any worse!
+                    if (imageIndex == TestTreeView.FailureIndex)
+                        return TestTreeView.FailureIndex; // Early return - can't get any worse!
 
-                    if (imageIndex >= SuccessIndex) // Only those values propagate
+                    if (imageIndex >= TestTreeView.SuccessIndex) // Only those values propagate
                         groupIndex = Math.Max(groupIndex, imageIndex);
                 }
             }
@@ -106,24 +91,70 @@ namespace NUnit.Gui.Presenters
             return groupIndex;
         }
 
+        #endregion
+
+        #region Protected Members
+
+        protected void OnGroupByChanged()
+        {
+            SetTestGrouping(_view.GroupBy.SelectedItem);
+
+            Reload();
+        }
+
+        protected void SetDefaultTestGrouping()
+        {
+            _grouping = CreateTestGrouping(DefaultGroupSetting);
+        }
+
+        protected void SetTestGrouping(string groupBy)
+        {
+            _grouping = CreateTestGrouping(groupBy);
+            DefaultGroupSetting = groupBy;
+        }
+
+        protected abstract string DefaultGroupSetting { get; set; }
+
+        protected TestGrouping CreateTestGrouping(string groupBy)
+        {
+            _view.GroupBy.SelectedItem = groupBy;
+
+            switch (groupBy)
+            {
+                case "OUTCOME":
+                    return new OutcomeGrouping(this);
+                case "DURATION":
+                    return new DurationGrouping(this);
+                case "CATEGORY":
+                    return new CategoryGrouping(this);
+            }
+
+            return null;
+        }
+        
         protected void UpdateDisplay()
         {
-            this.ClearTree();
-            TreeNode topNode = null;
-            foreach (var group in _grouping.Groups)
+            if (_grouping != null)
             {
-                var treeNode = MakeTreeNode(group, true);
-                group.TreeNode = treeNode;
-                treeNode.Expand();
-                if (group.Count > 0)
+                this.ClearTree();
+                TreeNode topNode = null;
+                foreach (var group in _grouping.Groups)
                 {
-                    _view.Tree.Add(treeNode);
-                    if (topNode == null)
-                        topNode = treeNode;
+                    var treeNode = MakeTreeNode(group, true);
+                    group.TreeNode = treeNode;
+                    treeNode.Expand();
+                    if (group.Count > 0)
+                    {
+                        _view.Tree.Add(treeNode);
+                        if (topNode == null)
+                            topNode = treeNode;
+                    }
                 }
+                if (topNode != null)
+                    topNode.EnsureVisible();
             }
-            if (topNode != null)
-                topNode.EnsureVisible();
         }
+
+        #endregion
     }
 }

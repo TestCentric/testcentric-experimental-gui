@@ -30,10 +30,10 @@ namespace NUnit.Gui.Presenters.Main
     using Model;
     using Views;
 
-    public class WhenTestsAreLoaded : MainPresenterTestBase
+    public class WhenTestsAreReloaded : MainPresenterTestBase
     {
         [SetUp]
-        public void SimulateTestLoad()
+        public void SimulateTestReload()
         {
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(false);
@@ -42,7 +42,7 @@ namespace NUnit.Gui.Presenters.Main
             doc.LoadXml("<test-suite id='1'/>");
             TestNode testNode = new TestNode(doc.FirstChild);
             Model.Tests.Returns(testNode);
-            Model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, testNode));
+            Model.TestReloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestReloaded, testNode));
         }
 
 #if NYI
@@ -81,12 +81,6 @@ namespace NUnit.Gui.Presenters.Main
         public void SaveResults_IsEnabled()
         {
             View.SaveResultsCommand.Received().Enabled = false;
-        }
-
-        [Test]
-        public void ReloadProject_IsEnabled()
-        {
-            View.ReloadProjectCommand.Received().Enabled = true;
         }
 
         [Test]

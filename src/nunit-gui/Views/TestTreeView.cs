@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -29,6 +29,19 @@ namespace NUnit.Gui.Views
 {
     public partial class TestTreeView : UserControl, ITestTreeView
     {
+        /// <summary>
+        /// Image indices for various test states - the values 
+        /// must match the indices of the image list used and
+        /// are ordered so that the higher values are those
+        /// that propogate upwards.
+        /// </summary>
+        public const int InitIndex = 0;
+        public const int SkippedIndex = 0;
+        public const int InconclusiveIndex = 1;
+        public const int SuccessIndex = 2;
+        public const int IgnoredIndex = 3;
+        public const int FailureIndex = 4;
+
         public TestTreeView()
         {
             InitializeComponent();

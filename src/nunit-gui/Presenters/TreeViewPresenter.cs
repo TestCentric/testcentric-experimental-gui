@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -37,51 +37,69 @@ namespace NUnit.Gui.Presenters
     /// </summary>
     public class TreeViewPresenter
     {
-        /// <summary>
-        /// Image indices for various test states - the values 
-        /// must match the indices of the image list used and
-        /// are ordered so that the higher values are those
-        /// that propogate upwards.
-        /// </summary>
-        public const int InitIndex = 0;
-        public const int SkippedIndex = 0;
-        public const int InconclusiveIndex = 1;
-        public const int SuccessIndex = 2;
-        public const int IgnoredIndex = 3;
-        public const int FailureIndex = 4;
-
         private ITestTreeView _view;
         private ITestModel _model;
 
-        private DisplayStrategy _display;
-        private string _displayFormat;
+        private DisplayStrategy _strategy;
 
         private Dictionary<string, TreeNode> _nodeIndex = new Dictionary<string, TreeNode>();
+
+        #region Constructor
 
         public TreeViewPresenter(ITestTreeView treeView, ITestModel model)
         {
             _view = treeView;
             _model = model;
 
-            // Create the initial display, which assists the presenter
-            // both by providing public methods and by handling events.
-            _displayFormat = _model.Settings.Gui.TestTree.DisplayFormat;
-            _display = CreateDisplayStrategy(_displayFormat);
-            _view.FormatButton.ToolStripItem.ToolTipText = _display.Description;
-
             InitializeRunCommands();
             WireUpEvents();
         }
 
+        #endregion
+
+        #region Private Members
+
         private void WireUpEvents()
         {
-            _model.TestLoaded += (ea) => InitializeRunCommands();
-            _model.TestReloaded += (ea) => InitializeRunCommands();
-            _model.TestUnloaded += (ea) => InitializeRunCommands();
+            // Model actions
+            _model.TestLoaded += (ea) =>
+            {
+                _strategy.OnTestLoaded(ea.Test);
+                InitializeRunCommands();
+            };
+
+            _model.TestReloaded += (ea) =>
+            {
+                _strategy.OnTestLoaded(ea.Test);
+                InitializeRunCommands();
+            };
+
+            _model.TestUnloaded += (ea) =>
+            {
+                _strategy.OnTestUnloaded();
+                InitializeRunCommands();
+            };
+
             _model.RunStarting += (ea) => InitializeRunCommands();
             _model.RunFinished += (ea) => InitializeRunCommands();
 
-            _view.Load += (s,e) => _view.DisplayFormat.SelectedItem = _displayFormat;
+            _model.TestFinished += (ea) => _strategy.OnTestFinished(ea.Result);
+            _model.SuiteFinished += (ea) => _strategy.OnTestFinished(ea.Result);
+
+            // View actions - Initial Load
+            _view.Load += (s, e) =>
+            {
+                SetDefaultDisplayStrategy();
+            };
+
+            // View context commands
+            _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
+            _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
+            _view.CollapseToFixturesCommand.Execute += () => _strategy.CollapseToFixtures();
+            _view.RunContextCommand.Execute += () => _model.RunTests(_view.Tree.ContextNode.Tag as ITestItem);
+
+            // Node selected in tree
+            _view.Tree.SelectedNodeChanged += (tn) => _model.SelectedTest = tn.Tag as ITestItem;
 
             // Run button and dropdowns
             _view.RunButton.Execute += () =>
@@ -98,20 +116,11 @@ namespace NUnit.Gui.Presenters
             // Change of display format
             _view.DisplayFormat.SelectionChanged += () =>
             {
-                _displayFormat = _view.DisplayFormat.SelectedItem;
-                _model.Settings.Gui.TestTree.DisplayFormat = _displayFormat;
+                SetDisplayStrategy(_view.DisplayFormat.SelectedItem);
 
-                // Replace the existing display, which functions as an 
-                // adjunct to the presenter by handling certain events.
-                _display = CreateDisplayStrategy(_displayFormat);
-
-                _view.FormatButton.ToolStripItem.ToolTipText = _display.Description;
-
-                _display.Reload();
+                _strategy.Reload();
             };
         }
-
-        #region Helper Methods
 
         private void InitializeRunCommands()
         {
@@ -126,18 +135,40 @@ namespace NUnit.Gui.Presenters
             _view.StopRunCommand.Enabled = isRunning;
         }
 
-        private DisplayStrategy CreateDisplayStrategy(string format)
+        private void SetDefaultDisplayStrategy()
+        {
+            CreateDisplayStrategy(Settings.DisplayFormat);
+        }
+
+        private void SetDisplayStrategy(string format)
+        {
+            CreateDisplayStrategy(format);
+            Settings.DisplayFormat = format;
+        }
+
+        private void CreateDisplayStrategy(string format)
         {
             switch (format.ToUpperInvariant())
             {
                 default:
                 case "NUNIT_TREE":
-                    return new NUnitTreeDisplayStrategy(_view, _model);
+                    _strategy = new NUnitTreeDisplayStrategy(_view, _model);
+                    break;
                 case "FIXTURE_LIST":
-                    return new FixtureListDisplayStrategy(_view, _model);
+                    _strategy = new FixtureListDisplayStrategy(_view, _model);
+                    break;
                 case "TEST_LIST":
-                    return new TestListDisplayStrategy(_view, _model);
+                    _strategy = new TestListDisplayStrategy(_view, _model);
+                    break;
             }
+
+            _view.FormatButton.ToolTipText = _strategy.Description;
+            _view.DisplayFormat.SelectedItem = format;
+        }
+
+        private Model.Settings.TestTreeSettings Settings
+        {
+            get { return _model.Settings.Gui.TestTree; }
         }
 
         #endregion

@@ -47,6 +47,9 @@ namespace NUnit.Gui.Presenters
             _model.Settings.Returns<SettingsModel>(new SettingsModel(new UserSettingsFake()));
 
             _presenter = new TreeViewPresenter(_view, _model);
+
+            // Make it look like the view loaded
+            _view.Load += Raise.Event<System.EventHandler>(null, new System.EventArgs());
         }
 
         [TearDown]
@@ -67,14 +70,14 @@ namespace NUnit.Gui.Presenters
         //}
         
         static object[] resultData = new object[] {
-            new object[] { ResultState.Success, TreeViewPresenter.SuccessIndex },
-            new object[] { ResultState.Ignored, TreeViewPresenter.IgnoredIndex },
-            new object[] { ResultState.Failure, TreeViewPresenter.FailureIndex },
-            new object[] { ResultState.Inconclusive, TreeViewPresenter.InconclusiveIndex },
-            new object[] { ResultState.Skipped, TreeViewPresenter.SkippedIndex },
-            new object[] { ResultState.NotRunnable, TreeViewPresenter.FailureIndex },
-            new object[] { ResultState.Error, TreeViewPresenter.FailureIndex },
-            new object[] { ResultState.Cancelled, TreeViewPresenter.FailureIndex }
+            new object[] { ResultState.Success, TestTreeView.SuccessIndex },
+            new object[] { ResultState.Ignored, TestTreeView.IgnoredIndex },
+            new object[] { ResultState.Failure, TestTreeView.FailureIndex },
+            new object[] { ResultState.Inconclusive, TestTreeView.InconclusiveIndex },
+            new object[] { ResultState.Skipped, TestTreeView.SkippedIndex },
+            new object[] { ResultState.NotRunnable, TestTreeView.FailureIndex },
+            new object[] { ResultState.Error, TestTreeView.FailureIndex },
+            new object[] { ResultState.Cancelled, TestTreeView.FailureIndex }
         };
 
         [TestCaseSource("resultData")]
@@ -87,19 +90,16 @@ namespace NUnit.Gui.Presenters
             var result = resultState.Status.ToString();
             var label = resultState.Label;
 
-            var doc = new XmlDocument();
-            if (string.IsNullOrEmpty(label))
-                doc.LoadXml(string.Format("<test-run id='1'><test-case id='123' result='{0}'/></test-run>", result));
-            else
-                doc.LoadXml(string.Format("<test-run id='1'><test-case id='123' result='{0}' label='{1}'/></test-run>", result, label));
-
-            var testNode = new TestNode(doc.FirstChild);
+            var testNode = new TestNode("<test-run id='1'><test-case id='123'/></test-run>");
+            var resultNode = new ResultNode(string.IsNullOrEmpty(label)
+                ? string.Format("<test-case id='123' result='{0}'/>", result)
+                : string.Format("<test-case id='123' result='{0}' label='{1}'/>", result, label));
             _model.Tests.Returns(testNode);
 
             //var treeNode = _adapter.MakeTreeNode(result);
             //_adapter.NodeIndex[suiteResult.Id] = treeNode;
             _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, testNode));
-            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, testNode.Children[0]));
+            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, resultNode));
 
             _view.Tree.Received().SetImageIndex(Arg.Any<TreeNode>(), expectedIndex);
         }

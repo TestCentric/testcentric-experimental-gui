@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -40,21 +40,46 @@ namespace NUnit.Gui.Presenters
     {
         public DurationGrouping(GroupDisplayStrategy displayStrategy) : base(displayStrategy)
         {
+        }
+
+        #region Overrides
+
+        public override void Load(IEnumerable<TestNode> tests)
+        {
+            Groups.Clear();
+
             // Predefine all TestGroups and TreeNodes
             Groups.Add(new TestGroup("Slow > 1 sec"));
             Groups.Add(new TestGroup("Medium > 100 ms"));
             Groups.Add(new TestGroup("Fast < 100 ms"));
             Groups.Add(new TestGroup("Not Run"));
-        }
 
-        public override void Load(IEnumerable<TestNode> tests)
-        {
             base.Load(tests);
 
             if (_displayStrategy.HasResults)
                 foreach (var group in Groups)
                     group.ImageIndex = _displayStrategy.CalcImageIndexForGroup(group);
         }
+
+        /// <summary>
+        /// Post a test result to the tree, changing the treeNode
+        /// color to reflect success or failure. Overridden here
+        /// to allow for moving nodes from one group to another
+        /// based on the result of running the test.
+        /// </summary>
+        public override void OnTestFinished(ResultNode result)
+        {
+            ChangeGroupsBasedOnTestResult(result, true);
+        }
+
+        protected override TestGroup[] SelectGroups(TestNode testNode)
+        {
+            return new TestGroup[] { SelectGroup(testNode) };
+        }
+
+        #endregion
+
+        #region Helper Methods
 
         private TestGroup SelectGroup(TestNode testNode)
         {
@@ -76,20 +101,6 @@ namespace NUnit.Gui.Presenters
             return group;
         }
 
-        public override TestGroup[] SelectGroups(TestNode testNode)
-        {
-            return new TestGroup[] { SelectGroup(testNode) };
-        }
-
-        /// <summary>
-        /// Post a test result to the tree, changing the treeNode
-        /// color to reflect success or failure. Overridden here
-        /// to allow for moving nodes from one group to another
-        /// based on the result of running the test.
-        /// </summary>
-        public override void OnTestFinished(ResultNode result)
-        {
-            ChangeGroupsBasedOnTestResult(result, true);
-        }
+        #endregion
     }
 }

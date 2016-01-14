@@ -23,84 +23,94 @@
 
 using NSubstitute;
 using NUnit.Framework;
+using System.Xml;
 
 namespace NUnit.Gui.Presenters.Main
 {
-    public class WhenPresenterIsCreated : MainPresenterTestBase
+    using Model;
+    using Views;
+
+    public class WhenTestsAreLoaded : MainPresenterTestBase
     {
+        [SetUp]
+        public void SimulateTestLoad()
+        {
+            Model.HasTests.Returns(true);
+            Model.IsTestRunning.Returns(false);
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml("<test-suite id='1'/>");
+            TestNode testNode = new TestNode(doc.FirstChild);
+            Model.Tests.Returns(testNode);
+            Model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, testNode));
+        }
+
 #if NYI
         [Test]
         public void NewProject_IsEnabled()
         {
-            View.NewProjectCommand.Received(1).Enabled = true;
+            View.NewProjectCommand.Received().Enabled = true;
         }
 #endif
 
         [Test]
         public void OpenProject_IsEnabled()
         {
-            View.OpenProjectCommand.Received(1).Enabled = true;
+            View.OpenProjectCommand.Received().Enabled = true;
         }
 
         [Test]
-        public void CloseCommand_IsDisabled()
+        public void CloseCommand_IsEnabled()
         {
-            View.CloseCommand.Received(1).Enabled = false;
+            View.CloseCommand.Received().Enabled = true;
         }
 
         [Test]
-        public void SaveCommand_IsDisabled()
+        public void SaveCommand_IsEnabled()
         {
-            View.SaveCommand.Received(1).Enabled = false;
+            View.SaveCommand.Received().Enabled = true;
         }
 
         [Test]
-        public void SaveAsCommand_IsDisabled()
+        public void SaveAsCommand_IsEnabled()
         {
-            View.SaveAsCommand.Received(1).Enabled = false;
+            View.SaveAsCommand.Received().Enabled = true;
         }
 
         [Test]
-        public void SaveResults_IsDisabled()
+        public void SaveResults_IsEnabled()
         {
-            View.SaveResultsCommand.Received(1).Enabled = false;
+            View.SaveResultsCommand.Received().Enabled = false;
         }
 
         [Test]
-        public void ReloadTests_IsDisabled()
+        public void ReloadTests_IsEnabled()
         {
-            View.ReloadTestsCommand.Received(1).Enabled = false;
+            View.ReloadTestsCommand.Received().Enabled = true;
         }
 
         [Test]
-        public void SelectRuntime_IsDisabled()
+        public void SelectRuntimeMenu_IsEnabled()
         {
-            View.SelectRuntimeMenu.Received(1).Enabled = false;
+            View.SelectRuntimeMenu.Received().Enabled = true;
         }
 
         [Test]
         public void RecentProjects_IsEnabled()
         {
-            View.RecentProjectsMenu.Received(1).Enabled = true;
+            View.RecentProjectsMenu.Received().Enabled = true;
         }
 
         [Test]
         public void ExitCommand_IsEnabled()
         {
-            View.ExitCommand.Received(1).Enabled = true;
+            View.ExitCommand.Received().Enabled = true;
         }
 
         [Test]
-        public void ProjectMenu_IsDisabled()
+        public void ProjectMenu_IsVisible()
         {
-            View.ProjectMenu.Received(1).Enabled = false;
+            View.ProjectMenu.Received().Visible = true;
         }
-
-        [Test]
-        public void ProjectMenu_IsInvisible()
-        {
-            View.ProjectMenu.Received(1).Visible = false;
-        }
-
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -46,18 +46,6 @@ namespace NUnit.Gui.Presenters
             _view.CollapseToFixturesCommand.Enabled = true;
         }
 
-        //protected override void CreateContextMenu()
-        //{
-        //    base.CreateContextMenu();
-
-        //    Tree.ContextMenu.Add(new ToolStripMenuItem("Collapse to Fixtures", null,
-        //        (s, e) =>
-        //        {
-        //            foreach (TreeNode node in _view.Tree.Control.Nodes)
-        //                CollapseToFixtures(node);
-        //        }));
-        //}
-
         #endregion
 
         public override string Description
@@ -65,7 +53,7 @@ namespace NUnit.Gui.Presenters
             get { return "NUnit Tree"; }
         }
 
-        protected override void Load(TestNode testNode)
+        public override void OnTestLoaded(TestNode testNode)
         {
             ClearTree();
 

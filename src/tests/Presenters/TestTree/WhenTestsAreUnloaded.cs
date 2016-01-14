@@ -62,5 +62,11 @@ namespace NUnit.Gui.Presenters.TestTree
         {
             _view.StopRunCommand.Received().Enabled = false;
         }
+
+        [Test]
+        public void TreeControl_IsCleared()
+        {
+            _view.Tree.Received().Clear();
+        }
     }
 }

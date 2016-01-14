@@ -31,5 +31,6 @@ namespace NUnit.UiKit.Elements
     public interface IToolStripElement<T> : IViewElement where T : ToolStripItem
     {
         T ToolStripItem { get; }
+        string ToolTipText { get; set; }
     }
 }

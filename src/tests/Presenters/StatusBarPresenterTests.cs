@@ -89,7 +89,7 @@ namespace NUnit.Gui.Presenters
         [Test]
         public void WhenTestCaseCompletes_CountIsIncremented()
         {
-            var result = new TestNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
+            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
 
             _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
 

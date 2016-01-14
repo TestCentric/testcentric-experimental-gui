@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -76,7 +76,6 @@ namespace NUnit.Gui.Presenters
             _view.CloseCommand.Execute += _model.UnloadTests;
             _view.SaveCommand.Execute += _model.SaveProject;
             _view.SaveAsCommand.Execute += _model.SaveProject;
-            _view.ReloadProjectCommand.Execute += _model.ReloadTests;
             _view.ReloadTestsCommand.Execute += _model.ReloadTests;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectRuntimeMenu.Popup += SelectRuntimeMenu_Popup;
@@ -107,7 +106,6 @@ namespace NUnit.Gui.Presenters
             _view.SaveCommand.Enabled = canCloseOrSave;
             _view.SaveAsCommand.Enabled = canCloseOrSave;
             _view.SaveResultsCommand.Enabled = canCloseOrSave && _model.HasResults;
-            _view.ReloadProjectCommand.Enabled = canCloseOrSave;
             _view.ReloadTestsCommand.Enabled = canCloseOrSave;
             _view.SelectRuntimeMenu.Enabled = canCloseOrSave;
             _view.RecentProjectsMenu.Enabled = !isTestRunning;
@@ -235,9 +233,8 @@ namespace NUnit.Gui.Presenters
         {
             var dropDownItems = _view.SelectRuntimeMenu.ToolStripItem.DropDownItems;
             dropDownItems.Clear();
-            dropDownItems.Add("This menu should list all");
-            dropDownItems.Add("available runtimes and reload");
-            dropDownItems.Add("tests using the one selected.");
+            foreach (var runtime in _model.AvailableRuntimes)
+                dropDownItems.Add(runtime.DisplayName);
         }
 
         #endregion

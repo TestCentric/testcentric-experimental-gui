@@ -32,10 +32,11 @@ namespace NUnit.Gui.Presenters.TestTree
     using Model;
     using Views;
 
-    public class NUnitTreeDisplayStrategyTests
+    public abstract class DisplayStrategyTests
     {
-        private ITestTreeView _view;
-        private ITestModel _model;
+        protected ITestTreeView _view;
+        protected ITestModel _model;
+        protected DisplayStrategy _strategy;
 
         [SetUp]
         public void CreateDisplayStrategy()
@@ -43,16 +44,18 @@ namespace NUnit.Gui.Presenters.TestTree
             _view = Substitute.For<ITestTreeView>();
             _model = Substitute.For<ITestModel>();
 
-            new NUnitTreeDisplayStrategy(_view, _model);
+            _strategy = GetDisplayStrategy();
         }
+
+        protected abstract DisplayStrategy GetDisplayStrategy();
 
         [Test]
         public void WhenTestsAreLoaded_TreeViewIsLoaded()
         {
-            _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(
-                TestAction.TestLoaded, 
-                new TestNode("<test-run id='1'><test-suite id='42'/><test-suite id='99'/></test-run>")));
+            _strategy.OnTestLoaded(
+                new TestNode("<test-run id='1'><test-suite id='42'/><test-suite id='99'/></test-run>"));
 
+            _view.Tree.Received().Clear();
             _view.Tree.Received().Add(Arg.Is<TreeNode>((tn) => ((TestNode)tn.Tag).Id == "42"));
             _view.Tree.Received().Add(Arg.Is<TreeNode>((tn) => ((TestNode)tn.Tag).Id == "99"));
         }
@@ -60,9 +63,25 @@ namespace NUnit.Gui.Presenters.TestTree
         [Test]
         public void WhenTestsAreUnloaded_TreeViewIsCleared()
         {
-            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
+            _strategy.OnTestUnloaded();
 
             _view.Tree.Received().Clear();
         }
     }
+
+    public class NUnitTreeDisplayStrategyTests : DisplayStrategyTests
+    {
+        protected override DisplayStrategy GetDisplayStrategy()
+        {
+            return new NUnitTreeDisplayStrategy(_view, _model);
+        }
+    }
+
+    //public class NUnitTestListStrategyTests : DisplayStrategyTests
+    //{
+    //    protected override DisplayStrategy GetDisplayStrategy()
+    //    {
+    //        return new TestListDisplayStrategy(_view, _model);
+    //    }
+    //}
 }

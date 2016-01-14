@@ -39,9 +39,8 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml("<test-suite/>");
-            TestNode resultNode = new TestNode(doc.FirstChild);
+            var resultNode = new ResultNode("<test-suite/>");
+
             _model.RunFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunFinished, resultNode));
         }
 

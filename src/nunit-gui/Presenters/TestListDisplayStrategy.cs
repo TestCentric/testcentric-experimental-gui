@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -41,34 +41,24 @@ namespace NUnit.Gui.Presenters
 
         public TestListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model) 
         {
-            _groupBy = _model.Settings.Gui.TestTree.TestList.GroupBy;
-            _grouping = CreateTestGrouping(_groupBy);
-            _view.GroupBy.SelectedItem = _groupBy;
+            SetDefaultTestGrouping();
             _view.CollapseToFixturesCommand.Enabled = false;
         }
 
         #endregion
 
+        #region Public Members
+
         public override string Description
         {
-            get { return "Tests By " + _groupBy; }
+            get { return "Tests By " + DefaultGroupSetting; }
         }
 
-        protected override void OnGroupByChanged()
-        {
-            _groupBy = _view.GroupBy.SelectedItem;
-            _grouping = CreateTestGrouping(_groupBy);
-
-            Reload();
-
-            _model.Settings.Gui.TestTree.TestList.GroupBy = _groupBy;
-        }
-
-        protected override void Load(TestNode testNode)
+        public override void OnTestLoaded(TestNode testNode)
         {
             ClearTree();
 
-            switch (_groupBy)
+            switch (DefaultGroupSetting)
             {
                 default:
                 case "ASSEMBLY":
@@ -110,11 +100,27 @@ namespace NUnit.Gui.Presenters
             }
         }
 
+        #endregion
+
+        #region Protected Members
+
+        protected override string DefaultGroupSetting
+        {
+            get { return _model.Settings.Gui.TestTree.TestList.GroupBy; }
+            set { _model.Settings.Gui.TestTree.TestList.GroupBy = value; }
+        }
+
+        #endregion
+
+        #region Private Members
+
         private TestSelection GetTestCases(TestNode testNode)
         {
             return testNode
                 .Select((n) => !n.IsSuite)
                 .SortBy((x, y) => x.Name.CompareTo(y.Name));
         }
+
+        #endregion
     }
 }

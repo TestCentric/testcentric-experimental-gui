@@ -55,16 +55,15 @@ namespace NUnit.Gui.Presenters
             _presenter = null;
         }
 
-        //[Test]
-        //public void WhenProjectIsUnloaded_ProgressBar_IsInitialized()
-        //{
-        //    _settings.IsProjectLoaded.Returns(false);
-        //    _settings.IsTestLoaded.Returns(false);
-        //    _settings.IsTestRunning.Returns(false);
-        //    _settings.ProjectUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.ProjectUnloaded, "Dummy"));
+        [Test]
+        public void WhenTestsAreLoaded_ProgressBar_IsInitialized()
+        {
+            _model.HasTests.Returns(true);
+            _model.IsTestRunning.Returns(false);
+            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded));
 
-        //    _view.Received().Initialize(100);
-        //}
+            _view.Received().Initialize(100);
+        }
 
         [Test]
         public void WhenTestsAreUnloaded_ProgressBar_IsInitialized()
@@ -72,6 +71,16 @@ namespace NUnit.Gui.Presenters
             _model.HasTests.Returns(false);
             _model.IsTestRunning.Returns(false);
             _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
+
+            _view.Received().Initialize(100);
+        }
+
+        [Test]
+        public void WhenTestsAreReloaded_ProgressBar_IsInitialized()
+        {
+            _model.HasTests.Returns(true);
+            _model.IsTestRunning.Returns(false);
+            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestReloaded));
 
             _view.Received().Initialize(100);
         }
@@ -90,7 +99,7 @@ namespace NUnit.Gui.Presenters
         public void WhenTestCaseCompletes_ProgressIsIncremented()
         {
             int priorValue = _view.Progress;
-            var result = new TestNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
+            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
 
             _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
 
@@ -101,7 +110,7 @@ namespace NUnit.Gui.Presenters
         public void WhenTestSuiteCompletes_ProgressIsNotIncremented()
         {
             int priorValue = _view.Progress;
-            var result = new TestNode(XmlHelper.CreateXmlNode("<test-suite id='1'/>"));
+            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-suite id='1'/>"));
 
             _model.SuiteFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.SuiteFinished, result));
 
@@ -153,7 +162,7 @@ namespace NUnit.Gui.Presenters
                 doc.LoadXml(string.Format("<test-case id='1' result='{0}'/>", resultState.Status));
             else
                 doc.LoadXml(string.Format("<test-case id='1' result='{0}' label='{1}'/>", resultState.Status, resultState.Label));
-            var result = new TestNode(doc.FirstChild);
+            var result = new ResultNode(doc.FirstChild);
 
             _model.HasTests.Returns(true);
             _model.Tests.Returns(result);

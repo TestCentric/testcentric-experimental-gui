@@ -77,12 +77,6 @@ namespace NUnit.Gui.Presenters.Main
         }
 
         [Test]
-        public void ReloadProject_IsDisabled()
-        {
-            View.ReloadProjectCommand.Received().Enabled = false;
-        }
-
-        [Test]
         public void ReloadTests_IsDisabled()
         {
             View.ReloadTestsCommand.Received().Enabled = false;

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -36,28 +36,16 @@ namespace NUnit.Gui.Presenters
     /// <summary>
     /// DisplayStrategy is the abstract base for the various
     /// strategies used to display tests in the tree control.
-    /// It works both as a traditional strategy, with methods
-    /// called by the TreeViewPresenter, and as a presenter
-    /// in it's own right, since it is created with references
-    /// to the view and model and can handle certain events.
+    /// It works primarily as a traditional strategy, with methods
+    /// called by the TreeViewPresenter, but may also function
+    /// as a presenter in it's own right, since it is created 
+    /// with references to the view and mode.
+    /// 
     /// We currently support three different strategies:
     /// NunitTreeDisplay, TestListDisplay and FixtureListDisplay.
     /// </summary>
     public abstract class DisplayStrategy
     {
-        /// <summary>
-        /// Image indices for various test states - the values 
-        /// must match the indices of the image list used and
-        /// are ordered so that the higher values are those
-        /// that propogate upwards.
-        /// </summary>
-        public const int InitIndex = 0;
-        public const int SkippedIndex = 0;
-        public const int InconclusiveIndex = 1;
-        public const int SuccessIndex = 2;
-        public const int IgnoredIndex = 3;
-        public const int FailureIndex = 4;
-
         protected ITestTreeView _view;
         protected ITestModel _model;
 
@@ -73,29 +61,6 @@ namespace NUnit.Gui.Presenters
             _model = model;
 
             this.Tree = view.Tree;
-            
-            //CreateContextMenu();
-
-            WireUpEvents();
-        }
-
-        private void WireUpEvents()
-        {
-            // Model actions
-            _model.TestLoaded += (ea) => Load(ea.Test);
-            _model.TestUnloaded += (ea) => ClearTree();
-            _model.TestReloaded += (ea) => { ClearTree(); Load(ea.Test); };
-            _model.TestFinished += (ea) => OnTestFinished(ea.Result);
-            _model.SuiteFinished += (ea) => OnTestFinished(ea.Result);
-
-            // View actions
-            _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
-            _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
-            _view.CollapseToFixturesCommand.Execute += () => CollapseToFixtures();
-            _view.RunContextCommand.Execute += () => _model.RunTests(_view.Tree.ContextNode.Tag as ITestItem);
-
-            // Node selected in tree
-            Tree.SelectedNodeChanged += (tn) => _model.SelectedTest = tn.Tag as ITestItem;
         }
 
         #endregion
@@ -111,23 +76,24 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
-        #region Protected Methods
+        #region Public Methods
 
         /// <summary>
         /// Load all tests into the tree, starting from a root TestNode.
         /// </summary>
-        protected abstract void Load(TestNode testNode);
+        public abstract void OnTestLoaded(TestNode testNode);
 
-        protected virtual void OnTestFinished(ResultNode result)
+        public void OnTestUnloaded()
+        {
+            ClearTree();
+        }
+
+        public virtual void OnTestFinished(ResultNode result)
         {
             int imageIndex = CalcImageIndex(result.Outcome);
             foreach(TreeNode treeNode in GetTreeNodesForTest(result))
                 Tree.SetImageIndex(treeNode, imageIndex);
         }
-
-        #endregion
-
-        #region Public Methods
 
         // Called when either the display strategy or the grouping
         // changes. May need to distinguish these cases.
@@ -136,7 +102,7 @@ namespace NUnit.Gui.Presenters
             TestNode testNode = _model.Tests;
             if (testNode != null)
             {
-                Load(testNode);
+                OnTestLoaded(testNode);
 
                 TreeView treeControl = Tree.Control;
 
@@ -173,15 +139,15 @@ namespace NUnit.Gui.Presenters
             TreeNode treeNode = new TreeNode(testNode.Name);
             treeNode.Tag = testNode;
 
-            int imageIndex = SkippedIndex;
+            int imageIndex = TestTreeView.SkippedIndex;
 
             switch (testNode.RunState)
             {
                 case RunState.Ignored:
-                    imageIndex = IgnoredIndex;
+                    imageIndex = TestTreeView.IgnoredIndex;
                     break;
                 case RunState.NotRunnable:
-                    imageIndex = FailureIndex;
+                    imageIndex = TestTreeView.FailureIndex;
                     break;
             }
 
@@ -209,21 +175,21 @@ namespace NUnit.Gui.Presenters
             return string.Format("{0} ({1})", group.Name, group.Count);
         }
 
-        public int CalcImageIndex(ResultState outcome)
+        public static int CalcImageIndex(ResultState outcome)
         {
             switch (outcome.Status)
             {
                 case TestStatus.Inconclusive:
-                    return InconclusiveIndex;
+                    return TestTreeView.InconclusiveIndex;
                 case TestStatus.Passed:
-                    return SuccessIndex;
+                    return TestTreeView.SuccessIndex;
                 case TestStatus.Failed:
-                    return FailureIndex;
+                    return TestTreeView.FailureIndex;
                 case TestStatus.Skipped:
                 default:
                     return outcome.Label == "Ignored"
-                        ? IgnoredIndex
-                        : SkippedIndex;
+                        ? TestTreeView.IgnoredIndex
+                        : TestTreeView.SkippedIndex;
             }
         }
 
@@ -242,7 +208,7 @@ namespace NUnit.Gui.Presenters
                 ApplyResultsToTree(childNode);
         }
 
-        protected void CollapseToFixtures()
+        public void CollapseToFixtures()
         {
             TreeView treeControl = _view.Tree.Control;
             if (treeControl != null) // TODO: Null when mocking - fix this

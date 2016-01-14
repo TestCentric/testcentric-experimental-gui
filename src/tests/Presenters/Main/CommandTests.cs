@@ -88,14 +88,10 @@ namespace NUnit.Gui.Presenters.Main
         }
 
         [Test]
-        public void ReloadProjectCommand_CallsReloadTests()
-        {
-            View.ReloadProjectCommand.Execute += Raise.Event<CommandHandler>();
-            Model.Received().ReloadTests();
-        }
-
         public void ReloadTestsCommand_CallsReloadTests()
         {
+            View.ReloadTestsCommand.Execute += Raise.Event<CommandHandler>();
+            Model.Received().ReloadTests();
         }
 
         public void SelectRuntimeCommand_PopsUpMenu()

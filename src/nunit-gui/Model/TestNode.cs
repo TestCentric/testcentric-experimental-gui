@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -73,7 +73,7 @@ namespace NUnit.Gui.Model
             Name = Xml.GetAttribute("name");
             FullName = Xml.GetAttribute("fullname");
             Type = IsSuite ? GetAttribute("type") : "TestCase";
-            TestCount = IsSuite ? GetAttribute("testcasecount", 0) : 0;
+            TestCount = IsSuite ? GetAttribute("testcasecount", 0) : 1;
             RunState = GetRunState();
         }
 

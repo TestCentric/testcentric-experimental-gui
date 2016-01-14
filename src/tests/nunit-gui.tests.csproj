@@ -52,6 +52,7 @@
     <Compile Include="Model\TestModelTests.cs" />
     <Compile Include="Model\TestSelectionTests.cs" />
     <Compile Include="Model\TestNodeTests.cs" />
+    <Compile Include="Presenters\Main\WhenTestsAreReloaded.cs" />
     <Compile Include="Presenters\TestGroupTests.cs" />
     <Compile Include="Presenters\StatusBarPresenterTests.cs" />
     <Compile Include="Presenters\TestPropertiesPresenterTests.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Presenters\TestTree\WhenPresenterIsCreated.cs" />
     <Compile Include="Presenters\TestTree\WhenTestRunBegins.cs" />
     <Compile Include="Presenters\TestTree\WhenTestRunCompletes.cs" />
+    <Compile Include="Presenters\TestTree\WhenTestsAreReloaded.cs" />
     <Compile Include="Presenters\TestTree\WhenTestsAreLoaded.cs" />
     <Compile Include="Presenters\TestTree\WhenTestsAreUnloaded.cs" />
     <Compile Include="Presenters\TreeViewPresenterTests.cs" />
