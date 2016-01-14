@@ -42,7 +42,7 @@ namespace NUnit.Gui.Model
 
             _model = new TestModel(engine);
 
-            _model.LoadTests(new TestPackage(MOCK_ASSEMBLY));
+            _model.LoadTests(new []{MOCK_ASSEMBLY}, new GuiOptions());
         }
 
         [Test]

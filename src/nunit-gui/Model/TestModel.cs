@@ -98,6 +98,8 @@ namespace NUnit.Gui.Model
         }
 
         private ITestItem _selectedTest;
+        private IList<string> _files;
+
         public ITestItem SelectedTest
         {
             get { return _selectedTest; }
@@ -154,19 +156,20 @@ namespace NUnit.Gui.Model
             MessageBox.Show("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
         }
 
-        public void LoadTests(TestPackage package)
+        public void LoadTests(IList<string> files, GuiOptions options)
         {
             if (IsPackageLoaded)
                 UnloadTests();
 
+            _files = files;
+            _package = MakeTestPackage(files, options);
+
             //if (TestLoading != null)
             //    TestLoading(new TestEventArgs(TestAction.TestLoading));
 
-            _package = package;
-
             try
             {
-                Runner = _testEngine.GetRunner(package);
+                Runner = _testEngine.GetRunner(_package);
                 // TODO: Error here when multiple files are run
                 Tests = new TestNode(Runner.Explore(TestFilter.Empty));
 
@@ -196,7 +199,7 @@ namespace NUnit.Gui.Model
                 Runner.Unload();
                 Tests = null;
                 _package = null;
-
+                _files = null;
                 _resultIndex.Clear();
             }
             catch (Exception ex)
@@ -209,18 +212,18 @@ namespace NUnit.Gui.Model
                 TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
         }
 
-        public void ReloadTests()
+        public void ReloadTests(GuiOptions options)
         {
             //if (TestReloading != null)
             //    TestReloading(new TestEventArgs(TestAction.TestReloading));
-            TestPackage package = _package;
             Runner.Unload();
             _resultIndex.Clear();
             Tests = null;
 
             try
             {
-                Runner = _testEngine.GetRunner(package);
+                _package = MakeTestPackage(_files, options);
+                Runner = _testEngine.GetRunner(_package);
                 // TODO: Error here when multiple files are run
                 Tests = new TestNode(Runner.Explore(TestFilter.Empty));
 
@@ -235,6 +238,47 @@ namespace NUnit.Gui.Model
             if (TestReloaded != null)
                 TestReloaded(new TestEventArgs(TestAction.TestReloaded, Tests));
         }
+
+
+        #region Helper Methods
+
+        private static TestPackage MakeTestPackage(string name, GuiOptions options)
+        {
+            var package = new TestPackage(name);
+            ApplyOptionsToPackage(package, options);
+            return package;
+        }
+
+        private static TestPackage MakeTestPackage(IList<string> testFiles, GuiOptions options)
+        {
+            var package = new TestPackage(testFiles);
+            ApplyOptionsToPackage(package, options);
+            return package;
+        }
+
+        private static TestPackage ApplyOptionsToPackage(TestPackage package, GuiOptions options)
+        {
+            // TODO: Remove temporary Settings used in testing GUI
+            package.Settings["ProcessModel"] = "InProcess";
+            package.Settings["NumberOfTestWorkers"] = 0;
+
+            //if (options.ProcessModel != null)
+            //    package.AddSetting("ProcessModel", options.ProcessModel);
+
+            //if (options.DomainUsage != null)
+            //    package.AddSetting("DomainUsage", options.DomainUsage);
+
+            //if (options.ActiveConfig != null)
+            //    package.AddSetting("ActiveConfig", options.ActiveConfig);
+
+            if (options.InternalTraceLevel != null)
+                package.Settings["InternalTraceLevel"] = options.InternalTraceLevel;
+
+            return package;
+        }
+
+        #endregion
+
 
         public void RunTests(ITestItem testItem)
         {
