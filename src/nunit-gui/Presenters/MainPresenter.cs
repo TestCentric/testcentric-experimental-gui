@@ -36,21 +36,15 @@ namespace NUnit.Gui.Presenters
     {
         IMainView _view;
         ITestModel _model;
-        GuiOptions _options;
-
-        IRecentFiles _recentFilesService;
 
         private Dictionary<string, TreeNode> _nodeIndex = new Dictionary<string, TreeNode>();
 
         #region Construction and Initialization
 
-        public MainPresenter(IMainView view, ITestModel model, GuiOptions options)
+        public MainPresenter(IMainView view, ITestModel model)
         {
             _view = view;
             _model = model;
-            _options = options;
-
-            _recentFilesService = _model.GetService<IRecentFiles>();
 
             InitializeMainMenu();
             WireUpEvents();
@@ -76,7 +70,7 @@ namespace NUnit.Gui.Presenters
             _view.CloseCommand.Execute += _model.UnloadTests;
             _view.SaveCommand.Execute += _model.SaveProject;
             _view.SaveAsCommand.Execute += _model.SaveProject;
-            _view.ReloadTestsCommand.Execute += _model.ReloadTests;
+            _view.ReloadTestsCommand.Execute += OnReloadTestsCommand;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectRuntimeMenu.Popup += SelectRuntimeMenu_Popup;
 
@@ -126,8 +120,6 @@ namespace NUnit.Gui.Presenters
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            var recentFileService = _model.GetService<IRecentFiles>();
-
             var location = _model.Settings.Gui.MainForm.Location;
             var size = _model.Settings.Gui.MainForm.Size;
             if (size == Size.Empty)
@@ -149,19 +141,7 @@ namespace NUnit.Gui.Presenters
             // Set the font to use
             _view.Font = _model.Settings.Gui.MainForm.Font;
 
-            if (_options.InputFiles.Count > 0)
-            {
-                _model.LoadTests(MakeTestPackage(_options.InputFiles, _options));
-            }
-            else if (!_options.NoLoad && recentFileService.Entries.Count > 0)
-            {
-                var entry = recentFileService.Entries[0];
-                if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
-                    _model.LoadTests(MakeTestPackage(entry, _options));
-            }
-
-            if (_options.RunAllTests && _model.IsPackageLoaded)
-                _model.RunTests(TestFilter.Empty);
+            _model.OnStartup();
         }
 
         private void MainForm_Closing(object sender, FormClosingEventArgs ea)
@@ -191,9 +171,13 @@ namespace NUnit.Gui.Presenters
         private void OnOpenProjectCommand()
         {
             string[] files = _view.DialogManager.GetFilesToOpen();
-            var package = MakeTestPackage(files, _options);
             if (files.Length > 0)
-                _model.LoadTests(package);
+                _model.LoadTests(files);
+        }
+
+        private void OnReloadTestsCommand()
+        {
+           _model.ReloadTests();
         }
 
         void OpenSettingsDialogCommand_Execute()
@@ -216,14 +200,14 @@ namespace NUnit.Gui.Presenters
             var dropDownItems = _view.RecentProjectsMenu.ToolStripItem.DropDownItems;
             dropDownItems.Clear();
             int num = 0;
-            foreach (string entry in _recentFilesService.Entries)
+            foreach (string entry in _model.RecentFiles.Entries)
             {
                 var menuText = string.Format("{0} {1}", ++num, entry);
                 var menuItem = new ToolStripMenuItem(menuText);
                 menuItem.Click += (sender, ea) =>
                 {
                     string path = ((ToolStripMenuItem)sender).Text.Substring(2);
-                    _model.LoadTests(MakeTestPackage(path, _options));
+                    _model.LoadTests(new [] {path});
                 };
                 dropDownItems.Add(menuItem);
             }
@@ -241,8 +225,6 @@ namespace NUnit.Gui.Presenters
 
         #endregion
 
-        #region Helper Methods
-
 
         // Ensure that the proposed window position intersects
         // at least one screen area.
@@ -257,42 +239,6 @@ namespace NUnit.Gui.Presenters
             return intersect;
         }
 
-        private static TestPackage MakeTestPackage(string name, GuiOptions options)
-        {
-            var package = new TestPackage(name);
-            ApplyOptionsToPackage(package, options);
-            return package;
-        }
-
-        private static TestPackage MakeTestPackage(IList<string> testFiles, GuiOptions options)
-        {
-            var package = new TestPackage(testFiles);
-            ApplyOptionsToPackage(package, options);
-            return package;
-        }
-
-        private static TestPackage ApplyOptionsToPackage(TestPackage package, GuiOptions options)
-        {
-            // TODO: Remove temporary Settings used in testing GUI
-            package.Settings["ProcessModel"] = "InProcess";
-            package.Settings["NumberOfTestWorkers"] = 0;
-
-            //if (options.ProcessModel != null)
-            //    package.AddSetting("ProcessModel", options.ProcessModel);
-
-            //if (options.DomainUsage != null)
-            //    package.AddSetting("DomainUsage", options.DomainUsage);
-
-            //if (options.ActiveConfig != null)
-            //    package.AddSetting("ActiveConfig", options.ActiveConfig);
-
-            if (options.InternalTraceLevel != null)
-                package.Settings["InternalTraceLevel"] = options.InternalTraceLevel;
-
-            return package;
-        }
-
-        #endregion
 
         #region IDispose Implementation
 

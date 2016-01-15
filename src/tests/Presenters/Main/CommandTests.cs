@@ -21,6 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using NUnit.UiKit.Elements;
@@ -50,9 +51,8 @@ namespace NUnit.Gui.Presenters.Main
             View.DialogManager.GetFilesToOpen().Returns(files);
 
             View.OpenProjectCommand.Execute += Raise.Event<CommandHandler>();
-            Model.Received().LoadTests(Arg.Any<TestPackage>());
-            Model.Received().LoadTests(Arg.Is<TestPackage>((p) => 
-                p.SubPackages.Count == 1 && p.SubPackages[0].FullName == files[0]));
+            Model.Received().LoadTests(Arg.Any<IList<string>>());
+            Model.Received().LoadTests(Arg.Is<IList<string>>((p) => p.Count == 1));
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace NUnit.Gui.Presenters.Main
             Model.HasTests.Returns(false);
 
             View.OpenProjectCommand.Execute += Raise.Event<CommandHandler>();
-            Model.DidNotReceive().LoadTests(Arg.Any<TestPackage>());
+            Model.DidNotReceive().LoadTests(Arg.Any<IList<string>>());
         }
 
         [Test]
