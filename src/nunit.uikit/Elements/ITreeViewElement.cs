@@ -41,6 +41,7 @@ namespace NUnit.UiKit.Elements
 
         TreeNode SelectedNode { get; }
         TreeNode ContextNode { get; }
+        IList<TreeNode> CheckedNodes { get; }
 
         IContextMenuElement ContextMenu { get; set; }
 

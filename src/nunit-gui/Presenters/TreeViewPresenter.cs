@@ -96,6 +96,7 @@ namespace NUnit.Gui.Presenters
             _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
             _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
             _view.CollapseToFixturesCommand.Execute += () => _strategy.CollapseToFixtures();
+            _view.ShowCheckBoxesCommand.CheckedChanged += () => _view.Tree.CheckBoxes = _view.ShowCheckBoxesCommand.Checked;;
             _view.RunContextCommand.Execute += () => _model.RunTests(_view.Tree.ContextNode.Tag as ITestItem);
 
             // Node selected in tree
@@ -109,7 +110,7 @@ namespace NUnit.Gui.Presenters
                     _model.RunTests(TestFilter.Empty);
             };
             _view.RunAllCommand.Execute += () => _model.RunTests(TestFilter.Empty);
-            _view.RunSelectedCommand.Execute += () => _model.RunSelectedTest();
+            _view.RunSelectedCommand.Execute += () => RunSelectedTests();
             _view.RunFailedCommand.Execute += () => _model.RunTests(TestFilter.Empty); // NYI
             _view.StopRunCommand.Execute += () => _model.CancelTestRun();
 
@@ -120,6 +121,20 @@ namespace NUnit.Gui.Presenters
 
                 _strategy.Reload();
             };
+        }
+
+        private void RunSelectedTests()
+        {
+            //if (_view.Tree.CheckBoxes)
+            //{
+            //    var treeNodes = _view.Tree.CheckedNodes;
+            //    if (treeNodes.Count > 0)
+            //    {
+                     
+            //    }
+            //}
+            
+            _model.RunSelectedTest();
         }
 
         private void InitializeRunCommands()

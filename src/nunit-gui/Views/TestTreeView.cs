@@ -61,6 +61,7 @@ namespace NUnit.Gui.Views
                 byAssemblyMenuItem, byFixtureMenuItem, byCategoryMenuItem, byOutcomeMenuItem, byDurationMenuItem);
 
             RunContextCommand = new MenuElement(this.runMenuItem);
+            ShowCheckBoxesCommand = new MenuElement(showCheckboxesMenuItem);
             ExpandAllCommand = new MenuElement(expandAllMenuItem);
             CollapseAllCommand = new MenuElement(collapseAllMenuItem);
             CollapseToFixturesCommand = new MenuElement(collapseToFixturesMenuItem);
@@ -115,10 +116,5 @@ namespace NUnit.Gui.Views
         }
 
         #endregion
-
-        private void testTreeContextMenu_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
     }
 }
