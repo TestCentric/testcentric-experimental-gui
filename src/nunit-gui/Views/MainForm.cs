@@ -117,7 +117,7 @@ namespace NUnit.Gui.Views
         public ProgressBarView ProgressBarView { get { return progressBarView; } }
         public StatusBarView StatusBarView { get { return statusBarView; } }
         public TestPropertiesView PropertiesView { get { return propertiesView; } }
-
+        public XmlView XmlView { get { return xmlView; } }
         #endregion
 
         #endregion

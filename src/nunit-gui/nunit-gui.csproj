@@ -83,6 +83,7 @@
     <Compile Include="Presenters\TestPropertiesPresenter.cs" />
     <Compile Include="Presenters\StatusBarPresenter.cs" />
     <Compile Include="Presenters\DisplayStrategy.cs" />
+    <Compile Include="Presenters\XmlPresenter.cs" />
     <Compile Include="Views\IDialog.cs" />
     <Compile Include="Views\ISettingsDialog.cs" />
     <Compile Include="Views\ITestTreeView.cs" />
@@ -184,6 +185,12 @@
       <DependentUpon>TreeSettingsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\TreeDisplayStyle.cs" />
+    <Compile Include="Views\XmlView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\XmlView.Designer.cs">
+      <DependentUpon>XmlView.cs</DependentUpon>
+    </Compile>
     <Compile Include="XmlHelper.cs" />
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -233,6 +240,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsPages\TreeSettingsPage.resx">
       <DependentUpon>TreeSettingsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\XmlView.resx">
+      <DependentUpon>XmlView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
