@@ -34,6 +34,8 @@
             this.testTreeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.runMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
+            this.showCheckboxesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.expandAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToFixturesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,12 +79,13 @@
             this.testTreeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.runMenuItem,
             this.toolStripMenuItem13,
+            this.showCheckboxesMenuItem,
+            this.toolStripSeparator1,
             this.expandAllMenuItem,
             this.collapseAllMenuItem,
             this.collapseToFixturesMenuItem});
             this.testTreeContextMenu.Name = "testTreeContextMenu";
-            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 120);
-            this.testTreeContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.testTreeContextMenu_Opening);
+            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 148);
             // 
             // runMenuItem
             // 
@@ -94,6 +97,18 @@
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
             this.toolStripMenuItem13.Size = new System.Drawing.Size(173, 6);
+            // 
+            // showCheckboxesMenuItem
+            // 
+            this.showCheckboxesMenuItem.CheckOnClick = true;
+            this.showCheckboxesMenuItem.Name = "showCheckboxesMenuItem";
+            this.showCheckboxesMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.showCheckboxesMenuItem.Text = "Show Checkboxes";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(173, 6);
             // 
             // expandAllMenuItem
             // 
@@ -207,61 +222,61 @@
             // nunitTreeMenuItem
             // 
             this.nunitTreeMenuItem.Name = "nunitTreeMenuItem";
-            this.nunitTreeMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nunitTreeMenuItem.Size = new System.Drawing.Size(141, 22);
             this.nunitTreeMenuItem.Tag = "NUNIT_TREE";
             this.nunitTreeMenuItem.Text = "NUnit Tree";
             // 
             // fixtureListMenuItem
             // 
             this.fixtureListMenuItem.Name = "fixtureListMenuItem";
-            this.fixtureListMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fixtureListMenuItem.Size = new System.Drawing.Size(141, 22);
             this.fixtureListMenuItem.Tag = "FIXTURE_LIST";
             this.fixtureListMenuItem.Text = "Fixture List";
             // 
             // testListMenuItem
             // 
             this.testListMenuItem.Name = "testListMenuItem";
-            this.testListMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testListMenuItem.Size = new System.Drawing.Size(141, 22);
             this.testListMenuItem.Tag = "TEST_LIST";
             this.testListMenuItem.Text = "Test List";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
             // 
             // byAssemblyMenuItem
             // 
             this.byAssemblyMenuItem.Name = "byAssemblyMenuItem";
-            this.byAssemblyMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byAssemblyMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byAssemblyMenuItem.Tag = "ASSEMBLY";
             this.byAssemblyMenuItem.Text = "By Assembly";
             // 
             // byFixtureMenuItem
             // 
             this.byFixtureMenuItem.Name = "byFixtureMenuItem";
-            this.byFixtureMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byFixtureMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byFixtureMenuItem.Tag = "FIXTURE";
             this.byFixtureMenuItem.Text = "By Fixture";
             // 
             // byCategoryMenuItem
             // 
             this.byCategoryMenuItem.Name = "byCategoryMenuItem";
-            this.byCategoryMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byCategoryMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byCategoryMenuItem.Tag = "CATEGORY";
             this.byCategoryMenuItem.Text = "By Category";
             // 
             // byOutcomeMenuItem
             // 
             this.byOutcomeMenuItem.Name = "byOutcomeMenuItem";
-            this.byOutcomeMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byOutcomeMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byOutcomeMenuItem.Tag = "OUTCOME";
             this.byOutcomeMenuItem.Text = "By Outcome";
             // 
             // byDurationMenuItem
             // 
             this.byDurationMenuItem.Name = "byDurationMenuItem";
-            this.byDurationMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byDurationMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byDurationMenuItem.Tag = "DURATION";
             this.byDurationMenuItem.Text = "By Duration";
             // 
@@ -307,5 +322,7 @@
         private System.Windows.Forms.ToolStripMenuItem byOutcomeMenuItem;
         private System.Windows.Forms.ToolStripMenuItem byDurationMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fixtureListMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showCheckboxesMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
