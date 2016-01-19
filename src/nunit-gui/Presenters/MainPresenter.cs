@@ -53,13 +53,15 @@ namespace NUnit.Gui.Presenters
         private void WireUpEvents()
         {
             // Model Events
-            _model.TestLoaded += (ea) => InitializeMainMenu();
-            _model.TestUnloaded += (ea) => InitializeMainMenu();
-            _model.TestReloaded += (ea) => InitializeMainMenu();
-            _model.RunStarting += (ea) => InitializeMainMenu();
-            _model.RunFinished += (ea) => InitializeMainMenu();
-            _model.RunFailed += OnFailure;
-            _model.TestException += OnFailure;
+            _model.TestLoaded += OnTestLoaded;
+            _model.TestUnloaded += OnTestUnLoaded;
+            _model.TestReloaded += OnTestReloaded;
+            _model.RunStarting += OnRunStarting;
+            _model.RunFinished += OnRunFinished;
+            _model.RunFailed += OnRunFailed;
+            _model.TestException += OnRunFailed;
+            _model.TestStarting += OnTestStarting;
+            _model.TestFinished += OnTestFinished;
 
             // View Events
             _view.Load += MainForm_Load;
@@ -88,6 +90,36 @@ namespace NUnit.Gui.Presenters
 
         #region Handlers for Model Events
 
+        private void OnTestLoaded(TestEventArgs ea)
+        {
+            InitializeMainMenu();
+            _view.StatusBar.Initialize("Ready", ea.Test.TestCount);
+        }
+
+        private void OnTestReloaded(TestEventArgs ea)
+        {
+            InitializeMainMenu();
+            _view.StatusBar.Initialize("Reloaded", ea.Test.TestCount);
+        }
+
+        private void OnTestUnLoaded(TestEventArgs ea)
+        {
+            InitializeMainMenu();
+            _view.StatusBar.Initialize("Unloaded");
+        }
+
+        private void OnRunStarting(TestEventArgs ea)
+        {
+            InitializeMainMenu();
+            _view.StatusBar.RunStarting(ea.TestCount);
+        }
+
+        private void OnRunFinished(TestEventArgs ea)
+        {
+            InitializeMainMenu();
+            _view.StatusBar.RunFinished(ea.Result.Duration);
+        }
+
         private void InitializeMainMenu()
         {
             bool isTestRunning = _model.IsTestRunning;
@@ -109,9 +141,26 @@ namespace NUnit.Gui.Presenters
             _view.ProjectMenu.Enabled = _view.ProjectMenu.Visible = _model.HasTests;
         }
 
-        private void OnFailure(TestEventArgs ea)
+        private void OnRunFailed(TestEventArgs ea)
         {
+            _view.StatusBar.SetStatus("Run Failed");
             MessageBox.Show(ea.Test.Xml.OuterXml, ea.Action.ToString());
+        }
+
+        public void OnTestStarting(TestEventArgs e)
+        {
+            _view.StatusBar.SetStatus("Running : " + e.Test.Name);
+        }
+
+        private void OnTestFinished(TestEventArgs ea)
+        {
+            var result = ea.Result.Outcome;
+            if (result.Status == TestStatus.Passed)
+                _view.StatusBar.RecordSuccess();
+            else if (result == ResultState.Failure)
+                _view.StatusBar.RecordFailure();
+            else if (result.Status == TestStatus.Failed)
+                _view.StatusBar.RecordError();
         }
 
         #endregion

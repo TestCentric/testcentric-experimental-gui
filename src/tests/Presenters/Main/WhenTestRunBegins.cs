@@ -105,5 +105,11 @@ namespace NUnit.Gui.Presenters.Main
         {
             Assert.That(View.ProjectMenu.Visible == true);
         }
+
+        [Test]
+        public void StatusBar_IsInitialized()
+        {
+            View.StatusBar.Received().RunStarting(1234);
+        }
     }
 }

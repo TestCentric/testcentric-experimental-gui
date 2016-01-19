@@ -88,6 +88,7 @@ namespace NUnit.Gui.Model
         public bool IsPackageLoaded { get { return _package != null; } }
 
         public TestNode Tests { get; private set; }
+
         public bool HasTests { get { return Tests != null; } }
 
         public bool IsTestRunning

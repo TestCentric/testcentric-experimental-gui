@@ -23,26 +23,23 @@
 
 using NSubstitute;
 using NUnit.Framework;
-using System.Xml;
 
 namespace NUnit.Gui.Presenters.Main
 {
     using Model;
     using Views;
 
-    public class WhenTestsAreReloaded : MainPresenterTestBase
+    public class WhenTestsAreLoaded : MainPresenterTestBase
     {
         [SetUp]
-        public void SimulateTestReload()
+        public void SimulateTestLoad()
         {
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(false);
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml("<test-suite id='1'/>");
-            TestNode testNode = new TestNode(doc.FirstChild);
+            var testNode = new TestNode("<test-suite id='1' testcasecount='1234'/>");
             Model.Tests.Returns(testNode);
-            Model.TestReloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestReloaded, testNode));
+            Model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, testNode));
         }
 
 #if NYI
@@ -111,6 +108,12 @@ namespace NUnit.Gui.Presenters.Main
         public void ProjectMenu_IsVisible()
         {
             View.ProjectMenu.Received().Visible = true;
+        }
+
+        [Test]
+        public void StatusBar_IsInitialized()
+        {
+            View.StatusBar.Received().Initialize("Ready", 1234);
         }
     }
 }

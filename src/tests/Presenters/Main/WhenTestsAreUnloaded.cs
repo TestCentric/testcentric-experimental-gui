@@ -105,5 +105,11 @@ namespace NUnit.Gui.Presenters.Main
         {
             View.ProjectMenu.Received().Visible = false;
         }
+
+        [Test]
+        public void StatusBar_IsInitialized()
+        {
+            View.StatusBar.Received().Initialize("Unloaded");
+        }
     }
 }

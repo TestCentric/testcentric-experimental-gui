@@ -72,12 +72,8 @@ namespace NUnit.Gui
             new MainPresenter(form, model);
             new ProgressBarPresenter(form.ProgressBarView, model);
             new TreeViewPresenter(form.TestTreeView, model);
-            new StatusBarPresenter(form.StatusBarView, model);
             new TestPropertiesPresenter(form.PropertiesView, model);
             new XmlPresenter(form.XmlView, model);
-
-            //new RecentFiles(settingsServiceServiceService._settings);
-            //new RecentFilesPresenter(form, settingsServiceServiceService);
 
             try
             {

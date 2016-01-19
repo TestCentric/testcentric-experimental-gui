@@ -75,16 +75,10 @@ namespace NUnit.Gui.Views
         ICommand NUnitHelpCommand { get; }
         ICommand AboutNUnitCommand { get; }
 
-        // Tabs
-        // Test
-        IViewElement TestResult { get; }
-        IViewElement TestName { get; }
-
-        // Result
-
-        // Output
-
         // Dialogs
         IDialogManager DialogManager { get; }
+
+        // Subviews
+        IStatusBarView StatusBar { get; }
     }
 }

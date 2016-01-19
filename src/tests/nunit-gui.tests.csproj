@@ -52,9 +52,9 @@
     <Compile Include="Model\TestModelTests.cs" />
     <Compile Include="Model\TestSelectionTests.cs" />
     <Compile Include="Model\TestNodeTests.cs" />
+    <Compile Include="Presenters\Main\WhenTestCaseCompletes .cs" />
     <Compile Include="Presenters\Main\WhenTestsAreReloaded.cs" />
     <Compile Include="Presenters\TestGroupTests.cs" />
-    <Compile Include="Presenters\StatusBarPresenterTests.cs" />
     <Compile Include="Presenters\TestPropertiesPresenterTests.cs" />
     <Compile Include="Presenters\TestTree\CommandTests.cs" />
     <Compile Include="Presenters\TestTree\NUnitTreeDisplayStrategyTests.cs" />
