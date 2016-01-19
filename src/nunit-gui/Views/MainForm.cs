@@ -63,9 +63,6 @@ namespace NUnit.Gui.Views
             NUnitHelpCommand = new MenuElement(nUnitHelpToolStripMenuItem);
             AboutNUnitCommand = new MenuElement(aboutNUnitToolStripMenuItem);
 
-            TestResult = new ControlElement<Label>(testResult);
-            TestName = new ControlElement<Label>(testName);
-
             DialogManager = new DialogManager();
         }
 
@@ -104,9 +101,6 @@ namespace NUnit.Gui.Views
         public ICommand NUnitHelpCommand { get; private set; }
         public ICommand AboutNUnitCommand { get; private set; }
 
-        public IViewElement TestResult { get; private set; }
-        public IViewElement TestName { get; private set; }
-
         public IDialogManager DialogManager { get; private set; }
 
         #endregion
@@ -115,7 +109,7 @@ namespace NUnit.Gui.Views
 
         public TestTreeView TestTreeView { get { return testTreeView; } }
         public ProgressBarView ProgressBarView { get { return progressBarView; } }
-        public StatusBarView StatusBarView { get { return statusBarView; } }
+        public IStatusBarView StatusBar { get { return statusBarView; } }
         public TestPropertiesView PropertiesView { get { return propertiesView; } }
         public XmlView XmlView { get { return xmlView; } }
         #endregion

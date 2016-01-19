@@ -21,39 +21,29 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
+using System.Xml;
 
 namespace NUnit.Gui.Presenters.Main
 {
     using Model;
     using Views;
 
-    public class MainPresenterTestBase
+    public class WhenTestCaseCompletes : MainPresenterTestBase
     {
-        protected IMainView View;
-        protected ITestModel Model;
-        protected MainPresenter Presenter;
-
         [SetUp]
-        public void CreatePresenter()
+        public void SimulateTestCaseCompletion()
         {
-            View = Substitute.For<IMainView>();
-            Model = Substitute.For<ITestModel>();
+            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
 
-            Presenter = new MainPresenter(View, Model);
-
-            var statusBar = Substitute.For<IStatusBarView>();
-            View.StatusBar.Returns(statusBar);
+            Model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
         }
 
-        [TearDown]
-        public void RemovePresenter()
+        [Test]
+        public void StatusBar_RecordsSuccess()
         {
-            if (Presenter != null)
-                Presenter.Dispose();
-
-            Presenter = null;
+            View.StatusBar.Received().RecordSuccess();
         }
     }
 }

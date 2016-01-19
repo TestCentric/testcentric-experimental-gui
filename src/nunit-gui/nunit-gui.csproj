@@ -81,7 +81,6 @@
     <Compile Include="Presenters\TestGrouping.cs" />
     <Compile Include="Presenters\TestListDisplayStrategy.cs" />
     <Compile Include="Presenters\TestPropertiesPresenter.cs" />
-    <Compile Include="Presenters\StatusBarPresenter.cs" />
     <Compile Include="Presenters\DisplayStrategy.cs" />
     <Compile Include="Presenters\XmlPresenter.cs" />
     <Compile Include="Views\IDialog.cs" />

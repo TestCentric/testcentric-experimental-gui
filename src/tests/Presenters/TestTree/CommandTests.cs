@@ -77,6 +77,24 @@ namespace NUnit.Gui.Presenters.TestTree
         }
 
         [Test]
+        public void ContextMenu_ShowCheckBoxes_TurnsOffCheckBoxes()
+        {
+            _view.ShowCheckBoxesCommand.Checked.Returns(false);
+            _view.ShowCheckBoxesCommand.CheckedChanged += Raise.Event<CommandHandler>();
+
+            _view.Tree.Received().CheckBoxes = false;
+        }
+
+        [Test]
+        public void ContextMenu_ShowCheckBoxes_TurnsOnCheckBoxes()
+        {
+            _view.ShowCheckBoxesCommand.Checked.Returns(true);
+            _view.ShowCheckBoxesCommand.CheckedChanged += Raise.Event<CommandHandler>();
+
+            _view.Tree.Received().CheckBoxes = true;
+        }
+
+        [Test]
         public void ContextMenu_ExpandAll_ExpandsTree()
         {
             _view.ExpandAllCommand.Execute += Raise.Event<CommandHandler>();

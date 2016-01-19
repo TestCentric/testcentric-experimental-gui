@@ -38,9 +38,7 @@ namespace NUnit.Gui.Presenters.Main
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(false);
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml("<test-suite/>");
-            TestNode resultNode = new TestNode(doc.FirstChild);
+            var resultNode = new ResultNode("<test-suite duration='1.234'/>");
             Model.RunFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunFinished, resultNode));
         }
 
@@ -110,6 +108,13 @@ namespace NUnit.Gui.Presenters.Main
         public void ProjectMenu_IsVisible()
         {
             View.ProjectMenu.Received().Visible = true;
+        }
+
+        [Test]
+        public void StatusBar_ReceivesRunFinished()
+        {
+            View.StatusBar.Received().RunFinished(1.234);
+
         }
     }
 }
