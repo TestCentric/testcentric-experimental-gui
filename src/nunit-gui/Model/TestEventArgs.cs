@@ -36,34 +36,54 @@ namespace NUnit.Gui.Model
             this.Action = action;
         }
 
-        public TestEventArgs(TestAction action, TestNode test)
+        public TestAction Action { get; private set; }
+    }
+
+    public class TestNodeEventArgs : TestEventArgs
+    {
+        public TestNodeEventArgs(TestAction action, TestNode test)
+            : base(action)
         {
             if (test == null)
                 throw new ArgumentNullException("test");
 
-            this.Action = action;
-            this.Test = test;
+            Test = test;
         }
 
-        public TestEventArgs(TestAction action, ResultNode result)
+        public TestNode Test { get; private set; }
+    }
+
+    public class RunStartingEventArgs : TestEventArgs
+    {
+        public RunStartingEventArgs(int testCount)
+            : base(TestAction.RunStarting)
+        {
+            TestCount = testCount;
+        }
+
+        public int TestCount { get; private set; }
+    }
+
+    public class TestResultEventArgs : TestEventArgs
+    {
+        public TestResultEventArgs(TestAction action, ResultNode result) : base(action)
         {
             if (result == null)
                 throw new ArgumentNullException("result");
 
-            this.Action = action;
-            this.Result = result;
+            Result = result;
         }
 
-        public TestEventArgs(TestAction action, int testCount)
-        {
-            this.Action = action;
-            this.TestCount = testCount;
-        }
-
-        public TestAction Action { get; private set; }
-        public TestNode Test { get; private set; }
         public ResultNode Result { get; private set; }
-        public int TestCount { get; private set; }
-        //public TestOutput TestOutput { get; private set; }
+    }
+
+    public class TestItemEventArgs : EventArgs
+    {
+        public TestItemEventArgs(ITestItem testItem)
+        {
+            TestItem = testItem;
+        }
+
+        public ITestItem TestItem { get; private set; }
     }
 }

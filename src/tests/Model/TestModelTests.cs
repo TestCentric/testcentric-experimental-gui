@@ -66,7 +66,7 @@ namespace NUnit.Gui.Model
         [Test]
         public void CheckStateAfterRunningTests()
         {
-            _model.RunTests(TestFilter.Empty);
+            _model.RunAllTests();
 
             Assert.That(_model.HasTests, "HasTests");
             Assert.NotNull(_model.Tests, "Tests");
@@ -76,7 +76,7 @@ namespace NUnit.Gui.Model
         [Test]
         public void CheckStateAfterUnloading()
         {
-            _model.RunTests(TestFilter.Empty);
+            _model.RunAllTests();
 
             //Assert.False(_model.HasTests, "HasTests");
             //Assert.Null(_model.Tests, "Tests");

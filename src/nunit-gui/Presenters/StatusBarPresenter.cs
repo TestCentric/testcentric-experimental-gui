@@ -57,17 +57,16 @@ namespace NUnit.Gui.Presenters
             _model.TestUnloaded += OnTestUnloaded;
             _model.RunStarting += OnRunStarting;
             _model.RunFinished += OnRunFinished;
-            _model.RunFailed += OnRunFailed;
             _model.TestStarting += OnTestStarting;
             _model.TestFinished += OnTestFinished;
         }
 
-        private void OnTestLoaded(TestEventArgs ea)
+        private void OnTestLoaded(TestNodeEventArgs ea)
         {
             _view.Initialize("Ready", ea.Test.TestCount);
         }
 
-        private void OnTestReloaded(TestEventArgs ea)
+        private void OnTestReloaded(TestNodeEventArgs ea)
         {
             _view.Initialize("Reloaded", ea.Test.TestCount);
         }
@@ -77,27 +76,22 @@ namespace NUnit.Gui.Presenters
             _view.Initialize("Unloaded");
         }
 
-        private void OnRunStarting(TestEventArgs ea)
+        private void OnRunStarting(RunStartingEventArgs ea)
         {
             _view.RunStarting(ea.TestCount);
         }
 
-        private void OnRunFinished(TestEventArgs ea)
+        private void OnRunFinished(TestResultEventArgs ea)
         {
             _view.RunFinished(ea.Result.Duration);
         }
 
-        private void OnRunFailed(TestEventArgs ea)
-        {
-            _view.SetStatus("Run Failed");
-        }
-
-        public void OnTestStarting(TestEventArgs e)
+        public void OnTestStarting(TestNodeEventArgs e)
         {
             _view.SetStatus("Running : " + e.Test.Name);
         }
 
-        private void OnTestFinished(TestEventArgs ea)
+        private void OnTestFinished(TestResultEventArgs ea)
         {
             var result = ea.Result.Outcome;
             if (result.Status == TestStatus.Passed)

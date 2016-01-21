@@ -36,6 +36,8 @@ namespace NUnit.Gui.Presenters
         private readonly IXmlView _view;
         private readonly ITestModel _model;
 
+        private ITestItem _selectedItem;
+
         public XmlPresenter(IXmlView view, ITestModel model)
         {
             _view = view;
@@ -52,13 +54,18 @@ namespace NUnit.Gui.Presenters
             _model.TestReloaded += (ea) => _view.Visible = true;
             _model.TestUnloaded += (ea) => _view.Visible = false;
             _model.RunFinished += (ea) => DisplayXml();
-            _model.SelectedTestChanged += (s, ea) => DisplayXml();
+            _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
+        }
+
+        private void OnSelectedItemChanged(ITestItem testItem)
+        {
+            _selectedItem = testItem;
+            DisplayXml();
         }
 
         private void DisplayXml()
         {
-            var testItem = _model.SelectedTest;
-            var testNode = testItem as TestNode;
+            var testNode = _selectedItem as TestNode;
 
             _view.XmlPanel.Visible = testNode != null;
 
@@ -69,11 +76,10 @@ namespace NUnit.Gui.Presenters
                 _view.TestXml = testNode.Xml;
                 _view.ResumeLayout();
             }
-            else if (testItem != null)
+            else if (_selectedItem != null)
             {
-                _view.Header = testItem.Name;
+                _view.Header = _selectedItem.Name;
             }
         }
-
     }
 }

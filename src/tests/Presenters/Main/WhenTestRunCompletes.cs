@@ -23,7 +23,6 @@
 
 using NSubstitute;
 using NUnit.Framework;
-using System.Xml;
 
 namespace NUnit.Gui.Presenters.Main
 {
@@ -38,10 +37,8 @@ namespace NUnit.Gui.Presenters.Main
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(false);
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml("<test-suite/>");
-            TestNode resultNode = new TestNode(doc.FirstChild);
-            Model.RunFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunFinished, resultNode));
+            var resultNode = new ResultNode("<test-suite/>");
+            Model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
         }
 
 #if NYI

@@ -40,7 +40,7 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
 
-            _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, new TestNode("<test-run/>")));
+            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, new TestNode("<test-run/>")));
         }
 
         [Test]

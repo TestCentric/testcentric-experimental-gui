@@ -38,6 +38,8 @@ namespace NUnit.Gui.Presenters
         private int _maxY = 0;
         private int _nextY = 4;
 
+        private ITestItem _selectedItem;
+
         public TestPropertiesPresenter(ITestPropertiesView view, ITestModel model)
         {
             _view = view;
@@ -54,16 +56,21 @@ namespace NUnit.Gui.Presenters
             _model.TestReloaded += (ea) => _view.Visible = true;
             _model.TestUnloaded += (ea) => _view.Visible = false;
             _model.RunFinished += (ea) => DisplayTestProperties();
-            _model.SelectedTestChanged += (s, ea) => DisplayTestProperties();
-            _view.DisplayHiddenPropertiesChanged += DisplayTestProperties;
+            _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
+            _view.DisplayHiddenPropertiesChanged += () => DisplayTestProperties();
+        }
+
+        private void OnSelectedItemChanged(ITestItem testItem)
+        {
+            _selectedItem = testItem;
+            DisplayTestProperties();
         }
 
         private void DisplayTestProperties()
         {
             // TODO: Insert checks for errors in the XML
 
-            var testItem = _model.SelectedTest;
-            var testNode = testItem as TestNode;
+            var testNode = _selectedItem as TestNode;
             var resultNode = _model.GetResultForTest(testNode);
 
             _view.TestPanel.Visible = testNode != null;
@@ -113,9 +120,9 @@ namespace NUnit.Gui.Presenters
 
                 _view.ResumeLayout();
             }
-            else if (testItem != null)
+            else if (_selectedItem != null)
             {
-                _view.Header = testItem.Name;
+                _view.Header = _selectedItem.Name;
             }
         }
 

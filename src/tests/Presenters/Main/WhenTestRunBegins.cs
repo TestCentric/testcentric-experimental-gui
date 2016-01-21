@@ -35,7 +35,7 @@ namespace NUnit.Gui.Presenters.Main
         {
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(true);
-            Model.RunStarting += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunStarting, 1234));
+            Model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
         }
 
 #if NYI

@@ -41,7 +41,7 @@ namespace NUnit.Gui.Presenters.TestTree
 
             var resultNode = new ResultNode("<test-suite/>");
 
-            _model.RunFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunFinished, resultNode));
+            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
         }
 
 
@@ -73,7 +73,7 @@ namespace NUnit.Gui.Presenters.TestTree
         public void RunAllMenuItemRunsAllTests()
         {
             _view.RunAllCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(NUnit.Engine.TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
     }
 }

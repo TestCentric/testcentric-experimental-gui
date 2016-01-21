@@ -36,6 +36,8 @@ namespace NUnit.Gui.Model
         private TestPackage _package;
         private IDictionary<string, ResultNode> _resultIndex = new Dictionary<string, ResultNode>();
 
+        #region Constructor
+
         public TestModel(ITestEngine testEngine, CommandLineOptions options)
         {
             _testEngine = testEngine;
@@ -44,36 +46,29 @@ namespace NUnit.Gui.Model
             Settings = new Settings.SettingsModel(testEngine.Services.GetService<ISettings>());
         }
 
+        #endregion
+
         #region ITestModel Members
 
         #region Events
 
         // Test loading events
-        //public event TestEventHandler TestLoading;
-        public event TestEventHandler TestLoaded;
-
-        //public event TestEventHandler TestReloading;
-        public event TestEventHandler TestReloaded;
-
-        //public event TestEventHandler TestUnloading;
+        public event TestNodeEventHandler TestLoaded;
+        public event TestNodeEventHandler TestReloaded;
         public event TestEventHandler TestUnloaded;
 
         // Test running events
-        public event TestEventHandler RunStarting;
-        public event TestEventHandler RunFinished;
-        public event TestEventHandler RunFailed;
+        public event RunStartingEventHandler RunStarting;
+        public event TestResultEventHandler RunFinished;
 
-        public event TestEventHandler SuiteStarting;
-        public event TestEventHandler SuiteFinished;
+        public event TestNodeEventHandler SuiteStarting;
+        public event TestResultEventHandler SuiteFinished;
 
-        public event TestEventHandler TestStarting;
-        public event TestEventHandler TestFinished;
-
-        public event TestEventHandler TestException;
-        public event TestEventHandler TestOutput;
+        public event TestNodeEventHandler TestStarting;
+        public event TestResultEventHandler TestFinished;
 
         // Test Selection Event
-        public event EventHandler SelectedTestChanged;
+        public event TestItemEventHandler SelectedItemChanged;
 
         #endregion
 
@@ -100,19 +95,7 @@ namespace NUnit.Gui.Model
             get { return _resultIndex.Count > 0; }
         }
 
-        private ITestItem _selectedTest;
         private IList<string> _files;
-
-        public ITestItem SelectedTest
-        {
-            get { return _selectedTest; }
-            set
-            {
-                _selectedTest = value;
-                if (SelectedTestChanged != null)
-                    SelectedTestChanged(this, new EventArgs());
-            }
-        }
 
         public Settings.SettingsModel Settings { get; private set; }
 
@@ -153,7 +136,7 @@ namespace NUnit.Gui.Model
             }
 
             if (Options.RunAllTests && IsPackageLoaded)
-                RunTests(TestFilter.Empty);
+                RunAllTests();
         }
 
         public void Dispose()
@@ -184,25 +167,14 @@ namespace NUnit.Gui.Model
             _files = files;
             _package = MakeTestPackage(files);
 
-            //if (TestLoading != null)
-            //    TestLoading(new TestEventArgs(TestAction.TestLoading));
+            Runner = _testEngine.GetRunner(_package);
 
-            try
-            {
-                Runner = _testEngine.GetRunner(_package);
-                // TODO: Error here when multiple files are run
-                Tests = new TestNode(Runner.Explore(TestFilter.Empty));
+            Tests = new TestNode(Runner.Explore(TestFilter.Empty));
 
-                _resultIndex.Clear();
-            }
-            catch (Exception ex)
-            {
-                //if (TestException != null)
-                //    TestException(new TestEventArgs(TestAction.TestLoadFailed, ex));
-            }
+            _resultIndex.Clear();
 
             if (TestLoaded != null)
-                TestLoaded(new TestEventArgs(TestAction.TestLoaded, Tests));
+                TestLoaded(new TestNodeEventArgs(TestAction.TestLoaded, Tests));
 
             foreach (var subPackage in _package.SubPackages)
                 RecentFiles.SetMostRecent(subPackage.FullName);
@@ -210,22 +182,11 @@ namespace NUnit.Gui.Model
 
         public void UnloadTests()
         {
-            //if (TestUnloading != null)
-            //    TestUnloading(new TestEventArgs(TestAction.TestUnloading));
-
-            try
-            {
-                Runner.Unload();
-                Tests = null;
-                _package = null;
-                _files = null;
-                _resultIndex.Clear();
-            }
-            catch (Exception ex)
-            {
-                //if (TestException != null)
-                //    TestException(new TestEventArgs(TestAction.TestUnloadFailed, ex));
-            }
+            Runner.Unload();
+            Tests = null;
+            _package = null;
+            _files = null;
+            _resultIndex.Clear();
 
             if (TestUnloaded != null)
                 TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
@@ -233,29 +194,19 @@ namespace NUnit.Gui.Model
 
         public void ReloadTests()
         {
-            //if (TestReloading != null)
-            //    TestReloading(new TestEventArgs(TestAction.TestReloading));
             Runner.Unload();
             _resultIndex.Clear();
             Tests = null;
 
-            try
-            {
-                _package = MakeTestPackage(_files);
-                Runner = _testEngine.GetRunner(_package);
-                // TODO: Error here when multiple files are run
-                Tests = new TestNode(Runner.Explore(TestFilter.Empty));
+            _package = MakeTestPackage(_files);
+            Runner = _testEngine.GetRunner(_package);
 
-                _resultIndex.Clear();
-            }
-            catch (Exception ex)
-            {
-                //if (TestException != null)
-                //    TestException(new TestEventArgs(TestAction.TestLoadFailed, ex));
-            }
+            Tests = new TestNode(Runner.Explore(TestFilter.Empty));
+
+            _resultIndex.Clear();
 
             if (TestReloaded != null)
-                TestReloaded(new TestEventArgs(TestAction.TestReloaded, Tests));
+                TestReloaded(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
         }
 
 
@@ -286,29 +237,15 @@ namespace NUnit.Gui.Model
 
         #endregion
 
+        public void RunAllTests()
+        {
+            Runner.RunAsync(this, TestFilter.Empty);
+        }
 
         public void RunTests(ITestItem testItem)
         {
             if (testItem != null)
-                RunTests(testItem.GetTestFilter());
-        }
-
-        public void RunSelectedTest()
-        {
-            RunTests(this.SelectedTest);
-        }
-
-        public void RunTests(TestFilter filter)
-        {
-            try
-            {
-                Runner.RunAsync(this, filter);
-            }
-            catch (Exception ex)
-            {
-                //if (RunFailed != null)
-                //    RunFailed(new TestEventArgs(TestAction.RunFailed, ex));
-            }
+                Runner.RunAsync(this, testItem.GetTestFilter());
         }
 
         public void CancelTestRun()
@@ -326,6 +263,12 @@ namespace NUnit.Gui.Model
             }
 
             return null;
+        }
+
+        public void NotifySelectedItemChanged(ITestItem testItem)
+        {
+            if (SelectedItemChanged != null)
+                SelectedItemChanged(new TestItemEventArgs(testItem));
         }
 
         #endregion
@@ -356,38 +299,38 @@ namespace NUnit.Gui.Model
             {
                 case "start-test":
                     if (TestStarting != null)
-                        TestStarting(new TestEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
+                        TestStarting(new TestNodeEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-suite":
                     if (SuiteStarting != null)
-                        SuiteStarting(new TestEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
+                        SuiteStarting(new TestNodeEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-run":
                     if (RunStarting != null)
-                        RunStarting(new TestEventArgs(TestAction.RunStarting, xmlNode.GetAttribute("count", -1)));
+                        RunStarting(new RunStartingEventArgs(xmlNode.GetAttribute("count", -1)));
                     break;
 
                 case "test-case":
                     ResultNode result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
                     if (TestFinished != null)
-                        TestFinished(new TestEventArgs(TestAction.TestFinished, result));
+                        TestFinished(new TestResultEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-suite":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
                     if (SuiteFinished != null)
-                        SuiteFinished(new TestEventArgs(TestAction.TestFinished, result));
+                        SuiteFinished(new TestResultEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-run":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
                     if (RunFinished != null)
-                        RunFinished(new TestEventArgs(TestAction.RunFinished, result));
+                        RunFinished(new TestResultEventArgs(TestAction.RunFinished, result));
                     break;
             }
         }
