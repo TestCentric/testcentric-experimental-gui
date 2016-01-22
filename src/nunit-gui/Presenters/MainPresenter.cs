@@ -173,6 +173,11 @@ namespace NUnit.Gui.Presenters
            _model.ReloadTests();
         }
 
+        private void OnReloadTestsCommand(string runtime)
+        {
+            _model.ReloadTests(runtime);
+        }
+
         void OpenSettingsDialogCommand_Execute()
         {
             // The SettingsDialog has been ported from an older version of
@@ -211,7 +216,13 @@ namespace NUnit.Gui.Presenters
             var dropDownItems = _view.SelectRuntimeMenu.ToolStripItem.DropDownItems;
             dropDownItems.Clear();
             foreach (var runtime in _model.AvailableRuntimes)
-                dropDownItems.Add(runtime.DisplayName);
+            {
+                var menuItem = runtime.DisplayName;
+                // Don't use Full suffix, but keep Client if present
+                if (menuItem.EndsWith(" - Full"))
+                    menuItem = menuItem.Substring(0, menuItem.Length - 7);
+                dropDownItems.Add(menuItem, null, (s, ea) => OnReloadTestsCommand(runtime.ToString()));
+            }
         }
 
         #endregion

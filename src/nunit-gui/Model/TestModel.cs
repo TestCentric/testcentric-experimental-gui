@@ -101,6 +101,12 @@ namespace NUnit.Gui.Model
 
         // TODO: We are directly using an engine class here rather
         // than going through the API - need to fix this.
+        // Note that the engine returns more values than we really
+        // want to list. For example, we don't distinguish between
+        // client and full profiles when executing tests. So we do
+        // a lot of manipulation of this list here. Even if some of
+        // the problems in the engine are fixed, we may have to
+        // retain this code in order to work with older engines.
         private List<RuntimeFramework> _runtimes;
         public IList<RuntimeFramework> AvailableRuntimes
         {
@@ -110,8 +116,48 @@ namespace NUnit.Gui.Model
                 {
                     _runtimes = new List<RuntimeFramework>();
                     foreach (var runtime in RuntimeFramework.AvailableFrameworks)
-                        _runtimes.Add(runtime);
+                    {
+                        // Nothing below 2.0
+                        if (runtime.ClrVersion.Major < 2)
+                            continue;
+
+                        // Remove erroneous entries for 4.5 Client profile
+                        if (runtime.FrameworkVersion.Major == 4 && runtime.FrameworkVersion.Minor > 0)
+                            if (runtime.DisplayName.EndsWith("Client"))
+                                continue;
+
+                        // Skip duplicates
+                        var duplicate = false;
+                        foreach (var rt in _runtimes)
+                            if (rt.DisplayName == runtime.DisplayName)
+                            {
+                                duplicate = true;
+                                break;
+                            }
+
+                        if (!duplicate)
+                            _runtimes.Add(runtime);
+                    }
+
                     _runtimes.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
+
+                    // Now eliminate child entries where full entry follows
+                    for (int i = _runtimes.Count - 2; i >=0; i--)
+                    {
+                        var rt1 = _runtimes[i];
+                        var rt2 = _runtimes[i + 1];
+
+                        if (rt1.Runtime != rt2.Runtime)
+                            continue;
+                        if (rt1.FrameworkVersion != rt2.FrameworkVersion)
+                            continue;
+
+                        if (_runtimes[i].DisplayName.EndsWith(" - Client") &&
+                            _runtimes[i+1].DisplayName.EndsWith(" - Full"))
+                        {
+                            _runtimes.RemoveAt(i);
+                        }
+                    }
                 }
 
                 return _runtimes;
@@ -194,11 +240,18 @@ namespace NUnit.Gui.Model
 
         public void ReloadTests()
         {
+            ReloadTests(null);
+        }
+
+        public void ReloadTests(string runtime)
+        {
             Runner.Unload();
             _resultIndex.Clear();
             Tests = null;
 
             _package = MakeTestPackage(_files);
+            if (runtime != null)
+                _package.Settings["RuntimeFramework"] = runtime;
             Runner = _testEngine.GetRunner(_package);
 
             Tests = new TestNode(Runner.Explore(TestFilter.Empty));
@@ -208,7 +261,6 @@ namespace NUnit.Gui.Model
             if (TestReloaded != null)
                 TestReloaded(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
         }
-
 
         #region Helper Methods
 

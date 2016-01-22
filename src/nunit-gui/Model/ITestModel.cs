@@ -106,6 +106,9 @@ namespace NUnit.Gui.Model
         // Reload current TestPackage
         void ReloadTests();
 
+        // Reload current TestPackage using specified runtime
+        void ReloadTests(string runtime);
+
         // Run all the tests
         void RunAllTests();
 
