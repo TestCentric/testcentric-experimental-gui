@@ -61,6 +61,7 @@ namespace NUnit.Gui.Views
                 byAssemblyMenuItem, byFixtureMenuItem, byCategoryMenuItem, byOutcomeMenuItem, byDurationMenuItem);
 
             RunContextCommand = new MenuElement(this.runMenuItem);
+            RunCheckedCommand = new MenuElement(this.runCheckedMenuItem);
             ShowCheckBoxesCommand = new MenuElement(showCheckboxesMenuItem);
             ExpandAllCommand = new MenuElement(expandAllMenuItem);
             CollapseAllCommand = new MenuElement(collapseAllMenuItem);
@@ -78,6 +79,7 @@ namespace NUnit.Gui.Views
         public ICommand StopRunCommand { get; private set; }
 
         public ICommand RunContextCommand { get; private set; }
+        public ICommand RunCheckedCommand { get; private set; }
         public IChecked ShowCheckBoxesCommand { get; private set; }
         public ICommand ExpandAllCommand { get; private set; }
         public ICommand CollapseAllCommand { get; private set; }

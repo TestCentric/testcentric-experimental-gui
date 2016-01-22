@@ -75,7 +75,7 @@ namespace NUnit.Gui.Presenters.TestTree
             var treeNode = new TreeNode("MyTest");
             treeNode.Tag = new TestNode(xmlNode);
 
-            _view.Tree.ContextNode.Returns(treeNode);
+            _view.Tree.SelectedNodeChanged += Raise.Event<TreeNodeActionHandler>(treeNode);
             _view.RunContextCommand.Execute += Raise.Event<CommandHandler>();
 
             _model.Received().RunTests(Arg.Is<TestNode>((t) => t.Id == "5"));

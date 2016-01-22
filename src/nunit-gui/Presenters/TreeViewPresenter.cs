@@ -95,11 +95,18 @@ namespace NUnit.Gui.Presenters
             };
 
             // View context commands
+            _view.Tree.ContextMenu.Popup += () =>
+                _view.RunCheckedCommand.Visible = _view.Tree.CheckBoxes && _view.Tree.CheckedNodes.Count > 0;
             _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
             _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
             _view.CollapseToFixturesCommand.Execute += () => _strategy.CollapseToFixtures();
             _view.ShowCheckBoxesCommand.CheckedChanged += () => _view.Tree.CheckBoxes = _view.ShowCheckBoxesCommand.Checked;;
-            _view.RunContextCommand.Execute += () => _model.RunTests(_view.Tree.ContextNode.Tag as ITestItem);
+            _view.RunContextCommand.Execute += () =>
+            {
+                if (_selectedTestItem != null)
+                    _model.RunTests(_selectedTestItem);
+            };
+            _view.RunCheckedCommand.Execute += RunCheckedTests;
 
             // Node selected in tree
             _view.Tree.SelectedNodeChanged += (tn) =>
@@ -116,7 +123,7 @@ namespace NUnit.Gui.Presenters
                     _model.RunAllTests();
             };
             _view.RunAllCommand.Execute += () => _model.RunAllTests();
-            _view.RunSelectedCommand.Execute += () => RunSelectedTests();
+            _view.RunSelectedCommand.Execute += () => _model.RunTests(_selectedTestItem);
             _view.RunFailedCommand.Execute += () => _model.RunAllTests(); // NYI
             _view.StopRunCommand.Execute += () => _model.CancelTestRun();
 
@@ -129,18 +136,24 @@ namespace NUnit.Gui.Presenters
             };
         }
 
-        private void RunSelectedTests()
+        private void RunCheckedTests()
         {
-            //if (_view.Tree.CheckBoxes)
-            //{
-            //    var treeNodes = _view.Tree.CheckedNodes;
-            //    if (treeNodes.Count > 0)
-            //    {
-                     
-            //    }
-            //}
-            
-            _model.RunTests(_selectedTestItem);
+            var tests = new TestGroup("RunTests");
+
+            foreach (var treeNode in _view.Tree.CheckedNodes)
+            {
+                var testNode = treeNode.Tag as TestNode;
+                if (testNode != null)
+                    tests.Add(testNode);
+                else
+                {
+                    var group = treeNode.Tag as TestGroup;
+                    if (group != null)
+                        tests.AddRange(group);
+                }
+            }
+
+            _model.RunTests(tests);
         }
 
         private void InitializeRunCommands()

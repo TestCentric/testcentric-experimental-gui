@@ -49,15 +49,13 @@ namespace NUnit.UiKit.Elements
                     SelectedNodeChanged(e.Node);
             };
 
-            treeView.MouseDown += (s, e) =>
+            treeView.MouseUp += (s, e) =>
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    ContextNode = treeView.GetNodeAt(e.X, e.Y);
-                    if (ContextNode == null)
-                        ContextNode = treeView.SelectedNode;
-                    if (ContextNode == null)
-                        ContextNode = treeView.Nodes[0];
+                    var treeNode = treeView.GetNodeAt(e.X, e.Y);
+                    if (treeNode != null)
+                        treeView.SelectedNode = treeNode;
                 }
             };
         }
@@ -115,9 +113,8 @@ namespace NUnit.UiKit.Elements
         public TreeNode SelectedNode
         {
             get { return Control.SelectedNode; }
+            set { Control.SelectedNode = value; }
         }
-
-        public TreeNode ContextNode { get; private set; }
 
         public IList<TreeNode> CheckedNodes
         {
