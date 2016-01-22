@@ -42,7 +42,7 @@ namespace NUnit.Gui.Presenters.Main
             doc.LoadXml("<test-suite id='1'/>");
             TestNode testNode = new TestNode(doc.FirstChild);
             Model.Tests.Returns(testNode);
-            Model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, testNode));
+            Model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, testNode));
         }
 
 #if NYI

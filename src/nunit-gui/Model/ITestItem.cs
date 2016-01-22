@@ -32,7 +32,7 @@ namespace NUnit.Gui.Model
     /// <summary>
     /// ITestItem is the common interface shared by TestNodes
     /// and TestGroups and allows either to be selected in
-    /// the settingsServiceServiceService.
+    /// the tree.
     /// </summary>
     public interface ITestItem
     {

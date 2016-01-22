@@ -58,8 +58,6 @@ namespace NUnit.Gui.Presenters
             _model.TestReloaded += (ea) => InitializeMainMenu();
             _model.RunStarting += (ea) => InitializeMainMenu();
             _model.RunFinished += (ea) => InitializeMainMenu();
-            _model.RunFailed += OnFailure;
-            _model.TestException += OnFailure;
 
             // View Events
             _view.Load += MainForm_Load;
@@ -107,11 +105,6 @@ namespace NUnit.Gui.Presenters
 
             // Project Menu
             _view.ProjectMenu.Enabled = _view.ProjectMenu.Visible = _model.HasTests;
-        }
-
-        private void OnFailure(TestEventArgs ea)
-        {
-            MessageBox.Show(ea.Test.Xml.OuterXml, ea.Action.ToString());
         }
 
         #endregion

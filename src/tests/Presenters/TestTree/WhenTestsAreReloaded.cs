@@ -34,13 +34,13 @@ namespace NUnit.Gui.Presenters.TestTree
     public class WhenTestsAreReloaded : TestTreePresenterTestBase
     {
         [SetUp]
-        public void SimulateTesReload()
+        public void SimulateTestReload()
         {
             _model.IsPackageLoaded.Returns(true);
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
 
-            _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestReloaded, new TestNode("<test-run/>")));
+            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, new TestNode("<test-run/>")));
         }
 
         [Test]

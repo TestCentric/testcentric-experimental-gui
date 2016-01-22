@@ -60,7 +60,9 @@ namespace NUnit.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
-            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded));
+
+            var testNode = new TestNode("<test-suite id='1' testcasecount='1234'/>");
+            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, testNode));
 
             _view.Received().Initialize(100);
         }
@@ -80,7 +82,9 @@ namespace NUnit.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
-            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestReloaded));
+
+            var testNode = new TestNode("<test-suite id='1' testcasecount='1234'/>");
+            _model.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
 
             _view.Received().Initialize(100);
         }
@@ -90,7 +94,7 @@ namespace NUnit.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunStarting, 1234));
+            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
 
             _view.Received().Initialize(1234);
         }
@@ -99,9 +103,9 @@ namespace NUnit.Gui.Presenters
         public void WhenTestCaseCompletes_ProgressIsIncremented()
         {
             int priorValue = _view.Progress;
-            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
+            var result = new ResultNode("<test-case id='1'/>");
 
-            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
+            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             Assert.That(_view.Progress, Is.EqualTo(priorValue + 1));
         }
@@ -110,9 +114,9 @@ namespace NUnit.Gui.Presenters
         public void WhenTestSuiteCompletes_ProgressIsNotIncremented()
         {
             int priorValue = _view.Progress;
-            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-suite id='1'/>"));
+            var result = new ResultNode("<test-suite id='1'/>");
 
-            _model.SuiteFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.SuiteFinished, result));
+            _model.SuiteFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.SuiteFinished, result));
 
             Assert.That(_view.Progress, Is.EqualTo(priorValue));
         }
@@ -166,8 +170,8 @@ namespace NUnit.Gui.Presenters
 
             _model.HasTests.Returns(true);
             _model.Tests.Returns(result);
-            _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, result));
-            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
+            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, result));
+            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             Assert.That(_view.Status, Is.EqualTo(expectedStatus));
         }

@@ -39,28 +39,33 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
             _view.RunButton.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
 
         [Test]
         public void ToolStrip_RunAllCommand_RunsAllTests()
         {
             _view.RunAllCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
 
         [Test]
         public void ToolStrip_RunSelectedCommand_RunsSelectedTest()
         {
+            var testNode = new TestNode("<test-case id='123'/>");
+            var treeNode = new TreeNode("test");
+            treeNode.Tag = testNode;
+
+            _view.Tree.SelectedNodeChanged += Raise.Event<TreeNodeActionHandler>(treeNode);
             _view.RunSelectedCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunSelectedTest();
+            _model.Received().RunTests(testNode);
         }
 
         [Test]
         public void ToolStrip_RunFailedCommand_RunsAllTests()
         {
             _view.RunFailedCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
 
         [Test]

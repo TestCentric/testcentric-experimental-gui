@@ -81,7 +81,7 @@ namespace NUnit.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunStarting, 1234));
+            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
 
             _view.Received().RunStarting(1234);
         }
@@ -91,7 +91,7 @@ namespace NUnit.Gui.Presenters
         {
             var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
 
-            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
+            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             _view.Received().RecordSuccess();
         }

@@ -42,6 +42,8 @@ namespace NUnit.Gui.Presenters
 
         private DisplayStrategy _strategy;
 
+        private ITestItem _selectedTestItem;
+
         private Dictionary<string, TreeNode> _nodeIndex = new Dictionary<string, TreeNode>();
 
         #region Constructor
@@ -100,18 +102,22 @@ namespace NUnit.Gui.Presenters
             _view.RunContextCommand.Execute += () => _model.RunTests(_view.Tree.ContextNode.Tag as ITestItem);
 
             // Node selected in tree
-            _view.Tree.SelectedNodeChanged += (tn) => _model.SelectedTest = tn.Tag as ITestItem;
+            _view.Tree.SelectedNodeChanged += (tn) =>
+            {
+                _selectedTestItem = tn.Tag as ITestItem;
+                _model.NotifySelectedItemChanged(_selectedTestItem);
+            };
 
             // Run button and dropdowns
             _view.RunButton.Execute += () =>
             {
                 // Necessary test because we don't disable the button click
                 if (_model.HasTests && !_model.IsTestRunning)
-                    _model.RunTests(TestFilter.Empty);
+                    _model.RunAllTests();
             };
-            _view.RunAllCommand.Execute += () => _model.RunTests(TestFilter.Empty);
+            _view.RunAllCommand.Execute += () => _model.RunAllTests();
             _view.RunSelectedCommand.Execute += () => RunSelectedTests();
-            _view.RunFailedCommand.Execute += () => _model.RunTests(TestFilter.Empty); // NYI
+            _view.RunFailedCommand.Execute += () => _model.RunAllTests(); // NYI
             _view.StopRunCommand.Execute += () => _model.CancelTestRun();
 
             // Change of display format
@@ -134,7 +140,7 @@ namespace NUnit.Gui.Presenters
             //    }
             //}
             
-            _model.RunSelectedTest();
+            _model.RunTests(_selectedTestItem);
         }
 
         private void InitializeRunCommands()
