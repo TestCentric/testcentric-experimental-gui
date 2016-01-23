@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -23,7 +23,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 using NUnit.UiKit.Elements;
 using NSubstitute;
 
