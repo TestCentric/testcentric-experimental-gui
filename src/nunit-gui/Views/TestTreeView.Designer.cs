@@ -57,6 +57,7 @@
             this.byCategoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byOutcomeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byDurationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runCheckedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testTreeContextMenu.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +79,7 @@
             // 
             this.testTreeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.runMenuItem,
+            this.runCheckedMenuItem,
             this.toolStripMenuItem13,
             this.showCheckboxesMenuItem,
             this.toolStripSeparator1,
@@ -85,7 +87,7 @@
             this.collapseAllMenuItem,
             this.collapseToFixturesMenuItem});
             this.testTreeContextMenu.Name = "testTreeContextMenu";
-            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 148);
+            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 170);
             // 
             // runMenuItem
             // 
@@ -280,6 +282,12 @@
             this.byDurationMenuItem.Tag = "DURATION";
             this.byDurationMenuItem.Text = "By Duration";
             // 
+            // runCheckedMenuItem
+            // 
+            this.runCheckedMenuItem.Name = "runCheckedMenuItem";
+            this.runCheckedMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.runCheckedMenuItem.Text = "Run Checked Items";
+            // 
             // TestTreeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,5 +332,6 @@
         private System.Windows.Forms.ToolStripMenuItem fixtureListMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showCheckboxesMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem runCheckedMenuItem;
     }
 }

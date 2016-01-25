@@ -35,11 +35,14 @@ namespace NUnit.UiKit.Elements
         public ContextMenuElement(ContextMenuStrip contextMenu)
             : base(contextMenu)
         {
+            contextMenu.Opening += (s, cea) =>
+            {
+                if (Popup != null)
+                    Popup();
+            };
         }
 
-        public ContextMenuElement() : base(new ContextMenuStrip())
-        {
-        }
+        public event CommandHandler Popup;
 
         public ToolStripItemCollection Items
         {
