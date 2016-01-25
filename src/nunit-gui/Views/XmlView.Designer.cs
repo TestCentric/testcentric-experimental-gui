@@ -61,6 +61,7 @@
             // xmlTextBox
             // 
             this.xmlTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xmlTextBox.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.xmlTextBox.Location = new System.Drawing.Point(0, 33);
             this.xmlTextBox.Name = "xmlTextBox";
             this.xmlTextBox.ReadOnly = true;

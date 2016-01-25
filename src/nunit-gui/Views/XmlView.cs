@@ -61,7 +61,7 @@ namespace NUnit.Gui.Views
             set
             {
                 _testXml = value;
-                InvokeIfRequired(() => xmlTextBox.Text = TestXml != null ? XmlHelper.ToFormattedString(_testXml, 2) : "");
+                InvokeIfRequired(() => xmlTextBox.Rtf = TestXml != null ? XmlHelper.ToRtfString(_testXml, 2) : "");
             }
         }
 

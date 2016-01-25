@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 namespace System.Runtime.CompilerServices
@@ -143,6 +143,12 @@ namespace NUnit.Gui
                 }
                 return sw.ToString();
             }
+        }
+
+        public static string ToRtfString(XmlNode node, int indentationSize)
+        {
+            var converter = new Xml2RtfConverter(2);
+            return converter.Convert(node);
         }
     }
 }
