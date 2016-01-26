@@ -191,6 +191,7 @@
     <Compile Include="Views\XmlView.Designer.cs">
       <DependentUpon>XmlView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Xml2RtfConverter.cs" />
     <Compile Include="XmlHelper.cs" />
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
