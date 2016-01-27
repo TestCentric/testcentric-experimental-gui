@@ -21,35 +21,61 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NSubstitute;
-using NUnit.Framework;
+using System.Windows.Forms;
+using System.Xml;
 
-namespace NUnit.Gui.Presenters.TestTree
+using NUnit.UiKit.Elements;
+
+namespace NUnit.Gui.Views
 {
-    public class WhenPresenterIsCreated : TestTreePresenterTestBase
+  public interface IXmlView : IView
+  {
+    bool Visible { get; set; }
+    string Header { get; set; }
+    IViewElement XmlPanel { get; }
+    XmlNode TestXml { get; set; }
+  }
+
+    public partial class XmlView : UserControl, IXmlView
     {
-        [Test]
-        public void RunAllCommand_IsDisabled()
+        private XmlNode _testXml;
+
+        public XmlView()
         {
-            _view.RunAllCommand.Received(1).Enabled = false;
+            InitializeComponent();
+
+            XmlPanel = new ControlElement<Panel>(xmlPanel);
         }
 
-        [Test]
-        public void RunSelectedCommand_IsDisabled()
+        public string Header
         {
-            _view.RunSelectedCommand.Received(1).Enabled = false;
+            get { return header.Text; }
+            set { InvokeIfRequired(() => { header.Text = value; }); }
         }
 
-        [Test]
-        public void RunFailedCommand_IsDisabled()
+        public IViewElement XmlPanel { get; private set; }
+
+        public XmlNode TestXml
         {
-            _view.RunFailedCommand.Received(1).Enabled = false;
+            get { return _testXml; }
+            set
+            {
+                _testXml = value;
+                InvokeIfRequired(() => xmlTextBox.Rtf = TestXml != null ? XmlHelper.ToRtfString(_testXml, 2) : "");
+            }
         }
 
-        [Test]
-        public void StopRunCommand_IsDisabled()
+        #region Helper Methods
+
+        private void InvokeIfRequired(MethodInvoker _delegate)
         {
-            _view.StopRunCommand.Received(1).Enabled = false;
+            if (this.InvokeRequired)
+                this.BeginInvoke(_delegate);
+            else
+                _delegate();
         }
+
+        #endregion
+
     }
 }

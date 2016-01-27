@@ -33,10 +33,6 @@ namespace NUnit.UiKit.Elements
         public ToolStripElement(T toolStripItem)
         {
             this.ToolStripItem = toolStripItem;
-
-            _visible = toolStripItem.Visible;
-            _enabled = toolStripItem.Enabled;
-            _text = toolStripItem.Text;
         }
 
         public T ToolStripItem { get; private set; }
@@ -46,57 +42,28 @@ namespace NUnit.UiKit.Elements
             get { return ToolStripItem.Name; }
         }
 
-        private bool _enabled;
         public bool Enabled
         {
-            get { return _enabled; }
-            set
-            {
-                if (_enabled != value)
-                {
-                    _enabled = value;
-                    InvokeIfRequired(() => { ToolStripItem.Enabled = value; });
-                }
-            }
+            get { return ToolStripItem.Enabled; }
+            set { InvokeIfRequired(() => { ToolStripItem.Enabled = value; }); }
         }
 
-        private bool _visible;
         public bool Visible
         {
-            get { return _visible; }
-            set
-            {
-                if (_visible != value)
-                {
-                    _visible = value;
-                    InvokeIfRequired(() => { ToolStripItem.Visible = value; });
-                }
-            }
+            get { return ToolStripItem.Visible; }
+            set { InvokeIfRequired(() => { ToolStripItem.Visible = value; }); }
         }
 
-        private string _text;
         public string Text
         {
-            get { return _text; }
-            set
-            {
-                if (_text != value)
-                {
-                    _text = value;
-                    InvokeIfRequired(() => { ToolStripItem.Text = value; });
-                }
-            }
+            get { return ToolStripItem.Text; }
+            set { InvokeIfRequired(() => { ToolStripItem.Text = value; }); }
         }
 
-        private string _toolTipText;
         public string ToolTipText
         {
             get { return ToolStripItem.ToolTipText; }
-            set
-            {
-                _toolTipText = value;
-                InvokeIfRequired(() => { ToolStripItem.ToolTipText = value; });
-            }
+            set { InvokeIfRequired(() => { ToolStripItem.ToolTipText = value; }); }
         }
 
         public void InvokeIfRequired(MethodInvoker del)

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -35,7 +35,7 @@ namespace NUnit.Gui.Presenters.Main
         {
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(true);
-            Model.RunStarting += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunStarting, 1234));
+            Model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
         }
 
 #if NYI

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -24,7 +24,6 @@
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.UiKit.Elements;
-using System.Xml;
 
 namespace NUnit.Gui.Presenters.TestTree
 {
@@ -41,7 +40,7 @@ namespace NUnit.Gui.Presenters.TestTree
 
             var resultNode = new ResultNode("<test-suite/>");
 
-            _model.RunFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunFinished, resultNode));
+            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
         }
 
 
@@ -73,7 +72,7 @@ namespace NUnit.Gui.Presenters.TestTree
         public void RunAllMenuItemRunsAllTests()
         {
             _view.RunAllCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(NUnit.Engine.TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
     }
 }

@@ -27,47 +27,35 @@ using NUnit.Engine;
 namespace NUnit.Gui.Model
 {
     /// <summary>
-    /// The delegate for all events related to running tests
+    /// Delegates for all events related to the model
     /// </summary>
     public delegate void TestEventHandler(TestEventArgs args);
+    public delegate void RunStartingEventHandler(RunStartingEventArgs args);
+    public delegate void TestNodeEventHandler(TestNodeEventArgs args);
+    public delegate void TestResultEventHandler(TestResultEventArgs args);
+    public delegate void TestItemEventHandler(TestItemEventArgs args);
 
     public interface ITestModel : IServiceLocator, System.IDisposable
     {
         #region Events
 
         // Events related to loading and unloading tests.
-        //event TestEventHandler TestLoading;
-        event TestEventHandler TestLoaded;
-
-        //event TestEventHandler TestReloading;
-        event TestEventHandler TestReloaded;
-
-        //event TestEventHandler TestUnloading;
+        event TestNodeEventHandler TestLoaded;
+        event TestNodeEventHandler TestReloaded;
         event TestEventHandler TestUnloaded;
 
-        // Events related to a running a set of tests
-        event TestEventHandler RunStarting;
-        event TestEventHandler SuiteStarting;
-        event TestEventHandler TestStarting;
+        // Events related to running tests
+        event RunStartingEventHandler RunStarting;
+        event TestNodeEventHandler SuiteStarting;
+        event TestNodeEventHandler TestStarting;
 
-        event TestEventHandler RunFinished;
-        event TestEventHandler SuiteFinished;
-        event TestEventHandler TestFinished;
+        event TestResultEventHandler RunFinished;
+        event TestResultEventHandler SuiteFinished;
+        event TestResultEventHandler TestFinished;
 
-        event TestEventHandler RunFailed;
-
-        /// <summary>
-        /// An unhandled exception was thrown during a test run,
-        /// and it cannot be associated with a particular test failure.
-        /// </summary>
-        event TestEventHandler TestException;
-
-        /// <summary>
-        /// Console Out/Error
-        /// </summary>
-        event TestEventHandler TestOutput;
-
-        event System.EventHandler SelectedTestChanged;
+        // Event used to broadcast a change in the selected
+        // item, so that all presenters may be notified.
+        event TestItemEventHandler SelectedItemChanged;
 
         #endregion
 
@@ -88,13 +76,7 @@ namespace NUnit.Gui.Model
         // See if a test is running
         bool IsTestRunning { get; }
 
-        //// Our last test results
-        //TestResult TestResult { get; }
-
         bool HasResults { get; }
-
-        // The currently selected test item
-        ITestItem SelectedTest { get; set; }
 
         Settings.SettingsModel Settings { get; }
 
@@ -124,21 +106,23 @@ namespace NUnit.Gui.Model
         // Reload current TestPackage
         void ReloadTests();
 
+        // Reload current TestPackage using specified runtime
+        void ReloadTests(string runtime);
+
+        // Run all the tests
+        void RunAllTests();
+
         // Run just the specified ITestItem
         void RunTests(ITestItem testItem);
-
-        // Run the currently selected test or group
-        void RunSelectedTest();
-
-        // Run the tests in the current TestPackage
-        // using the provided filter.
-        void RunTests( NUnit.Engine.TestFilter filter );
 
         // Cancel the running test
         void CancelTestRun();
 
         // Get the result for a test if available
         ResultNode GetResultForTest(TestNode testNode);
+
+        // Broadcast event when SelectedTestItem changes
+        void NotifySelectedItemChanged(ITestItem testItem);
         
         #endregion
     }

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -39,28 +39,33 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
             _view.RunButton.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
 
         [Test]
         public void ToolStrip_RunAllCommand_RunsAllTests()
         {
             _view.RunAllCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
 
         [Test]
         public void ToolStrip_RunSelectedCommand_RunsSelectedTest()
         {
+            var testNode = new TestNode("<test-case id='123'/>");
+            var treeNode = new TreeNode("test");
+            treeNode.Tag = testNode;
+
+            _view.Tree.SelectedNodeChanged += Raise.Event<TreeNodeActionHandler>(treeNode);
             _view.RunSelectedCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunSelectedTest();
+            _model.Received().RunTests(testNode);
         }
 
         [Test]
         public void ToolStrip_RunFailedCommand_RunsAllTests()
         {
             _view.RunFailedCommand.Execute += Raise.Event<CommandHandler>();
-            _model.Received().RunTests(TestFilter.Empty);
+            _model.Received().RunAllTests();
         }
 
         [Test]
@@ -70,7 +75,7 @@ namespace NUnit.Gui.Presenters.TestTree
             var treeNode = new TreeNode("MyTest");
             treeNode.Tag = new TestNode(xmlNode);
 
-            _view.Tree.ContextNode.Returns(treeNode);
+            _view.Tree.SelectedNodeChanged += Raise.Event<TreeNodeActionHandler>(treeNode);
             _view.RunContextCommand.Execute += Raise.Event<CommandHandler>();
 
             _model.Received().RunTests(Arg.Is<TestNode>((t) => t.Id == "5"));

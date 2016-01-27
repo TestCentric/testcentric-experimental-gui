@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,13 +21,13 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using NUnit.Engine;
 using NUnit.Framework;
 using NUnit.Gui.Tests.Assemblies;
 
 namespace NUnit.Gui.Model
 {
+    [Explicit("Second TestEngine conflicts with main engine")]
     public class TestModelTests
     {
         private const string MOCK_ASSEMBLY = "mock-assembly.dll";
@@ -66,7 +66,7 @@ namespace NUnit.Gui.Model
         [Test]
         public void CheckStateAfterRunningTests()
         {
-            _model.RunTests(TestFilter.Empty);
+            _model.RunAllTests();
 
             Assert.That(_model.HasTests, "HasTests");
             Assert.NotNull(_model.Tests, "Tests");
@@ -76,7 +76,7 @@ namespace NUnit.Gui.Model
         [Test]
         public void CheckStateAfterUnloading()
         {
-            _model.RunTests(TestFilter.Empty);
+            _model.RunAllTests();
 
             //Assert.False(_model.HasTests, "HasTests");
             //Assert.Null(_model.Tests, "Tests");

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,7 +22,6 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
-using System.Xml;
 using NSubstitute;
 
 namespace NUnit.Gui.Presenters
@@ -98,8 +97,8 @@ namespace NUnit.Gui.Presenters
 
             //var treeNode = _adapter.MakeTreeNode(result);
             //_adapter.NodeIndex[suiteResult.Id] = treeNode;
-            _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, testNode));
-            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, resultNode));
+            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, testNode));
+            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, resultNode));
 
             _view.Tree.Received().SetImageIndex(Arg.Any<TreeNode>(), expectedIndex);
         }

@@ -39,8 +39,8 @@ namespace NUnit.UiKit.Elements
         bool CheckBoxes { get; set; }
         int VisibleCount { get; }
 
-        TreeNode SelectedNode { get; }
-        TreeNode ContextNode { get; }
+        TreeNode SelectedNode { get; set; }
+        IList<TreeNode> CheckedNodes { get; }
 
         IContextMenuElement ContextMenu { get; set; }
 

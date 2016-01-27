@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -36,7 +36,7 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.IsPackageLoaded.Returns(true);
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunStarting, 1234));
+            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
         }
 
         [Test]

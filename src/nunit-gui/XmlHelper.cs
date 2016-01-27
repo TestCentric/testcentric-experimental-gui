@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 namespace System.Runtime.CompilerServices
@@ -130,5 +130,25 @@ namespace NUnit.Gui
         //}
 
         #endregion
+
+        public static string ToFormattedString(System.Xml.XmlNode node, int indentation)
+        {
+            using (var sw = new System.IO.StringWriter())
+            {
+                using (var xw = new System.Xml.XmlTextWriter(sw))
+                {
+                    xw.Formatting = System.Xml.Formatting.Indented;
+                    xw.Indentation = indentation;
+                    node.WriteTo(xw);
+                }
+                return sw.ToString();
+            }
+        }
+
+        public static string ToRtfString(XmlNode node, int indentationSize)
+        {
+            var converter = new Xml2RtfConverter(2);
+            return converter.Convert(node);
+        }
     }
 }

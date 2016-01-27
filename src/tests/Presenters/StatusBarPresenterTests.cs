@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,7 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Xml;
 using NUnit.UiKit.Controls;
 using NSubstitute;
 
@@ -81,7 +80,7 @@ namespace NUnit.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.RunStarting, 1234));
+            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
 
             _view.Received().RunStarting(1234);
         }
@@ -91,7 +90,7 @@ namespace NUnit.Gui.Presenters
         {
             var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
 
-            _model.TestFinished += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestFinished, result));
+            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             _view.Received().RecordSuccess();
         }

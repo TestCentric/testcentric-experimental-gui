@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -23,8 +23,6 @@
 
 using NSubstitute;
 using NUnit.Framework;
-using System.Windows.Forms;
-using System.Xml;
 
 namespace NUnit.Gui.Presenters.TestTree
 {
@@ -40,7 +38,7 @@ namespace NUnit.Gui.Presenters.TestTree
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(false);
 
-            _model.TestLoaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestLoaded, new TestNode("<test-run/>")));
+            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, new TestNode("<test-run/>")));
         }
 
         [Test]

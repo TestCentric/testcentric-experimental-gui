@@ -31,6 +31,7 @@ namespace NUnit.UiKit.Elements
     /// </summary>
     public interface IContextMenuElement : IControlElement<ContextMenuStrip>
     {
+        event CommandHandler Popup;
 
         ToolStripItemCollection Items { get; }
 

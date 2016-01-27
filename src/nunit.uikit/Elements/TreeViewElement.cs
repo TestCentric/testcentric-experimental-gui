@@ -28,6 +28,11 @@ namespace NUnit.UiKit.Elements
 {
     /// <summary>
     /// TreeViewElement extends ControlElement for wrapping a TreeView.
+    /// In addition to the normal shallow adapter provided by an element,
+    /// TreeViewElement extends some of the functionality of TreeView:
+    ///  * Checkboxes may be turned on and off dynamically, while retaining
+    ///    the current visual state of the tree.
+    ///  * The CheckedNodes property returns a list of checked TreeNodes.
     /// </summary>
     public class TreeViewElement : ControlElement<TreeView>, ITreeViewElement
     {
@@ -44,15 +49,13 @@ namespace NUnit.UiKit.Elements
                     SelectedNodeChanged(e.Node);
             };
 
-            treeView.MouseDown += (s, e) =>
+            treeView.MouseUp += (s, e) =>
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    ContextNode = treeView.GetNodeAt(e.X, e.Y);
-                    if (ContextNode == null)
-                        ContextNode = treeView.SelectedNode;
-                    if (ContextNode == null)
-                        ContextNode = treeView.Nodes[0];
+                    var treeNode = treeView.GetNodeAt(e.X, e.Y);
+                    if (treeNode != null)
+                        treeView.SelectedNode = treeNode;
                 }
             };
         }
@@ -81,7 +84,25 @@ namespace NUnit.UiKit.Elements
         public bool CheckBoxes
         {
             get { return _checkBoxes; }
-            set { InvokeIfRequired(() => { Control.CheckBoxes = _checkBoxes = value; }); }
+            set
+            {
+                if (_checkBoxes != value)
+                {
+                    var expandedNodes = new List<TreeNode>();
+
+                    // Turning off checkboxes collapses everything, so we
+                    // have to save and restore the expanded nodes.
+                    if (!value)
+                        foreach (TreeNode node in Control.Nodes)
+                            RecordExpandedNodes(expandedNodes, node);
+
+                    InvokeIfRequired(() => { Control.CheckBoxes = _checkBoxes = value; });
+
+                    if (!value)
+                        foreach (var node in expandedNodes)
+                            node.Expand();
+                }
+            }
         }
 
         public int VisibleCount
@@ -92,9 +113,13 @@ namespace NUnit.UiKit.Elements
         public TreeNode SelectedNode
         {
             get { return Control.SelectedNode; }
+            set { Control.SelectedNode = value; }
         }
 
-        public TreeNode ContextNode { get; private set; }
+        public IList<TreeNode> CheckedNodes
+        {
+            get { return GetCheckedNodes(); }
+        }
 
         public void Clear()
         {
@@ -150,6 +175,32 @@ namespace NUnit.UiKit.Elements
                 if (Control.SelectedNode == null)
                     Control.SelectedNode = treeNode;
             });
+        }
+
+        private void RecordExpandedNodes(List<TreeNode> expanded, TreeNode startNode)
+        {
+            if (startNode.IsExpanded)
+                expanded.Add(startNode);
+
+            foreach (TreeNode node in startNode.Nodes)
+                RecordExpandedNodes(expanded, node);
+        }
+
+        private IList<TreeNode> GetCheckedNodes()
+        {
+            var checkedNodes = new List<TreeNode>();
+            foreach (TreeNode node in Control.Nodes)
+                CollectCheckedNodes(checkedNodes, node);
+            return checkedNodes;
+        }
+
+        private void CollectCheckedNodes(List<TreeNode> checkedNodes, TreeNode node)
+        {
+            if (node.Checked)
+                checkedNodes.Add(node);
+            else
+                foreach (TreeNode child in node.Nodes)
+                    CollectCheckedNodes(checkedNodes, child);
         }
 
         #endregion

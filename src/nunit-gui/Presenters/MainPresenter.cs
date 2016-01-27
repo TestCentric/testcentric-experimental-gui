@@ -24,7 +24,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using NUnit.Engine;
 
 namespace NUnit.Gui.Presenters
 {
@@ -58,8 +57,6 @@ namespace NUnit.Gui.Presenters
             _model.TestReloaded += (ea) => InitializeMainMenu();
             _model.RunStarting += (ea) => InitializeMainMenu();
             _model.RunFinished += (ea) => InitializeMainMenu();
-            _model.RunFailed += OnFailure;
-            _model.TestException += OnFailure;
 
             // View Events
             _view.Load += MainForm_Load;
@@ -107,11 +104,6 @@ namespace NUnit.Gui.Presenters
 
             // Project Menu
             _view.ProjectMenu.Enabled = _view.ProjectMenu.Visible = _model.HasTests;
-        }
-
-        private void OnFailure(TestEventArgs ea)
-        {
-            MessageBox.Show(ea.Test.Xml.OuterXml, ea.Action.ToString());
         }
 
         #endregion
@@ -180,6 +172,11 @@ namespace NUnit.Gui.Presenters
            _model.ReloadTests();
         }
 
+        private void OnReloadTestsCommand(string runtime)
+        {
+            _model.ReloadTests(runtime);
+        }
+
         void OpenSettingsDialogCommand_Execute()
         {
             // The SettingsDialog has been ported from an older version of
@@ -218,7 +215,13 @@ namespace NUnit.Gui.Presenters
             var dropDownItems = _view.SelectRuntimeMenu.ToolStripItem.DropDownItems;
             dropDownItems.Clear();
             foreach (var runtime in _model.AvailableRuntimes)
-                dropDownItems.Add(runtime.DisplayName);
+            {
+                var menuItem = runtime.DisplayName;
+                // Don't use Full suffix, but keep Client if present
+                if (menuItem.EndsWith(" - Full"))
+                    menuItem = menuItem.Substring(0, menuItem.Length - 7);
+                dropDownItems.Add(menuItem, null, (s, ea) => OnReloadTestsCommand(runtime.ToString()));
+            }
         }
 
         #endregion

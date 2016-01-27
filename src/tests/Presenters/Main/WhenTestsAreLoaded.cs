@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -42,7 +42,7 @@ namespace NUnit.Gui.Presenters.Main
             doc.LoadXml("<test-suite id='1'/>");
             TestNode testNode = new TestNode(doc.FirstChild);
             Model.Tests.Returns(testNode);
-            Model.TestReloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestReloaded, testNode));
+            Model.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
         }
 
 #if NYI
