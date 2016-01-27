@@ -45,6 +45,9 @@ namespace NUnit.Gui.Views
             InitializeComponent();
 
             XmlPanel = new ControlElement<Panel>(xmlPanel);
+            selectAllToolStripMenuItem.Click += (s, a) => xmlTextBox.SelectAll();
+            copyToolStripMenuItem.Click += (s, a) => xmlTextBox.Copy();
+            wordWrapToolStripMenuItem.CheckedChanged += (s, a) => xmlTextBox.WordWrap = wordWrapToolStripMenuItem.Checked;
         }
 
         public string Header
