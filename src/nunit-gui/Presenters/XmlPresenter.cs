@@ -55,6 +55,24 @@ namespace NUnit.Gui.Presenters
             _model.TestUnloaded += (ea) => _view.Visible = false;
             _model.RunFinished += (ea) => DisplayXml();
             _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
+
+            _view.SelectAllCommand += () => 
+            {
+                _view.XmlTextBox.Control.Focus();
+                _view.XmlTextBox.Control.SelectAll();
+            };
+            _view.SelectionChanged += () =>
+            {
+                _view.CopyToolStripMenuItem.ToolStripItem.Enabled = !string.IsNullOrEmpty(_view.XmlTextBox.Control.SelectedText);
+            };
+            _view.WordWrapChanged += () =>
+            {
+                _view.XmlTextBox.Control.WordWrap = _view.WordWrapToolStripMenuItem.ToolStripItem.Checked;
+            };
+            _view.CopyCommand += () =>
+            {
+                _view.XmlTextBox.Control.Copy();
+            };
         }
 
         private void OnSelectedItemChanged(ITestItem testItem)

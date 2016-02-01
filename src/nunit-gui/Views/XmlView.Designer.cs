@@ -85,7 +85,7 @@
             this.copyToolStripMenuItem,
             this.wordWrapToolStripMenuItem});
       this.xmlTextBoxContextMenuS.Name = "xmlTextBoxContextMenuS";
-      this.xmlTextBoxContextMenuS.Size = new System.Drawing.Size(190, 94);
+      this.xmlTextBoxContextMenuS.Size = new System.Drawing.Size(212, 127);
       // 
       // selectAllToolStripMenuItem
       // 
@@ -95,6 +95,7 @@
       // 
       // copyToolStripMenuItem
       // 
+      this.copyToolStripMenuItem.Enabled = false;
       this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
       this.copyToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
       this.copyToolStripMenuItem.Text = "Copy";
