@@ -28,23 +28,61 @@ using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-  public interface IXmlView : IView
-  {
-    bool Visible { get; set; }
-    string Header { get; set; }
-    IViewElement XmlPanel { get; }
-    XmlNode TestXml { get; set; }
-  }
+    public interface IXmlView : IView
+    {
+        bool Visible { get; set; }
+        string Header { get; set; }
+        IViewElement XmlPanel { get; }
+        IControlElement<RichTextBox> XmlTextBox { get; }
+        IToolStripElement<ToolStripMenuItem> CopyToolStripMenuItem { get; }
+        IToolStripElement<ToolStripMenuItem> WordWrapToolStripMenuItem { get; }
+        XmlNode TestXml { get; set; }
+        event CommandHandler SelectAllCommand;
+        event CommandHandler SelectionChanged;
+        event CommandHandler CopyCommand;
+        event CommandHandler WordWrapChanged;
+    }
 
     public partial class XmlView : UserControl, IXmlView
     {
         private XmlNode _testXml;
+        public event CommandHandler SelectAllCommand;
+        public event CommandHandler SelectionChanged;
+        public event CommandHandler CopyCommand;
+        public event CommandHandler WordWrapChanged;
 
         public XmlView()
         {
             InitializeComponent();
 
             XmlPanel = new ControlElement<Panel>(xmlPanel);
+            XmlTextBox = new ControlElement<RichTextBox>(xmlTextBox);
+            CopyToolStripMenuItem = new ToolStripElement<ToolStripMenuItem>(copyToolStripMenuItem);
+            WordWrapToolStripMenuItem = new ToolStripElement<ToolStripMenuItem>(wordWrapToolStripMenuItem);
+            selectAllToolStripMenuItem.Click += (s, a) =>
+            {
+                if (SelectAllCommand != null)
+                    SelectAllCommand();
+            };
+
+            xmlTextBox.SelectionChanged += (s, a) =>
+            {
+                if (SelectionChanged != null)
+                    SelectionChanged();
+            };
+
+            copyToolStripMenuItem.Click += (s, a) =>
+            {
+                if (CopyCommand != null)
+                    CopyCommand();
+            };
+
+            wordWrapToolStripMenuItem.CheckedChanged += (s, a) =>
+            {
+                if (WordWrapChanged != null)
+                    WordWrapChanged();
+            };
+
         }
 
         public string Header
@@ -54,6 +92,12 @@ namespace NUnit.Gui.Views
         }
 
         public IViewElement XmlPanel { get; private set; }
+
+        public IControlElement<RichTextBox> XmlTextBox { get; private set; }
+
+        public IToolStripElement<ToolStripMenuItem> CopyToolStripMenuItem { get; private set; }
+
+        public IToolStripElement<ToolStripMenuItem> WordWrapToolStripMenuItem { get; private set; }
 
         public XmlNode TestXml
         {
