@@ -56,7 +56,7 @@ namespace NUnit.Gui.Presenters
             _model.RunFinished += (ea) => DisplayXml();
             _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
 
-            _view.SelectAllCommand += () => 
+            _view.SelectAllCommand += () =>
             {
                 _view.XmlTextBox.Control.Focus();
                 _view.XmlTextBox.Control.SelectAll();
@@ -91,13 +91,39 @@ namespace NUnit.Gui.Presenters
             {
                 _view.SuspendLayout();
                 _view.Header = testNode.Name;
-                _view.TestXml = testNode.Xml;
+                _view.TestXml = GetFullXml(testNode);
                 _view.ResumeLayout();
             }
             else if (_selectedItem != null)
             {
                 _view.Header = _selectedItem.Name;
             }
+        }
+
+        private XmlNode GetFullXml(TestNode testNode)
+        {
+            ResultNode resultNode = _model.GetResultForTest(testNode);
+            XmlNode currentXml;
+            if (resultNode != null)
+            {
+                currentXml = resultNode.Xml.Clone();
+            }
+            else
+            {
+                currentXml = testNode.Xml.Clone();
+                while (currentXml.ChildNodes.Count > 0)
+                {
+                    currentXml.RemoveChild(currentXml.ChildNodes[0]);
+                }
+            }
+            
+            foreach (TestNode child in testNode.Children)
+            {
+                XmlNode childXml = GetFullXml(child);
+                XmlNode importedChildXml = currentXml.OwnerDocument.ImportNode(childXml, true);
+                currentXml.AppendChild(importedChildXml);
+            }
+            return currentXml;
         }
     }
 }
