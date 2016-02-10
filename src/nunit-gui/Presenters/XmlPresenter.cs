@@ -22,9 +22,12 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+
+using Mono.Cecil;
 
 namespace NUnit.Gui.Presenters
 {
@@ -56,7 +59,7 @@ namespace NUnit.Gui.Presenters
             _model.RunFinished += (ea) => DisplayXml();
             _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
 
-            _view.SelectAllCommand += () => 
+            _view.SelectAllCommand += () =>
             {
                 _view.XmlTextBox.Control.Focus();
                 _view.XmlTextBox.Control.SelectAll();
@@ -91,13 +94,55 @@ namespace NUnit.Gui.Presenters
             {
                 _view.SuspendLayout();
                 _view.Header = testNode.Name;
-                _view.TestXml = testNode.Xml;
+                _view.TestXml = GetFullXml(testNode);
                 _view.ResumeLayout();
             }
             else if (_selectedItem != null)
             {
                 _view.Header = _selectedItem.Name;
             }
+        }
+
+        private XmlNode GetFullXml(TestNode testNode)
+        {
+            ResultNode resultNode = _model.GetResultForTest(testNode);
+            XmlNode currentXml;
+            if (resultNode != null)
+            {
+                currentXml = resultNode.Xml.Clone();
+                foreach (TestNode child in testNode.Children)
+                {
+                    XmlNode childXml = GetFullXml(child);
+                    XmlNode importedChildXml = currentXml.OwnerDocument.ImportNode(childXml, true);
+                    currentXml.AppendChild(importedChildXml);
+                }
+            }
+            else
+            {
+                currentXml = testNode.Xml.Clone();
+                foreach (TestNode child in testNode.Children)
+                {
+                    XmlNode childXml = GetFullXml(child);
+                    XmlNode importedChildXml = currentXml.OwnerDocument.ImportNode(childXml, true);
+                    var oldChild = FindXmlNode(currentXml, child);
+                    if (oldChild != null)
+                        currentXml.ReplaceChild(importedChildXml, oldChild);
+                    else
+                        currentXml.AppendChild(importedChildXml);
+                }
+            }
+            return currentXml;
+        }
+
+        private static XmlNode FindXmlNode(XmlNode currentXml, TestNode testNodeChild)
+        {
+            foreach (XmlNode child in currentXml.ChildNodes)
+            {
+                if ((child.LocalName == "test-case" || child.LocalName == "test-suite")
+                    && testNodeChild.FullName == child.Attributes["fullname"].Value)
+                    return child;
+            }
+            return null;
         }
     }
 }
