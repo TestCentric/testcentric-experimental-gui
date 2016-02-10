@@ -22,9 +22,12 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+
+using Mono.Cecil;
 
 namespace NUnit.Gui.Presenters
 {
@@ -107,23 +110,39 @@ namespace NUnit.Gui.Presenters
             if (resultNode != null)
             {
                 currentXml = resultNode.Xml.Clone();
+                foreach (TestNode child in testNode.Children)
+                {
+                    XmlNode childXml = GetFullXml(child);
+                    XmlNode importedChildXml = currentXml.OwnerDocument.ImportNode(childXml, true);
+                    currentXml.AppendChild(importedChildXml);
+                }
             }
             else
             {
                 currentXml = testNode.Xml.Clone();
-                while (currentXml.ChildNodes.Count > 0)
+                foreach (TestNode child in testNode.Children)
                 {
-                    currentXml.RemoveChild(currentXml.ChildNodes[0]);
+                    XmlNode childXml = GetFullXml(child);
+                    XmlNode importedChildXml = currentXml.OwnerDocument.ImportNode(childXml, true);
+                    var oldChild = FindXmlNode(currentXml, child);
+                    if (oldChild != null)
+                        currentXml.ReplaceChild(importedChildXml, oldChild);
+                    else
+                        currentXml.AppendChild(importedChildXml);
                 }
             }
-            
-            foreach (TestNode child in testNode.Children)
-            {
-                XmlNode childXml = GetFullXml(child);
-                XmlNode importedChildXml = currentXml.OwnerDocument.ImportNode(childXml, true);
-                currentXml.AppendChild(importedChildXml);
-            }
             return currentXml;
+        }
+
+        private static XmlNode FindXmlNode(XmlNode currentXml, TestNode testNodeChild)
+        {
+            foreach (XmlNode child in currentXml.ChildNodes)
+            {
+                if ((child.LocalName == "test-case" || child.LocalName == "test-suite")
+                    && testNodeChild.FullName == child.Attributes["fullname"].Value)
+                    return child;
+            }
+            return null;
         }
     }
 }
