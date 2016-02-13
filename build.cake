@@ -21,29 +21,20 @@ var packageVersion = version + modifier + dbgSuffix;
 // DEFINE RUN CONSTANTS
 //////////////////////////////////////////////////////////////////////
 
+// Directories
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
-var IMAGE_DIR = PROJECT_DIR + "images/";
 
-// Test Runners
-var NUNIT3_CONSOLE = BIN_DIR + "nunit3-console.exe";
-var NUNITLITE_RUNNER = "nunitlite-runner.exe";
+// Solution
+var GUI_SOLUTION = PROJECT_DIR + "nunit-gui.sln";
 
-// Test Assemblies
-var FRAMEWORK_TESTS = "nunit.framework.tests.dll";
-var NUNITLITE_TESTS = "nunitlite.tests.exe";
-var ENGINE_TESTS = "nunit.engine.tests.dll";
-var PORTABLE_AGENT_TESTS = "agents/nunit.portable.agent.tests.dll";
-var ADDIN_TESTS = "addins/tests/addin-tests.dll";
-var V2_PORTABLE_AGENT_TESTS = "addins/v2-tests/nunit.v2.driver.tests.dll";
-var CONSOLE_TESTS = "nunit3-console.tests.dll";
+// Test Assembly
+var GUI_TESTS = BIN_DIR + "nunit-gui.tests.dll";
 
 // Packages
 var SRC_PACKAGE = PACKAGE_DIR + "NUnit-" + version + modifier + "-src.zip";
 var ZIP_PACKAGE = PACKAGE_DIR + "NUnit-" + packageVersion + ".zip";
-var ZIP_PACKAGE_SL = PACKAGE_DIR + "NUnitSL-" + packageVersion + ".zip";
-var ZIP_PACKAGE_CF = PACKAGE_DIR + "NUnitCF-" + packageVersion + ".zip";
 
 //////////////////////////////////////////////////////////////////////
 // CLEAN
@@ -63,7 +54,7 @@ Task("Clean")
 Task("InitializeBuild")
     .Does(() =>
 {
-    NuGetRestore("./nunit-gui.sln");
+    NuGetRestore(GUI_SOLUTION);
 
 	if (BuildSystem.IsRunningOnAppVeyor)
 	{
@@ -98,9 +89,8 @@ Task("Build")
 		if(IsRunningOnWindows())
 		{
 			// Use MSBuild
-			MSBuild("nunit-gui.sln", new MSBuildSettings()
+			MSBuild(GUI_SOLUTION, new MSBuildSettings()
 				.SetConfiguration(configuration)
-				//.SetMSBuildPlatform(buildPlatform)
 				.SetVerbosity(Verbosity.Minimal)
 				.SetNodeReuse(false)
 			);
@@ -108,7 +98,7 @@ Task("Build")
 		else
 		{
 			// Use XBuild
-			XBuild("nunit-gui.sln", new XBuildSettings()
+			XBuild(GUI_SOLUTION, new XBuildSettings()
 				.WithTarget("Build")
 				.WithProperty("Configuration", configuration)
 				.SetVerbosity(Verbosity.Minimal)
@@ -119,6 +109,13 @@ Task("Build")
 //////////////////////////////////////////////////////////////////////
 // TEST
 //////////////////////////////////////////////////////////////////////
+
+Task("Test")
+	.IsDependentOn("Build")
+	.Does(() =>
+	{
+		NUnit3(GUI_TESTS);
+	});
 
 //////////////////////////////////////////////////////////////////////
 // PACKAGE
@@ -167,10 +164,12 @@ Task("Package")
 	.IsDependentOn("PackageZip");
 
 Task("Appveyor")
-	.IsDependentOn("Build");
+	.IsDependentOn("Build")
+	.IsDependentOn("Test");
 
 Task("Travis")
-	.IsDependentOn("Build");
+	.IsDependentOn("Build")
+	.IsDependentOn("Test");
 
 Task("Default")
     .IsDependentOn("Build");

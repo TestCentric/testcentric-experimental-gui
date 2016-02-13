@@ -111,5 +111,6 @@ UpgradeLog*.XML
 TestResult.xml
 *.VisualState.xml
 
-#Cake installation
-tools/Cake
+#Tools pulled from nuget
+tools
+!tools/packages.config
