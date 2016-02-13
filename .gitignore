@@ -110,3 +110,6 @@ UpgradeLog*.XML
 # NUnit Files
 TestResult.xml
 *.VisualState.xml
+
+#Cake installation
+tools/Cake
