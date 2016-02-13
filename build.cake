@@ -132,6 +132,7 @@ Task("PackageSource")
 	});
 
 Task("PackageZip")
+	.IsDependentOn("Build")
 	.Does(() =>
 	{
 		CreateDirectory(PACKAGE_DIR);
@@ -160,6 +161,10 @@ void RunGitCommand(string arguments)
 Task("Rebuild")
     .IsDependentOn("Clean")
 	.IsDependentOn("Build");
+
+Task("Package")
+	.IsDependentOn("PackageSource")
+	.IsDependentOn("PackageZip");
 
 Task("Appveyor")
 	.IsDependentOn("Build");
