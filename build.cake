@@ -11,7 +11,6 @@ var configuration = Argument("configuration", "Debug");
 
 var version = "0.1";
 var modifier = "";
-var displayVersion = "0.1";
 
 var isAppveyor = BuildSystem.IsRunningOnAppVeyor;
 var dbgSuffix = configuration == "Debug" ? "-dbg" : "";
