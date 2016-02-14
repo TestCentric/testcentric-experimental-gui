@@ -9,6 +9,7 @@ build_script:
   - ps: .\build.ps1 -Target "Appveyor"
   
 artifacts:
+- path: package\*.zip
 - path: package\*.nupkg
 #  - path: package\*.msi
 

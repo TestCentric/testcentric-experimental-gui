@@ -111,6 +111,9 @@ UpgradeLog*.XML
 TestResult.xml
 *.VisualState.xml
 
-#Tools pulled from nuget
+# Packaging Directory
+package
+
+# Tools pulled from nuget
 tools
 !tools/packages.config

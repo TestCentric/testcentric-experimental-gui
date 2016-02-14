@@ -32,8 +32,8 @@ var GUI_SOLUTION = PROJECT_DIR + "nunit-gui.sln";
 var GUI_TESTS = BIN_DIR + "nunit-gui.tests.dll";
 
 // Packages
-var SRC_PACKAGE = PACKAGE_DIR + "NUnit-" + version + modifier + "-src.zip";
-var ZIP_PACKAGE = PACKAGE_DIR + "NUnit-" + packageVersion + ".zip";
+var SRC_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + version + modifier + "-src.zip";
+var ZIP_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + packageVersion + ".zip";
 
 //////////////////////////////////////////////////////////////////////
 // CLEAN
@@ -133,7 +133,18 @@ Task("PackageZip")
 	{
 		CreateDirectory(PACKAGE_DIR);
 
-		var zipFiles = GetFiles(BIN_DIR + "*.*");
+		var zipFiles = new FilePath[]
+		{
+			BIN_DIR + "nunit-gui.exe",
+			BIN_DIR + "nunit-gui.exe.config",
+			BIN_DIR + "nunit-gui.pdb",
+			BIN_DIR + "nunit.uikit.dll",
+			BIN_DIR + "nunit.uikit.pdb",
+			BIN_DIR + "nunit.engine.api.dll",
+			BIN_DIR + "nunit.engine.dll",
+			BIN_DIR + "nunit.engine.addins",
+			BIN_DIR + "Mono.Cecil.dll"
+		};
 
 		Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
 	});
@@ -164,7 +175,8 @@ Task("Package")
 
 Task("Appveyor")
 	.IsDependentOn("Build")
-	.IsDependentOn("Test");
+	.IsDependentOn("Test")
+	.IsDependentOn("Package");
 
 Task("Travis")
 	.IsDependentOn("Build");
