@@ -110,3 +110,10 @@ UpgradeLog*.XML
 # NUnit Files
 TestResult.xml
 *.VisualState.xml
+
+# Packaging Directory
+package
+
+# Tools pulled from nuget
+tools
+!tools/packages.config
