@@ -13,6 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mock-assembly", "src\mock-a
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42576C27-F810-4FBE-A3D4-0E0D9E9FA79D}"
 	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		appveyor.yml = appveyor.yml
+		build.cake = build.cake
+		build.cmd = build.cmd
+		build.ps1 = build.ps1
+		build.sh = build.sh
+		CHANGES.txt = CHANGES.txt
 		LICENSE = LICENSE
 	EndProjectSection
 EndProject
