@@ -133,8 +133,13 @@ Task("PackageZip")
 	{
 		CreateDirectory(PACKAGE_DIR);
 
+		CopyFileToDirectory("LICENSE", BIN_DIR);
+		CopyFileToDirectory("CHANGES.txt", BIN_DIR);
+
 		var zipFiles = new FilePath[]
 		{
+			BIN_DIR + "LICENSE",
+			BIN_DIR + "CHANGES.txt",
 			BIN_DIR + "nunit-gui.exe",
 			BIN_DIR + "nunit-gui.exe.config",
 			BIN_DIR + "nunit-gui.pdb",
