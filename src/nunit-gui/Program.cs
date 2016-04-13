@@ -62,7 +62,7 @@ namespace NUnit.Gui
                 return;
             }
 
-            var testEngine = TestEngineActivator.CreateInstance();
+            var testEngine = TestEngineActivator.CreateInstance(true);
             if (options.InternalTraceLevel != null)
                 testEngine.InternalTraceLevel = (InternalTraceLevel)Enum.Parse(typeof(InternalTraceLevel), options.InternalTraceLevel);
 
