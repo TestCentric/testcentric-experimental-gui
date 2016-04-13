@@ -9,7 +9,7 @@ var configuration = Argument("configuration", "Debug");
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "0.1";
+var version = "0.2";
 var modifier = "";
 
 var isAppveyor = BuildSystem.IsRunningOnAppVeyor;

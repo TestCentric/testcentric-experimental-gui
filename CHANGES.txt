@@ -1,4 +1,11 @@
-﻿NUnit-Gui 0.1 - April 8, 2016
+﻿NUnit-Gui 0.2 - April 12, 2016
+
+Issues Resolved
+
+ * 93 Crash on startup if newer NUnit installation
+ * 94 BadImageFormatException loading dlls targeting .NET 4.0 and higher
+
+NUnit-Gui 0.1 - April 8, 2016
 
 General
 
