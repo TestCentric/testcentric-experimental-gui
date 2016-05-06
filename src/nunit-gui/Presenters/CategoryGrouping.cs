@@ -92,8 +92,9 @@ namespace NUnit.Gui.Presenters
                 {
                     group = new TestGroup(groupName);
                     Groups.Add(group);
-                    groups.Add(group);
                 }
+                
+                groups.Add(group);
             }
 
             if (groups.Count == 0)
