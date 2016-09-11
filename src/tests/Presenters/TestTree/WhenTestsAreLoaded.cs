@@ -27,7 +27,6 @@ using NUnit.Framework;
 namespace NUnit.Gui.Presenters.TestTree
 {
     using Model;
-    using Views;
 
     public class WhenTestsAreLoaded : TestTreePresenterTestBase
     {

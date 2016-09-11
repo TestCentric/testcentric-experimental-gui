@@ -21,9 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
 using System.Security.Principal;
-using System.Windows.Forms;
 
 namespace NUnit.Gui.Model.Settings
 {

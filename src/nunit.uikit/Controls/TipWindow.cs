@@ -23,13 +23,12 @@
 
 using System;
 using System.Drawing;
-using System.ComponentModel;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace NUnit.UiKit.Controls
 {
-	public class TipWindow : Form
+    public class TipWindow : Form
 	{
 		/// <summary>
 		/// Direction in which to expand

@@ -21,15 +21,11 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 
 namespace NUnit.Gui.Presenters
 {
     using Model;
-    using Views;
 
     /// <summary>
     /// DurationGrouping groups tests by duration. The contents

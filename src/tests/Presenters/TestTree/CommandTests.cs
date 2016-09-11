@@ -29,7 +29,6 @@ namespace NUnit.Gui.Presenters.TestTree
 {
     using Framework;
     using Model;
-    using Engine;
 
     public class CommandTests : TestTreePresenterTestBase
     {

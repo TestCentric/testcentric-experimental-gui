@@ -22,16 +22,12 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Gui.Presenters
 {
     using Views;
     using Model;
-    using Engine;
-    using NUnit.UiKit.Elements;
 
     /// <summary>
     /// GroupDisplayStrategy is the abstract base class for 

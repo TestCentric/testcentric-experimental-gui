@@ -21,12 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using NUnit.UiKit.Controls;
 using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views

@@ -28,7 +28,6 @@ using System.Xml;
 namespace NUnit.Gui.Presenters.Main
 {
     using Model;
-    using Views;
 
     public class WhenTestsAreLoaded : MainPresenterTestBase
     {

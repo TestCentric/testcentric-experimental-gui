@@ -29,8 +29,6 @@ using NSubstitute;
 namespace NUnit.Gui.Presenters.Main
 {
     using Framework;
-    using Views;
-    using Engine;
 
     public class CommandTests : MainPresenterTestBase
     {

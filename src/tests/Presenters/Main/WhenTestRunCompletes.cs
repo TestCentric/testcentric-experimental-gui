@@ -27,7 +27,6 @@ using NUnit.Framework;
 namespace NUnit.Gui.Presenters.Main
 {
     using Model;
-    using Views;
 
     public class WhenTestRunCompletes : MainPresenterTestBase
     {

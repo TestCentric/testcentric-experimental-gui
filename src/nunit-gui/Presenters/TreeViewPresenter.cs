@@ -21,14 +21,11 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace NUnit.Gui.Presenters
 {
-    using Engine;
     using Model;
     using Views;
 

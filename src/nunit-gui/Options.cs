@@ -128,7 +128,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -149,7 +148,7 @@ namespace NDesk.Options
 namespace Mono.Options
 #endif
 {
-	public class OptionValueCollection : IList, IList<string> {
+    public class OptionValueCollection : IList, IList<string> {
 
 		List<string> values = new List<string> ();
 		OptionContext c;
