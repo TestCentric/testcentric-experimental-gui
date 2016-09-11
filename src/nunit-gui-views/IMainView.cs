@@ -30,11 +30,16 @@ namespace NUnit.Gui.Views
     public interface IMainView : IView
     {
         // General Window info
+        [System.Obsolete("Remove or wrap to remove reference to drawing")]
         Point Location { get; set; }
+        [System.Obsolete("Remove or wrap to remove reference to drawing")]
         Size Size { get; set; }
+        [System.Obsolete("Remove or wrap to remove reference to winforms")]
         FormWindowState WindowState { get; set; }
+        [System.Obsolete("Remove or wrap to remove reference to drawing")]
         Font Font { get; set; }
 
+        [System.Obsolete("Remove or wrap to remove reference to winforms")]
         event FormClosingEventHandler FormClosing;
 
         // File Menu

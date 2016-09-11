@@ -78,8 +78,6 @@ namespace NUnit.Gui.Model
 
         bool HasResults { get; }
 
-        Settings.SettingsModel Settings { get; }
-
         IList<RuntimeFramework> AvailableRuntimes { get; }
 
         #endregion

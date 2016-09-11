@@ -27,12 +27,14 @@ using NSubstitute;
 namespace NUnit.Gui.Presenters.Main
 {
     using Model;
+    using Model.Settings;
     using Views;
 
     public class MainPresenterTestBase
     {
         protected IMainView View;
         protected ITestModel Model;
+        protected SettingsModel Settings;
         protected MainPresenter Presenter;
 
         [SetUp]
@@ -40,8 +42,8 @@ namespace NUnit.Gui.Presenters.Main
         {
             View = Substitute.For<IMainView>();
             Model = Substitute.For<ITestModel>();
-
-            Presenter = new MainPresenter(View, Model);
+            Settings = new SettingsModel(new UserSettingsFake());
+            Presenter = new MainPresenter(View, Model, Settings);
         }
 
         [TearDown]

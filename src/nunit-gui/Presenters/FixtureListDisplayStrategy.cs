@@ -27,6 +27,7 @@ namespace NUnit.Gui.Presenters
 {
     using Views;
     using Model;
+    using Model.Settings;
 
     /// <summary>
     /// FixtureListDisplayStrategy is used to display lists
@@ -34,10 +35,12 @@ namespace NUnit.Gui.Presenters
     /// </summary>
     public class FixtureListDisplayStrategy : GroupDisplayStrategy
     {
+        private readonly SettingsModel _settings;
         #region Construction and Initialization
 
-        public FixtureListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model)
+        public FixtureListDisplayStrategy(ITestTreeView view, ITestModel model, SettingsModel settings) : base(view, model)
         {
+            _settings = settings;
             SetDefaultTestGrouping();
             _view.CollapseToFixturesCommand.Enabled = true;
 
@@ -95,8 +98,8 @@ namespace NUnit.Gui.Presenters
 
         protected override string DefaultGroupSetting
         {
-            get { return _model.Settings.Gui.TestTree.FixtureList.GroupBy; }
-            set { _model.Settings.Gui.TestTree.FixtureList.GroupBy = value; }
+            get { return _settings.Gui.TestTree.FixtureList.GroupBy; }
+            set { _settings.Gui.TestTree.FixtureList.GroupBy = value; }
         }
 
         #endregion

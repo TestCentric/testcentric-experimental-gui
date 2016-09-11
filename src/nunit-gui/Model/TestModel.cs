@@ -42,7 +42,6 @@ namespace NUnit.Gui.Model
             _testEngine = testEngine;
             Options = options;
             RecentFiles = testEngine.Services.GetService<IRecentFiles>();
-            Settings = new Settings.SettingsModel(testEngine.Services.GetService<ISettings>());
         }
 
         #endregion
@@ -95,8 +94,6 @@ namespace NUnit.Gui.Model
         }
 
         private IList<string> _files;
-
-        public Settings.SettingsModel Settings { get; private set; }
 
         // TODO: We are directly using an engine class here rather
         // than going through the API - need to fix this.

@@ -21,18 +21,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
 {
-    /// <summary>
-    /// Common interface implemented by all modal dialog views used in
-    /// the ProjectEditor application
-    /// </summary>
-    public interface IDialog : IView
+    public interface IDialogManager
     {
-        DialogResult ShowDialog();
-        void Close();
+        string[] GetFilesToOpen();
+
+        string GetFileOpenPath(string filter);
+
+        string GetSaveAsPath(string filter);
+
+        string GetFolderPath(string message, string initialPath);
     }
 }

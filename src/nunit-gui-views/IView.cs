@@ -25,14 +25,11 @@ using System;
 
 namespace NUnit.Gui.Views
 {
-    public interface IDialogManager
+    public interface IView
     {
-        string[] GetFilesToOpen();
+        event EventHandler Load;
 
-        string GetFileOpenPath(string filter);
-
-        string GetSaveAsPath(string filter);
-
-        string GetFolderPath(string message, string initialPath);
+        void SuspendLayout();
+        void ResumeLayout();
     }
 }

@@ -32,6 +32,7 @@ namespace NUnit.Gui
     using Model;
     using Views;
     using Presenters;
+    using Model.Settings;
 
     static class Program
     {
@@ -67,11 +68,12 @@ namespace NUnit.Gui
                 testEngine.InternalTraceLevel = (InternalTraceLevel)Enum.Parse(typeof(InternalTraceLevel), options.InternalTraceLevel);
 
             var model = new TestModel(testEngine, options);
+            var settings = new SettingsModel(testEngine.Services.GetService<ISettings>());
 
             var form = new MainForm();
-            new MainPresenter(form, model);
+            new MainPresenter(form, model, settings);
             new ProgressBarPresenter(form.ProgressBarView, model);
-            new TreeViewPresenter(form.TestTreeView, model);
+            new TreeViewPresenter(form.TestTreeView, model, settings);
             new StatusBarPresenter(form.StatusBarView, model);
             new TestPropertiesPresenter(form.PropertiesView, model);
             new XmlPresenter(form.XmlView, model);
@@ -88,8 +90,6 @@ namespace NUnit.Gui
                 testEngine.Dispose();
             }
         }
-
-        private static readonly string NL = Environment.NewLine;
 
         private static void ShowHelpText(CommandLineOptions options)
         {

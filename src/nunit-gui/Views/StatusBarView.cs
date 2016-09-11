@@ -25,19 +25,6 @@ using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
 {
-    // Interface is used by presenter and tests
-    public interface IStatusBarView : IView
-    {
-        void SetStatus(string text);
-        void Initialize(string text);
-        void Initialize(string text, int testCount);
-        void RunStarting(int testCount);
-        void RunFinished(double elapsedTime);
-        void RecordSuccess();
-        void RecordFailure();
-        void RecordError();
-    }
-
     public partial class StatusBarView : UserControl, IStatusBarView
     {
         private int _testsRun;

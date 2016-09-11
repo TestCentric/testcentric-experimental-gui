@@ -27,6 +27,7 @@ using System.Windows.Forms;
 namespace NUnit.Gui.Presenters
 {
     using Model;
+    using Model.Settings;
     using Views;
 
     /// <summary>
@@ -34,8 +35,9 @@ namespace NUnit.Gui.Presenters
     /// </summary>
     public class TreeViewPresenter
     {
-        private ITestTreeView _view;
-        private ITestModel _model;
+        private readonly ITestTreeView _view;
+        private readonly ITestModel _model;
+        private readonly SettingsModel _settings;
 
         private DisplayStrategy _strategy;
 
@@ -45,8 +47,9 @@ namespace NUnit.Gui.Presenters
 
         #region Constructor
 
-        public TreeViewPresenter(ITestTreeView treeView, ITestModel model)
+        public TreeViewPresenter(ITestTreeView treeView, ITestModel model, SettingsModel settings)
         {
+            _settings = settings;
             _view = treeView;
             _model = model;
 
@@ -186,10 +189,10 @@ namespace NUnit.Gui.Presenters
                     _strategy = new NUnitTreeDisplayStrategy(_view, _model);
                     break;
                 case "FIXTURE_LIST":
-                    _strategy = new FixtureListDisplayStrategy(_view, _model);
+                    _strategy = new FixtureListDisplayStrategy(_view, _model, _settings);
                     break;
                 case "TEST_LIST":
-                    _strategy = new TestListDisplayStrategy(_view, _model);
+                    _strategy = new TestListDisplayStrategy(_view, _model, _settings);
                     break;
             }
 
@@ -197,9 +200,9 @@ namespace NUnit.Gui.Presenters
             _view.DisplayFormat.SelectedItem = format;
         }
 
-        private Model.Settings.TestTreeSettings Settings
+        private TestTreeSettings Settings
         {
-            get { return _model.Settings.Gui.TestTree; }
+            get { return _settings.Gui.TestTree; }
         }
 
         #endregion

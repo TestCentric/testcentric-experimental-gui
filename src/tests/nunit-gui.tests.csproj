@@ -80,6 +80,10 @@
     <Compile Include="XmlRtfConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\nunit-gui-views\nunit-gui-views.csproj">
+      <Project>{b959679b-e327-48ba-974e-baec084d90b8}</Project>
+      <Name>nunit-gui-views</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mock-assembly\mock-assembly.csproj">
       <Project>{2e368281-3ba8-4050-b05e-0e0e43f8f446}</Project>
       <Name>mock-assembly</Name>

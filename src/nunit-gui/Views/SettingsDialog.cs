@@ -215,5 +215,10 @@ namespace NUnit.Gui.Views
 
             Close();
         }
+
+        void IDialog.ShowDialog()
+        {
+            base.ShowDialog();
+        }
     }
 }

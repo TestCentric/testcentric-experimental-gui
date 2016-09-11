@@ -28,28 +28,9 @@ using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    public interface IXmlView : IView
-    {
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement XmlPanel { get; }
-        IControlElement<RichTextBox> XmlTextBox { get; }
-        IToolStripElement<ToolStripMenuItem> CopyToolStripMenuItem { get; }
-        IToolStripElement<ToolStripMenuItem> WordWrapToolStripMenuItem { get; }
-        XmlNode TestXml { get; set; }
-        event CommandHandler SelectAllCommand;
-        event CommandHandler SelectionChanged;
-        event CommandHandler CopyCommand;
-        event CommandHandler WordWrapChanged;
-    }
-
     public partial class XmlView : UserControl, IXmlView
     {
         private XmlNode _testXml;
-        public event CommandHandler SelectAllCommand;
-        public event CommandHandler SelectionChanged;
-        public event CommandHandler CopyCommand;
-        public event CommandHandler WordWrapChanged;
 
         public XmlView()
         {
@@ -61,28 +42,24 @@ namespace NUnit.Gui.Views
             WordWrapToolStripMenuItem = new ToolStripElement<ToolStripMenuItem>(wordWrapToolStripMenuItem);
             selectAllToolStripMenuItem.Click += (s, a) =>
             {
-                if (SelectAllCommand != null)
-                    SelectAllCommand();
+                XmlTextBox.Control.Focus();
+                XmlTextBox.Control.SelectAll();
             };
 
             xmlTextBox.SelectionChanged += (s, a) =>
             {
-                if (SelectionChanged != null)
-                    SelectionChanged();
+                CopyToolStripMenuItem.ToolStripItem.Enabled = !string.IsNullOrEmpty(XmlTextBox.Control.SelectedText);
             };
 
             copyToolStripMenuItem.Click += (s, a) =>
             {
-                if (CopyCommand != null)
-                    CopyCommand();
+                XmlTextBox.Control.Copy();
             };
 
             wordWrapToolStripMenuItem.CheckedChanged += (s, a) =>
             {
-                if (WordWrapChanged != null)
-                    WordWrapChanged();
+                XmlTextBox.Control.WordWrap = WordWrapToolStripMenuItem.ToolStripItem.Checked;
             };
-
         }
 
         public string Header

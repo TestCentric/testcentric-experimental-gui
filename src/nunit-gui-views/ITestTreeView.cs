@@ -26,7 +26,6 @@ using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    // Interface used for testing
     public interface ITestTreeView : IView
     {
         ICommand RunButton { get; }
@@ -35,6 +34,7 @@ namespace NUnit.Gui.Views
         ICommand RunFailedCommand { get; }
         ICommand StopRunCommand { get; }
 
+        [System.Obsolete("Remove or wrap to remove reference to winforms")]
         IToolStripElement<ToolStripDropDownButton> FormatButton { get; }
         ISelection DisplayFormat { get; }
         ISelection GroupBy { get; }

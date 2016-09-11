@@ -27,6 +27,7 @@ namespace NUnit.Gui.Presenters
 {
     using Views;
     using Model;
+    using Model.Settings;
 
     /// <summary>
     /// TestListDisplayStrategy is used to display lists
@@ -34,10 +35,13 @@ namespace NUnit.Gui.Presenters
     /// </summary>
     public class TestListDisplayStrategy : GroupDisplayStrategy
     {
+        private readonly SettingsModel _settings;
+
         #region Construction and Initialization
 
-        public TestListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model) 
+        public TestListDisplayStrategy(ITestTreeView view, ITestModel model, SettingsModel settings) : base(view, model)
         {
+            _settings = settings;
             SetDefaultTestGrouping();
             _view.CollapseToFixturesCommand.Enabled = false;
         }
@@ -103,8 +107,8 @@ namespace NUnit.Gui.Presenters
 
         protected override string DefaultGroupSetting
         {
-            get { return _model.Settings.Gui.TestTree.TestList.GroupBy; }
-            set { _model.Settings.Gui.TestTree.TestList.GroupBy = value; }
+            get { return _settings.Gui.TestTree.TestList.GroupBy; }
+            set { _settings.Gui.TestTree.TestList.GroupBy = value; }
         }
 
         #endregion

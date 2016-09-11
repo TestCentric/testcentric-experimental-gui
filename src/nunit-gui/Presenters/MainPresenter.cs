@@ -28,20 +28,22 @@ using System.Windows.Forms;
 namespace NUnit.Gui.Presenters
 {
     using Model;
+    using Model.Settings;
     using Views;
-    using Views.SettingsPages;
 
     public class MainPresenter : System.IDisposable
     {
-        IMainView _view;
-        ITestModel _model;
+        private readonly IMainView _view;
+        private readonly ITestModel _model;
+        private readonly SettingsModel _settings;
 
         private Dictionary<string, TreeNode> _nodeIndex = new Dictionary<string, TreeNode>();
 
         #region Construction and Initialization
 
-        public MainPresenter(IMainView view, ITestModel model)
+        public MainPresenter(IMainView view, ITestModel model, SettingsModel settings)
         {
+            _settings = settings;
             _view = view;
             _model = model;
 
@@ -112,8 +114,8 @@ namespace NUnit.Gui.Presenters
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            var location = _model.Settings.Gui.MainForm.Location;
-            var size = _model.Settings.Gui.MainForm.Size;
+            var location = _settings.Gui.MainForm.Location;
+            var size = _settings.Gui.MainForm.Size;
             if (size == Size.Empty)
                 size = _view.Size;
 
@@ -127,11 +129,11 @@ namespace NUnit.Gui.Presenters
             _view.Size = size;
 
             // Set to maximized if required
-            if (_model.Settings.Gui.MainForm.Maximized)
+            if (_settings.Gui.MainForm.Maximized)
                 _view.WindowState = FormWindowState.Maximized;
 
             // Set the font to use
-            _view.Font = _model.Settings.Gui.MainForm.Font;
+            _view.Font = _settings.Gui.MainForm.Font;
 
             _model.OnStartup();
         }
@@ -144,15 +146,15 @@ namespace NUnit.Gui.Presenters
 
             if (windowState == FormWindowState.Normal)
             {
-                _model.Settings.Gui.MainForm.Location = location;
-                _model.Settings.Gui.MainForm.Size = size;
-                _model.Settings.Gui.MainForm.Maximized = false;
+                _settings.Gui.MainForm.Location = location;
+                _settings.Gui.MainForm.Size = size;
+                _settings.Gui.MainForm.Maximized = false;
 
                 //this.statusBar.SizingGrip = true;
             }
             else if (windowState == FormWindowState.Maximized)
             {
-                _model.Settings.Gui.MainForm.Maximized = true;
+                _settings.Gui.MainForm.Maximized = true;
 
                 //this.statusBar.SizingGrip = false;
             }
@@ -182,7 +184,7 @@ namespace NUnit.Gui.Presenters
             // The SettingsDialog has been ported from an older version of
             // NUnit and doesn't use an MVP structure. The dialog deals
             // directly with the model.
-            using (var dialog = new SettingsDialog((Form)_view, _model.Settings))
+            using (var dialog = new SettingsDialog((Form)_view, _settings))
             {
                 dialog.ShowDialog();
             }

@@ -21,15 +21,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-
 namespace NUnit.Gui.Views
 {
-    public interface ISettingsDialog
+    /// <summary>
+    /// Common interface implemented by all modal dialog views used in
+    /// the ProjectEditor application
+    /// </summary>
+    public interface IDialog : IView
     {
-        DialogResult Display();
+        void ShowDialog();
+        void Close();
     }
 }

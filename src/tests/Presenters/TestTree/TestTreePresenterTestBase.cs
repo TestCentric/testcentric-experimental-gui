@@ -40,9 +40,9 @@ namespace NUnit.Gui.Presenters.TestTree
         {
             _view = Substitute.For<ITestTreeView>();
             _model = Substitute.For<ITestModel>();
-            _model.Settings.Returns<SettingsModel>(new SettingsModel( new UserSettingsFake() ));
+            var settings = new SettingsModel(new UserSettingsFake());
 
-            new TreeViewPresenter(_view, _model);
+            new TreeViewPresenter(_view, _model, settings);
 
             // Make it look like the view loaded
             _view.Load += Raise.Event<System.EventHandler>(null, new System.EventArgs());
