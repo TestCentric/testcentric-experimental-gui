@@ -21,12 +21,14 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.Engine;
-using NUnit.Framework;
-using NUnit.Gui.Tests.Assemblies;
+using System.IO;
 
 namespace NUnit.Gui.Model
 {
+    using Engine;
+    using Framework;
+    using Tests.Assemblies;
+
     [Explicit("Second TestEngine conflicts with main engine")]
     public class TestModelTests
     {
@@ -42,7 +44,7 @@ namespace NUnit.Gui.Model
 
             _model = new TestModel(engine, new CommandLineOptions());
 
-            _model.LoadTests(new []{MOCK_ASSEMBLY});
+            _model.LoadTests(new[] { Path.Combine(TestContext.CurrentContext.TestDirectory, MOCK_ASSEMBLY) });
         }
 
         [Test]
