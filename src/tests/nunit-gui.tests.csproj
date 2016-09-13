@@ -34,12 +34,8 @@
     <Reference Include="NSubstitute">
       <HintPath>..\..\packages\NSubstitute.1.6.1.0\lib\NET35\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.0.1\lib\nunit.engine.api.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.0.5813.39033, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.0.1\lib\net20\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.4.1\lib\net35\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -80,6 +76,14 @@
     <Compile Include="XmlRtfConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\nunit-console\src\NUnitEngine\nunit.engine.api\nunit.engine.api.csproj">
+      <Project>{775fad50-3623-4922-97c4-dfb29a8be4c7}</Project>
+      <Name>nunit.engine.api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\nunit-console\src\NUnitEngine\nunit.engine\nunit.engine.csproj">
+      <Project>{372a3447-d657-40ff-a089-77c19fec30c8}</Project>
+      <Name>nunit.engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mock-assembly\mock-assembly.csproj">
       <Project>{2e368281-3ba8-4050-b05e-0e0e43f8f446}</Project>
       <Name>mock-assembly</Name>
@@ -96,7 +100,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

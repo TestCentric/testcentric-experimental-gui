@@ -1,0 +1,3 @@
+[submodule "nunit-console"]
+	path = nunit-console
+	url = https://github.com/nunit/nunit-console.git
