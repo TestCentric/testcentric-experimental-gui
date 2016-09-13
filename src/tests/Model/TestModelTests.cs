@@ -42,7 +42,8 @@ namespace NUnit.Gui.Model
 
             _model = new TestModel(engine, new CommandLineOptions());
 
-            _model.LoadTests(new []{MOCK_ASSEMBLY});
+            var mockAssemblyFullPath = System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, MOCK_ASSEMBLY);
+            _model.LoadTests(new []{ mockAssemblyFullPath });
         }
 
         [Test]

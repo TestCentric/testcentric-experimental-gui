@@ -33,18 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.0.1\lib\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.engine, Version=3.0.5813.39036, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.0.1\lib\nunit.engine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.0.1\lib\nunit.engine.api.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -251,9 +239,16 @@
     <None Include="nunit.engine.addins">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\nunit-console\src\NUnitEngine\nunit.engine.api\nunit.engine.api.csproj">
+      <Project>{775fad50-3623-4922-97c4-dfb29a8be4c7}</Project>
+      <Name>nunit.engine.api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\nunit-console\src\NUnitEngine\nunit.engine\nunit.engine.csproj">
+      <Project>{372a3447-d657-40ff-a089-77c19fec30c8}</Project>
+      <Name>nunit.engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
       <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
       <Name>nunit.uikit</Name>
