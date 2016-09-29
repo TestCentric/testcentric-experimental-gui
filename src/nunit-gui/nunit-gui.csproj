@@ -79,6 +79,7 @@
     <Compile Include="Model\TestStartNotice.cs" />
     <Compile Include="Model\TestStatus.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="Presenters\AddinsPresenter.cs" />
     <Compile Include="Presenters\CategoryGrouping.cs" />
     <Compile Include="Presenters\GroupDisplayStrategy.cs" />
     <Compile Include="Presenters\DurationGrouping.cs" />
@@ -92,6 +93,19 @@
     <Compile Include="Presenters\StatusBarPresenter.cs" />
     <Compile Include="Presenters\DisplayStrategy.cs" />
     <Compile Include="Presenters\XmlPresenter.cs" />
+    <Compile Include="Views\AddinPages\AddinsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddinPages\AddinsView.Designer.cs">
+      <DependentUpon>AddinsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddinPages\ExtensionNodeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\AddinPages\ExtensionPointView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\IAddinsView.cs" />
     <Compile Include="Views\IDialog.cs" />
     <Compile Include="Views\ISettingsDialog.cs" />
     <Compile Include="Views\ITestTreeView.cs" />
@@ -201,6 +215,9 @@
     </Compile>
     <Compile Include="Xml2RtfConverter.cs" />
     <Compile Include="XmlHelper.cs" />
+    <EmbeddedResource Include="Views\AddinPages\AddinsView.resx">
+      <DependentUpon>AddinsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

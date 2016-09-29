@@ -23,22 +23,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
 {
-    using Engine;
     using Model.Settings;
     using SettingsPages;
 
     public partial class SettingsDialog : Form, IDialog
     {
-        private SettingsModel _settings;
-        private List<SettingsPage> _pageList = new List<SettingsPage>();
+        private readonly SettingsModel _settings;
+        private readonly List<SettingsPage> _pageList = new List<SettingsPage>();
+        private readonly Form _owner;
+
         private SettingsPage _currentPage;
 
         public SettingsDialog(Form owner, SettingsModel settings)
@@ -59,6 +56,7 @@ namespace NUnit.Gui.Views
                 new RuntimeSelectionSettingsPage(_settings),
                 new AdvancedEngineSettingsPage(_settings)
             });
+            _owner = owner;
         }
 
         public void ApplySettings()
@@ -67,7 +65,12 @@ namespace NUnit.Gui.Views
                 if (page.SettingsLoaded)
                     page.ApplySettings();
         }
-        
+
+        void IDialog.ShowDialog()
+        {
+            ShowDialog(_owner);
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -196,12 +199,6 @@ namespace NUnit.Gui.Views
         {
             e.Node.ImageIndex = e.Node.SelectedImageIndex = 0;
         }
-
-        //private void SettingsDialogBase_Closed(object sender, System.EventArgs e)
-        //{
-        //    if (this.reloadProjectOnClose)
-        //        Services.TestLoader.ReloadTest();
-        //}
 
         private void okButton_Click(object sender, System.EventArgs e)
         {
