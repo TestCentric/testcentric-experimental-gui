@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ResultNodeTests.cs" />
     <Compile Include="Model\ResultStateTests.cs" />
     <Compile Include="Model\TestModelTests.cs" />
     <Compile Include="Model\TestSelectionTests.cs" />
