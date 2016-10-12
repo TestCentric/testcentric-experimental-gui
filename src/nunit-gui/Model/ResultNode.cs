@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml;
 using NUnit.Engine;
@@ -54,7 +55,7 @@ namespace NUnit.Gui.Model
             AssertCount = GetAttribute("asserts", 0);
             var duration = GetAttribute("duration");
             Duration = duration != null
-                ? double.Parse(duration)
+                ? double.Parse(duration, CultureInfo.InvariantCulture)
                 : 0.0;
         }
 
