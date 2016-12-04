@@ -21,9 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Windows.Forms;
-
 namespace NUnit.Gui.Views
 {
     /// <summary>
@@ -32,7 +29,7 @@ namespace NUnit.Gui.Views
     /// </summary>
     public interface IDialog : IView
     {
-        DialogResult ShowDialog();
+        void ShowDialog();
         void Close();
     }
 }

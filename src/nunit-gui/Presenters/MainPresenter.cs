@@ -29,7 +29,7 @@ namespace NUnit.Gui.Presenters
 {
     using Model;
     using Views;
-    using Views.SettingsPages;
+    using Views.AddinPages;
 
     public class MainPresenter : System.IDisposable
     {
@@ -72,8 +72,7 @@ namespace NUnit.Gui.Presenters
             _view.SelectRuntimeMenu.Popup += SelectRuntimeMenu_Popup;
 
             _view.SettingsCommand.Execute += OpenSettingsDialogCommand_Execute;
-            _view.AddinsCommand.Execute += () =>
-                { MessageBox.Show("This will display the Addins Dialog", "Not Yet Implemented"); };
+            _view.AddinsCommand.Execute += OpenExtensionsDialogCommand_Execute;
 
             _view.NUnitHelpCommand.Execute += () =>
                 { MessageBox.Show("This will show Help", "Not Yet Implemented");  };
@@ -185,6 +184,15 @@ namespace NUnit.Gui.Presenters
             using (var dialog = new SettingsDialog((Form)_view, _model.Settings))
             {
                 dialog.ShowDialog();
+            }
+        }
+
+        private void OpenExtensionsDialogCommand_Execute()
+        {
+            using(var addinsView = new AddinsView())
+            {
+                var dialog = new AddinsPresenter(addinsView, _model.GetService<Engine.IExtensionService>());
+                dialog.Show();
             }
         }
 
