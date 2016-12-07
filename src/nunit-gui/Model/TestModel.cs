@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using NUnit.Engine;
@@ -290,22 +291,26 @@ namespace NUnit.Gui.Model
 
         public void RunAllTests()
         {
-            // Temp fix
-            //Runner.RunAsync(this, TestFilter.Empty);
-            Runner.Run(this, TestFilter.Empty);
+            RunTests(TestFilter.Empty);
         }
 
         public void RunTests(ITestItem testItem)
         {
             if (testItem != null)
-                Runner.RunAsync(this, testItem.GetTestFilter());
+                RunTests(testItem.GetTestFilter());
+        }
+
+        private void RunTests(TestFilter filter)
+        {
+            Thread thread = new Thread(() => Runner.Run(this, filter));
+            thread.Start();
         }
 
         public void CancelTestRun()
         {
             Runner.StopRun(false);
         }
-
+        
         public ResultNode GetResultForTest(TestNode testNode)
         {
             if (testNode != null)
