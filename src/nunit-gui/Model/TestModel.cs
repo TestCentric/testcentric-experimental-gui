@@ -290,7 +290,9 @@ namespace NUnit.Gui.Model
 
         public void RunAllTests()
         {
-            Runner.RunAsync(this, TestFilter.Empty);
+            // Temp fix
+            //Runner.RunAsync(this, TestFilter.Empty);
+            Runner.Run(this, TestFilter.Empty);
         }
 
         public void RunTests(ITestItem testItem)
