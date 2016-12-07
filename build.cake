@@ -1,3 +1,5 @@
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.5.0
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -92,6 +94,7 @@ Task("Build")
 				.SetConfiguration(configuration)
 				.SetVerbosity(Verbosity.Minimal)
 				.SetNodeReuse(false)
+				.SetPlatformTarget(PlatformTarget.MSIL)
 			);
 		}
 		else
