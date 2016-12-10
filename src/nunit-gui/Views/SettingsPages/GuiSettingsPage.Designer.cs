@@ -44,6 +44,7 @@
             // checkFilesExistCheckBox
             // 
             this.checkFilesExistCheckBox.AutoSize = true;
+            this.checkFilesExistCheckBox.Enabled = false;
             this.checkFilesExistCheckBox.Location = new System.Drawing.Point(27, 159);
             this.checkFilesExistCheckBox.Name = "checkFilesExistCheckBox";
             this.checkFilesExistCheckBox.Size = new System.Drawing.Size(185, 17);
@@ -54,6 +55,7 @@
             // miniGuiRadioButton
             // 
             this.miniGuiRadioButton.AutoSize = true;
+            this.miniGuiRadioButton.Enabled = false;
             this.miniGuiRadioButton.Location = new System.Drawing.Point(27, 56);
             this.miniGuiRadioButton.Name = "miniGuiRadioButton";
             this.miniGuiRadioButton.Size = new System.Drawing.Size(148, 17);
@@ -63,6 +65,7 @@
             // fullGuiRadioButton
             // 
             this.fullGuiRadioButton.AutoSize = true;
+            this.fullGuiRadioButton.Enabled = false;
             this.fullGuiRadioButton.Location = new System.Drawing.Point(27, 24);
             this.fullGuiRadioButton.Name = "fullGuiRadioButton";
             this.fullGuiRadioButton.Size = new System.Drawing.Size(215, 17);
@@ -99,6 +102,7 @@
             // loadLastProjectCheckBox
             // 
             this.loadLastProjectCheckBox.AutoSize = true;
+            this.loadLastProjectCheckBox.Enabled = false;
             this.loadLastProjectCheckBox.Location = new System.Drawing.Point(27, 198);
             this.loadLastProjectCheckBox.Name = "loadLastProjectCheckBox";
             this.loadLastProjectCheckBox.Size = new System.Drawing.Size(193, 17);

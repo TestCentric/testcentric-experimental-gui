@@ -35,6 +35,7 @@
             // 
             // runtimeSelectionCheckBox
             // 
+            this.runtimeSelectionCheckBox.Enabled = false;
             this.runtimeSelectionCheckBox.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.runtimeSelectionCheckBox.Location = new System.Drawing.Point(29, 32);
             this.runtimeSelectionCheckBox.Name = "runtimeSelectionCheckBox";

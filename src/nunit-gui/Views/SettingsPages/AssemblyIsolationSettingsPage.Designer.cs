@@ -62,6 +62,7 @@
             // 
             this.sameProcessRadioButton.AutoSize = true;
             this.sameProcessRadioButton.Checked = true;
+            this.sameProcessRadioButton.Enabled = false;
             this.sameProcessRadioButton.Location = new System.Drawing.Point(19, 25);
             this.sameProcessRadioButton.Name = "sameProcessRadioButton";
             this.sameProcessRadioButton.Size = new System.Drawing.Size(205, 17);
@@ -73,6 +74,7 @@
             // separateProcessRadioButton
             // 
             this.separateProcessRadioButton.AutoSize = true;
+            this.separateProcessRadioButton.Enabled = false;
             this.separateProcessRadioButton.Location = new System.Drawing.Point(19, 58);
             this.separateProcessRadioButton.Name = "separateProcessRadioButton";
             this.separateProcessRadioButton.Size = new System.Drawing.Size(204, 17);
@@ -83,6 +85,7 @@
             // multiProcessRadioButton
             // 
             this.multiProcessRadioButton.AutoSize = true;
+            this.multiProcessRadioButton.Enabled = false;
             this.multiProcessRadioButton.Location = new System.Drawing.Point(19, 91);
             this.multiProcessRadioButton.Name = "multiProcessRadioButton";
             this.multiProcessRadioButton.Size = new System.Drawing.Size(239, 17);
@@ -114,6 +117,7 @@
             this.singleDomainRadioButton.AutoCheck = false;
             this.singleDomainRadioButton.AutoSize = true;
             this.singleDomainRadioButton.Checked = true;
+            this.singleDomainRadioButton.Enabled = false;
             this.singleDomainRadioButton.Location = new System.Drawing.Point(19, 182);
             this.singleDomainRadioButton.Name = "singleDomainRadioButton";
             this.singleDomainRadioButton.Size = new System.Drawing.Size(194, 17);
@@ -126,6 +130,7 @@
             // 
             this.multiDomainRadioButton.AutoCheck = false;
             this.multiDomainRadioButton.AutoSize = true;
+            this.multiDomainRadioButton.Enabled = false;
             this.multiDomainRadioButton.Location = new System.Drawing.Point(19, 152);
             this.multiDomainRadioButton.Name = "multiDomainRadioButton";
             this.multiDomainRadioButton.Size = new System.Drawing.Size(220, 17);

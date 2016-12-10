@@ -82,7 +82,7 @@ namespace NUnit.Gui.Views.SettingsPages
 
         private void enableShadowCopyCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            shadowCopyPathTextBox.Enabled = enableShadowCopyCheckBox.Checked;
+            //shadowCopyPathTextBox.Enabled = enableShadowCopyCheckBox.Checked;
         }
 
         private void principalPolicyCheckBox_CheckedChanged(object sender, EventArgs e)
