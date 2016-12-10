@@ -104,6 +104,7 @@
             // 
             // shadowCopyPathTextBox
             // 
+            this.shadowCopyPathTextBox.Enabled = false;
             this.shadowCopyPathTextBox.Location = new System.Drawing.Point(134, 57);
             this.shadowCopyPathTextBox.Name = "shadowCopyPathTextBox";
             this.shadowCopyPathTextBox.Size = new System.Drawing.Size(325, 20);

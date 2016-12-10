@@ -40,6 +40,7 @@
             // useOtherEditorRadioButton
             // 
             this.useOtherEditorRadioButton.AutoSize = true;
+            this.useOtherEditorRadioButton.Enabled = false;
             this.useOtherEditorRadioButton.Location = new System.Drawing.Point(21, 66);
             this.useOtherEditorRadioButton.Name = "useOtherEditorRadioButton";
             this.useOtherEditorRadioButton.Size = new System.Drawing.Size(89, 17);
@@ -51,6 +52,7 @@
             // useNUnitEditorRadioButton
             // 
             this.useNUnitEditorRadioButton.AutoSize = true;
+            this.useNUnitEditorRadioButton.Enabled = false;
             this.useNUnitEditorRadioButton.Location = new System.Drawing.Point(21, 39);
             this.useNUnitEditorRadioButton.Name = "useNUnitEditorRadioButton";
             this.useNUnitEditorRadioButton.Size = new System.Drawing.Size(140, 17);
@@ -74,6 +76,7 @@
             // 
             this.editorPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.editorPathTextBox.Enabled = false;
             this.editorPathTextBox.Location = new System.Drawing.Point(113, 64);
             this.editorPathTextBox.Name = "editorPathTextBox";
             this.editorPathTextBox.Size = new System.Drawing.Size(281, 20);

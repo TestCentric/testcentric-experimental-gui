@@ -57,6 +57,7 @@
             // 
             // imageSetListBox
             // 
+            this.imageSetListBox.Enabled = false;
             this.imageSetListBox.FormattingEnabled = true;
             this.imageSetListBox.Location = new System.Drawing.Point(233, 67);
             this.imageSetListBox.Name = "imageSetListBox";
@@ -144,6 +145,7 @@
             // 
             this.flatTestList.AutoCheck = false;
             this.flatTestList.AutoSize = true;
+            this.flatTestList.Enabled = false;
             this.flatTestList.Location = new System.Drawing.Point(29, 275);
             this.flatTestList.Name = "flatTestList";
             this.flatTestList.Size = new System.Drawing.Size(129, 17);
@@ -155,6 +157,7 @@
             this.autoNamespaceSuites.AutoCheck = false;
             this.autoNamespaceSuites.AutoSize = true;
             this.autoNamespaceSuites.Checked = true;
+            this.autoNamespaceSuites.Enabled = false;
             this.autoNamespaceSuites.Location = new System.Drawing.Point(29, 249);
             this.autoNamespaceSuites.Name = "autoNamespaceSuites";
             this.autoNamespaceSuites.Size = new System.Drawing.Size(162, 17);
@@ -175,6 +178,7 @@
             // showCheckBoxesCheckBox
             // 
             this.showCheckBoxesCheckBox.AutoSize = true;
+            this.showCheckBoxesCheckBox.Enabled = false;
             this.showCheckBoxesCheckBox.Location = new System.Drawing.Point(29, 187);
             this.showCheckBoxesCheckBox.Name = "showCheckBoxesCheckBox";
             this.showCheckBoxesCheckBox.Size = new System.Drawing.Size(116, 17);
@@ -207,6 +211,7 @@
             // clearResultsCheckBox
             // 
             this.clearResultsCheckBox.AutoSize = true;
+            this.clearResultsCheckBox.Enabled = false;
             this.clearResultsCheckBox.Location = new System.Drawing.Point(29, 135);
             this.clearResultsCheckBox.Name = "clearResultsCheckBox";
             this.clearResultsCheckBox.Size = new System.Drawing.Size(161, 17);
@@ -218,9 +223,9 @@
             this.saveVisualStateCheckBox.AutoSize = true;
             this.saveVisualStateCheckBox.Location = new System.Drawing.Point(29, 161);
             this.saveVisualStateCheckBox.Name = "saveVisualStateCheckBox";
-            this.saveVisualStateCheckBox.Size = new System.Drawing.Size(184, 17);
+            this.saveVisualStateCheckBox.Size = new System.Drawing.Size(234, 17);
             this.saveVisualStateCheckBox.TabIndex = 60;
-            this.saveVisualStateCheckBox.Text = "Save Visual State of each project";
+            this.saveVisualStateCheckBox.Text = "Restore Visual State of each project on load";
             // 
             // groupBox1
             // 
