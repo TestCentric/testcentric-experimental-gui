@@ -33,6 +33,13 @@ var GUI_SOLUTION = PROJECT_DIR + "nunit-gui.sln";
 // Test Assembly
 var GUI_TESTS = BIN_DIR + "nunit-gui.tests.dll";
 
+// Package sources for nuget restore
+var PACKAGE_SOURCE = new string[]
+{
+	"https://www.myget.org/F/nunit-gui-team/api/v3/index.json",
+	"https://www.myget.org/F/nunit-gui-team/api/v2"
+};
+
 // Packages
 var SRC_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + version + modifier + "-src.zip";
 var ZIP_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + packageVersion + ".zip";
@@ -55,7 +62,11 @@ Task("Clean")
 Task("InitializeBuild")
     .Does(() =>
 {
-    NuGetRestore(GUI_SOLUTION);
+    NuGetRestore(GUI_SOLUTION, new NuGetRestoreSettings
+	{
+		Source = PACKAGE_SOURCE,
+		Verbosity = NuGetVerbosity.Detailed
+	});
 
 	if (BuildSystem.IsRunningOnAppVeyor)
 	{
