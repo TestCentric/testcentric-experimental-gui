@@ -269,7 +269,7 @@ namespace NUnit.Gui.Model
             var package = new TestPackage(testFiles);
 
             // TODO: Remove temporary Settings used in testing GUI
-            package.Settings["ProcessModel"] = "InProcess";
+            //package.Settings["ProcessModel"] = "InProcess";
             package.Settings["NumberOfTestWorkers"] = 0;
 
             //if (options.ProcessModel != null)
@@ -302,8 +302,7 @@ namespace NUnit.Gui.Model
 
         private void RunTests(TestFilter filter)
         {
-            Thread thread = new Thread(() => Runner.Run(this, filter));
-            thread.Start();
+            Runner.RunAsync(this, filter);
         }
 
         public void CancelTestRun()
