@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nunit-gui", "src\nunit-gui\nunit-gui.csproj", "{9E15166C-D2B7-4B24-AB1C-1C69FFCEC9D3}"
 EndProject
@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.sh = build.sh
 		CHANGES.txt = CHANGES.txt
 		LICENSE = LICENSE
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Global
