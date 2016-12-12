@@ -45,7 +45,6 @@ namespace NUnit.Gui.Views.SettingsPages
         public override void LoadSettings()
         {
             enableShadowCopyCheckBox.Checked = Settings.Engine.ShadowCopyFiles;
-            shadowCopyPathTextBox.Text = Settings.Engine.ShadowCopyPath;
 
             principalPolicyCheckBox.Checked = principalPolicyListBox.Enabled =
                 Settings.Engine.SetPrincipalPolicy;
@@ -55,11 +54,6 @@ namespace NUnit.Gui.Views.SettingsPages
         public override void ApplySettings()
         {
             Settings.Engine.ShadowCopyFiles = enableShadowCopyCheckBox.Checked;
-
-            if (shadowCopyPathTextBox.Text != "")
-                Settings.Engine.ShadowCopyPath = shadowCopyPathTextBox.Text;
-            else
-                Settings.Engine.RemoveSetting("ShadowCopyPath");
 
             Settings.Engine.SetPrincipalPolicy = principalPolicyCheckBox.Checked;
 
@@ -73,7 +67,6 @@ namespace NUnit.Gui.Views.SettingsPages
             get
             {
                 return enableShadowCopyCheckBox.Checked != Settings.Engine.ShadowCopyFiles
-                    || shadowCopyPathTextBox.Text != Settings.Engine.ShadowCopyPath
                     || principalPolicyCheckBox.Checked != Settings.Engine.SetPrincipalPolicy
                     || principalPolicyListBox.SelectedIndex != (int)Settings.Engine.PrincipalPolicy;
 

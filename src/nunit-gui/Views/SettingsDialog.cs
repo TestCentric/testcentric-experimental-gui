@@ -49,11 +49,7 @@ namespace NUnit.Gui.Views
 
             _pageList.AddRange(new SettingsPage[] {
                 new GuiSettingsPage(_settings),
-                new TreeSettingsPage(_settings),
-                new ProjectEditorSettingsPage(_settings),
-                new AssemblyIsolationSettingsPage(_settings),
                 new AssemblyReloadSettingsPage(_settings),
-                new RuntimeSelectionSettingsPage(_settings),
                 new AdvancedEngineSettingsPage(_settings)
             });
             _owner = owner;
