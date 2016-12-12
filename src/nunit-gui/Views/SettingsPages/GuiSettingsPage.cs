@@ -28,11 +28,11 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using NUnit.Gui.Model;
+using NUnit.Gui.Model.Settings;
 
 namespace NUnit.Gui.Views.SettingsPages
 {
-    using Model.Settings;
-
     public partial class GuiSettingsPage : SettingsPage
     {
         public GuiSettingsPage(SettingsModel settings) : base("Gui.General", settings)
@@ -42,28 +42,15 @@ namespace NUnit.Gui.Views.SettingsPages
 
         public override void LoadSettings()
         {
-            string displayFormat = Settings.Gui.DisplayFormat;
-            switch (displayFormat)
-            {
-                case "Full":
-                    fullGuiRadioButton.Checked = true;
-                    break;
-                case "Mini":
-                    miniGuiRadioButton.Checked = true;
-                    break;
-            }
-
             recentFilesCountTextBox.Text = Settings.Gui.RecentProjects.MaxFiles.ToString();
-            checkFilesExistCheckBox.Checked = Settings.Gui.RecentProjects.CheckFilesExist;
-            loadLastProjectCheckBox.Checked = Settings.Gui.LoadLastProject;
+            initialDisplayComboBox.SelectedIndex = (int)Settings.Gui.TestTree.InitialTreeDisplay;
+            saveVisualStateCheckBox.Checked = Settings.Gui.TestTree.SaveVisualState;
         }
 
         public override void ApplySettings()
         {
-            string fmt = fullGuiRadioButton.Checked ? "Full" : "Mini";
-            Settings.Gui.DisplayFormat = fmt;
-            Settings.Gui.RecentProjects.CheckFilesExist = checkFilesExistCheckBox.Checked;
-            Settings.Gui.LoadLastProject = loadLastProjectCheckBox.Checked;
+            Settings.Gui.TestTree.InitialTreeDisplay = (TreeDisplayStyle)initialDisplayComboBox.SelectedIndex;
+            Settings.Gui.TestTree.SaveVisualState = saveVisualStateCheckBox.Checked;
         }
 
         private void recentFilesCountTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -105,8 +92,6 @@ namespace NUnit.Gui.Views.SettingsPages
         {
             int count = int.Parse(recentFilesCountTextBox.Text);
             Settings.Gui.RecentProjects.MaxFiles = count;
-            if (count == 0)
-                loadLastProjectCheckBox.Checked = false;
         }
     }
 }

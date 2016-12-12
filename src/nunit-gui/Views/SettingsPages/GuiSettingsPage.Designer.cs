@@ -28,54 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkFilesExistCheckBox = new System.Windows.Forms.CheckBox();
-            this.miniGuiRadioButton = new System.Windows.Forms.RadioButton();
-            this.fullGuiRadioButton = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.recentFilesCountTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.loadLastProjectCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.initialDisplayComboBox = new System.Windows.Forms.ComboBox();
+            this.saveVisualStateCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // checkFilesExistCheckBox
-            // 
-            this.checkFilesExistCheckBox.AutoSize = true;
-            this.checkFilesExistCheckBox.Enabled = false;
-            this.checkFilesExistCheckBox.Location = new System.Drawing.Point(27, 159);
-            this.checkFilesExistCheckBox.Name = "checkFilesExistCheckBox";
-            this.checkFilesExistCheckBox.Size = new System.Drawing.Size(185, 17);
-            this.checkFilesExistCheckBox.TabIndex = 45;
-            this.checkFilesExistCheckBox.Text = "Check that files exist before listing";
-            this.checkFilesExistCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // miniGuiRadioButton
-            // 
-            this.miniGuiRadioButton.AutoSize = true;
-            this.miniGuiRadioButton.Enabled = false;
-            this.miniGuiRadioButton.Location = new System.Drawing.Point(27, 56);
-            this.miniGuiRadioButton.Name = "miniGuiRadioButton";
-            this.miniGuiRadioButton.Size = new System.Drawing.Size(148, 17);
-            this.miniGuiRadioButton.TabIndex = 44;
-            this.miniGuiRadioButton.Text = "Mini Gui showing tree only";
-            // 
-            // fullGuiRadioButton
-            // 
-            this.fullGuiRadioButton.AutoSize = true;
-            this.fullGuiRadioButton.Enabled = false;
-            this.fullGuiRadioButton.Location = new System.Drawing.Point(27, 24);
-            this.fullGuiRadioButton.Name = "fullGuiRadioButton";
-            this.fullGuiRadioButton.Size = new System.Drawing.Size(215, 17);
-            this.fullGuiRadioButton.TabIndex = 43;
-            this.fullGuiRadioButton.Text = "Full Gui with progress bar and result tabs";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(147, 120);
+            this.label3.Location = new System.Drawing.Point(147, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 41;
@@ -83,7 +51,7 @@
             // 
             // recentFilesCountTextBox
             // 
-            this.recentFilesCountTextBox.Location = new System.Drawing.Point(91, 120);
+            this.recentFilesCountTextBox.Location = new System.Drawing.Point(91, 32);
             this.recentFilesCountTextBox.Name = "recentFilesCountTextBox";
             this.recentFilesCountTextBox.Size = new System.Drawing.Size(40, 20);
             this.recentFilesCountTextBox.TabIndex = 40;
@@ -93,27 +61,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(27, 120);
+            this.label4.Location = new System.Drawing.Point(27, 32);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 13);
             this.label4.TabIndex = 39;
             this.label4.Text = "List";
             // 
-            // loadLastProjectCheckBox
-            // 
-            this.loadLastProjectCheckBox.AutoSize = true;
-            this.loadLastProjectCheckBox.Enabled = false;
-            this.loadLastProjectCheckBox.Location = new System.Drawing.Point(27, 198);
-            this.loadLastProjectCheckBox.Name = "loadLastProjectCheckBox";
-            this.loadLastProjectCheckBox.Size = new System.Drawing.Size(193, 17);
-            this.loadLastProjectCheckBox.TabIndex = 42;
-            this.loadLastProjectCheckBox.Text = "Load most recent project at startup.";
-            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Location = new System.Drawing.Point(130, 96);
+            this.groupBox2.Location = new System.Drawing.Point(130, 8);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(295, 8);
             this.groupBox2.TabIndex = 37;
@@ -122,46 +80,77 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 96);
+            this.label2.Location = new System.Drawing.Point(3, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 38;
             this.label2.Text = "Recent Files";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 123);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.TabIndex = 61;
+            this.label1.Text = "Initial display on load";
+            // 
+            // initialDisplayComboBox
+            // 
+            this.initialDisplayComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.initialDisplayComboBox.ItemHeight = 13;
+            this.initialDisplayComboBox.Items.AddRange(new object[] {
+            "Auto",
+            "Expand",
+            "Collapse",
+            "HideTests"});
+            this.initialDisplayComboBox.Location = new System.Drawing.Point(232, 123);
+            this.initialDisplayComboBox.Name = "initialDisplayComboBox";
+            this.initialDisplayComboBox.Size = new System.Drawing.Size(168, 21);
+            this.initialDisplayComboBox.TabIndex = 62;
+            // 
+            // saveVisualStateCheckBox
+            // 
+            this.saveVisualStateCheckBox.AutoSize = true;
+            this.saveVisualStateCheckBox.Location = new System.Drawing.Point(28, 203);
+            this.saveVisualStateCheckBox.Name = "saveVisualStateCheckBox";
+            this.saveVisualStateCheckBox.Size = new System.Drawing.Size(234, 17);
+            this.saveVisualStateCheckBox.TabIndex = 63;
+            this.saveVisualStateCheckBox.Text = "Restore Visual State of each project on load";
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Location = new System.Drawing.Point(130, 0);
+            this.groupBox1.Location = new System.Drawing.Point(137, 87);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(295, 8);
-            this.groupBox1.TabIndex = 35;
+            this.groupBox1.Size = new System.Drawing.Size(291, 8);
+            this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             // 
-            // label1
+            // label5
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 36;
-            this.label1.Text = "Gui Display";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1, 87);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 65;
+            this.label5.Text = "Tree View";
             // 
             // GuiSettingsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.checkFilesExistCheckBox);
-            this.Controls.Add(this.miniGuiRadioButton);
-            this.Controls.Add(this.fullGuiRadioButton);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.initialDisplayComboBox);
+            this.Controls.Add(this.saveVisualStateCheckBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.recentFilesCountTextBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.loadLastProjectCheckBox);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label1);
             this.Name = "GuiSettingsPage";
             this.Size = new System.Drawing.Size(428, 293);
             this.ResumeLayout(false);
@@ -170,17 +159,15 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox checkFilesExistCheckBox;
-        private System.Windows.Forms.RadioButton miniGuiRadioButton;
-        private System.Windows.Forms.RadioButton fullGuiRadioButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox recentFilesCountTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox loadLastProjectCheckBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox initialDisplayComboBox;
+        private System.Windows.Forms.CheckBox saveVisualStateCheckBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label5;
     }
 }

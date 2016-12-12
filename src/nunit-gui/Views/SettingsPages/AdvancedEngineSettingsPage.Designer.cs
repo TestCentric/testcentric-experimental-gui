@@ -34,8 +34,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.shadowCopyPathTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -102,23 +100,6 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             // 
-            // shadowCopyPathTextBox
-            // 
-            this.shadowCopyPathTextBox.Enabled = false;
-            this.shadowCopyPathTextBox.Location = new System.Drawing.Point(134, 57);
-            this.shadowCopyPathTextBox.Name = "shadowCopyPathTextBox";
-            this.shadowCopyPathTextBox.Size = new System.Drawing.Size(325, 20);
-            this.shadowCopyPathTextBox.TabIndex = 17;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 58);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Cache Path:";
-            // 
             // label2
             // 
             this.label2.Location = new System.Drawing.Point(134, 93);
@@ -167,8 +148,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.shadowCopyPathTextBox);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox3);
@@ -188,8 +167,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox shadowCopyPathTextBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;

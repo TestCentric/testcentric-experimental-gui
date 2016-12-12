@@ -120,12 +120,6 @@
     <Compile Include="Views\SettingsPages\AdvancedEngineSettingsPage.Designer.cs">
       <DependentUpon>AdvancedEngineSettingsPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsPages\AssemblyIsolationSettingsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SettingsPages\AssemblyIsolationSettingsPage.Designer.cs">
-      <DependentUpon>AssemblyIsolationSettingsPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsPages\AssemblyReloadSettingsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,18 +131,6 @@
     </Compile>
     <Compile Include="Views\SettingsPages\GuiSettingsPage.Designer.cs">
       <DependentUpon>GuiSettingsPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsPages\ProjectEditorSettingsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SettingsPages\ProjectEditorSettingsPage.Designer.cs">
-      <DependentUpon>ProjectEditorSettingsPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsPages\RuntimeSelectionSettingsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SettingsPages\RuntimeSelectionSettingsPage.Designer.cs">
-      <DependentUpon>RuntimeSelectionSettingsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\TestPropertiesView.cs">
       <SubType>UserControl</SubType>
@@ -192,12 +174,6 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\SettingsPages\TreeSettingsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SettingsPages\TreeSettingsPage.Designer.cs">
-      <DependentUpon>TreeSettingsPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\TreeDisplayStyle.cs" />
     <Compile Include="Views\XmlView.cs">
       <SubType>UserControl</SubType>
@@ -229,20 +205,11 @@
     <EmbeddedResource Include="Views\SettingsPages\AdvancedEngineSettingsPage.resx">
       <DependentUpon>AdvancedEngineSettingsPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsPages\AssemblyIsolationSettingsPage.resx">
-      <DependentUpon>AssemblyIsolationSettingsPage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsPages\AssemblyReloadSettingsPage.resx">
       <DependentUpon>AssemblyReloadSettingsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsPages\GuiSettingsPage.resx">
       <DependentUpon>GuiSettingsPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsPages\ProjectEditorSettingsPage.resx">
-      <DependentUpon>ProjectEditorSettingsPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsPages\RuntimeSelectionSettingsPage.resx">
-      <DependentUpon>RuntimeSelectionSettingsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\TestPropertiesView.resx">
       <DependentUpon>TestPropertiesView.cs</DependentUpon>
@@ -255,9 +222,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StatusBarView.resx">
       <DependentUpon>StatusBarView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsPages\TreeSettingsPage.resx">
-      <DependentUpon>TreeSettingsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\XmlView.resx">
       <DependentUpon>XmlView.cs</DependentUpon>
