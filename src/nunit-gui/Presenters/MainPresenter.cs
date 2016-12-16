@@ -70,6 +70,7 @@ namespace NUnit.Gui.Presenters
             _view.ReloadTestsCommand.Execute += OnReloadTestsCommand;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectRuntimeMenu.Popup += SelectRuntimeMenu_Popup;
+            _view.ExitCommand.Execute += () => Application.Exit();
 
             _view.SettingsCommand.Execute += OpenSettingsDialogCommand_Execute;
             _view.AddinsCommand.Execute += OpenExtensionsDialogCommand_Execute;
@@ -78,6 +79,8 @@ namespace NUnit.Gui.Presenters
                 { MessageBox.Show("This will show Help", "Not Yet Implemented");  };
             _view.AboutNUnitCommand.Execute += () =>
                 { MessageBox.Show("This will show the About Box", "Not Yet Implemented"); };
+
+            _view.FormClosing += (s, e) => _model.Dispose();
         }
 
         #endregion

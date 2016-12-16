@@ -187,7 +187,11 @@ namespace NUnit.Gui.Model
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (IsPackageLoaded)
+                UnloadTests();
+
+            if (Runner != null)
+                Runner.Dispose();
         }
 
         public void NewProject()
