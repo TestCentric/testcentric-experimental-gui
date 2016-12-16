@@ -57,14 +57,21 @@ namespace NUnit.Gui.Presenters
         {
             ClearTree();
 
+            TreeNode topNode = null;
             foreach (var topLevelNode in testNode.Children)
             {
                 var treeNode = MakeTreeNode(topLevelNode, true);
+
+                if (topNode == null)
+                    topNode = treeNode;
 
                 _view.Tree.Add(treeNode);
 
                 SetInitialExpansion(treeNode);
             }
+
+            if (topNode != null)
+                topNode.EnsureVisible();
         }
 
         private void SetInitialExpansion(TreeNode treeNode)
