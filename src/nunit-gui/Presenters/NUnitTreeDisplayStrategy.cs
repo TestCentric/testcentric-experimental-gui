@@ -70,8 +70,7 @@ namespace NUnit.Gui.Presenters
                 SetInitialExpansion(treeNode);
             }
 
-            if (topNode != null)
-                topNode.EnsureVisible();
+            topNode?.EnsureVisible();
         }
 
         private void SetInitialExpansion(TreeNode treeNode)
