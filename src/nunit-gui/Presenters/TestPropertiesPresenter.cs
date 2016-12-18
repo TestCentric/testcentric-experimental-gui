@@ -28,15 +28,13 @@ using System.Text;
 namespace NUnit.Gui.Presenters
 {
     using Model;
+    using System.Xml;
     using Views;
 
     public class TestPropertiesPresenter
     {
         private readonly ITestPropertiesView _view;
         private readonly ITestModel _model;
-
-        private int _maxY = 0;
-        private int _nextY = 4;
 
         private ITestItem _selectedItem;
 
@@ -107,14 +105,30 @@ namespace NUnit.Gui.Presenters
                     _view.ElapsedTime = resultNode.Duration.ToString("f3");
                     _view.AssertCount = resultNode.AssertCount.ToString();
 
-                    // TODO: Check for message and stack trace in other cases than failure
-                    var message = resultNode.Xml.SelectSingleNode("failure/message");
-                    if (message == null)
-                        message = resultNode.Xml.SelectSingleNode("reason/message");
-                    _view.Message = message != null ? message.InnerText : "";
+                    var assertions = resultNode.Xml.SelectNodes("assertions/assertion");
+                    XmlNode message = null;
+                    XmlNode stackTrace = null;
 
-                    var stackTrace = resultNode.Xml.SelectSingleNode("failure/stack-trace");
-                    _view.StackTrace = stackTrace != null ? stackTrace.InnerText : "";
+                    if (assertions.Count > 0)
+                    {
+                        message = assertions[0].SelectSingleNode("message");
+                        stackTrace = assertions[0].SelectSingleNode("stack-trace");
+                    }
+                    else if (resultNode.Outcome.Status == TestStatus.Failed)
+                    {
+                        message = resultNode.Xml.SelectSingleNode("failure/message");
+                        stackTrace = resultNode.Xml.SelectSingleNode("failure/stack-trace");
+                    }
+                    else
+                    {
+                        message = resultNode.Xml.SelectSingleNode("reason/message");
+                    }
+
+                    if (message != null)
+                        _view.Message = message.InnerText;
+
+                    if (stackTrace != null)
+                        _view.StackTrace = stackTrace.InnerText;
 
                     var output = resultNode.Xml.SelectSingleNode("output");
                     _view.Output = output != null ? output.InnerText : "";
