@@ -176,7 +176,6 @@
             // statusBarView
             // 
             this.statusBarView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusBarView.ElapsedTime = 0D;
             this.statusBarView.Location = new System.Drawing.Point(0, 366);
             this.statusBarView.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.statusBarView.Name = "statusBarView";

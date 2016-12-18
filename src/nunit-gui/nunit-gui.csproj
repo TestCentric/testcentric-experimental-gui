@@ -247,7 +247,7 @@
     <Content Include="Images\Tree\Default\Failure.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Tree\Default\Ignored.png">
+    <Content Include="Images\Tree\Default\Warning.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Tree\Default\Inconclusive.png">

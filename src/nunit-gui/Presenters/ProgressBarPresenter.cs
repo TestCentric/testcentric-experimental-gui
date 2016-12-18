@@ -75,6 +75,9 @@ namespace NUnit.Gui.Presenters
                     case TestStatus.Failed:
                         _progressBar.Status = TestProgressBarStatus.Failure;
                         break;
+                    case TestStatus.Warning:
+                        _progressBar.Status = TestProgressBarStatus.Warning;
+                        break;
                     case TestStatus.Skipped:
                         if (result.Label == "Invalid")
                             _progressBar.Status = TestProgressBarStatus.Failure;

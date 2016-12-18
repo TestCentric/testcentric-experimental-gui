@@ -40,7 +40,7 @@ namespace NUnit.UiKit.Controls
         public readonly static Color[][] BrushColors = 
         {
               new Color[] { Color.FromArgb(32, 205, 32), Color.FromArgb(16, 64, 16) },  // Success
-              new Color[] { Color.FromArgb(255, 255, 0), Color.FromArgb(255, 192, 0) }, // Warning
+              new Color[] { Color.FromArgb(255, 255, 0), Color.FromArgb(242, 242, 0) }, // Warning
               new Color[] { Color.FromArgb(255, 0, 0), Color.FromArgb(150, 0, 0) }      // Failure
         };
         

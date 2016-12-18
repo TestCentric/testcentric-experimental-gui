@@ -39,7 +39,7 @@ namespace NUnit.Gui.Views
         public const int SkippedIndex = 0;
         public const int InconclusiveIndex = 1;
         public const int SuccessIndex = 2;
-        public const int IgnoredIndex = 3;
+        public const int WarningIndex = 3;
         public const int FailureIndex = 4;
 
         public TestTreeView()

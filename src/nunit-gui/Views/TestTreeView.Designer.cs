@@ -33,6 +33,7 @@
             this.treeView = new System.Windows.Forms.TreeView();
             this.testTreeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.runMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runCheckedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
             this.showCheckboxesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -57,7 +58,6 @@
             this.byCategoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byOutcomeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byDurationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runCheckedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testTreeContextMenu.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -87,13 +87,19 @@
             this.collapseAllMenuItem,
             this.collapseToFixturesMenuItem});
             this.testTreeContextMenu.Name = "testTreeContextMenu";
-            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 170);
+            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 148);
             // 
             // runMenuItem
             // 
             this.runMenuItem.Name = "runMenuItem";
             this.runMenuItem.Size = new System.Drawing.Size(176, 22);
             this.runMenuItem.Text = "Run";
+            // 
+            // runCheckedMenuItem
+            // 
+            this.runCheckedMenuItem.Name = "runCheckedMenuItem";
+            this.runCheckedMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.runCheckedMenuItem.Text = "Run Checked Items";
             // 
             // toolStripMenuItem13
             // 
@@ -137,7 +143,7 @@
             this.treeImages.Images.SetKeyName(0, "Skipped.png");
             this.treeImages.Images.SetKeyName(1, "Inconclusive.png");
             this.treeImages.Images.SetKeyName(2, "Success.png");
-            this.treeImages.Images.SetKeyName(3, "Ignored.png");
+            this.treeImages.Images.SetKeyName(3, "Warning.png");
             this.treeImages.Images.SetKeyName(4, "Failure.png");
             // 
             // toolStrip
@@ -281,12 +287,6 @@
             this.byDurationMenuItem.Size = new System.Drawing.Size(141, 22);
             this.byDurationMenuItem.Tag = "DURATION";
             this.byDurationMenuItem.Text = "By Duration";
-            // 
-            // runCheckedMenuItem
-            // 
-            this.runCheckedMenuItem.Name = "runCheckedMenuItem";
-            this.runCheckedMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.runCheckedMenuItem.Text = "Run Checked Items";
             // 
             // TestTreeView
             // 

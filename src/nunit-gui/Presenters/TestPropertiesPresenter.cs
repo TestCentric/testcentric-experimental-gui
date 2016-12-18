@@ -109,6 +109,8 @@ namespace NUnit.Gui.Presenters
 
                     // TODO: Check for message and stack trace in other cases than failure
                     var message = resultNode.Xml.SelectSingleNode("failure/message");
+                    if (message == null)
+                        message = resultNode.Xml.SelectSingleNode("reason/message");
                     _view.Message = message != null ? message.InnerText : "";
 
                     var stackTrace = resultNode.Xml.SelectSingleNode("failure/stack-trace");

@@ -70,7 +70,7 @@ namespace NUnit.Gui.Presenters
         
         static object[] resultData = new object[] {
             new object[] { ResultState.Success, TestTreeView.SuccessIndex },
-            new object[] { ResultState.Ignored, TestTreeView.IgnoredIndex },
+            new object[] { ResultState.Ignored, TestTreeView.WarningIndex },
             new object[] { ResultState.Failure, TestTreeView.FailureIndex },
             new object[] { ResultState.Inconclusive, TestTreeView.InconclusiveIndex },
             new object[] { ResultState.Skipped, TestTreeView.SkippedIndex },

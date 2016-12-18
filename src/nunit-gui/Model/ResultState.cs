@@ -113,6 +113,11 @@ namespace NUnit.Gui.Model
         public readonly static ResultState Failure = new ResultState(TestStatus.Failed);
 
         /// <summary>
+        /// The test issued a warning message
+        /// </summary>
+        public readonly static ResultState Warning = new ResultState(TestStatus.Warning);
+
+        /// <summary>
         /// The test encountered an unexpected exception
         /// </summary>
         public readonly static ResultState Error = new ResultState(TestStatus.Failed, "Error");

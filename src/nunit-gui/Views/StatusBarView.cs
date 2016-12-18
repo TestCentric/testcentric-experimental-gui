@@ -28,192 +28,199 @@ namespace NUnit.Gui.Views
     // Interface is used by presenter and tests
     public interface IStatusBarView : IView
     {
-        void SetStatus(string text);
-        void Initialize(string text);
-        void Initialize(string text, int testCount);
-        void RunStarting(int testCount);
-        void RunFinished(double elapsedTime);
-        void RecordSuccess();
-        void RecordFailure();
-        void RecordError();
+        void OnTestLoaded(int testCount);
+        void OnTestUnloaded();
+        void OnRunStarting(int testCount);
+        void OnRunFinished(double elapsedTime);
+        void OnTestStarting(string name);
+        void OnTestPassed();
+        void OnTestFailed();
+        void OnTestWarning();
+        void OnTestInconclusive();
     }
 
     public partial class StatusBarView : UserControl, IStatusBarView
     {
+        // Counters are maintained in the view even though
+        // they more properly belong in the presenter. This
+        // allows everything to be done in one invocation.
         private int _testsRun;
-        private int _errors;
-        private int _failures;
+        private int _passedCount;
+        private int _failedCount;
+        private int _warningCount;
+        private int _inconclusiveCount;
 
         public StatusBarView()
         {
             InitializeComponent();
-            Initialize("Ready");
         }
 
-        private int _testCount;
-
-        private double _elapsedTime;
-        public double ElapsedTime
+        public void OnTestLoaded(int testCount)
         {
-            get { return _elapsedTime; }
-            set 
-            { 
-                _elapsedTime = value; 
-                DisplayTime(); 
-            }
-        }
+            ClearCounters();
 
-        public void SetStatus(string text)
-        {
             InvokeIfRequired(() =>
             {
-                StatusLabel.Text = text;
+                HideAllButStatusPanel();
+                DisplayTestCount(testCount);
             });
         }
 
-        public void Initialize(string text)
+        public void OnTestUnloaded()
         {
+            ClearCounters();
+
             InvokeIfRequired(() =>
             {
-                doInitialize(text);
+                HideAllButStatusPanel();
             });
         }
 
-        public void Initialize(string text, int testCount)
+        public void OnRunStarting(int testCount)
         {
+            ClearCounters();
+
             InvokeIfRequired(() =>
             {
-                doInitialize(text, testCount);
-            });
-        }
+                HideAllButStatusPanel();
 
-        public void RunStarting(int testCount)
-        {
-            InvokeIfRequired(() =>
-            {
-                doInitialize("Running...", testCount);
-
+                DisplayTestCount(testCount);
                 DisplayTestsRun();
-                DisplayErrors();
-                DisplayFailures();
-                DisplayTime();
+                DisplayPassed();
+                DisplayFailed();
+                DisplayWarnings();
+                DisplayInconclusive();
+                DisplayTime(0.0);
             });
         }
 
-        public void RunFinished(double elapsedTime)
+        public void OnRunFinished(double elapsedTime)
         {
             InvokeIfRequired(() =>
             {
                 StatusLabel.Text = "Completed";
-                ElapsedTime = elapsedTime;
+                DisplayTime(elapsedTime);
             });
         }
 
-        public void RecordSuccess()
+        public void OnTestStarting(string name)
         {
             InvokeIfRequired(() =>
             {
-                IncrementTestsRun();
+                StatusLabel.Text = name;
             });
         }
 
-        public void RecordError()
+        public void OnTestPassed()
         {
+            _testsRun++;
+            _passedCount++;
+
             InvokeIfRequired(() =>
             {
-                IncrementTestsRun();
-                IncrementErrors();
+                DisplayTestsRun();
+                DisplayPassed();
             });
         }
 
-        public void RecordFailure()
+        public void OnTestFailed()
         {
+            _testsRun++;
+            _failedCount++;
+
             InvokeIfRequired(() =>
             {
-                IncrementTestsRun();
-                IncrementFailures();
+                DisplayTestsRun();
+                DisplayFailed();
+            });
+        }
+
+        public void OnTestWarning()
+        {
+            _testsRun++;
+            _warningCount++;
+
+            InvokeIfRequired(() =>
+            {
+                DisplayTestsRun();
+                DisplayWarnings();
+            });
+        }
+
+        public void OnTestInconclusive()
+        {
+            _testsRun++;
+            _inconclusiveCount++;
+
+            InvokeIfRequired(() =>
+            {
+                DisplayTestsRun();
+                DisplayInconclusive();
             });
         }
 
         #region Helper Methods
 
-        private void doInitialize(string text)
+        private void ClearCounters()
         {
-            _testCount = 0;
             _testsRun = 0;
-            _errors = 0;
-            _failures = 0;
-            _elapsedTime = 0.0;
+            _passedCount = 0;
+            _failedCount = 0;
+            _warningCount = 0;
+            _inconclusiveCount = 0;
+        }
 
-            StatusLabel.Text = text;
-            testCountPanel.Text = "";
-            testsRunPanel.Text = "";
-            errorsPanel.Text = "";
-            failuresPanel.Text = "";
-            timePanel.Text = "";
-
+        private void HideAllButStatusPanel()
+        {
             testCountPanel.Visible = false;
             testsRunPanel.Visible = false;
-            errorsPanel.Visible = false;
-            failuresPanel.Visible = false;
+            passedPanel.Visible = false;
+            failedPanel.Visible = false;
+            warningsPanel.Visible = false;
+            inconclusivePanel.Visible = false;
             timePanel.Visible = false;
         }
 
-        private void doInitialize(string text, int testCount)
+        private void DisplayTestCount(int count)
         {
-            doInitialize(text);
-
-            _testCount = testCount;
-            DisplayTestCount();
-        }
-
-        private void DisplayTestCount()
-        {
-            DisplayPanel(testCountPanel, "Test Cases : " + _testCount.ToString());
+            testCountPanel.Text = "Tests : " + count.ToString();
+            testCountPanel.Visible = true;
         }
 
         private void DisplayTestsRun()
         {
-            DisplayPanel(testsRunPanel, "Tests Run : " + _testsRun.ToString());
+            testsRunPanel.Text = "Run : " + _testsRun.ToString();
+            testsRunPanel.Visible = true;
         }
 
-        private void DisplayErrors()
+        private void DisplayPassed()
         {
-            DisplayPanel(errorsPanel, "Errors : " + _errors.ToString());
+            passedPanel.Text = "Passed : " + _passedCount.ToString();
+            passedPanel.Visible = true;
         }
 
-        private void DisplayFailures()
+        private void DisplayFailed()
         {
-            DisplayPanel(failuresPanel, "Failures : " + _failures.ToString());
+            failedPanel.Text = "Failed : " + _failedCount.ToString();
+            failedPanel.Visible = true;
         }
 
-        private void DisplayTime()
+        private void DisplayWarnings()
         {
-            DisplayPanel(timePanel, "Time : " + _elapsedTime.ToString("F3"));
+            warningsPanel.Text = "Warnings : " + _warningCount.ToString();
+            warningsPanel.Visible = true;
         }
 
-        private void DisplayPanel(ToolStripStatusLabel panel, string text)
+        private void DisplayInconclusive()
         {
-            panel.Visible = true;
-            panel.Text = text;
+            inconclusivePanel.Text = "Inconclusive : " + _inconclusiveCount.ToString();
+            inconclusivePanel.Visible = true;
         }
 
-        private void IncrementTestsRun()
+        private void DisplayTime(double time)
         {
-            _testsRun++;
-            DisplayTestsRun();
-        }
-
-        private void IncrementErrors()
-        {
-            _errors++;
-            DisplayErrors();
-        }
-
-        private void IncrementFailures()
-        {
-            _failures++;
-            DisplayFailures();
+            timePanel.Text = "Time : " + time.ToString("F3");
+            timePanel.Visible = true;
         }
 
         private void InvokeIfRequired(MethodInvoker _delegate)
