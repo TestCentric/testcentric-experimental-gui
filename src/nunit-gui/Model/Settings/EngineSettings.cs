@@ -37,20 +37,6 @@ namespace NUnit.Gui.Model.Settings
     {
         public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
 
-        private const string processModelKey = "ProcessModel";
-        public string ProcessModel
-        {
-            get { return GetSetting(processModelKey, "Default"); }
-            set { SaveSetting(processModelKey, value); }
-        }
-
-        private const string domainUsageKey = "DomainUsage";
-        public string DomainUsage
-        {
-            get { return GetSetting(domainUsageKey, "Default"); }
-            set { SaveSetting(domainUsageKey, value); }
-        }
-
         private const string reloadOnChangeKey = "ReloadOnChange";
         public bool ReloadOnChange
         {
@@ -72,25 +58,11 @@ namespace NUnit.Gui.Model.Settings
             set { SaveSetting(reloadOnRunKey, value); }
         }
 
-        private const string runtimeSelectionEnabledKey = "RuntimeSelectionEnabled";
-        public bool RuntimeSelectionEnabled
-        {
-            get { return GetSetting(runtimeSelectionEnabledKey, true); }
-            set { SaveSetting(runtimeSelectionEnabledKey, value); }
-        }
-
         private const string shadowCopyFilesKey = "ShadowCopyFiles";
         public bool ShadowCopyFiles
         {
             get { return GetSetting(shadowCopyFilesKey, true); }
             set { SaveSetting(shadowCopyFilesKey, value); }
-        }
-
-        private const string shadowCopyPathKey = "ShadowCopyPath";
-        public string ShadowCopyPath
-        {
-            get { return GetSetting(shadowCopyPathKey, string.Empty); }
-            set { SaveSetting(shadowCopyPathKey, value); }
         }
 
         private const string setPrincipalPolicyKey = "SetPrincipalPolicy";

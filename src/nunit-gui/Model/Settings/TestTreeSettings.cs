@@ -70,26 +70,12 @@ namespace NUnit.Gui.Model.Settings
             set { SaveSetting(saveVisualStateKey, value); }
         }
 
-        private const string showCheckBoxesKey = "ShowCheckBoxes";
-        public bool ShowCheckBoxes
-        {
-            get { return GetSetting(showCheckBoxesKey, false); }
-            set { SaveSetting(showCheckBoxesKey, value); }
-        }
-
-        private const string alternateImageSetKey = "AlternateImageSet";
-        public string AlternateImageSet
-        {
-            get { return GetSetting(alternateImageSetKey, "Default"); }
-            set { SaveSetting(alternateImageSetKey, value); }
-        }
-
-        private const string autoNamespaceSuitesKey = "AutoNamespaceSuites";
-        public bool AutoNamespaceSuites
-        {
-            get { return GetSetting(autoNamespaceSuitesKey, true); }
-            set { SaveSetting(autoNamespaceSuitesKey, value); }
-        }
+        //private const string alternateImageSetKey = "AlternateImageSet";
+        //public string AlternateImageSet
+        //{
+        //    get { return GetSetting(alternateImageSetKey, "Default"); }
+        //    set { SaveSetting(alternateImageSetKey, value); }
+        //}
     }
 
     public class FixtureListSettings : SettingsWrapper
