@@ -47,27 +47,6 @@ namespace NUnit.Gui.Model.Settings
             get { return new TestTreeSettings(SettingsService); }
         }
 
-        private const string displayFormatKey = "DisplayFormat";
-        public string DisplayFormat
-        {
-            get { return GetSetting(displayFormatKey, "Full"); }
-            set { SaveSetting(displayFormatKey, value); }
-        }
-
-        private const string loadLastProjectKey = "LoadLastProject";
-        public bool LoadLastProject
-        {
-            get { return GetSetting(loadLastProjectKey, true); }
-            set { SaveSetting(loadLastProjectKey, value); }
-        }
-
-        private string editorPathKey = "ProjectEditorPath";
-        public string ProjectEditorPath
-        {
-            get { return GetSetting(editorPathKey, (string)null); }
-            set { SaveSetting(editorPathKey, value); }
-        }
-
         private const string initialPageKey = "InitialSettingsPage";
         public string InitialSettingsPage
         {
@@ -118,13 +97,6 @@ namespace NUnit.Gui.Model.Settings
         {
             get { return GetSetting(maxFilesKey, 5); }
             set { SaveSetting(maxFilesKey, value); }
-        }
-
-        private const string checkFilesExistKey = "CheckFilesExist";
-        public bool CheckFilesExist
-        {
-            get { return GetSetting(checkFilesExistKey, true); }
-            set { SaveSetting(checkFilesExistKey, value); }
         }
     }
 }
