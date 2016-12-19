@@ -63,43 +63,53 @@ namespace NUnit.Gui.Presenters
 
         private void OnTestLoaded(TestNodeEventArgs ea)
         {
-            _view.Initialize("Ready", ea.Test.TestCount);
+            _view.OnTestLoaded(ea.Test.TestCount);
         }
 
         private void OnTestReloaded(TestNodeEventArgs ea)
         {
-            _view.Initialize("Reloaded", ea.Test.TestCount);
+            _view.OnTestLoaded(ea.Test.TestCount);
         }
 
         private void OnTestUnloaded(TestEventArgs ea)
         {
-            _view.Initialize("Unloaded");
+            _view.OnTestUnloaded();
         }
 
         private void OnRunStarting(RunStartingEventArgs ea)
         {
-            _view.RunStarting(ea.TestCount);
+            _view.OnRunStarting(ea.TestCount);
         }
 
         private void OnRunFinished(TestResultEventArgs ea)
         {
-            _view.RunFinished(ea.Result.Duration);
+            _view.OnRunFinished(ea.Result.Duration);
         }
 
         public void OnTestStarting(TestNodeEventArgs e)
         {
-            _view.SetStatus("Running : " + e.Test.Name);
+            _view.OnTestStarting(e.Test.Name);
         }
 
         private void OnTestFinished(TestResultEventArgs ea)
         {
             var result = ea.Result.Outcome;
-            if (result.Status == TestStatus.Passed)
-                _view.RecordSuccess();
-            else if (result == ResultState.Failure)
-                _view.RecordFailure();
-            else if (result.Status == TestStatus.Failed)
-                _view.RecordError();
+
+            switch (result.Status)
+            {
+                case TestStatus.Passed:
+                    _view.OnTestPassed();
+                    break;
+                case TestStatus.Failed:
+                    _view.OnTestFailed();
+                    break;
+                case TestStatus.Warning:
+                    _view.OnTestWarning();
+                    break;
+                case TestStatus.Inconclusive:
+                    _view.OnTestInconclusive();
+                    break;
+            }
         }
     }
 }

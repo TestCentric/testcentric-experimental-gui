@@ -85,6 +85,8 @@ namespace NUnit.Gui.Model
                     return TestStatus.Inconclusive;
                 case "Failed":
                     return TestStatus.Failed;
+                case "Warning":
+                    return TestStatus.Warning;
                 case "Skipped":
                     return TestStatus.Skipped;
             }

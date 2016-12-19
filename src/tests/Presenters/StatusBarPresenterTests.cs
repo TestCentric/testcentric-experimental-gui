@@ -72,7 +72,7 @@ namespace NUnit.Gui.Presenters
             _model.IsTestRunning.Returns(false);
             _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
 
-            _view.Received().Initialize("Unloaded");
+            _view.Received().OnTestUnloaded();
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace NUnit.Gui.Presenters
             _model.IsTestRunning.Returns(true);
             _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
 
-            _view.Received().RunStarting(1234);
+            _view.Received().OnRunStarting(1234);
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace NUnit.Gui.Presenters
 
             _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
-            _view.Received().RecordSuccess();
+            _view.Received().OnTestPassed();
         }
 
         //[Test]

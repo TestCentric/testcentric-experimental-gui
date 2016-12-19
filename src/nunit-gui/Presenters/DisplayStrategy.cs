@@ -144,7 +144,7 @@ namespace NUnit.Gui.Presenters
             switch (testNode.RunState)
             {
                 case RunState.Ignored:
-                    imageIndex = TestTreeView.IgnoredIndex;
+                    imageIndex = TestTreeView.WarningIndex;
                     break;
                 case RunState.NotRunnable:
                     imageIndex = TestTreeView.FailureIndex;
@@ -185,10 +185,12 @@ namespace NUnit.Gui.Presenters
                     return TestTreeView.SuccessIndex;
                 case TestStatus.Failed:
                     return TestTreeView.FailureIndex;
+                case TestStatus.Warning:
+                    return TestTreeView.WarningIndex;
                 case TestStatus.Skipped:
                 default:
                     return outcome.Label == "Ignored"
-                        ? TestTreeView.IgnoredIndex
+                        ? TestTreeView.WarningIndex
                         : TestTreeView.SkippedIndex;
             }
         }

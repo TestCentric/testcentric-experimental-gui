@@ -44,6 +44,11 @@ namespace NUnit.Gui.Model
         Passed,
 
         /// <summary>
+        /// There was a warning
+        /// </summary>
+        Warning,
+
+        /// <summary>
         /// The test failed
         /// </summary>
         Failed

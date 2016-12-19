@@ -32,8 +32,10 @@
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.testCountPanel = new System.Windows.Forms.ToolStripStatusLabel();
             this.testsRunPanel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.errorsPanel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.failuresPanel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.passedPanel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.failedPanel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.warningsPanel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.inconclusivePanel = new System.Windows.Forms.ToolStripStatusLabel();
             this.timePanel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -44,8 +46,10 @@
             this.StatusLabel,
             this.testCountPanel,
             this.testsRunPanel,
-            this.errorsPanel,
-            this.failuresPanel,
+            this.passedPanel,
+            this.failedPanel,
+            this.warningsPanel,
+            this.inconclusivePanel,
             this.timePanel});
             this.statusStrip1.Location = new System.Drawing.Point(0, -1);
             this.statusStrip1.Name = "statusStrip1";
@@ -56,9 +60,9 @@
             // StatusLabel
             // 
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(444, 19);
+            this.StatusLabel.Size = new System.Drawing.Size(88, 19);
             this.StatusLabel.Spring = true;
-            this.StatusLabel.Text = "Status";
+            this.StatusLabel.Text = "Ready";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // testCountPanel
@@ -66,8 +70,8 @@
             this.testCountPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.testCountPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.testCountPanel.Name = "testCountPanel";
-            this.testCountPanel.Size = new System.Drawing.Size(81, 19);
-            this.testCountPanel.Text = "Test Cases : 0";
+            this.testCountPanel.Size = new System.Drawing.Size(52, 19);
+            this.testCountPanel.Text = "Tests : 0";
             this.testCountPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.testCountPanel.Visible = false;
             // 
@@ -76,30 +80,48 @@
             this.testsRunPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.testsRunPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.testsRunPanel.Name = "testsRunPanel";
-            this.testsRunPanel.Size = new System.Drawing.Size(77, 19);
-            this.testsRunPanel.Text = "Tests Run : 0";
+            this.testsRunPanel.Size = new System.Drawing.Size(47, 19);
+            this.testsRunPanel.Text = "Run : 0";
             this.testsRunPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.testsRunPanel.Visible = false;
             // 
-            // errorsPanel
+            // passedPanel
             // 
-            this.errorsPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.errorsPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
-            this.errorsPanel.Name = "errorsPanel";
-            this.errorsPanel.Size = new System.Drawing.Size(56, 19);
-            this.errorsPanel.Text = "Errors : 0";
-            this.errorsPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.errorsPanel.Visible = false;
+            this.passedPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.passedPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.passedPanel.Name = "passedPanel";
+            this.passedPanel.Size = new System.Drawing.Size(62, 19);
+            this.passedPanel.Text = "Passed : 0";
+            this.passedPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.passedPanel.Visible = false;
             // 
-            // failuresPanel
+            // failedPanel
             // 
-            this.failuresPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.failuresPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
-            this.failuresPanel.Name = "failuresPanel";
-            this.failuresPanel.Size = new System.Drawing.Size(66, 19);
-            this.failuresPanel.Text = "Failures : 0";
-            this.failuresPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.failuresPanel.Visible = false;
+            this.failedPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.failedPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.failedPanel.Name = "failedPanel";
+            this.failedPanel.Size = new System.Drawing.Size(57, 19);
+            this.failedPanel.Text = "Failed : 0";
+            this.failedPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.failedPanel.Visible = false;
+            // 
+            // warningsPanel
+            // 
+            this.warningsPanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.warningsPanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.warningsPanel.Name = "warningsPanel";
+            this.warningsPanel.Size = new System.Drawing.Size(73, 19);
+            this.warningsPanel.Text = "Warnings: 0";
+            this.warningsPanel.Visible = false;
+            // 
+            // inconclusivePanel
+            // 
+            this.inconclusivePanel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.inconclusivePanel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.inconclusivePanel.Name = "inconclusivePanel";
+            this.inconclusivePanel.Size = new System.Drawing.Size(92, 19);
+            this.inconclusivePanel.Text = "Inconclusive : 0";
+            this.inconclusivePanel.Visible = false;
             // 
             // timePanel
             // 
@@ -131,8 +153,10 @@
         public System.Windows.Forms.ToolStripStatusLabel StatusLabel;
         public System.Windows.Forms.ToolStripStatusLabel testCountPanel;
         public System.Windows.Forms.ToolStripStatusLabel testsRunPanel;
-        public System.Windows.Forms.ToolStripStatusLabel errorsPanel;
-        public System.Windows.Forms.ToolStripStatusLabel failuresPanel;
+        public System.Windows.Forms.ToolStripStatusLabel passedPanel;
+        public System.Windows.Forms.ToolStripStatusLabel failedPanel;
         private System.Windows.Forms.ToolStripStatusLabel timePanel;
+        private System.Windows.Forms.ToolStripStatusLabel warningsPanel;
+        private System.Windows.Forms.ToolStripStatusLabel inconclusivePanel;
     }
 }
