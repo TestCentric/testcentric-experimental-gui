@@ -49,8 +49,7 @@ namespace NUnit.Gui.Views
 
             _pageList.AddRange(new SettingsPage[] {
                 new GuiSettingsPage(_settings),
-                new AssemblyReloadSettingsPage(_settings),
-                new AdvancedEngineSettingsPage(_settings)
+                new AssemblyReloadSettingsPage(_settings)
             });
             _owner = owner;
         }

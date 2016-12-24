@@ -57,26 +57,5 @@ namespace NUnit.Gui.Model.Settings
             get { return GetSetting(reloadOnRunKey, false); }
             set { SaveSetting(reloadOnRunKey, value); }
         }
-
-        private const string shadowCopyFilesKey = "ShadowCopyFiles";
-        public bool ShadowCopyFiles
-        {
-            get { return GetSetting(shadowCopyFilesKey, true); }
-            set { SaveSetting(shadowCopyFilesKey, value); }
-        }
-
-        private const string setPrincipalPolicyKey = "SetPrincipalPolicy";
-        public bool SetPrincipalPolicy
-        {
-            get { return GetSetting(setPrincipalPolicyKey, false); }
-            set { SaveSetting(setPrincipalPolicyKey, value); }
-        }
-
-        private const string principalPolicyKey = "PrincipalPolicy";
-        public PrincipalPolicy PrincipalPolicy
-        {
-            get { return GetSetting(principalPolicyKey, PrincipalPolicy.UnauthenticatedPrincipal); }
-            set { SaveSetting(principalPolicyKey, value); }
-        }
     }
 }
