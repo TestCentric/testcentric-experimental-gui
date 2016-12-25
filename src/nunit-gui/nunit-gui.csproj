@@ -114,12 +114,6 @@
     <Compile Include="Views\SettingsPage.Designer.cs">
       <DependentUpon>SettingsPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsPages\AdvancedEngineSettingsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SettingsPages\AdvancedEngineSettingsPage.Designer.cs">
-      <DependentUpon>AdvancedEngineSettingsPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsPages\AssemblyReloadSettingsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -201,9 +195,6 @@
     </Compile>
     <EmbeddedResource Include="Views\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsPages\AdvancedEngineSettingsPage.resx">
-      <DependentUpon>AdvancedEngineSettingsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsPages\AssemblyReloadSettingsPage.resx">
       <DependentUpon>AssemblyReloadSettingsPage.cs</DependentUpon>
