@@ -49,9 +49,6 @@ namespace NUnit.Gui.Presenters
         [TearDown]
         public void RemovePresenter()
         {
-            //if (_presenter != null)
-            //    _presenter.Dispose();
-
             _presenter = null;
         }
 
@@ -100,25 +97,23 @@ namespace NUnit.Gui.Presenters
         }
 
         [Test]
-        public void WhenTestCaseCompletes_ProgressIsIncremented()
+        public void WhenTestCaseCompletes_TestStatusIsSentToProgressBar()
         {
-            int priorValue = _view.Progress;
             var result = new ResultNode("<test-case id='1'/>");
 
             _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
-            Assert.That(_view.Progress, Is.EqualTo(priorValue + 1));
+            _view.Received().AddStatus(TestStatus.Passed);
         }
 
         [Test]
-        public void WhenTestSuiteCompletes_ProgressIsNotIncremented()
+        public void WhenTestSuiteCompletes_TestStatusIsNotSentToProgressBar()
         {
-            int priorValue = _view.Progress;
             var result = new ResultNode("<test-suite id='1'/>");
 
             _model.SuiteFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.SuiteFinished, result));
 
-            Assert.That(_view.Progress, Is.EqualTo(priorValue));
+            _view.DidNotReceive().AddStatus(Arg.Any<TestStatus>());
         }
 
         //[Test]
@@ -131,7 +126,7 @@ namespace NUnit.Gui.Presenters
 
         //    Assert.That(_view.Progress, Is.EqualTo(priorValue));
         //}
-        
+
         static object[] statusTestCases = new object[] {
             new object[] { TestProgressBarStatus.Success, ResultState.Failure, TestProgressBarStatus.Failure },
             new object[] { TestProgressBarStatus.Warning, ResultState.Failure, TestProgressBarStatus.Failure },
