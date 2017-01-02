@@ -78,12 +78,29 @@ Task("InitializeBuild")
 		}
 		else
 		{
-			var buildNumber = AppVeyor.Environment.Build.Number;
-			packageVersion = version + "-CI-" + buildNumber + dbgSuffix;
-			if (AppVeyor.Environment.PullRequest.IsPullRequest)
-				packageVersion += "-PR-" + AppVeyor.Environment.PullRequest.Number;
+			var buildNumber = AppVeyor.Environment.Build.Number.ToString("00000");
+			var branch = AppVeyor.Environment.Repository.Branch;
+			var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
+
+			if (branch == "master" && !isPullRequest)
+			{
+				packageVersion = version + "-dev-" + buildNumber + dbgSuffix;
+			}
 			else
-				packageVersion += "-" + AppVeyor.Environment.Repository.Branch;
+			{
+                var suffix = "-ci-" + buildNumber + dbgSuffix;
+
+                if (isPullRequest)
+                    suffix += "-pr-" + AppVeyor.Environment.PullRequest.Number;
+                else
+                    suffix += "-" + branch;
+
+                // Nuget limits "special version part" to 20 chars. Add one for the hyphen.
+                if (suffix.Length > 21)
+                    suffix = suffix.Substring(0, 21);
+
+                packageVersion = version + suffix;
+			}
 		}
 
 		AppVeyor.UpdateBuildVersion(packageVersion);
@@ -134,13 +151,6 @@ Task("Test")
 // PACKAGE
 //////////////////////////////////////////////////////////////////////
 
-Task("PackageSource")
-  .Does(() =>
-	{
-		CreateDirectory(PACKAGE_DIR);
-		RunGitCommand(string.Format("archive -o {0} HEAD", SRC_PACKAGE));
-	});
-
 Task("PackageZip")
 	.IsDependentOn("Build")
 	.Does(() =>
@@ -169,18 +179,6 @@ Task("PackageZip")
 	});
 
 //////////////////////////////////////////////////////////////////////
-// HELPER METHODS
-//////////////////////////////////////////////////////////////////////
-
-void RunGitCommand(string arguments)
-{
-	StartProcess("git", new ProcessSettings()
-	{
-		Arguments = arguments
-	});
-}
-
-//////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
@@ -189,7 +187,6 @@ Task("Rebuild")
 	.IsDependentOn("Build");
 
 Task("Package")
-	.IsDependentOn("PackageSource")
 	.IsDependentOn("PackageZip");
 
 Task("Appveyor")

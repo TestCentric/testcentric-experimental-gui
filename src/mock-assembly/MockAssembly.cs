@@ -79,6 +79,8 @@ namespace NUnit.Gui.Tests
             public const int Failed_NotRunnable = MockTestFixture.Failed_NotRunnable + BadFixture.Tests;
             public const int Failed = Failed_Errors + Failed_Failures + Failed_NotRunnable;
 
+            public const int Warnings = MockTestFixture.Warnings;
+
             public const int Inconclusive = MockTestFixture.Inconclusive;
 
             public const int Categories = MockTestFixture.Categories;
@@ -100,6 +102,8 @@ namespace NUnit.Gui.Tests
             public const int Failed_Errors = 1;
             public const int Failed_NotRunnable = 2;
             public const int Failed = Failed_Errors + Failed_Failures + Failed_NotRunnable;
+
+            public const int Warnings = 1;
 
             public const int Inconclusive = 1;
 
