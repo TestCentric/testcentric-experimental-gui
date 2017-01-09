@@ -190,7 +190,7 @@ namespace NUnit.Gui
                 if (int.TryParse(val, out r))
                     result = r;
                 else
-                    ErrorMessages.Add("An int value was exprected for option '{0}' but a value of '{1}' was used");
+                    ErrorMessages.Add("An int value was expected for option '{0}' but a value of '{1}' was used");
             }
                 
             return result;
