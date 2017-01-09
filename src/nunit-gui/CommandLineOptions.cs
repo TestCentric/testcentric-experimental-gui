@@ -76,7 +76,7 @@ namespace NUnit.Gui
             //this.Add("runselected", "Automatically run last selected tests.",
             //    v => RunSelectedTests = v != null);
 
-            // Output GuiELement
+            // Output GuiElement
             this.Add("trace=", "Set internal trace {LEVEL}.",
                 v => InternalTraceLevel = RequiredValue(v, "--trace", "Off", "Error", "Warning", "Info", "Verbose", "Debug"));
 
@@ -123,7 +123,7 @@ namespace NUnit.Gui
 
         //public string DomainUsage { get; private set; }
 
-        // Output GuiELement
+        // Output GuiElement
 
         public string InternalTraceLevel { get; private set; }
 
@@ -190,7 +190,7 @@ namespace NUnit.Gui
                 if (int.TryParse(val, out r))
                     result = r;
                 else
-                    ErrorMessages.Add("An int value was exprected for option '{0}' but a value of '{1}' was used");
+                    ErrorMessages.Add("An int value was expected for option '{0}' but a value of '{1}' was used");
             }
                 
             return result;

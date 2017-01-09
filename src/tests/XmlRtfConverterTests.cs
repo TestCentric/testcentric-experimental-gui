@@ -43,7 +43,7 @@ Within this Character Data block I can use < >
                 @"  \cf5<\cf1C\cf5>\cf2C content\cf5</\cf1C\cf5>\par" +
                 @"  \cf5<\cf1D\cf5>\par"+
                 @"\cf7<![CDATA[\par "+
-                @"Within this Character Data block I can use < >\par" +  //note identation in the CDATA is purely from based on the originl CDATA content
+                @"Within this Character Data block I can use < >\par" +  //note indentation in the CDATA is purely from based on the original CDATA content
                 @"]]>\par" +
                 @"  \cf5</\cf1D\cf5>\par" +
                 @"\cf5</\cf1A\cf5>\par"));
