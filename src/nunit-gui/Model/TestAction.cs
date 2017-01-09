@@ -24,7 +24,7 @@
 namespace NUnit.Gui.Model
 {
     /// <summary>
-    /// The TestAction enumeration is used to distiguish events
+    /// The TestAction enumeration is used to distinguish events
     /// that are fired during the execution of a test run.
     /// </summary>
     public enum TestAction

@@ -33,7 +33,7 @@ namespace NUnit.Gui.Views
         /// Image indices for various test states - the values 
         /// must match the indices of the image list used and
         /// are ordered so that the higher values are those
-        /// that propogate upwards.
+        /// that propagate upwards.
         /// </summary>
         public const int InitIndex = 0;
         public const int SkippedIndex = 0;
