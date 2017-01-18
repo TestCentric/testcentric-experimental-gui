@@ -51,15 +51,13 @@ namespace NUnit.Gui.Views
 
         #region Properties
 
-        private bool settingsLoaded;
-
         protected SettingsModel Settings { get; private set; }
 
         protected IMessageDisplay MessageDisplay { get; private set; }
 
         public string Key { get; private set; }
 
-        public bool SettingsLoaded => settingsLoaded;
+        public bool SettingsLoaded { get; private set; }
 
         public virtual bool HasChangesRequiringReload
         {
@@ -80,19 +78,14 @@ namespace NUnit.Gui.Views
 
         #endregion
 
-        void LoadAndSetSettings()
-        {
-            settingsLoaded = true;
-            LoadSettings();
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
             if (!DesignMode)
             {
-                this.LoadAndSetSettings();
+                this.LoadSettings();
+                SettingsLoaded = true;
             }
         }
     }
