@@ -129,7 +129,7 @@ namespace NUnit.Gui
 
         // Error Processing
 
-        public List<string> errorMessages = new List<string>();
+        private List<string> errorMessages = new List<string>();
         public IList<string> ErrorMessages { get { return errorMessages; } }
 
         #endregion
@@ -154,7 +154,7 @@ namespace NUnit.Gui
 
         private string RequiredValue(string val, string option, params string[] validValues)
         {
-            if (val == null || val == string.Empty)
+            if (string.IsNullOrEmpty(val))
                 ErrorMessages.Add("Missing required value for option '" + option + "'.");
 
             bool isValid = true;
@@ -164,8 +164,8 @@ namespace NUnit.Gui
                 isValid = false;
 
                 foreach (string valid in validValues)
-                    if (string.Compare(valid, val, true) == 0)
-                        isValid = true;
+                    if (string.Compare(valid, val, StringComparison.OrdinalIgnoreCase) == 0)
+                        return valid;
 
             }
 
