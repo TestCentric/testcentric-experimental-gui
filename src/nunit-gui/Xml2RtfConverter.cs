@@ -82,7 +82,12 @@ namespace NUnit.Gui
         {
             sb.Append(string.Format(@"\cf{0}<![CDATA[\par ", (int)ColorKinds.CData));
             var cdataLines = cdata.Value.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            sb.Append(string.Join(@"\par", cdataLines));
+            var res = new List<string>(cdataLines.Length);
+            foreach (var cdataLine in cdataLines)
+            {
+                res.Add(XmlEncode(cdataLine));
+            }
+            sb.Append(string.Join(@"\par", res.ToArray()));
             sb.Append(@"\par]]>\par");
         }
 
