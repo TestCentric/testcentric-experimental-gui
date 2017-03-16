@@ -61,6 +61,7 @@ namespace NUnit.Gui.Presenters
             // View Events
             _view.Load += MainForm_Load;
             _view.FormClosing += MainForm_Closing;
+            _view.DragDrop += MainForm_DragDrop;
 
             _view.NewProjectCommand.Execute += _model.NewProject;
             _view.OpenProjectCommand.Execute += OnOpenProjectCommand;
@@ -81,6 +82,13 @@ namespace NUnit.Gui.Presenters
                 { MessageBox.Show("This will show the About Box", "Not Yet Implemented"); };
 
             _view.FormClosing += (s, e) => _model.Dispose();
+        }
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files != null)
+                _model.LoadTests(files);
         }
 
         #endregion

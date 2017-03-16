@@ -1,4 +1,6 @@
-﻿namespace NUnit.Gui.Views
+﻿using System.Windows.Forms;
+
+namespace NUnit.Gui.Views
 {
     partial class MainForm
     {
@@ -699,6 +701,7 @@
             // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(732, 403);
@@ -719,7 +722,13 @@
             this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.DragEnter += MainForm_DragEnter;
+        }
 
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
         }
 
         #endregion
