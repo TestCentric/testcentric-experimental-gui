@@ -22,15 +22,12 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Gui.Presenters
 {
     using Views;
     using Model;
-    using Engine;
 
     /// <summary>
     /// NUnitTreeDisplayStrategy is used to display a the tests
@@ -55,6 +52,7 @@ namespace NUnit.Gui.Presenters
 
         public override void OnTestLoaded(TestNode testNode)
         {
+            var displayStyle = _model.Settings.Gui.TestTree.InitialTreeDisplay;
             ClearTree();
 
             TreeNode topNode = null;
@@ -67,18 +65,34 @@ namespace NUnit.Gui.Presenters
 
                 _view.Tree.Add(treeNode);
 
-                SetInitialExpansion(treeNode);
+                SetInitialExpansion(displayStyle, treeNode);
             }
 
             topNode?.EnsureVisible();
         }
 
-        private void SetInitialExpansion(TreeNode treeNode)
+        private void SetInitialExpansion(TreeDisplayStyle displayStyle, TreeNode treeNode)
         {
-            if (_view.Tree.VisibleCount >= treeNode.GetNodeCount(true))
-                treeNode.ExpandAll();
-            else
-                CollapseToFixtures(treeNode);
+            switch (displayStyle)
+            {
+                case TreeDisplayStyle.Auto:
+                    if (_view.Tree.VisibleCount >= treeNode.GetNodeCount(true))
+                        treeNode.ExpandAll();
+                    else
+                        CollapseToFixtures(treeNode);
+                    break;
+                case TreeDisplayStyle.Expand:
+                    treeNode.ExpandAll();
+                    break;
+                case TreeDisplayStyle.Collapse:
+                    treeNode.Collapse();
+                    break;
+                case TreeDisplayStyle.HideTests:
+                    CollapseToFixtures(treeNode);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(displayStyle), displayStyle, null);
+            }
         }
     }
 }
