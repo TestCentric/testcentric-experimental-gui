@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.propertiesView = new NUnit.Gui.Views.TestPropertiesView();
@@ -705,6 +706,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusBarView);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
