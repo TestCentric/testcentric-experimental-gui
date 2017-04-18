@@ -124,11 +124,8 @@ namespace NUnit.Gui.Presenters
                         message = resultNode.Xml.SelectSingleNode("reason/message");
                     }
 
-                    if (message != null)
-                        _view.Message = message.InnerText;
-
-                    if (stackTrace != null)
-                        _view.StackTrace = stackTrace.InnerText;
+                    _view.Message = message?.InnerText ?? "";
+                    _view.StackTrace = stackTrace?.InnerText ?? "";
 
                     var output = resultNode.Xml.SelectSingleNode("output");
                     _view.Output = output != null ? output.InnerText : "";
