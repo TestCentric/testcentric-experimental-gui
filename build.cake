@@ -36,6 +36,7 @@ var GUI_TESTS = BIN_DIR + "nunit-gui.tests.dll";
 // Package sources for nuget restore
 var PACKAGE_SOURCE = new string[]
 {
+    "https://www.nuget.org/api/v2",
 	"https://www.myget.org/F/nunit-gui-team/api/v3/index.json",
 	"https://www.myget.org/F/nunit-gui-team/api/v2"
 };
