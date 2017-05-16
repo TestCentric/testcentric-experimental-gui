@@ -121,10 +121,9 @@ namespace NUnit.Gui.Views
             this.tabPage1.Controls.Add(this.testName);
             this.tabPage1.Controls.Add(this.testResult);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage1.Size = new System.Drawing.Size(514, 440);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(312, 176);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Properties";
             this.toolTip1.SetToolTip(this.tabPage1, "This tab displays the properties of the test, which NUnit V2 displayed in the Pro" +
@@ -143,16 +142,16 @@ namespace NUnit.Gui.Views
             this.propertiesView.ElapsedTime = "";
             this.propertiesView.FullName = "";
             this.propertiesView.Header = "";
-            this.propertiesView.Location = new System.Drawing.Point(4, 5);
-            this.propertiesView.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.propertiesView.Location = new System.Drawing.Point(3, 3);
+            this.propertiesView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.propertiesView.Message = "";
             this.propertiesView.Name = "propertiesView";
             this.propertiesView.Outcome = "";
             this.propertiesView.Output = "";
-            this.propertiesView.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.propertiesView.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.propertiesView.Properties = "";
             this.propertiesView.RunState = "";
-            this.propertiesView.Size = new System.Drawing.Size(467, 270);
+            this.propertiesView.Size = new System.Drawing.Size(306, 170);
             this.propertiesView.SkipReason = "";
             this.propertiesView.StackTrace = "";
             this.propertiesView.TabIndex = 2;
@@ -161,28 +160,26 @@ namespace NUnit.Gui.Views
             // 
             // testName
             // 
-            this.testName.Location = new System.Drawing.Point(170, 3);
-            this.testName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.testName.Location = new System.Drawing.Point(113, 2);
             this.testName.Name = "testName";
-            this.testName.Size = new System.Drawing.Size(339, 20);
+            this.testName.Size = new System.Drawing.Size(226, 13);
             this.testName.TabIndex = 1;
             // 
             // testResult
             // 
             this.testResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.testResult.Location = new System.Drawing.Point(9, 5);
-            this.testResult.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.testResult.Location = new System.Drawing.Point(6, 3);
             this.testResult.Name = "testResult";
-            this.testResult.Size = new System.Drawing.Size(146, 20);
+            this.testResult.Size = new System.Drawing.Size(97, 13);
             this.testResult.TabIndex = 0;
             // 
             // statusBarView
             // 
             this.statusBarView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusBarView.Location = new System.Drawing.Point(0, 366);
-            this.statusBarView.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.statusBarView.Location = new System.Drawing.Point(0, 238);
+            this.statusBarView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.statusBarView.Name = "statusBarView";
-            this.statusBarView.Size = new System.Drawing.Size(732, 37);
+            this.statusBarView.Size = new System.Drawing.Size(488, 24);
             this.statusBarView.TabIndex = 2;
             this.toolTip1.SetToolTip(this.statusBarView, "Name of the currently executing or selected test plus stats about it.");
             // 
@@ -204,14 +201,14 @@ namespace NUnit.Gui.Views
             this.toolStripMenuItem4,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // newProjectToolStripMenuItem
             // 
             this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
             this.newProjectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.newProjectToolStripMenuItem.Text = "&New Project...";
             this.newProjectToolStripMenuItem.ToolTipText = "Creates an empty NUnit project, to which assemblies may be added.";
             // 
@@ -219,54 +216,54 @@ namespace NUnit.Gui.Views
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
             this.openProjectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.openProjectToolStripMenuItem.Text = "&Open...";
             this.openProjectToolStripMenuItem.ToolTipText = "Allows opening one or more assemblies, NUnit projects or saved result files.";
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.ToolTipText = "Closes the current project and all files contained in it.";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(264, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(187, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.ToolTipText = "Saves the current NUnit project.";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As...";
             this.saveAsToolStripMenuItem.ToolTipText = "Allows saving the current NUnit project under a different name.";
             // 
             // saveResultsToolStripMenuItem
             // 
             this.saveResultsToolStripMenuItem.Name = "saveResultsToolStripMenuItem";
-            this.saveResultsToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.saveResultsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.saveResultsToolStripMenuItem.Text = "Save Results...";
             this.saveResultsToolStripMenuItem.ToolTipText = "Allows saving the results of a test run to an XML file.";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(264, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(187, 6);
             // 
             // reloadTestsToolStripMenuItem
             // 
             this.reloadTestsToolStripMenuItem.Name = "reloadTestsToolStripMenuItem";
             this.reloadTestsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.reloadTestsToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.reloadTestsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.reloadTestsToolStripMenuItem.Text = "&Reload";
             this.reloadTestsToolStripMenuItem.ToolTipText = "Refreshes the (possibly changed) tests, keeping as much information as possible i" +
     "n the tree.";
@@ -276,37 +273,37 @@ namespace NUnit.Gui.Views
             this.selectRuntimeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dummyToolStripMenuItem});
             this.selectRuntimeToolStripMenuItem.Name = "selectRuntimeToolStripMenuItem";
-            this.selectRuntimeToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.selectRuntimeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.selectRuntimeToolStripMenuItem.Text = "  Select Runtime";
             this.selectRuntimeToolStripMenuItem.ToolTipText = "Allows selecting a different runtime when refreshing the tests will be reloaded.";
             // 
             // dummyToolStripMenuItem
             // 
             this.dummyToolStripMenuItem.Name = "dummyToolStripMenuItem";
-            this.dummyToolStripMenuItem.Size = new System.Drawing.Size(159, 30);
+            this.dummyToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.dummyToolStripMenuItem.Text = "dummy";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(264, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(187, 6);
             // 
             // recentProjectsToolStripMenuItem
             // 
             this.recentProjectsToolStripMenuItem.Name = "recentProjectsToolStripMenuItem";
-            this.recentProjectsToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.recentProjectsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.recentProjectsToolStripMenuItem.Text = "Recent &Files";
             this.recentProjectsToolStripMenuItem.ToolTipText = "Shows a submenu with recently opened projects.";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(264, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(187, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(267, 30);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.ToolTipText = "Closes the application.";
             // 
@@ -321,7 +318,7 @@ namespace NUnit.Gui.Views
             this.toolStripMenuItem8,
             this.statusBarToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(61, 29);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // fullGuiToolStripMenuItem
@@ -329,7 +326,7 @@ namespace NUnit.Gui.Views
             this.fullGuiToolStripMenuItem.Checked = true;
             this.fullGuiToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.fullGuiToolStripMenuItem.Name = "fullGuiToolStripMenuItem";
-            this.fullGuiToolStripMenuItem.Size = new System.Drawing.Size(179, 30);
+            this.fullGuiToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.fullGuiToolStripMenuItem.Text = "&Full GUI";
             this.fullGuiToolStripMenuItem.ToolTipText = "Displays the full GUI.";
             this.fullGuiToolStripMenuItem.Visible = false;
@@ -337,7 +334,7 @@ namespace NUnit.Gui.Views
             // miniGuiToolStripMenuItem
             // 
             this.miniGuiToolStripMenuItem.Name = "miniGuiToolStripMenuItem";
-            this.miniGuiToolStripMenuItem.Size = new System.Drawing.Size(179, 30);
+            this.miniGuiToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.miniGuiToolStripMenuItem.Text = "&Mini GUI";
             this.miniGuiToolStripMenuItem.ToolTipText = "Displays the mini-GUI, consisting of the tree alone.";
             this.miniGuiToolStripMenuItem.Visible = false;
@@ -345,7 +342,7 @@ namespace NUnit.Gui.Views
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(176, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(125, 6);
             this.toolStripMenuItem6.Visible = false;
             // 
             // guiFontToolStripMenuItem
@@ -357,37 +354,37 @@ namespace NUnit.Gui.Views
             this.changeToolStripMenuItem,
             this.restoreToolStripMenuItem});
             this.guiFontToolStripMenuItem.Name = "guiFontToolStripMenuItem";
-            this.guiFontToolStripMenuItem.Size = new System.Drawing.Size(179, 30);
+            this.guiFontToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.guiFontToolStripMenuItem.Text = "GUI Fo&nt";
             this.guiFontToolStripMenuItem.Visible = false;
             // 
             // increaseToolStripMenuItem
             // 
             this.increaseToolStripMenuItem.Name = "increaseToolStripMenuItem";
-            this.increaseToolStripMenuItem.Size = new System.Drawing.Size(169, 30);
+            this.increaseToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.increaseToolStripMenuItem.Text = "Increase";
             // 
             // decreaseToolStripMenuItem
             // 
             this.decreaseToolStripMenuItem.Name = "decreaseToolStripMenuItem";
-            this.decreaseToolStripMenuItem.Size = new System.Drawing.Size(169, 30);
+            this.decreaseToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.decreaseToolStripMenuItem.Text = "Decrease";
             // 
             // toolStripMenuItem19
             // 
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
-            this.toolStripMenuItem19.Size = new System.Drawing.Size(166, 6);
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(121, 6);
             // 
             // changeToolStripMenuItem
             // 
             this.changeToolStripMenuItem.Name = "changeToolStripMenuItem";
-            this.changeToolStripMenuItem.Size = new System.Drawing.Size(169, 30);
+            this.changeToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.changeToolStripMenuItem.Text = "Change...";
             // 
             // restoreToolStripMenuItem
             // 
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(169, 30);
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
             // 
             // fixedFontToolStripMenuItem
@@ -398,37 +395,37 @@ namespace NUnit.Gui.Views
             this.toolStripMenuItem20,
             this.restoreToolStripMenuItem1});
             this.fixedFontToolStripMenuItem.Name = "fixedFontToolStripMenuItem";
-            this.fixedFontToolStripMenuItem.Size = new System.Drawing.Size(179, 30);
+            this.fixedFontToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.fixedFontToolStripMenuItem.Text = "Fi&xed Font";
             this.fixedFontToolStripMenuItem.Visible = false;
             // 
             // increaseToolStripMenuItem1
             // 
             this.increaseToolStripMenuItem1.Name = "increaseToolStripMenuItem1";
-            this.increaseToolStripMenuItem1.Size = new System.Drawing.Size(168, 30);
+            this.increaseToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
             this.increaseToolStripMenuItem1.Text = "Increase";
             // 
             // decreaseToolStripMenuItem1
             // 
             this.decreaseToolStripMenuItem1.Name = "decreaseToolStripMenuItem1";
-            this.decreaseToolStripMenuItem1.Size = new System.Drawing.Size(168, 30);
+            this.decreaseToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
             this.decreaseToolStripMenuItem1.Text = "Decrease";
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(165, 6);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(118, 6);
             // 
             // restoreToolStripMenuItem1
             // 
             this.restoreToolStripMenuItem1.Name = "restoreToolStripMenuItem1";
-            this.restoreToolStripMenuItem1.Size = new System.Drawing.Size(168, 30);
+            this.restoreToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
             this.restoreToolStripMenuItem1.Text = "Restore";
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(176, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(125, 6);
             this.toolStripMenuItem8.Visible = false;
             // 
             // statusBarToolStripMenuItem
@@ -437,7 +434,7 @@ namespace NUnit.Gui.Views
             this.statusBarToolStripMenuItem.CheckOnClick = true;
             this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(179, 30);
+            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.statusBarToolStripMenuItem.Text = "&Status Bar";
             this.statusBarToolStripMenuItem.ToolTipText = "Enables or disables the display of the status bar.";
             this.statusBarToolStripMenuItem.CheckedChanged += new System.EventHandler(this.statusBarToolStripMenuItem_CheckedChanged);
@@ -452,7 +449,7 @@ namespace NUnit.Gui.Views
             this.editToolStripMenuItem,
             this.notYetImplementedToolStripMenuItem});
             this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(78, 29);
+            this.projectToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.projectToolStripMenuItem.Text = "&Project";
             // 
             // configurationsToolStripMenuItem
@@ -462,57 +459,57 @@ namespace NUnit.Gui.Views
             this.addToolStripMenuItem,
             this.editToolStripMenuItem1});
             this.configurationsToolStripMenuItem.Name = "configurationsToolStripMenuItem";
-            this.configurationsToolStripMenuItem.Size = new System.Drawing.Size(266, 30);
+            this.configurationsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.configurationsToolStripMenuItem.Text = "&Configurations";
             this.configurationsToolStripMenuItem.Visible = false;
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(140, 6);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(102, 6);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.addToolStripMenuItem.Text = "Add...";
             // 
             // editToolStripMenuItem1
             // 
             this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-            this.editToolStripMenuItem1.Size = new System.Drawing.Size(143, 30);
+            this.editToolStripMenuItem1.Size = new System.Drawing.Size(105, 22);
             this.editToolStripMenuItem1.Text = "Edit...";
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(263, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(184, 6);
             this.toolStripMenuItem10.Visible = false;
             // 
             // addAssemblyToolStripMenuItem
             // 
             this.addAssemblyToolStripMenuItem.Name = "addAssemblyToolStripMenuItem";
-            this.addAssemblyToolStripMenuItem.Size = new System.Drawing.Size(266, 30);
+            this.addAssemblyToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.addAssemblyToolStripMenuItem.Text = "Add Assembly...";
             this.addAssemblyToolStripMenuItem.Visible = false;
             // 
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(263, 6);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(184, 6);
             this.toolStripMenuItem11.Visible = false;
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(266, 30);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.editToolStripMenuItem.Text = "Edit...";
             this.editToolStripMenuItem.Visible = false;
             // 
             // notYetImplementedToolStripMenuItem
             // 
             this.notYetImplementedToolStripMenuItem.Name = "notYetImplementedToolStripMenuItem";
-            this.notYetImplementedToolStripMenuItem.Size = new System.Drawing.Size(266, 30);
+            this.notYetImplementedToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.notYetImplementedToolStripMenuItem.Text = "Not Yet Implemented";
             // 
             // toolsToolStripMenuItem
@@ -526,51 +523,51 @@ namespace NUnit.Gui.Views
             this.toolStripMenuItem15,
             this.addinsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "T&ools";
             // 
             // testAssembliesToolStripMenuItem
             // 
             this.testAssembliesToolStripMenuItem.Name = "testAssembliesToolStripMenuItem";
-            this.testAssembliesToolStripMenuItem.Size = new System.Drawing.Size(265, 30);
+            this.testAssembliesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.testAssembliesToolStripMenuItem.Text = "&Test Assemblies...";
             this.testAssembliesToolStripMenuItem.Visible = false;
             // 
             // exceptionToolStripMenuItem
             // 
             this.exceptionToolStripMenuItem.Name = "exceptionToolStripMenuItem";
-            this.exceptionToolStripMenuItem.Size = new System.Drawing.Size(265, 30);
+            this.exceptionToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.exceptionToolStripMenuItem.Text = "&Exception Details...";
             this.exceptionToolStripMenuItem.Visible = false;
             // 
             // openLogDirectoryToolStripMenuItem
             // 
             this.openLogDirectoryToolStripMenuItem.Name = "openLogDirectoryToolStripMenuItem";
-            this.openLogDirectoryToolStripMenuItem.Size = new System.Drawing.Size(265, 30);
+            this.openLogDirectoryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openLogDirectoryToolStripMenuItem.Text = "Open &Log Directory...";
             this.openLogDirectoryToolStripMenuItem.Visible = false;
             // 
             // toolStripMenuItem14
             // 
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
-            this.toolStripMenuItem14.Size = new System.Drawing.Size(262, 6);
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(183, 6);
             this.toolStripMenuItem14.Visible = false;
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(265, 30);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.settingsToolStripMenuItem.Text = "&Settings...";
             // 
             // toolStripMenuItem15
             // 
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
-            this.toolStripMenuItem15.Size = new System.Drawing.Size(262, 6);
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(183, 6);
             // 
             // addinsToolStripMenuItem
             // 
             this.addinsToolStripMenuItem.Name = "addinsToolStripMenuItem";
-            this.addinsToolStripMenuItem.Size = new System.Drawing.Size(265, 30);
+            this.addinsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.addinsToolStripMenuItem.Text = "&Addins...";
             // 
             // heopToolStripMenuItem
@@ -580,25 +577,25 @@ namespace NUnit.Gui.Views
             this.toolStripMenuItem5,
             this.aboutNUnitToolStripMenuItem});
             this.heopToolStripMenuItem.Name = "heopToolStripMenuItem";
-            this.heopToolStripMenuItem.Size = new System.Drawing.Size(61, 29);
+            this.heopToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.heopToolStripMenuItem.Text = "&Help";
             // 
             // nUnitHelpToolStripMenuItem
             // 
             this.nUnitHelpToolStripMenuItem.Name = "nUnitHelpToolStripMenuItem";
             this.nUnitHelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.nUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
+            this.nUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.nUnitHelpToolStripMenuItem.Text = "NUnit &Help...";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(224, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(158, 6);
             // 
             // aboutNUnitToolStripMenuItem
             // 
             this.aboutNUnitToolStripMenuItem.Name = "aboutNUnitToolStripMenuItem";
-            this.aboutNUnitToolStripMenuItem.Size = new System.Drawing.Size(227, 30);
+            this.aboutNUnitToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.aboutNUnitToolStripMenuItem.Text = "&About NUnit...";
             // 
             // menuStrip1
@@ -612,16 +609,14 @@ namespace NUnit.Gui.Views
             this.heopToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(732, 35);
+            this.menuStrip1.Size = new System.Drawing.Size(488, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -632,30 +627,29 @@ namespace NUnit.Gui.Views
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(732, 331);
-            this.splitContainer1.SplitterDistance = 243;
-            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(488, 214);
+            this.splitContainer1.SplitterDistance = 162;
             this.splitContainer1.TabIndex = 4;
             // 
             // testTreeView
             // 
             this.testTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testTreeView.Location = new System.Drawing.Point(0, 18);
-            this.testTreeView.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.testTreeView.Location = new System.Drawing.Point(0, 61);
+            this.testTreeView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.testTreeView.Name = "testTreeView";
-            this.testTreeView.Size = new System.Drawing.Size(243, 313);
+            this.testTreeView.Size = new System.Drawing.Size(162, 153);
             this.testTreeView.TabIndex = 2;
             // 
             // progressBarView
             // 
+            this.progressBarView.AutoSize = true;
             this.progressBarView.BackColor = System.Drawing.SystemColors.Control;
             this.progressBarView.Dock = System.Windows.Forms.DockStyle.Top;
-            this.progressBarView.ForeColor = System.Drawing.Color.LimeGreen;
+            this.progressBarView.ForeColor = System.Drawing.SystemColors.ControlText;
             this.progressBarView.Location = new System.Drawing.Point(0, 0);
-            this.progressBarView.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.progressBarView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.progressBarView.Name = "progressBarView";
-            this.progressBarView.Progress = 0;
-            this.progressBarView.Size = new System.Drawing.Size(243, 18);
+            this.progressBarView.Size = new System.Drawing.Size(162, 61);
             this.progressBarView.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
             this.progressBarView.TabIndex = 1;
             // 
@@ -667,21 +661,19 @@ namespace NUnit.Gui.Views
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, 18);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabControl1.Location = new System.Drawing.Point(0, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(480, 313);
+            this.tabControl1.Size = new System.Drawing.Size(320, 202);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.xmlView);
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Size = new System.Drawing.Size(472, 280);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(312, 176);
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "XML";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -692,11 +684,11 @@ namespace NUnit.Gui.Views
             this.xmlView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.xmlView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xmlView.Header = "";
-            this.xmlView.Location = new System.Drawing.Point(4, 5);
-            this.xmlView.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.xmlView.Location = new System.Drawing.Point(3, 3);
+            this.xmlView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.xmlView.Name = "xmlView";
-            this.xmlView.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.xmlView.Size = new System.Drawing.Size(464, 270);
+            this.xmlView.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.xmlView.Size = new System.Drawing.Size(306, 170);
             this.xmlView.TabIndex = 2;
             this.xmlView.TestXml = null;
             // 
@@ -705,19 +697,19 @@ namespace NUnit.Gui.Views
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 403);
+            this.ClientSize = new System.Drawing.Size(488, 262);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusBarView);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "NUnit";
             this.tabPage1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

@@ -36,7 +36,6 @@ namespace NUnit.Gui.Presenters
         public ProgressBarPresenter(IProgressBarView progressBar, ITestModel model)
         {
             _progressBar = progressBar;
-            //_progressBar.Initialize(100);
             _model = model;
 
             WireUpEvents();
@@ -59,7 +58,6 @@ namespace NUnit.Gui.Presenters
 
         public void ReportTestOutcome(ResultNode result)
         {
-            
             UpdateProgress(result);
             UpdateStatus(result.Outcome);
         }
@@ -87,18 +85,10 @@ namespace NUnit.Gui.Presenters
                 }
         }
 
-        private void UpdateProgress(TestNode result)
+        private void UpdateProgress(ResultNode result)
         {
             if (!result.IsSuite)
-                _progressBar.Progress++;
+                _progressBar.AddStatus(result.Outcome.Status);
         }
-
-        //private void InvokeIfRequired(MethodInvoker _delegate)
-        //{
-        //    if (_progressBar.InvokeRequired)
-        //        _progressBar.Invoke(_delegate);
-        //    else
-        //        _delegate();
-        //}
     }
 }

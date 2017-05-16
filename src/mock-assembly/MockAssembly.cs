@@ -90,7 +90,7 @@ namespace NUnit.Gui.Tests
         [Category("FixtureCategory")]
         public class MockTestFixture
         {
-            public const int Tests = 11;
+            public const int Tests = 12;
             public const int Suites = 1;
 
             public const int Passed = 1;
@@ -188,7 +188,7 @@ namespace NUnit.Gui.Tests
         public class OneTestCase
         {
             public const int Tests = 1;
-            public const int Suites = 1;		
+            public const int Suites = 1;
 
             [Test]
             public virtual void TestCase() 
