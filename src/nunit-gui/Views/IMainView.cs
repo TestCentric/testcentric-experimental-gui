@@ -36,6 +36,7 @@ namespace NUnit.Gui.Views
         Font Font { get; set; }
 
         event FormClosingEventHandler FormClosing;
+        event DragEventHandler DragDrop;
 
         // File Menu
         IPopup FileMenu { get; }

@@ -76,7 +76,7 @@ namespace NUnit.Gui
             //this.Add("runselected", "Automatically run last selected tests.",
             //    v => RunSelectedTests = v != null);
 
-            // Output GuiELement
+            // Output GuiElement
             this.Add("trace=", "Set internal trace {LEVEL}.",
                 v => InternalTraceLevel = RequiredValue(v, "--trace", "Off", "Error", "Warning", "Info", "Verbose", "Debug"));
 
@@ -123,13 +123,13 @@ namespace NUnit.Gui
 
         //public string DomainUsage { get; private set; }
 
-        // Output GuiELement
+        // Output GuiElement
 
         public string InternalTraceLevel { get; private set; }
 
         // Error Processing
 
-        public List<string> errorMessages = new List<string>();
+        private List<string> errorMessages = new List<string>();
         public IList<string> ErrorMessages { get { return errorMessages; } }
 
         #endregion
@@ -154,7 +154,7 @@ namespace NUnit.Gui
 
         private string RequiredValue(string val, string option, params string[] validValues)
         {
-            if (val == null || val == string.Empty)
+            if (string.IsNullOrEmpty(val))
                 ErrorMessages.Add("Missing required value for option '" + option + "'.");
 
             bool isValid = true;
@@ -164,8 +164,8 @@ namespace NUnit.Gui
                 isValid = false;
 
                 foreach (string valid in validValues)
-                    if (string.Compare(valid, val, true) == 0)
-                        isValid = true;
+                    if (string.Compare(valid, val, StringComparison.OrdinalIgnoreCase) == 0)
+                        return valid;
 
             }
 
@@ -190,7 +190,7 @@ namespace NUnit.Gui
                 if (int.TryParse(val, out r))
                     result = r;
                 else
-                    ErrorMessages.Add("An int value was exprected for option '{0}' but a value of '{1}' was used");
+                    ErrorMessages.Add("An int value was expected for option '{0}' but a value of '{1}' was used");
             }
                 
             return result;

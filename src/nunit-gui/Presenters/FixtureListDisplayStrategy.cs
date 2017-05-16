@@ -45,7 +45,7 @@ namespace NUnit.Gui.Presenters
             _view.CollapseToFixturesCommand.Enabled = true;
 
             // Ugly Hack! We should not be referencing view components here.
-            // TODO: Create a better inteface for a CheckedMenuGroup
+            // TODO: Create a better interface for a CheckedMenuGroup
             var checkedMenuGroup = _view.GroupBy as UiKit.Elements.CheckedMenuGroup;
             if (checkedMenuGroup != null)
                 checkedMenuGroup.EnableItem("FIXTURE", false);

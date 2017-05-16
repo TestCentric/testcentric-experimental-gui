@@ -56,6 +56,19 @@ namespace NUnit.Gui
                 return;
             }
 
+            if (!options.Validate())
+            {
+                var errMessage = new string[options.ErrorMessages.Count];
+                options.ErrorMessages.CopyTo(errMessage, 0);
+                var msg =
+                    "There were the following errors parsing the options:" + Environment.NewLine +
+                    string.Join(Environment.NewLine, errMessage) + Environment.NewLine +
+                    Environment.NewLine +
+                    "Use the option '--help' to show the possible options and their values.";
+                MessageBox.Show(msg, "NUnit - Problem parsing options", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (options.ShowHelp)
             {
                 ShowHelpText(options);

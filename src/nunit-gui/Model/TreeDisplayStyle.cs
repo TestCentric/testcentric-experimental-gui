@@ -34,7 +34,7 @@ namespace NUnit.Gui.Model
     {
         Auto,		// Select based on space available
         Expand,		// Expand fully
-        Collapse,	// Collpase fully
+        Collapse,	// Collapse fully
         HideTests	// Expand all but the fixtures, leaving
         // leaf nodes hidden
     }

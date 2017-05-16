@@ -158,7 +158,7 @@ namespace NUnit.Gui.Model
         public TestStatus Status { get; private set;  }
 
         /// <summary>
-        /// Gets the label under which this test resullt is
+        /// Gets the label under which this test result is
         /// categorized, if any.
         /// </summary>
         public string Label { get; private set;  }
