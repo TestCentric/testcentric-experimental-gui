@@ -273,8 +273,8 @@ namespace NUnit.Gui.Model
             var package = new TestPackage(testFiles);
 
             // TODO: Remove temporary Settings used in testing GUI
-            package.Settings["ProcessModel"] = "InProcess";
-            package.Settings["NumberOfTestWorkers"] = 0;
+            //package.Settings["ProcessModel"] = "InProcess";
+            //package.Settings["NumberOfTestWorkers"] = 0;
 
             //if (options.ProcessModel != null)
             //    package.AddSetting("ProcessModel", options.ProcessModel);
