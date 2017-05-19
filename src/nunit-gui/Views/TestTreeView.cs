@@ -52,6 +52,11 @@ namespace NUnit.Gui.Views
             RunFailedCommand = new MenuElement(runFailedMenuItem);
             StopRunCommand = new MenuElement(stopRunMenuItem);
 
+            DebugButton = new SplitButtonElement(debugButton);
+            DebugAllCommand = new MenuElement(debugAllMenuItem);
+            DebugSelectedCommand = new MenuElement(debugSelectedMenuItem);
+            DebugFailedCommand = new MenuElement(debugFailedMenuItem);
+
             FormatButton = new ToolStripElement<ToolStripDropDownButton>(formatButton);
             DisplayFormat = new CheckedMenuGroup(
                 "displayFormat", 
@@ -62,6 +67,8 @@ namespace NUnit.Gui.Views
 
             RunContextCommand = new MenuElement(this.runMenuItem);
             RunCheckedCommand = new MenuElement(this.runCheckedMenuItem);
+            DebugContextCommand = new MenuElement(this.debugMenuItem);
+            DebugCheckedCommand = new MenuElement(this.debugCheckedMenuItem);
             ShowCheckBoxesCommand = new MenuElement(showCheckboxesMenuItem);
             ExpandAllCommand = new MenuElement(expandAllMenuItem);
             CollapseAllCommand = new MenuElement(collapseAllMenuItem);
@@ -78,8 +85,15 @@ namespace NUnit.Gui.Views
         public ICommand RunFailedCommand { get; private set; }
         public ICommand StopRunCommand { get; private set; }
 
+        public ICommand DebugButton { get; private set; }
+        public ICommand DebugAllCommand { get; private set; }
+        public ICommand DebugSelectedCommand { get; private set; }
+        public ICommand DebugFailedCommand { get; private set; }
+
         public ICommand RunContextCommand { get; private set; }
         public ICommand RunCheckedCommand { get; private set; }
+        public ICommand DebugContextCommand { get; private set; }
+        public ICommand DebugCheckedCommand { get; private set; }
         public IChecked ShowCheckBoxesCommand { get; private set; }
         public ICommand ExpandAllCommand { get; private set; }
         public ICommand CollapseAllCommand { get; private set; }

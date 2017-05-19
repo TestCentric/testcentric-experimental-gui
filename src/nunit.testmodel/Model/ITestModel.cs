@@ -114,8 +114,14 @@ namespace NUnit.Gui.Model
         // Run all the tests
         void RunAllTests();
 
+        // Debug all tests
+        void DebugAllTests();
+
         // Run just the specified ITestItem
         void RunTests(ITestItem testItem);
+
+        // Debug just the specified ITestItem
+        void DebugTests(ITestItem testItem);
 
         // Cancel the running test
         void CancelTestRun();

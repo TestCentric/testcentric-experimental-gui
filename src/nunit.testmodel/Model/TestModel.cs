@@ -28,11 +28,15 @@ using NUnit.Engine;
 
 namespace NUnit.Gui.Model
 {
+    using System.Diagnostics;
+
     public class TestModel : ITestModel, ITestEventListener
     {
         private ITestEngine _testEngine;
         private TestPackage _package;
         private IDictionary<string, ResultNode> _resultIndex = new Dictionary<string, ResultNode>();
+
+        private bool _lastRunWasDebugRun;
 
         #region Constructor
 
@@ -223,6 +227,7 @@ namespace NUnit.Gui.Model
             TestsLoading?.Invoke(new TestFilesLoadingEventArgs(files));
 
             _package = MakeTestPackage(files);
+            _lastRunWasDebugRun = false;
 
             Runner = _testEngine.GetRunner(_package);
 
@@ -253,6 +258,7 @@ namespace NUnit.Gui.Model
             _resultIndex.Clear();
             Tests = null;
 
+            _lastRunWasDebugRun = false;
             _package = MakeTestPackage(_files);
 
             Runner = _testEngine.GetRunner(_package);
@@ -301,7 +307,48 @@ namespace NUnit.Gui.Model
 
         private void RunTests(TestFilter filter)
         {
+            SetTestDebuggingFlag(false);
+
             Runner.RunAsync(this, filter);
+        }
+
+        public void DebugAllTests()
+        {
+            DebugTests(TestFilter.Empty);
+        }
+
+        public void DebugTests(ITestItem testItem)
+        {
+            if (testItem != null) DebugTests(testItem.GetTestFilter());
+        }
+
+        private void DebugTests(TestFilter filter) {
+            SetTestDebuggingFlag(true);
+
+            Runner.RunAsync(this, filter);
+        }
+
+        private void SetTestDebuggingFlag(bool debuggingRequested) 
+        {
+            // We need to re-create the test runner because settings such
+            // as debugging have already been passed to the test runner.
+            // For performance, only do this if we did run in a different mode than last time.
+            if (_lastRunWasDebugRun != debuggingRequested)
+            {
+                foreach (var subPackage in this._package.SubPackages)
+                {
+                    subPackage.Settings["DebugTests"] = debuggingRequested;
+                }
+
+                Runner = this._testEngine.GetRunner(this._package);
+                Runner.Load();
+
+                // It is not strictly necessary to load the tests
+                // because the runner will do that automatically, however,
+                // the initial test count will be incorrect causing UI crashes.
+
+                _lastRunWasDebugRun = debuggingRequested;
+            }
         }
 
         public void CancelTestRun()
