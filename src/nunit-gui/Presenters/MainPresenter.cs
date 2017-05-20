@@ -46,6 +46,7 @@ namespace NUnit.Gui.Presenters
             _model = model;
 
             InitializeMainMenu();
+
             WireUpEvents();
         }
 
@@ -68,9 +69,11 @@ namespace NUnit.Gui.Presenters
             _view.CloseCommand.Execute += _model.UnloadTests;
             _view.SaveCommand.Execute += _model.SaveProject;
             _view.SaveAsCommand.Execute += _model.SaveProject;
-            _view.ReloadTestsCommand.Execute += OnReloadTestsCommand;
+            _view.ReloadTestsCommand.Execute += () => _model.ReloadTests();
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
-            _view.SelectRuntimeMenu.Popup += SelectRuntimeMenu_Popup;
+            _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;
+            _view.ProcessModel.SelectionChanged += ProcessModel_SelectionChanged;
+            _view.DomainUsage.SelectionChanged += DomainUsage_SelectionChanged;
             _view.ExitCommand.Execute += () => Application.Exit();
 
             _view.SettingsCommand.Execute += OpenSettingsDialogCommand_Execute;
@@ -108,12 +111,35 @@ namespace NUnit.Gui.Presenters
             _view.SaveAsCommand.Enabled = canCloseOrSave;
             _view.SaveResultsCommand.Enabled = canCloseOrSave && _model.HasResults;
             _view.ReloadTestsCommand.Enabled = canCloseOrSave;
-            _view.SelectRuntimeMenu.Enabled = canCloseOrSave;
             _view.RecentProjectsMenu.Enabled = !isTestRunning;
             _view.ExitCommand.Enabled = true;
 
+            // Special handling for available runtimes. Use model to initialize
+            // HACK: This exposes the underlying ToolStripMenuItem
+            var dropDownItems = _view.SelectRuntimeMenu.DropDownItems;
+            // Null check for when we are using a mock view to test
+            // Count check to avoid initializing twice
+            if (dropDownItems != null && dropDownItems.Count == 1)
+            {
+                foreach (var runtime in _model.AvailableRuntimes)
+                {
+                    var text = runtime.DisplayName;
+                    // Don't use Full suffix, but keep Client if present
+                    if (text.EndsWith(" - Full"))
+                        text = text.Substring(0, text.Length - 7);
+                    var menuItem = new ToolStripMenuItem(text);
+                    menuItem.Tag = runtime.ToString();
+                    dropDownItems.Add(menuItem);
+                }
+
+                _view.SelectedRuntime.Refresh();
+            }
+
             // Project Menu
             _view.ProjectMenu.Enabled = _view.ProjectMenu.Visible = _model.HasTests;
+            //_view.SelectRuntimeMenu.Enabled = canCloseOrSave;
+            //_view.ProcessModel.Enabled = canCloseOrSave;
+            //_view.DomainUsage.Enabled = canCloseOrSave;
         }
 
         #endregion
@@ -168,6 +194,34 @@ namespace NUnit.Gui.Presenters
             }
         }
 
+        private void SelectedRuntime_SelectionChanged()
+        {
+            ChangePackageSetting(EnginePackageSettings.RuntimeFramework, _view.SelectedRuntime.SelectedItem);
+        }
+
+        private void ProcessModel_SelectionChanged()
+        {
+            ChangePackageSetting(EnginePackageSettings.ProcessModel, _view.ProcessModel.SelectedItem);
+        }
+
+        private void DomainUsage_SelectionChanged()
+        {
+            ChangePackageSetting(EnginePackageSettings.DomainUsage, _view.DomainUsage.SelectedItem);
+        }
+
+        private void ChangePackageSetting(string key, string setting)
+        {
+            if (setting == "DEFAULT")
+                _model.PackageSettings.Remove(key);
+            else
+                _model.PackageSettings[key] = setting;
+
+            string message = string.Format("New {0} setting will not take effect until you reload.\r\n\r\n\t\tReload Now?", key);
+
+            if (_view.MessageDisplay.Ask(message, "Settings Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                _model.ReloadTests();
+        }
+
         #region Command Handlers
 
         private void OnOpenProjectCommand()
@@ -175,16 +229,6 @@ namespace NUnit.Gui.Presenters
             string[] files = _view.DialogManager.GetFilesToOpen();
             if (files.Length > 0)
                 _model.LoadTests(files);
-        }
-
-        private void OnReloadTestsCommand()
-        {
-           _model.ReloadTests();
-        }
-
-        private void OnReloadTestsCommand(string runtime)
-        {
-            _model.ReloadTests(runtime);
         }
 
         void OpenSettingsDialogCommand_Execute()
@@ -213,33 +257,24 @@ namespace NUnit.Gui.Presenters
 
         private void RecentProjectsMenu_Popup()
         {
-            var dropDownItems = _view.RecentProjectsMenu.ToolStripItem.DropDownItems;
-            dropDownItems.Clear();
-            int num = 0;
-            foreach (string entry in _model.RecentFiles.Entries)
+            // HACK: This expsoses the underlying ToolStripMenuItem
+            var dropDownItems = _view.RecentProjectsMenu.DropDownItems;
+            // Test for null, in case we are running tests with a mock
+            if (dropDownItems != null)
             {
-                var menuText = string.Format("{0} {1}", ++num, entry);
-                var menuItem = new ToolStripMenuItem(menuText);
-                menuItem.Click += (sender, ea) =>
+                dropDownItems.Clear();
+                int num = 0;
+                foreach (string entry in _model.RecentFiles.Entries)
                 {
-                    string path = ((ToolStripMenuItem)sender).Text.Substring(2);
-                    _model.LoadTests(new [] {path});
-                };
-                dropDownItems.Add(menuItem);
-            }
-        }
-
-        private void SelectRuntimeMenu_Popup()
-        {
-            var dropDownItems = _view.SelectRuntimeMenu.ToolStripItem.DropDownItems;
-            dropDownItems.Clear();
-            foreach (var runtime in _model.AvailableRuntimes)
-            {
-                var menuItem = runtime.DisplayName;
-                // Don't use Full suffix, but keep Client if present
-                if (menuItem.EndsWith(" - Full"))
-                    menuItem = menuItem.Substring(0, menuItem.Length - 7);
-                dropDownItems.Add(menuItem, null, (s, ea) => OnReloadTestsCommand(runtime.ToString()));
+                    var menuText = string.Format("{0} {1}", ++num, entry);
+                    var menuItem = new ToolStripMenuItem(menuText);
+                    menuItem.Click += (sender, ea) =>
+                    {
+                        string path = ((ToolStripMenuItem)sender).Text.Substring(2);
+                        _model.LoadTests(new[] { path });
+                    };
+                    dropDownItems.Add(menuItem);
+                }
             }
         }
 

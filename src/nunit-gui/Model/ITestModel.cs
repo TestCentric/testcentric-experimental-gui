@@ -63,6 +63,8 @@ namespace NUnit.Gui.Model
 
         CommandLineOptions Options { get; }
 
+        IDictionary<string, object> PackageSettings { get; }
+
         IRecentFiles RecentFiles { get; }
 
         bool IsPackageLoaded { get; }
@@ -105,9 +107,6 @@ namespace NUnit.Gui.Model
 
         // Reload current TestPackage
         void ReloadTests();
-
-        // Reload current TestPackage using specified runtime
-        void ReloadTests(string runtime);
 
         // Run all the tests
         void RunAllTests();

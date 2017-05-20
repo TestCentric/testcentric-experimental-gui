@@ -29,19 +29,27 @@ namespace NUnit.UiKit
     public interface IMessageDisplay
     {
         DialogResult Display(string message);
+        DialogResult Display(string message, string caption);
         DialogResult Display(string message, MessageBoxButtons buttons);
+        DialogResult Display(string message, string caption, MessageBoxButtons buttons);
 
         DialogResult Error(string message);
+        DialogResult Error(string message, string caption);
         DialogResult Error(string message, MessageBoxButtons buttons);
+        DialogResult Error(string message, string caption, MessageBoxButtons buttons);
         DialogResult Error(string message, Exception exception);
         DialogResult Error(string message, Exception exception, MessageBoxButtons buttons);
 
         DialogResult FatalError(string message, Exception exception);
 
         DialogResult Info(string message);
+        DialogResult Info(string message, string caption);
         DialogResult Info(string message, MessageBoxButtons buttons);
+        DialogResult Info(string message, string caption, MessageBoxButtons buttons);
 
         DialogResult Ask(string message);
+        DialogResult Ask(string message, string caption);
         DialogResult Ask(string message, MessageBoxButtons buttons);
+        DialogResult Ask(string message, string caption, MessageBoxButtons buttons);
     }
 }

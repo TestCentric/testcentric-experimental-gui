@@ -22,6 +22,7 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace NUnit.UiKit.Elements
@@ -32,19 +33,50 @@ namespace NUnit.UiKit.Elements
     /// </summary>
     public class CheckedMenuGroup : ISelection
     {
-        private ToolStripMenuItem[] _menuItems;
+        // Fields are public for testing only
+        public IList<ToolStripMenuItem> MenuItems = new List<ToolStripMenuItem>();
+        public ToolStripMenuItem TopMenu;
 
         public event CommandHandler SelectionChanged;
 
+        public CheckedMenuGroup(ToolStripMenuItem topMenu)
+        {
+            TopMenu = topMenu;
+            Name = topMenu.Name + "Group";
+            foreach (ToolStripMenuItem menuItem in topMenu.DropDown.Items)
+                MenuItems.Add(menuItem);
+
+            InitializeMenuItems();
+        }
+
         public CheckedMenuGroup(string name, params ToolStripMenuItem[] menuItems)
         {
-            this.Name = name;
-            this._menuItems = menuItems;
-            this.SelectedIndex = -1;
+            Name = name;
+            foreach (var menuItem in menuItems)
+                MenuItems.Add(menuItem);
 
-            for (int index = 0; index < menuItems.Length; index++)
+            InitializeMenuItems();
+        }
+
+        public void Refresh()
+        {
+            if (TopMenu != null)
             {
-                ToolStripMenuItem menuItem = menuItems[index];
+                MenuItems.Clear();
+                foreach (ToolStripMenuItem menuItem in TopMenu.DropDown.Items)
+                    MenuItems.Add(menuItem);
+            }
+
+            InitializeMenuItems();
+        }
+
+        private void InitializeMenuItems()
+        {
+            SelectedIndex = -1;
+
+            for (int index = 0; index < MenuItems.Count; index++)
+            {
+                ToolStripMenuItem menuItem = MenuItems[index];
 
                 // We need to handle this ourselves
                 menuItem.CheckOnClick = false;
@@ -62,9 +94,9 @@ namespace NUnit.UiKit.Elements
             }
 
             // If no items were checked, select first one
-            if (SelectedIndex == -1 && menuItems.Length > 0)
+            if (SelectedIndex == -1 && MenuItems.Count > 0)
             {
-                menuItems[0].Checked = true;
+                MenuItems[0].Checked = true;
                 SelectedIndex = 0;
             }
         }
@@ -75,8 +107,8 @@ namespace NUnit.UiKit.Elements
         {
             get
             {
-                if (_toolStrip == null && _menuItems.Length > 0)
-                    _toolStrip = _menuItems[0].GetCurrentParent();
+                if (_toolStrip == null && MenuItems.Count > 0)
+                    _toolStrip = MenuItems[0].GetCurrentParent();
 
                 return _toolStrip;
             }
@@ -84,12 +116,12 @@ namespace NUnit.UiKit.Elements
 
         public string Name { get; private set; }
         public string Text { get; set; }
-        public int SelectedIndex 
+        public int SelectedIndex
         {
             get
             {
-                for (int i = 0; i < _menuItems.Length; i++)
-                    if (_menuItems[i].Checked)
+                for (int i = 0; i < MenuItems.Count; i++)
+                    if (MenuItems[i].Checked)
                         return i;
 
                 return -1;
@@ -98,19 +130,19 @@ namespace NUnit.UiKit.Elements
             {
                 InvokeIfRequired(() =>
                 {
-                    for (int i = 0; i < _menuItems.Length; i++)
-                        _menuItems[i].Checked = value == i;
+                    for (int i = 0; i < MenuItems.Count; i++)
+                        MenuItems[i].Checked = value == i;
                 });
             }
         }
 
         public string SelectedItem
         {
-            get { return (string)_menuItems[SelectedIndex].Tag; }
+            get { return (string)MenuItems[SelectedIndex].Tag; }
             set
             {
-                for (int i = 0; i < _menuItems.Length; i++)
-                    if ((string)_menuItems[i].Tag == value)
+                for (int i = 0; i < MenuItems.Count; i++)
+                    if ((string)MenuItems[i].Tag == value)
                     {
                         SelectedIndex = i;
                         break;
@@ -126,7 +158,7 @@ namespace NUnit.UiKit.Elements
             {
                 _enabled = value;
 
-                foreach (ToolStripMenuItem menuItem in _menuItems)
+                foreach (ToolStripMenuItem menuItem in MenuItems)
                     menuItem.Enabled = value;
             }
         }
@@ -139,7 +171,7 @@ namespace NUnit.UiKit.Elements
             {
                 _visible = value;
 
-                foreach (ToolStripMenuItem menuItem in _menuItems)
+                foreach (ToolStripMenuItem menuItem in MenuItems)
                     menuItem.Visible = value;
             }
         }
@@ -151,9 +183,9 @@ namespace NUnit.UiKit.Elements
             // If user clicks selected item, ignore it
             if (!clicked.Checked)
             {
-                for (int index = 0; index < _menuItems.Length; index++)
+                for (int index = 0; index < MenuItems.Count; index++)
                 {
-                    ToolStripMenuItem item = _menuItems[index];
+                    ToolStripMenuItem item = MenuItems[index];
 
                     if (item == clicked)
                     {
@@ -173,7 +205,7 @@ namespace NUnit.UiKit.Elements
 
         public void EnableItem(string tag, bool enabled)
         {
-            foreach (ToolStripMenuItem item in _menuItems)
+            foreach (ToolStripMenuItem item in MenuItems)
                 if ((string)item.Tag == tag)
                     item.Enabled = enabled;
         }

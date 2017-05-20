@@ -26,11 +26,10 @@ using System.Windows.Forms;
 namespace NUnit.UiKit.Elements
 {
     /// <summary>
-    /// IControlElement is implemented by elements that wrap ToolStripItems.
+    /// IToolStripElement is implemented by elements that wrap ToolStripItems.
     /// </summary>
-    public interface IToolStripElement<T> : IViewElement where T : ToolStripItem
+    public interface IToolStripElement : IViewElement
     {
-        T ToolStripItem { get; }
         string ToolTipText { get; set; }
     }
 }

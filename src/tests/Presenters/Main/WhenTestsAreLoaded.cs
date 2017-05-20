@@ -30,7 +30,7 @@ namespace NUnit.Gui.Presenters.Main
     using Model;
     using Views;
 
-    public class WhenTestsAreReloaded : MainPresenterTestBase
+    public class WhenTestsAreLoaded : MainPresenterTestBase
     {
         [SetUp]
         public void SimulateTestReload()
@@ -42,7 +42,7 @@ namespace NUnit.Gui.Presenters.Main
             doc.LoadXml("<test-suite id='1'/>");
             TestNode testNode = new TestNode(doc.FirstChild);
             Model.Tests.Returns(testNode);
-            Model.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
+            Model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, testNode));
         }
 
 #if NYI
@@ -87,12 +87,6 @@ namespace NUnit.Gui.Presenters.Main
         public void ReloadTests_IsEnabled()
         {
             View.ReloadTestsCommand.Received().Enabled = true;
-        }
-
-        [Test]
-        public void SelectRuntimeMenu_IsEnabled()
-        {
-            View.SelectRuntimeMenu.Received().Enabled = true;
         }
 
         [Test]

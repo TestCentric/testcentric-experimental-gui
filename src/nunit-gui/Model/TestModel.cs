@@ -76,6 +76,8 @@ namespace NUnit.Gui.Model
 
         public CommandLineOptions Options { get; private set; }
 
+        public IDictionary<string, object> PackageSettings { get; } = new Dictionary<string, object>();
+
         public IRecentFiles RecentFiles { get; private set; }
 
         public ITestRunner Runner { get; private set; }
@@ -244,31 +246,25 @@ namespace NUnit.Gui.Model
 
         public void ReloadTests()
         {
-            ReloadTests(null);
-        }
-
-        public void ReloadTests(string runtime)
-        {
             Runner.Unload();
             _resultIndex.Clear();
             Tests = null;
 
             _package = MakeTestPackage(_files);
-            if (runtime != null)
-                _package.Settings["RuntimeFramework"] = runtime;
+
             Runner = _testEngine.GetRunner(_package);
 
             Tests = new TestNode(Runner.Explore(TestFilter.Empty));
 
             _resultIndex.Clear();
 
-            if (TestReloaded != null)
-                TestReloaded(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
+            TestReloaded(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
         }
 
         #region Helper Methods
 
-        private TestPackage MakeTestPackage(IList<string> testFiles)
+        // Public for testing only
+        public TestPackage MakeTestPackage(IList<string> testFiles)
         {
             var package = new TestPackage(testFiles);
 
@@ -287,6 +283,9 @@ namespace NUnit.Gui.Model
 
             if (Options.InternalTraceLevel != null)
                 package.Settings["InternalTraceLevel"] = Options.InternalTraceLevel;
+
+            foreach (var entry in PackageSettings)
+                package.Settings[entry.Key] = entry.Value;               
 
             return package;
         }
