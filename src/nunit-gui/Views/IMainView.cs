@@ -51,6 +51,7 @@ namespace NUnit.Gui.Views
         IMenu SelectRuntimeMenu { get; }
         ISelection SelectedRuntime { get; }
         ISelection ProcessModel { get; }
+        IChecked RunAsX86 { get; }
         ISelection DomainUsage { get; }
         IMenu RecentProjectsMenu { get; }
         ICommand ExitCommand { get; }

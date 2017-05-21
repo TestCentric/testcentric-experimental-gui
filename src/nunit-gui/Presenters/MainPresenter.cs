@@ -74,6 +74,7 @@ namespace NUnit.Gui.Presenters
             _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;
             _view.ProcessModel.SelectionChanged += ProcessModel_SelectionChanged;
             _view.DomainUsage.SelectionChanged += DomainUsage_SelectionChanged;
+            _view.RunAsX86.CheckedChanged += LoadAsX86_CheckedChanged;
             _view.ExitCommand.Execute += () => Application.Exit();
 
             _view.SettingsCommand.Execute += OpenSettingsDialogCommand_Execute;
@@ -209,9 +210,18 @@ namespace NUnit.Gui.Presenters
             ChangePackageSetting(EnginePackageSettings.DomainUsage, _view.DomainUsage.SelectedItem);
         }
 
-        private void ChangePackageSetting(string key, string setting)
+        private void LoadAsX86_CheckedChanged()
         {
-            if (setting == "DEFAULT")
+            var key = EnginePackageSettings.RunAsX86;
+            if (_view.RunAsX86.Checked)
+                ChangePackageSetting(key, true);
+            else
+                ChangePackageSetting(key, null);
+        }
+
+        private void ChangePackageSetting(string key, object setting)
+        {
+            if (setting == null || setting is string && (string)setting == "DEFAULT")
                 _model.PackageSettings.Remove(key);
             else
                 _model.PackageSettings[key] = setting;

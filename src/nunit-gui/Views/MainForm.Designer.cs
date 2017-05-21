@@ -265,7 +265,7 @@ namespace NUnit.Gui.Views
             // defaultRuntimeToolStripMenuItem
             // 
             this.defaultRuntimeToolStripMenuItem.Name = "defaultRuntimeToolStripMenuItem";
-            this.defaultRuntimeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.defaultRuntimeToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.defaultRuntimeToolStripMenuItem.Tag = "DEFAULT";
             this.defaultRuntimeToolStripMenuItem.Text = "Default";
             // 
@@ -285,41 +285,48 @@ namespace NUnit.Gui.Views
             // defaultProcessToolStripMenuItem
             // 
             this.defaultProcessToolStripMenuItem.Name = "defaultProcessToolStripMenuItem";
-            this.defaultProcessToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.defaultProcessToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.defaultProcessToolStripMenuItem.Tag = "DEFAULT";
             this.defaultProcessToolStripMenuItem.Text = "Default";
+            this.defaultProcessToolStripMenuItem.ToolTipText = "Each assembly is loaded in it\'s own process.";
             // 
             // inProcessToolStripMenuItem
             // 
             this.inProcessToolStripMenuItem.Name = "inProcessToolStripMenuItem";
-            this.inProcessToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.inProcessToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.inProcessToolStripMenuItem.Tag = "InProcess";
             this.inProcessToolStripMenuItem.Text = "InProcess";
+            this.inProcessToolStripMenuItem.ToolTipText = "Test assemblies are loaded directly in the NUnit process.";
             // 
             // singleProcessToolStripMenuItem
             // 
             this.singleProcessToolStripMenuItem.Name = "singleProcessToolStripMenuItem";
-            this.singleProcessToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.singleProcessToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.singleProcessToolStripMenuItem.Tag = "Single";
             this.singleProcessToolStripMenuItem.Text = "Single";
+            this.singleProcessToolStripMenuItem.ToolTipText = "All test assemblies are loaded in the same process, separate from the NUnit proce" +
+    "ss.";
             // 
             // multipleProcessToolStripMenuItem
             // 
             this.multipleProcessToolStripMenuItem.Name = "multipleProcessToolStripMenuItem";
-            this.multipleProcessToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.multipleProcessToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.multipleProcessToolStripMenuItem.Tag = "Multiple";
             this.multipleProcessToolStripMenuItem.Text = "Multiple";
+            this.multipleProcessToolStripMenuItem.ToolTipText = "Each assembly is loaded in it\'s own process.";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // loadAsX86ToolStripMenuItem
             // 
+            this.loadAsX86ToolStripMenuItem.CheckOnClick = true;
             this.loadAsX86ToolStripMenuItem.Name = "loadAsX86ToolStripMenuItem";
-            this.loadAsX86ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.loadAsX86ToolStripMenuItem.Text = "Load as X86";
+            this.loadAsX86ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadAsX86ToolStripMenuItem.Text = "Run as X86";
+            this.loadAsX86ToolStripMenuItem.ToolTipText = "If checked, forces loading of the test assembly in 32-bit mode.";
             // 
             // domainUsageToolStripMenuItem1
             // 
@@ -725,7 +732,7 @@ namespace NUnit.Gui.Views
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(341, 342);
+            this.tabPage2.Size = new System.Drawing.Size(341, 336);
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "XML";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -786,7 +793,7 @@ namespace NUnit.Gui.Views
             this.xmlView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.xmlView.Name = "xmlView";
             this.xmlView.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.xmlView.Size = new System.Drawing.Size(337, 338);
+            this.xmlView.Size = new System.Drawing.Size(337, 332);
             this.xmlView.TabIndex = 2;
             this.xmlView.TestXml = null;
             // 

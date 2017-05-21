@@ -53,6 +53,7 @@ namespace NUnit.Gui.Views
                 defaultProcessToolStripMenuItem, inProcessToolStripMenuItem, singleProcessToolStripMenuItem, multipleProcessToolStripMenuItem);
             DomainUsage = new CheckedMenuGroup("domainUsage",
                 defaultDomainToolStripMenuItem, singleDomainToolStripMenuItem, multipleDomainToolStripMenuItem);
+            RunAsX86 = new MenuElement(loadAsX86ToolStripMenuItem);
             RecentProjectsMenu = new MenuElement(recentProjectsToolStripMenuItem);
             ExitCommand = new MenuElement(exitToolStripMenuItem);
 
@@ -97,11 +98,7 @@ namespace NUnit.Gui.Views
         public IMenu SelectRuntimeMenu { get; private set; }
         public ISelection SelectedRuntime { get; private set; }
         public ISelection ProcessModel { get; private set; }
-        public bool LoadAsX86
-        {
-            get { return loadAsX86ToolStripMenuItem.Checked; }
-            set { loadAsX86ToolStripMenuItem.Checked = value; }
-        }
+        public IChecked RunAsX86 { get; private set; }
         public ISelection DomainUsage { get; private set; }
         public IMenu RecentProjectsMenu { get; private set; }
         public ICommand ExitCommand { get; private set; }
