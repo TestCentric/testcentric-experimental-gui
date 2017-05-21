@@ -285,7 +285,7 @@ namespace NUnit.Gui.Model
                 package.Settings["InternalTraceLevel"] = Options.InternalTraceLevel;
 
             foreach (var entry in PackageSettings)
-                package.Settings[entry.Key] = entry.Value;               
+                package.Settings[entry.Key] = entry.Value;
 
             return package;
         }

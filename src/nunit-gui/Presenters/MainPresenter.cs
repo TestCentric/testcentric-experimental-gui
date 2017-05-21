@@ -69,7 +69,7 @@ namespace NUnit.Gui.Presenters
             _view.CloseCommand.Execute += _model.UnloadTests;
             _view.SaveCommand.Execute += _model.SaveProject;
             _view.SaveAsCommand.Execute += _model.SaveProject;
-            _view.ReloadTestsCommand.Execute += () => _model.ReloadTests();
+            _view.ReloadTestsCommand.Execute += _model.ReloadTests;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;
             _view.ProcessModel.SelectionChanged += ProcessModel_SelectionChanged;
@@ -128,9 +128,7 @@ namespace NUnit.Gui.Presenters
                     // Don't use Full suffix, but keep Client if present
                     if (text.EndsWith(" - Full"))
                         text = text.Substring(0, text.Length - 7);
-                    var menuItem = new ToolStripMenuItem(text);
-                    menuItem.Tag = runtime.ToString();
-                    dropDownItems.Add(menuItem);
+                    dropDownItems.Add(new ToolStripMenuItem(text) { Tag = runtime.ToString() });
                 }
 
                 _view.SelectedRuntime.Refresh();
@@ -138,9 +136,6 @@ namespace NUnit.Gui.Presenters
 
             // Project Menu
             _view.ProjectMenu.Enabled = _view.ProjectMenu.Visible = _model.HasTests;
-            //_view.SelectRuntimeMenu.Enabled = canCloseOrSave;
-            //_view.ProcessModel.Enabled = canCloseOrSave;
-            //_view.DomainUsage.Enabled = canCloseOrSave;
         }
 
         #endregion
@@ -221,7 +216,7 @@ namespace NUnit.Gui.Presenters
 
         private void ChangePackageSetting(string key, object setting)
         {
-            if (setting == null || setting is string && (string)setting == "DEFAULT")
+            if (setting == null || setting as string == "DEFAULT")
                 _model.PackageSettings.Remove(key);
             else
                 _model.PackageSettings[key] = setting;
@@ -270,21 +265,21 @@ namespace NUnit.Gui.Presenters
             // HACK: This expsoses the underlying ToolStripMenuItem
             var dropDownItems = _view.RecentProjectsMenu.DropDownItems;
             // Test for null, in case we are running tests with a mock
-            if (dropDownItems != null)
+            if (dropDownItems == null)
+                return;
+
+            dropDownItems.Clear();
+            int num = 0;
+            foreach (string entry in _model.RecentFiles.Entries)
             {
-                dropDownItems.Clear();
-                int num = 0;
-                foreach (string entry in _model.RecentFiles.Entries)
+                var menuText = string.Format("{0} {1}", ++num, entry);
+                var menuItem = new ToolStripMenuItem(menuText);
+                menuItem.Click += (sender, ea) =>
                 {
-                    var menuText = string.Format("{0} {1}", ++num, entry);
-                    var menuItem = new ToolStripMenuItem(menuText);
-                    menuItem.Click += (sender, ea) =>
-                    {
-                        string path = ((ToolStripMenuItem)sender).Text.Substring(2);
-                        _model.LoadTests(new[] { path });
-                    };
-                    dropDownItems.Add(menuItem);
-                }
+                    string path = ((ToolStripMenuItem)sender).Text.Substring(2);
+                    _model.LoadTests(new[] { path });
+                };
+                dropDownItems.Add(menuItem);
             }
         }
 

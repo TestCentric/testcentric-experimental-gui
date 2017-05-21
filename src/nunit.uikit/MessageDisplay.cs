@@ -40,7 +40,7 @@ namespace NUnit.UiKit
 
         public MessageDisplay(string caption)
         {
-            this._defaultCaption = caption;
+            _defaultCaption = caption;
         }
 
         #region Public Methods
@@ -59,7 +59,7 @@ namespace NUnit.UiKit
 
         public DialogResult Display(string message, MessageBoxButtons buttons)
         {
-            return MessageBox.Show(message, _defaultCaption, buttons);
+            return Display(message, _defaultCaption, buttons);
         }
 
         public DialogResult Display(string message, string caption, MessageBoxButtons buttons)
@@ -83,7 +83,7 @@ namespace NUnit.UiKit
 
         public DialogResult Error(string message, MessageBoxButtons buttons)
         {
-            return MessageBox.Show(message, _defaultCaption, buttons);
+            return Error(message, _defaultCaption, buttons);
         }
 
         public DialogResult Error(string message, string caption, MessageBoxButtons buttons)

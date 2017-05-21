@@ -73,7 +73,7 @@ namespace NUnit.Gui.Presenters.Main
 
             Model.PackageSettings.Received(1).Remove("DomainUsage");
         }
-        
+
         [TestCase("net-2.0")]
         [TestCase("net-4.5")]
         [TestCase("INVALID", Description = "Invalid Setting is passed on to the model")]

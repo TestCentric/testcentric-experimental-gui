@@ -114,8 +114,10 @@ namespace NUnit.UiKit.Elements
             }
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
+
         public string Text { get; set; }
+
         public int SelectedIndex
         {
             get
