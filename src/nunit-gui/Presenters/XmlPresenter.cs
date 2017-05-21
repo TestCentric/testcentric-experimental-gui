@@ -66,11 +66,11 @@ namespace NUnit.Gui.Presenters
             };
             _view.SelectionChanged += () =>
             {
-                _view.CopyToolStripMenuItem.ToolStripItem.Enabled = !string.IsNullOrEmpty(_view.XmlTextBox.Control.SelectedText);
+                _view.CopyToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_view.XmlTextBox.Control.SelectedText);
             };
             _view.WordWrapChanged += () =>
             {
-                _view.XmlTextBox.Control.WordWrap = _view.WordWrapToolStripMenuItem.ToolStripItem.Checked;
+                _view.XmlTextBox.Control.WordWrap = _view.WordWrapToolStripMenuItem.Checked;
             };
             _view.CopyCommand += () =>
             {

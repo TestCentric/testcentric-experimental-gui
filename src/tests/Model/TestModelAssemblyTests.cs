@@ -30,7 +30,7 @@ namespace NUnit.Gui.Model
     using Tests.Assemblies;
 
     [Explicit("Second TestEngine conflicts with main engine")]
-    public class TestModelTests
+    public class TestModelAssemblyTests
     {
         private const string MOCK_ASSEMBLY = "mock-assembly.dll";
 

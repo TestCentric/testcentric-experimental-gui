@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,33 +22,14 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
-using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace NUnit.UiKit.Elements
 {
-    // Interface used for testing
-    public interface ITestTreeView : IView
+    /// <summary>
+    /// IMenu is implemented by MenuElements
+    /// </summary>
+    public interface IMenu : IToolStripElement, ICommand, IPopup, IChecked
     {
-        ICommand RunButton { get; }
-        ICommand RunAllCommand { get; }
-        ICommand RunSelectedCommand { get; }
-        ICommand RunFailedCommand { get; }
-        ICommand StopRunCommand { get; }
-
-        IToolStripElement FormatButton { get; }
-        ISelection DisplayFormat { get; }
-        ISelection GroupBy { get; }
-
-        ICommand RunContextCommand { get; }
-        ICommand RunCheckedCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
-        ICommand ExpandAllCommand { get; }
-        ICommand CollapseAllCommand { get; }
-        ICommand CollapseToFixturesCommand { get; }
-
-        void ExpandAll();
-        void CollapseAll();
-
-        ITreeViewElement Tree { get; }
+        ToolStripItemCollection DropDownItems { get; }
     }
 }

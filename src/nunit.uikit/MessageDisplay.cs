@@ -34,13 +34,13 @@ namespace NUnit.UiKit
     {
         private static readonly string DEFAULT_CAPTION = "NUnit";
 
-        private readonly string caption;
+        private readonly string _defaultCaption;
 
         public MessageDisplay() : this(DEFAULT_CAPTION) { }
 
         public MessageDisplay(string caption)
         {
-            this.caption = caption;
+            _defaultCaption = caption;
         }
 
         #region Public Methods
@@ -49,10 +49,20 @@ namespace NUnit.UiKit
 
         public DialogResult Display(string message)
         {
-            return Display(message, MessageBoxButtons.OK);
+            return Display(message, _defaultCaption, MessageBoxButtons.OK);
+        }
+
+        public DialogResult Display(string message, string caption)
+        {
+            return Display(message, caption, MessageBoxButtons.OK);
         }
 
         public DialogResult Display(string message, MessageBoxButtons buttons)
+        {
+            return Display(message, _defaultCaption, buttons);
+        }
+
+        public DialogResult Display(string message, string caption, MessageBoxButtons buttons)
         {
             return MessageBox.Show(message, caption, buttons, MessageBoxIcon.None);
         }
@@ -61,12 +71,22 @@ namespace NUnit.UiKit
 
         #region Error
 
-        public DialogResult Error( string message )
+        public DialogResult Error(string message)
         {
-            return Error(message, MessageBoxButtons.OK);
+            return Error(message, _defaultCaption, MessageBoxButtons.OK);
+        }
+
+        public DialogResult Error(string message, string caption)
+        {
+            return Error(message, caption, MessageBoxButtons.OK);
         }
 
         public DialogResult Error(string message, MessageBoxButtons buttons)
+        {
+            return Error(message, _defaultCaption, buttons);
+        }
+
+        public DialogResult Error(string message, string caption, MessageBoxButtons buttons)
         {
             return MessageBox.Show(message, caption, buttons, MessageBoxIcon.Stop);
         }
@@ -95,7 +115,17 @@ namespace NUnit.UiKit
             return Info(message, MessageBoxButtons.OK);
         }
 
+        public DialogResult Info(string message, string caption)
+        {
+            return Info(message, caption, MessageBoxButtons.OK);
+        }
+
         public DialogResult Info(string message, MessageBoxButtons buttons)
+        {
+            return Info(message, _defaultCaption, buttons);
+        }
+
+        public DialogResult Info(string message, string caption, MessageBoxButtons buttons)
         {
             return MessageBox.Show(message, caption, buttons, MessageBoxIcon.Information);
         }
@@ -106,10 +136,20 @@ namespace NUnit.UiKit
 
         public DialogResult Ask(string message)
         {
-            return Ask(message, MessageBoxButtons.YesNo);
+            return Ask(message, _defaultCaption, MessageBoxButtons.YesNo);
+        }
+
+        public DialogResult Ask(string message, string caption)
+        {
+            return Ask(message, caption, MessageBoxButtons.YesNo);
         }
 
         public DialogResult Ask(string message, MessageBoxButtons buttons)
+        {
+            return Ask(message, _defaultCaption, buttons);
+        }
+
+        public DialogResult Ask(string message, string caption, MessageBoxButtons buttons)
         {
             return MessageBox.Show(message, caption, buttons, MessageBoxIcon.Question);
         }
