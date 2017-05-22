@@ -85,10 +85,10 @@ namespace NUnit.Gui.Presenters
                 }
         }
 
-        private void UpdateProgress(ResultNode result)
+        private void UpdateProgress(TestNode result)
         {
             if (!result.IsSuite)
-                _progressBar.AddStatus(result.Outcome.Status);
+                _progressBar.Progress++;
         }
     }
 }

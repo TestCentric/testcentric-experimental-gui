@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.testProgressBar = new NUnit.UiKit.Controls.NUnitProgressBar();
-            this.testStatusesLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // testProgressBar
@@ -41,21 +40,11 @@
             this.testProgressBar.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
             this.testProgressBar.TabIndex = 0;
             // 
-            // testStatusesLabel
-            // 
-            this.testStatusesLabel.AutoSize = true;
-            this.testStatusesLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.testStatusesLabel.Location = new System.Drawing.Point(0, 0);
-            this.testStatusesLabel.Name = "testStatusesLabel";
-            this.testStatusesLabel.Size = new System.Drawing.Size(0, 13);
-            this.testStatusesLabel.TabIndex = 1;
-            // 
             // ProgressBarView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.testProgressBar);
-            this.Controls.Add(this.testStatusesLabel);
             this.Name = "ProgressBarView";
             this.Size = new System.Drawing.Size(239, 61);
             this.ResumeLayout(false);
