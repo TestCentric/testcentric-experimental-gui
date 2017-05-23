@@ -49,9 +49,6 @@ namespace NUnit.Gui.Presenters
         [TearDown]
         public void RemovePresenter()
         {
-            //if (_presenter != null)
-            //    _presenter.Dispose();
-
             _presenter = null;
         }
 
@@ -102,23 +99,21 @@ namespace NUnit.Gui.Presenters
         [Test]
         public void WhenTestCaseCompletes_ProgressIsIncremented()
         {
-            int priorValue = _view.Progress;
             var result = new ResultNode("<test-case id='1'/>");
 
             _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
-            Assert.That(_view.Progress, Is.EqualTo(priorValue + 1));
+            _view.Received().Progress++;
         }
 
         [Test]
         public void WhenTestSuiteCompletes_ProgressIsNotIncremented()
         {
-            int priorValue = _view.Progress;
             var result = new ResultNode("<test-suite id='1'/>");
 
             _model.SuiteFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.SuiteFinished, result));
 
-            Assert.That(_view.Progress, Is.EqualTo(priorValue));
+            _view.DidNotReceive().Progress++;
         }
 
         //[Test]
@@ -131,7 +126,7 @@ namespace NUnit.Gui.Presenters
 
         //    Assert.That(_view.Progress, Is.EqualTo(priorValue));
         //}
-        
+
         static object[] statusTestCases = new object[] {
             new object[] { TestProgressBarStatus.Success, ResultState.Failure, TestProgressBarStatus.Failure },
             new object[] { TestProgressBarStatus.Warning, ResultState.Failure, TestProgressBarStatus.Failure },

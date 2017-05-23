@@ -29,7 +29,7 @@ namespace NUnit.UiKit.Elements
     /// The IPopup interface is implemented by a menu item,
     /// which displays subordinate items.
     /// </summary>
-    public interface IPopup : IToolStripElement<ToolStripMenuItem>
+    public interface IPopup : IToolStripElement
     {
         /// <summary>
         /// Popup event is raised to signal the presenter

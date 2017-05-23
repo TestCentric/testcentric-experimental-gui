@@ -43,6 +43,11 @@ namespace NUnit.UiKit.Elements
         string SelectedItem { get; set; }
 
         /// <summary>
+        /// Refresh selection if possible, otherwise noop
+        /// </summary>
+        void Refresh();
+
+        /// <summary>
         /// Event raised when the selection is changed by the user
         /// </summary>
         event CommandHandler SelectionChanged;

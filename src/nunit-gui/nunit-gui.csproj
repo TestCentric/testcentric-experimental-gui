@@ -32,17 +32,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>nunit.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.0-dev-03383\lib\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\Mono.Cecil.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.engine, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.0-dev-03383\lib\nunit.engine.dll</HintPath>
+    <Reference Include="nunit.engine, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\nunit.engine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.0-dev-03383\lib\nunit.engine.api.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\nunit.engine.api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -250,6 +253,7 @@
     <Content Include="Images\Tree\Default\Success.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="nunit.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

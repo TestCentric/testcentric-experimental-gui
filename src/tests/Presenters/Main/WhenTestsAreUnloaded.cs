@@ -83,12 +83,6 @@ namespace NUnit.Gui.Presenters.Main
         }
 
         [Test]
-        public void SelectRuntimeMenu_IsDisabled()
-        {
-            View.SelectRuntimeMenu.Received().Enabled = false;
-        }
-
-        [Test]
         public void RecentProjects_IsEnabled()
         {
             View.RecentProjectsMenu.Received().Enabled = true;

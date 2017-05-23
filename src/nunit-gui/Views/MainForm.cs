@@ -22,6 +22,7 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
+using NUnit.UiKit;
 using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
@@ -37,6 +38,7 @@ namespace NUnit.Gui.Views
 
         private void InitializeViewElements()
         {
+            // File Menu
             FileMenu = new MenuElement(fileToolStripMenuItem);
             NewProjectCommand = new MenuElement(newProjectToolStripMenuItem);
             OpenProjectCommand = new MenuElement(openProjectToolStripMenuItem);
@@ -46,20 +48,30 @@ namespace NUnit.Gui.Views
             SaveResultsCommand = new MenuElement(saveResultsToolStripMenuItem);
             ReloadTestsCommand = new MenuElement(reloadTestsToolStripMenuItem);
             SelectRuntimeMenu = new MenuElement(selectRuntimeToolStripMenuItem);
+            SelectedRuntime = new CheckedMenuGroup(selectRuntimeToolStripMenuItem);
+            ProcessModel = new CheckedMenuGroup("processModel",
+                defaultProcessToolStripMenuItem, inProcessToolStripMenuItem, singleProcessToolStripMenuItem, multipleProcessToolStripMenuItem);
+            DomainUsage = new CheckedMenuGroup("domainUsage",
+                defaultDomainToolStripMenuItem, singleDomainToolStripMenuItem, multipleDomainToolStripMenuItem);
+            RunAsX86 = new MenuElement(loadAsX86ToolStripMenuItem);
             RecentProjectsMenu = new MenuElement(recentProjectsToolStripMenuItem);
             ExitCommand = new MenuElement(exitToolStripMenuItem);
 
+            // View Menu
             FullGuiCommand = new MenuElement(fullGuiToolStripMenuItem);
             MiniGuiCommand = new MenuElement(miniGuiToolStripMenuItem);
             GuiFontCommand = new MenuElement(guiFontToolStripMenuItem);
             FixedFontCommand = new MenuElement(fixedFontToolStripMenuItem);
             StatusBarCommand = new MenuElement(statusBarToolStripMenuItem);
 
+            // Project Menu
             ProjectMenu = new MenuElement(projectToolStripMenuItem);
 
+            // Tools Menu
             SettingsCommand = new MenuElement(settingsToolStripMenuItem);
             AddinsCommand = new MenuElement(addinsToolStripMenuItem);
 
+            // Help Menu
             NUnitHelpCommand = new MenuElement(nUnitHelpToolStripMenuItem);
             AboutNUnitCommand = new MenuElement(aboutNUnitToolStripMenuItem);
 
@@ -67,6 +79,7 @@ namespace NUnit.Gui.Views
             TestName = new ControlElement<Label>(testName);
 
             DialogManager = new DialogManager();
+            MessageDisplay = new MessageDisplay();
         }
 
         #region Public Properties
@@ -74,7 +87,7 @@ namespace NUnit.Gui.Views
         #region IMainView Members
 
         // File Menu
-        public IPopup FileMenu { get; private set; }
+        public IMenu FileMenu { get; private set; }
         public ICommand NewProjectCommand { get; private set; }
         public ICommand OpenProjectCommand { get; private set; }
         public ICommand CloseCommand { get; private set; }
@@ -82,8 +95,12 @@ namespace NUnit.Gui.Views
         public ICommand SaveAsCommand { get; private set; }
         public ICommand SaveResultsCommand { get; private set; }
         public ICommand ReloadTestsCommand { get; private set; }
-        public IPopup SelectRuntimeMenu { get; private set; }
-        public IPopup RecentProjectsMenu { get; private set; }
+        public IMenu SelectRuntimeMenu { get; private set; }
+        public ISelection SelectedRuntime { get; private set; }
+        public ISelection ProcessModel { get; private set; }
+        public IChecked RunAsX86 { get; private set; }
+        public ISelection DomainUsage { get; private set; }
+        public IMenu RecentProjectsMenu { get; private set; }
         public ICommand ExitCommand { get; private set; }
 
         // View Menu
@@ -94,7 +111,7 @@ namespace NUnit.Gui.Views
         public ICommand StatusBarCommand { get; private set; }
 
         // Project Menu
-        public IPopup ProjectMenu { get; private set; }
+        public IMenu ProjectMenu { get; private set; }
 
         // Tools Menu
         public ICommand SettingsCommand { get; private set; }
@@ -108,6 +125,7 @@ namespace NUnit.Gui.Views
         public IViewElement TestName { get; private set; }
 
         public IDialogManager DialogManager { get; private set; }
+        public IMessageDisplay MessageDisplay { get; private set; }
 
         #endregion
 

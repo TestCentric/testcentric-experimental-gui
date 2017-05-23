@@ -29,7 +29,7 @@ namespace NUnit.UiKit.Elements
     /// MenuElement is the implementation of ToolStripItem 
     /// used in the actual application.
     /// </summary>
-    public class MenuElement : ToolStripElement<ToolStripMenuItem>, ICommand, IPopup, IChecked
+    public class MenuElement : ToolStripElement<ToolStripMenuItem>, IMenu
     {
         public event CommandHandler Execute;
         public event CommandHandler Popup;
@@ -63,6 +63,11 @@ namespace NUnit.UiKit.Elements
                     });
                 }
             }
+        }
+
+        public ToolStripItemCollection DropDownItems
+        {
+            get { return ToolStripItem.DropDown.Items; }
         }
     }
 }

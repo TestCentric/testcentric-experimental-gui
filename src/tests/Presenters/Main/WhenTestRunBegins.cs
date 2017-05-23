@@ -83,12 +83,6 @@ namespace NUnit.Gui.Presenters.Main
         }
 
         [Test]
-        public void SelectRuntimeMenu_IsDisabled()
-        {
-            Assert.That(View.SelectRuntimeMenu.Enabled == false);
-        }
-
-        [Test]
         public void RecentProjects_IsDisabled()
         {
             Assert.That(View.RecentProjectsMenu.Enabled == false);

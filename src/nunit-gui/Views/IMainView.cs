@@ -23,6 +23,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using NUnit.UiKit;
 using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
@@ -36,9 +37,10 @@ namespace NUnit.Gui.Views
         Font Font { get; set; }
 
         event FormClosingEventHandler FormClosing;
+        event DragEventHandler DragDrop;
 
         // File Menu
-        IPopup FileMenu { get; }
+        IMenu FileMenu { get; }
         ICommand NewProjectCommand { get; }
         ICommand OpenProjectCommand { get; }
         ICommand CloseCommand { get; }
@@ -46,8 +48,12 @@ namespace NUnit.Gui.Views
         ICommand SaveAsCommand { get; }
         ICommand SaveResultsCommand { get; }
         ICommand ReloadTestsCommand { get; }
-        IPopup SelectRuntimeMenu { get; }
-        IPopup RecentProjectsMenu { get; }
+        IMenu SelectRuntimeMenu { get; }
+        ISelection SelectedRuntime { get; }
+        ISelection ProcessModel { get; }
+        IChecked RunAsX86 { get; }
+        ISelection DomainUsage { get; }
+        IMenu RecentProjectsMenu { get; }
         ICommand ExitCommand { get; }
 
         // View Menu
@@ -58,7 +64,7 @@ namespace NUnit.Gui.Views
         // Status Bar
 
         // Project Menu
-        IPopup ProjectMenu { get; }
+        IMenu ProjectMenu { get; }
         // Configurations
         // Insert Assembly
         // Insert Project
@@ -86,5 +92,8 @@ namespace NUnit.Gui.Views
 
         // Dialogs
         IDialogManager DialogManager { get; }
+
+        // Messages
+        IMessageDisplay MessageDisplay { get; }
     }
 }

@@ -34,8 +34,8 @@ namespace NUnit.Gui.Views
         string Header { get; set; }
         IViewElement XmlPanel { get; }
         IControlElement<RichTextBox> XmlTextBox { get; }
-        IToolStripElement<ToolStripMenuItem> CopyToolStripMenuItem { get; }
-        IToolStripElement<ToolStripMenuItem> WordWrapToolStripMenuItem { get; }
+        IMenu CopyToolStripMenuItem { get; }
+        IMenu WordWrapToolStripMenuItem { get; }
         XmlNode TestXml { get; set; }
         event CommandHandler SelectAllCommand;
         event CommandHandler SelectionChanged;
@@ -57,8 +57,8 @@ namespace NUnit.Gui.Views
 
             XmlPanel = new ControlElement<Panel>(xmlPanel);
             XmlTextBox = new ControlElement<RichTextBox>(xmlTextBox);
-            CopyToolStripMenuItem = new ToolStripElement<ToolStripMenuItem>(copyToolStripMenuItem);
-            WordWrapToolStripMenuItem = new ToolStripElement<ToolStripMenuItem>(wordWrapToolStripMenuItem);
+            CopyToolStripMenuItem = new MenuElement(copyToolStripMenuItem);
+            WordWrapToolStripMenuItem = new MenuElement(wordWrapToolStripMenuItem);
             selectAllToolStripMenuItem.Click += (s, a) =>
             {
                 if (SelectAllCommand != null)
@@ -95,9 +95,9 @@ namespace NUnit.Gui.Views
 
         public IControlElement<RichTextBox> XmlTextBox { get; private set; }
 
-        public IToolStripElement<ToolStripMenuItem> CopyToolStripMenuItem { get; private set; }
+        public IMenu CopyToolStripMenuItem { get; private set; }
 
-        public IToolStripElement<ToolStripMenuItem> WordWrapToolStripMenuItem { get; private set; }
+        public IMenu WordWrapToolStripMenuItem { get; private set; }
 
         public XmlNode TestXml
         {

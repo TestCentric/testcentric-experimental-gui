@@ -33,26 +33,28 @@
             // 
             // testProgressBar
             // 
-            this.testProgressBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testProgressBar.Location = new System.Drawing.Point(0, 0);
+            this.testProgressBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.testProgressBar.Location = new System.Drawing.Point(0, 13);
             this.testProgressBar.Name = "testProgressBar";
             this.testProgressBar.Size = new System.Drawing.Size(239, 14);
             this.testProgressBar.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
             this.testProgressBar.TabIndex = 0;
             // 
-            // ProgressBarUserControl
+            // ProgressBarView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.testProgressBar);
-            this.Name = "ProgressBarUserControl";
-            this.Size = new System.Drawing.Size(239, 14);
+            this.Name = "ProgressBarView";
+            this.Size = new System.Drawing.Size(239, 61);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private NUnit.UiKit.Controls.NUnitProgressBar testProgressBar;
+        private System.Windows.Forms.Label testStatusesLabel;
     }
 }
