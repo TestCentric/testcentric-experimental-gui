@@ -97,23 +97,23 @@ namespace NUnit.Gui.Presenters
         }
 
         [Test]
-        public void WhenTestCaseCompletes_TestStatusIsSentToProgressBar()
+        public void WhenTestCaseCompletes_ProgressIsIncremented()
         {
             var result = new ResultNode("<test-case id='1'/>");
 
             _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
-            _view.Received().AddStatus(TestStatus.Passed);
+            _view.Received().Progress++;
         }
 
         [Test]
-        public void WhenTestSuiteCompletes_TestStatusIsNotSentToProgressBar()
+        public void WhenTestSuiteCompletes_ProgressIsNotIncremented()
         {
             var result = new ResultNode("<test-suite id='1'/>");
 
             _model.SuiteFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.SuiteFinished, result));
 
-            _view.DidNotReceive().AddStatus(Arg.Any<TestStatus>());
+            _view.DidNotReceive().Progress++;
         }
 
         //[Test]

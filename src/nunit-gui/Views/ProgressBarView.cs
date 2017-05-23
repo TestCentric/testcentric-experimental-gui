@@ -21,38 +21,28 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using NUnit.Gui.Model;
 using NUnit.UiKit.Controls;
-using System.Collections.Generic;
 
 namespace NUnit.Gui.Views
 {
     // Interface used in testing the presenter
     public interface IProgressBarView : IView
     {
+        int Progress { get; set; }
         TestProgressBarStatus Status { get; set; }
 
         void Initialize(int max);
-        void AddStatus(TestStatus status);
     }
 
     public partial class ProgressBarView : UserControl, IProgressBarView
     {
         private int _maximum;
-        private readonly Dictionary<TestStatus, int> _statusLabels;
-        private readonly TestStatus[] _testStatuses;
 
         public ProgressBarView()
         {
             InitializeComponent();
-            _statusLabels = new Dictionary<TestStatus, int>();
-
-            var values = Enum.GetValues(typeof(TestStatus));
-            _testStatuses = new TestStatus[values.Length];
-            values.CopyTo(_testStatuses, 0);
         }
 
         public void Initialize(int max)
@@ -62,13 +52,9 @@ namespace NUnit.Gui.Views
             _maximum = max;
             _progress = 0;
             _status = TestProgressBarStatus.Success;
-            foreach (var statusLabelKey in _testStatuses)
-                _statusLabels[statusLabelKey] = 0;
-            var newStatus = BuildStatusesText();
 
             InvokeIfRequired(() =>
             {
-                testStatusesLabel.Text = newStatus;
                 testProgressBar.Maximum = _maximum;
                 testProgressBar.Value = _progress;
                 testProgressBar.Status = _status;
@@ -76,6 +62,17 @@ namespace NUnit.Gui.Views
         }
 
         private int _progress;
+        public int Progress
+        {
+            get { return _progress; }
+            set
+            {
+                Debug.Assert(value <= _maximum, "Value must be <= maximum");
+
+                _progress = value;
+                InvokeIfRequired(() => { testProgressBar.Value = _progress; });
+            }
+        }
 
         private TestProgressBarStatus _status;
         public TestProgressBarStatus Status
@@ -94,26 +91,6 @@ namespace NUnit.Gui.Views
                 testProgressBar.BeginInvoke(_delegate);
             else
                 _delegate();
-        }
-
-        public void AddStatus(TestStatus status)
-        {
-            _progress++;
-            ++_statusLabels[status];
-            var newStatus = BuildStatusesText();
-            InvokeIfRequired(() => { testStatusesLabel.Text = newStatus; testProgressBar.Value = _progress; });
-        }
-
-        private string BuildStatusesText()
-        {
-            string[] asdf = new string[_testStatuses.Length];
-            for (int i = 0; i < _statusLabels.Count; i++)
-            {
-                TestStatus t = (TestStatus)i;
-                asdf[i] = $"{t}:{_statusLabels[t]}";
-            }
-            var newStatus = String.Join(" | ", asdf);
-            return newStatus;
         }
     }
 }
