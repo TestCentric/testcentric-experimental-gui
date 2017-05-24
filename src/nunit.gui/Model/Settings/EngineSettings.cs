@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,21 +21,37 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NUnit.Gui.Model
+namespace NUnit.Gui.Model.Settings
 {
+    using Engine;
+
     /// <summary>
-    /// Indicates how a tree should be displayed
+    /// SettingsModel is the top level of a set of wrapper
+    /// classes that provide type-safe access to settingsService.
     /// </summary>
-    public enum TreeDisplayStyle
+    public class EngineSettings : SettingsWrapper
     {
-        Auto,		// Select based on space available
-        Expand,		// Expand fully
-        Collapse,	// Collapse fully
-        HideTests	// Expand all but the fixtures, leaving
-        // leaf nodes hidden
+        public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
+
+        private const string reloadOnChangeKey = "ReloadOnChange";
+        public bool ReloadOnChange
+        {
+            get { return GetSetting(reloadOnChangeKey, true); }
+            set { SaveSetting(reloadOnChangeKey, value); }
+        }
+
+        private const string rerunOnChangeKey = "RerunOnChange";
+        public bool RerunOnChange
+        {
+            get { return GetSetting(rerunOnChangeKey, false); }
+            set { SaveSetting(rerunOnChangeKey, value); }
+        }
+
+        private const string reloadOnRunKey = "ReloadOnRun";
+        public bool ReloadOnRun
+        {
+            get { return GetSetting(reloadOnRunKey, false); }
+            set { SaveSetting(reloadOnRunKey, value); }
+        }
     }
 }

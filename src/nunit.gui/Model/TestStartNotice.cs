@@ -21,31 +21,21 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Xml;
 
 namespace NUnit.Gui.Model
 {
-    using Engine;
-
-    /// <summary>
-    /// ITestItem is the common interface shared by TestNodes
-    /// and TestGroups and allows either to be selected in
-    /// the tree.
-    /// </summary>
-    public interface ITestItem
+    public class TestStartNotice
     {
-        /// <summary>
-        /// The name of this item
-        /// </summary>
-        string Name { get; }
+        public TestStartNotice(XmlNode xmlNode)
+        {
+            Id = xmlNode.GetAttribute("id");
+            Name = xmlNode.GetAttribute("name");
+            FullName = xmlNode.GetAttribute("fullname");
+        }
 
-        /// <summary>
-        /// Get a TestFilter for use in selecting this item
-        /// to be run by the engine.
-        /// </summary>
-        /// <returns></returns>
-        TestFilter GetTestFilter();
+        public string Id { get; private set; }
+        public string Name { get; private set; }
+        public string FullName { get; private set; }
     }
 }

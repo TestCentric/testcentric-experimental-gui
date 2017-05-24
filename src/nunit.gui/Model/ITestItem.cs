@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,41 +21,27 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
-using System.Security.Principal;
-using System.Windows.Forms;
-
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.Gui.Model
 {
     using Engine;
 
     /// <summary>
-    /// SettingsModel is the top level of a set of wrapper
-    /// classes that provide type-safe access to settingsService.
+    /// ITestItem is the common interface shared by TestNodes
+    /// and TestGroups and allows either to be selected in
+    /// the tree.
     /// </summary>
-    public class EngineSettings : SettingsWrapper
+    public interface ITestItem
     {
-        public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
+        /// <summary>
+        /// The name of this item
+        /// </summary>
+        string Name { get; }
 
-        private const string reloadOnChangeKey = "ReloadOnChange";
-        public bool ReloadOnChange
-        {
-            get { return GetSetting(reloadOnChangeKey, true); }
-            set { SaveSetting(reloadOnChangeKey, value); }
-        }
-
-        private const string rerunOnChangeKey = "RerunOnChange";
-        public bool RerunOnChange
-        {
-            get { return GetSetting(rerunOnChangeKey, false); }
-            set { SaveSetting(rerunOnChangeKey, value); }
-        }
-
-        private const string reloadOnRunKey = "ReloadOnRun";
-        public bool ReloadOnRun
-        {
-            get { return GetSetting(reloadOnRunKey, false); }
-            set { SaveSetting(reloadOnRunKey, value); }
-        }
+        /// <summary>
+        /// Get a TestFilter for use in selecting this item
+        /// to be run by the engine.
+        /// </summary>
+        /// <returns></returns>
+        TestFilter GetTestFilter();
     }
 }

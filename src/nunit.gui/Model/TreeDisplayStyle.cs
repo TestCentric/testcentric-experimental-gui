@@ -21,21 +21,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Xml;
-
 namespace NUnit.Gui.Model
 {
-    public class TestStartNotice
+    /// <summary>
+    /// Indicates how a tree should be displayed
+    /// </summary>
+    public enum TreeDisplayStyle
     {
-        public TestStartNotice(XmlNode xmlNode)
-        {
-            this.Id = xmlNode.GetAttribute("id");
-            this.Name = xmlNode.GetAttribute("name");
-            this.FullName = xmlNode.GetAttribute("fullname");
-        }
-
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string FullName { get; private set; }
+        Auto,		// Select based on space available
+        Expand,		// Expand fully
+        Collapse,	// Collapse fully
+        HideTests	// Expand all but the fixtures, leaving
+        // leaf nodes hidden
     }
 }
