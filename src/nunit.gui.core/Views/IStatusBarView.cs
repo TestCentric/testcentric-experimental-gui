@@ -21,8 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Windows.Forms;
-
 namespace NUnit.Gui.Views
 {
     // Interface is used by presenter and tests
