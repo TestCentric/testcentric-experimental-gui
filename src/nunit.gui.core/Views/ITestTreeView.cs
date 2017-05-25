@@ -21,15 +21,33 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    public interface ISettingsDialog
+    // Interface used for testing
+    public interface ITestTreeView : IView
     {
-        DialogResult Display();
+        ICommand RunButton { get; }
+        ICommand RunAllCommand { get; }
+        ICommand RunSelectedCommand { get; }
+        ICommand RunFailedCommand { get; }
+        ICommand StopRunCommand { get; }
+
+        IToolStripElement FormatButton { get; }
+        ISelection DisplayFormat { get; }
+        ISelection GroupBy { get; }
+
+        ICommand RunContextCommand { get; }
+        ICommand RunCheckedCommand { get; }
+        IChecked ShowCheckBoxesCommand { get; }
+        ICommand ExpandAllCommand { get; }
+        ICommand CollapseAllCommand { get; }
+        ICommand CollapseToFixturesCommand { get; }
+
+        void ExpandAll();
+        void CollapseAll();
+
+        ITreeViewElement Tree { get; }
     }
 }

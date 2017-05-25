@@ -7,7 +7,7 @@
     <ProjectGuid>{E978A8D7-E4A4-4DE9-94DF-D82BD764936B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nunit.Gui</RootNamespace>
+    <RootNamespace>NUnit.Gui</RootNamespace>
     <AssemblyName>nunit.gui.core</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -70,9 +70,26 @@
     <Compile Include="Model\TreeDisplayStyle.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\IAddinsView.cs" />
+    <Compile Include="Views\IDialog.cs" />
+    <Compile Include="Views\IDialogManager.cs" />
+    <Compile Include="Views\IMainView.cs" />
+    <Compile Include="Views\IProgressBarView.cs" />
+    <Compile Include="Views\ISettingsDialog.cs" />
+    <Compile Include="Views\ITestPropertiesVIew.cs" />
+    <Compile Include="Views\ITestTreeView.cs" />
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\IXmlView.cs" />
+    <Compile Include="Views\IStatusBarView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
+      <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
+      <Name>nunit.uikit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

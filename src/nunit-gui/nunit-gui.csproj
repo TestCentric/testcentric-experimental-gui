@@ -56,17 +56,20 @@
   <ItemGroup>
     <Compile Include="Presenters\AddinsPresenter.cs" />
     <Compile Include="Presenters\CategoryGrouping.cs" />
-    <Compile Include="Presenters\GroupDisplayStrategy.cs" />
+    <Compile Include="Presenters\DisplayStrategy.cs" />
     <Compile Include="Presenters\DurationGrouping.cs" />
-    <Compile Include="Presenters\OutcomeGrouping.cs" />
-    <Compile Include="Presenters\TestGroup.cs" />
     <Compile Include="Presenters\FixtureListDisplayStrategy.cs" />
+    <Compile Include="Presenters\GroupDisplayStrategy.cs" />
+    <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\NUnitTreeDisplayStrategy.cs" />
+    <Compile Include="Presenters\OutcomeGrouping.cs" />
+    <Compile Include="Presenters\ProgressBarPresenter.cs" />
+    <Compile Include="Presenters\StatusBarPresenter.cs" />
+    <Compile Include="Presenters\TestGroup.cs" />
     <Compile Include="Presenters\TestGrouping.cs" />
     <Compile Include="Presenters\TestListDisplayStrategy.cs" />
     <Compile Include="Presenters\TestPropertiesPresenter.cs" />
-    <Compile Include="Presenters\StatusBarPresenter.cs" />
-    <Compile Include="Presenters\DisplayStrategy.cs" />
+    <Compile Include="Presenters\TreeViewPresenter.cs" />
     <Compile Include="Presenters\XmlPresenter.cs" />
     <Compile Include="Views\AddinPages\AddinsView.cs">
       <SubType>Form</SubType>
@@ -80,11 +83,6 @@
     <Compile Include="Views\AddinPages\ExtensionPointView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\IAddinsView.cs" />
-    <Compile Include="Views\IDialog.cs" />
-    <Compile Include="Views\ISettingsDialog.cs" />
-    <Compile Include="Views\ITestTreeView.cs" />
-    <Compile Include="Views\IView.cs" />
     <Compile Include="Views\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,12 +131,7 @@
     <Compile Include="Views\StatusBarView.Designer.cs">
       <DependentUpon>StatusBarView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presenters\ProgressBarPresenter.cs" />
-    <Compile Include="Presenters\TreeViewPresenter.cs" />
     <Compile Include="Views\DialogManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Views\IDialogManager.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\MainForm.cs">
@@ -147,8 +140,6 @@
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\IMainView.cs" />
-    <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\XmlView.cs">
@@ -238,9 +229,7 @@
     </Content>
     <Content Include="nunit.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

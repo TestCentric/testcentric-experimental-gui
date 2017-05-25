@@ -21,34 +21,12 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Windows.Forms;
-using NUnit.UiKit.Elements;
+using NUnit.Engine.Extensibility;
 
 namespace NUnit.Gui.Views
 {
-    // Interface used for testing
-    public interface ITestTreeView : IView
+    public interface IAddinsView : IDialog
     {
-        ICommand RunButton { get; }
-        ICommand RunAllCommand { get; }
-        ICommand RunSelectedCommand { get; }
-        ICommand RunFailedCommand { get; }
-        ICommand StopRunCommand { get; }
-
-        IToolStripElement FormatButton { get; }
-        ISelection DisplayFormat { get; }
-        ISelection GroupBy { get; }
-
-        ICommand RunContextCommand { get; }
-        ICommand RunCheckedCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
-        ICommand ExpandAllCommand { get; }
-        ICommand CollapseAllCommand { get; }
-        ICommand CollapseToFixturesCommand { get; }
-
-        void ExpandAll();
-        void CollapseAll();
-
-        ITreeViewElement Tree { get; }
+        void AddExtensionPoint(IExtensionPoint extensionPoint);
     }
 }

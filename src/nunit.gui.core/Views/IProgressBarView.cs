@@ -21,16 +21,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Drawing;
+using NUnit.UiKit.Controls;
 
 namespace NUnit.Gui.Views
 {
-    public interface IView
+    public interface IProgressBarView : IView
     {
-        event EventHandler Load;
+        int Progress { get; set; }
+        TestProgressBarStatus Status { get; set; }
 
-        void SuspendLayout();
-        void ResumeLayout();
+        void Initialize(int max);
     }
 }
