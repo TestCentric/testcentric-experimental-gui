@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,30 +21,19 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-
 namespace NUnit.UiKit
 {
-    public interface IMessageDisplay
+    /// <summary>
+    /// Results returned by dialogs and message displays. The
+    /// values used are limited in order to be able to translate
+    /// them for use on multiple gui frameworks.
+    /// </summary>
+    public enum DialogResult
     {
-        DialogResult Display(string message);
-        DialogResult Display(string message, string caption);
-        DialogResult Display(string message, MessageButtons buttons);
-        DialogResult Display(string message, string caption, MessageButtons buttons);
-
-        DialogResult Error(string message);
-        DialogResult Error(string message, string caption);
-        DialogResult Error(string message, MessageButtons buttons);
-        DialogResult Error(string message, string caption, MessageButtons buttons);
-        DialogResult Error(string message, Exception exception);
-        DialogResult Error(string message, Exception exception, MessageButtons buttons);
-
-        DialogResult Info(string message);
-        DialogResult Info(string message, string caption);
-        DialogResult Info(string message, MessageButtons buttons);
-        DialogResult Info(string message, string caption, MessageButtons buttons);
-
-        DialogResult Ask(string message);
-        DialogResult Ask(string message, string caption);
+        None,
+        OK,
+        Cancel,
+        Yes,
+        No
     }
 }

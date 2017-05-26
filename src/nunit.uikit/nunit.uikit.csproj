@@ -42,6 +42,8 @@
     <Compile Include="Controls\NUnitProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MessageButtons.cs" />
+    <Compile Include="DialogResult.cs" />
     <Compile Include="Elements\ControlElement.cs" />
     <Compile Include="Elements\CheckBoxElement.cs" />
     <Compile Include="Elements\CheckedMenuGroup.cs" />
