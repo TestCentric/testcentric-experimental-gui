@@ -41,7 +41,7 @@ namespace NUnit.Gui.Views
             InitializeComponent();
 
             XmlPanel = new ControlElement<Panel>(xmlPanel);
-            XmlTextBox = new ControlElement<RichTextBox>(xmlTextBox);
+            XmlTextBox = new XmlTextBoxView(xmlTextBox);
             CopyToolStripMenuItem = new MenuElement(copyToolStripMenuItem);
             WordWrapToolStripMenuItem = new MenuElement(wordWrapToolStripMenuItem);
             selectAllToolStripMenuItem.Click += (s, a) =>
@@ -78,7 +78,7 @@ namespace NUnit.Gui.Views
 
         public IViewElement XmlPanel { get; private set; }
 
-        public IControlElement<RichTextBox> XmlTextBox { get; private set; }
+        public IXmlTextBoxView XmlTextBox { get; private set; }
 
         public IMenu CopyToolStripMenuItem { get; private set; }
 

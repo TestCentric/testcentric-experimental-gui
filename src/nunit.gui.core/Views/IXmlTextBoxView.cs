@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -19,25 +19,18 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// ***********************************************************************
 
-using System.Xml;
-using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    public interface IXmlView : IView
+    public interface IXmlTextBoxView
     {
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement XmlPanel { get; }
-        IXmlTextBoxView XmlTextBox { get; }
-        IMenu CopyToolStripMenuItem { get; }
-        IMenu WordWrapToolStripMenuItem { get; }
-        XmlNode TestXml { get; set; }
-        event CommandHandler SelectAllCommand;
-        event CommandHandler SelectionChanged;
-        event CommandHandler CopyCommand;
-        event CommandHandler WordWrapChanged;
+        bool WordWrap { get; set; }
+
+        string SelectedText { get; }
+
+        void SelectAll();
+        void Focus();
+        void Copy();
     }
 }

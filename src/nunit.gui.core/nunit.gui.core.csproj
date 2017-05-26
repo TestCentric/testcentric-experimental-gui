@@ -79,6 +79,7 @@
     <Compile Include="Views\ITestPropertiesVIew.cs" />
     <Compile Include="Views\ITestTreeView.cs" />
     <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\IXmlTextBoxView.cs" />
     <Compile Include="Views\IXmlView.cs" />
     <Compile Include="Views\IStatusBarView.cs" />
   </ItemGroup>

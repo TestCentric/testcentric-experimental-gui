@@ -21,13 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Xml;
-
-using Mono.Cecil;
 
 namespace NUnit.Gui.Presenters
 {
@@ -61,20 +55,20 @@ namespace NUnit.Gui.Presenters
 
             _view.SelectAllCommand += () =>
             {
-                _view.XmlTextBox.Control.Focus();
-                _view.XmlTextBox.Control.SelectAll();
+                _view.XmlTextBox.Focus();
+                _view.XmlTextBox.SelectAll();
             };
             _view.SelectionChanged += () =>
             {
-                _view.CopyToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_view.XmlTextBox.Control.SelectedText);
+                _view.CopyToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_view.XmlTextBox.SelectedText);
             };
             _view.WordWrapChanged += () =>
             {
-                _view.XmlTextBox.Control.WordWrap = _view.WordWrapToolStripMenuItem.Checked;
+                _view.XmlTextBox.WordWrap = _view.WordWrapToolStripMenuItem.Checked;
             };
             _view.CopyCommand += () =>
             {
-                _view.XmlTextBox.Control.Copy();
+                _view.XmlTextBox.Copy();
             };
         }
 

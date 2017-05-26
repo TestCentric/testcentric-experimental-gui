@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\XmlTextBoxView.cs" />
     <Compile Include="Views\XmlView.cs">
       <SubType>UserControl</SubType>
     </Compile>
