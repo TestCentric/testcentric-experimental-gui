@@ -21,6 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
@@ -127,6 +128,10 @@ namespace NUnit.Gui.Views
         public IDialogManager DialogManager { get; private set; }
         public IMessageDisplay MessageDisplay { get; private set; }
 
+        // Events
+        public event MainViewClosingEvent MainViewClosing;
+        public event FilesDragAndDroppedEvent FilesDragAndDropped;
+
         #endregion
 
         #region Subordinate Views Contained in MainForm
@@ -143,6 +148,20 @@ namespace NUnit.Gui.Views
         private void statusBarToolStripMenuItem_CheckedChanged(object sender, System.EventArgs e)
         {
             statusBarView.Visible = statusBarToolStripMenuItem.Checked;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            MainViewClosing?.Invoke();
+            base.OnClosing(e);
+        }
+
+        protected override void OnDragDrop(DragEventArgs drgevent)
+        {
+            base.OnDragDrop(drgevent);
+            string[] files = (string[])drgevent.Data.GetData(DataFormats.FileDrop);
+            if (files != null)
+                FilesDragAndDropped?.Invoke(files);
         }
     }
 }

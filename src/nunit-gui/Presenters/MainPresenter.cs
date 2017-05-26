@@ -61,8 +61,8 @@ namespace NUnit.Gui.Presenters
 
             // View Events
             _view.Load += MainForm_Load;
-            _view.FormClosing += MainForm_Closing;
-            _view.DragDrop += MainForm_DragDrop;
+            _view.MainViewClosing += MainForm_Closing;
+            _view.FilesDragAndDropped += MainForm_DragDrop;
 
             _view.NewProjectCommand.Execute += _model.NewProject;
             _view.OpenProjectCommand.Execute += OnOpenProjectCommand;
@@ -85,14 +85,12 @@ namespace NUnit.Gui.Presenters
             _view.AboutNUnitCommand.Execute += () =>
                 { MessageBox.Show("This will show the About Box", "Not Yet Implemented"); };
 
-            _view.FormClosing += (s, e) => _model.Dispose();
+            _view.MainViewClosing += () => _model.Dispose(); //TODO should this be moved to the method MainForm_Closing?
         }
 
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        private void MainForm_DragDrop(string[] files)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files != null)
-                _model.LoadTests(files);
+            _model.LoadTests(files);
         }
 
         #endregion
@@ -168,8 +166,9 @@ namespace NUnit.Gui.Presenters
             _model.OnStartup();
         }
 
-        private void MainForm_Closing(object sender, FormClosingEventArgs ea)
+        private void MainForm_Closing()
         {
+            //TODO: Should I make unsubscribe this method from the view's Closing event?
             var windowState = _view.WindowState;
             var location = _view.Location;
             var size = _view.Size;
@@ -188,6 +187,7 @@ namespace NUnit.Gui.Presenters
 
                 //this.statusBar.SizingGrip = false;
             }
+            //TODO maybe move _model.Dispose here
         }
 
         private void SelectedRuntime_SelectionChanged()
