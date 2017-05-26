@@ -163,5 +163,11 @@ namespace NUnit.Gui.Views
             if (files != null)
                 FilesDragAndDropped?.Invoke(files);
         }
+
+        protected override void OnDragEnter(DragEventArgs drgevent)
+        {
+            if (drgevent.Data.GetDataPresent(DataFormats.FileDrop))
+                drgevent.Effect = DragDropEffects.Copy;
+        }
     }
 }
