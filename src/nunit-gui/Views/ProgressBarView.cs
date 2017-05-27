@@ -27,15 +27,6 @@ using NUnit.UiKit.Controls;
 
 namespace NUnit.Gui.Views
 {
-    // Interface used in testing the presenter
-    public interface IProgressBarView : IView
-    {
-        int Progress { get; set; }
-        TestProgressBarStatus Status { get; set; }
-
-        void Initialize(int max);
-    }
-
     public partial class ProgressBarView : UserControl, IProgressBarView
     {
         private int _maximum;

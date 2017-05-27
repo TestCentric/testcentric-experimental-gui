@@ -21,18 +21,33 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
+using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    public interface IDialogManager
+    // Interface used for testing
+    public interface ITestTreeView : IView
     {
-        string[] GetFilesToOpen();
+        ICommand RunButton { get; }
+        ICommand RunAllCommand { get; }
+        ICommand RunSelectedCommand { get; }
+        ICommand RunFailedCommand { get; }
+        ICommand StopRunCommand { get; }
 
-        string GetFileOpenPath(string filter);
+        IToolStripElement FormatButton { get; }
+        ISelection DisplayFormat { get; }
+        ISelection GroupBy { get; }
 
-        string GetSaveAsPath(string filter);
+        ICommand RunContextCommand { get; }
+        ICommand RunCheckedCommand { get; }
+        IChecked ShowCheckBoxesCommand { get; }
+        ICommand ExpandAllCommand { get; }
+        ICommand CollapseAllCommand { get; }
+        ICommand CollapseToFixturesCommand { get; }
 
-        string GetFolderPath(string message, string initialPath);
+        void ExpandAll();
+        void CollapseAll();
+
+        ITreeViewElement Tree { get; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,29 +21,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.UiKit
 {
-    using Engine;
-
     /// <summary>
-    /// SettingsModel is the top level of a set of wrapper
-    /// classes that provide type-safe access to settingsService.
+    /// Enumeration indicating what buttons to display in a message display.
+    /// The values used are limited in order to be able to translate
+    /// them for use on multiple gui frameworks.
     /// </summary>
-    public class SettingsModel : SettingsWrapper
+    public enum MessageButtons
     {
-        public SettingsModel(ISettings settingsService) : base(settingsService, null) { }
-
-        public GuiSettings Gui
-        {
-            get { return new GuiSettings(SettingsService); }
-        }
-
-        public EngineSettings Engine
-        {
-            get { return new EngineSettings(SettingsService); }
-        }
+        OK,
+        OKCancel,
+        YesNo
     }
 }

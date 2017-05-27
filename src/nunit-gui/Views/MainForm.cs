@@ -21,6 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
@@ -127,6 +128,25 @@ namespace NUnit.Gui.Views
         public IDialogManager DialogManager { get; private set; }
         public IMessageDisplay MessageDisplay { get; private set; }
 
+        // Events
+        public event CommandHandler MainViewClosing;
+        public event FilesDragAndDroppedCommandHandler FilesDragAndDropped;
+
+        public WindowShape WindowShape
+        {
+            get { return new WindowShape(Location.X, Location.Y, Size.Width, Size.Height); }
+            set
+            {
+                Location = new System.Drawing.Point(value.X, value.Y);
+                Size = new System.Drawing.Size(value.Width, value.Height);
+            }
+        }
+        ViewFont IMainView.Font
+        {
+            get { return new ViewFont(Font.Name, Font.Size); }
+            set { Font = new System.Drawing.Font(value.FontName, value.Size); }
+        }
+
         #endregion
 
         #region Subordinate Views Contained in MainForm
@@ -143,6 +163,26 @@ namespace NUnit.Gui.Views
         private void statusBarToolStripMenuItem_CheckedChanged(object sender, System.EventArgs e)
         {
             statusBarView.Visible = statusBarToolStripMenuItem.Checked;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            MainViewClosing?.Invoke();
+            base.OnClosing(e);
+        }
+
+        protected override void OnDragDrop(DragEventArgs drgevent)
+        {
+            base.OnDragDrop(drgevent);
+            string[] files = (string[])drgevent.Data.GetData(DataFormats.FileDrop);
+            if (files != null)
+                FilesDragAndDropped?.Invoke(files);
+        }
+
+        protected override void OnDragEnter(DragEventArgs drgevent)
+        {
+            if (drgevent.Data.GetDataPresent(DataFormats.FileDrop))
+                drgevent.Effect = DragDropEffects.Copy;
         }
     }
 }

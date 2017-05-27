@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,39 +21,21 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.UiKit.Elements
+using System.Xml;
+
+namespace NUnit.Gui.Model
 {
-    /// <summary>
-    /// CommandHandler is used to request an action
-    /// </summary>
-    public delegate void CommandHandler();
-
-    /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
-    /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
-    /// </summary>
-    public interface ICommand : IViewElement
+    public class TestStartNotice
     {
-        /// <summary>
-        /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
-        /// </summary>
-        event CommandHandler Execute;
+        public TestStartNotice(XmlNode xmlNode)
+        {
+            Id = xmlNode.GetAttribute("id");
+            Name = xmlNode.GetAttribute("name");
+            FullName = xmlNode.GetAttribute("fullname");
+        }
 
-        string ToolTipText { get; set; }
-    }
-
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
-
-        string ToolTipText { get; set; }
+        public string Id { get; private set; }
+        public string Name { get; private set; }
+        public string FullName { get; private set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,34 +21,19 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Windows.Forms;
-using NUnit.UiKit.Elements;
-
-namespace NUnit.Gui.Views
+namespace NUnit.UiKit
 {
-    // Interface used for testing
-    public interface ITestTreeView : IView
+    /// <summary>
+    /// Results returned by dialogs and message displays. The
+    /// values used are limited in order to be able to translate
+    /// them for use on multiple gui frameworks.
+    /// </summary>
+    public enum DialogResult
     {
-        ICommand RunButton { get; }
-        ICommand RunAllCommand { get; }
-        ICommand RunSelectedCommand { get; }
-        ICommand RunFailedCommand { get; }
-        ICommand StopRunCommand { get; }
-
-        IToolStripElement FormatButton { get; }
-        ISelection DisplayFormat { get; }
-        ISelection GroupBy { get; }
-
-        ICommand RunContextCommand { get; }
-        ICommand RunCheckedCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
-        ICommand ExpandAllCommand { get; }
-        ICommand CollapseAllCommand { get; }
-        ICommand CollapseToFixturesCommand { get; }
-
-        void ExpandAll();
-        void CollapseAll();
-
-        ITreeViewElement Tree { get; }
+        None,
+        OK,
+        Cancel,
+        Yes,
+        No
     }
 }

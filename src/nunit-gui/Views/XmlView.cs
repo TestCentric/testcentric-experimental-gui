@@ -28,21 +28,6 @@ using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    public interface IXmlView : IView
-    {
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement XmlPanel { get; }
-        IControlElement<RichTextBox> XmlTextBox { get; }
-        IMenu CopyToolStripMenuItem { get; }
-        IMenu WordWrapToolStripMenuItem { get; }
-        XmlNode TestXml { get; set; }
-        event CommandHandler SelectAllCommand;
-        event CommandHandler SelectionChanged;
-        event CommandHandler CopyCommand;
-        event CommandHandler WordWrapChanged;
-    }
-
     public partial class XmlView : UserControl, IXmlView
     {
         private XmlNode _testXml;
@@ -56,7 +41,7 @@ namespace NUnit.Gui.Views
             InitializeComponent();
 
             XmlPanel = new ControlElement<Panel>(xmlPanel);
-            XmlTextBox = new ControlElement<RichTextBox>(xmlTextBox);
+            XmlTextBox = new XmlTextBoxView(xmlTextBox);
             CopyToolStripMenuItem = new MenuElement(copyToolStripMenuItem);
             WordWrapToolStripMenuItem = new MenuElement(wordWrapToolStripMenuItem);
             selectAllToolStripMenuItem.Click += (s, a) =>
@@ -93,7 +78,7 @@ namespace NUnit.Gui.Views
 
         public IViewElement XmlPanel { get; private set; }
 
-        public IControlElement<RichTextBox> XmlTextBox { get; private set; }
+        public IXmlTextBoxView XmlTextBox { get; private set; }
 
         public IMenu CopyToolStripMenuItem { get; private set; }
 

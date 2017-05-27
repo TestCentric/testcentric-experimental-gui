@@ -55,6 +55,5 @@
         #endregion
 
         private NUnit.UiKit.Controls.NUnitProgressBar testProgressBar;
-        private System.Windows.Forms.Label testStatusesLabel;
     }
 }

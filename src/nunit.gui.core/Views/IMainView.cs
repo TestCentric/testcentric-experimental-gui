@@ -21,23 +21,27 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
 using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
+    /// <summary>
+    /// Event when the main view has files dragged and dropped
+    /// </summary>
+    /// <param name="filesNames">list of file names of files dropped. Never null, potentially empty</param>
+    public delegate void FilesDragAndDroppedCommandHandler(string[] filesNames);
+
     public interface IMainView : IView
     {
         // General Window info
-        Point Location { get; set; }
-        Size Size { get; set; }
+        WindowShape WindowShape { get; set; }
         FormWindowState WindowState { get; set; }
-        Font Font { get; set; }
+        ViewFont Font { get; set; }
 
-        event FormClosingEventHandler FormClosing;
-        event DragEventHandler DragDrop;
+        event CommandHandler MainViewClosing;
+        event FilesDragAndDroppedCommandHandler FilesDragAndDropped;
 
         // File Menu
         IMenu FileMenu { get; }

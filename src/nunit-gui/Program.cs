@@ -32,6 +32,7 @@ namespace NUnit.Gui
     using Model;
     using Views;
     using Presenters;
+    using System.ComponentModel;
 
     static class Program
     {
@@ -74,6 +75,9 @@ namespace NUnit.Gui
                 ShowHelpText(options);
                 return;
             }
+
+            TypeDescriptor.AddAttributes(typeof(WindowShape), new TypeConverterAttribute(typeof(WindowShapeConverter)));
+            TypeDescriptor.AddAttributes(typeof(ViewFont), new TypeConverterAttribute(typeof(ViewFontConverter)));
 
             var testEngine = TestEngineActivator.CreateInstance(true);
             if (options.InternalTraceLevel != null)

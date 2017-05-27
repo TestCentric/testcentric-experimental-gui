@@ -21,21 +21,16 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Xml;
-
-namespace NUnit.Gui.Model
+namespace NUnit.Gui.Views
 {
-    public class TestStartNotice
+    public interface IDialogManager
     {
-        public TestStartNotice(XmlNode xmlNode)
-        {
-            this.Id = xmlNode.GetAttribute("id");
-            this.Name = xmlNode.GetAttribute("name");
-            this.FullName = xmlNode.GetAttribute("fullname");
-        }
+        string[] GetFilesToOpen();
 
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string FullName { get; private set; }
+        string GetFileOpenPath(string filter);
+
+        string GetSaveAsPath(string filter);
+
+        string GetFolderPath(string message, string initialPath);
     }
 }

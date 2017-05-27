@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,39 +21,33 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.UiKit.Elements
+using NUnit.UiKit.Elements;
+
+namespace NUnit.Gui.Views
 {
-    /// <summary>
-    /// CommandHandler is used to request an action
-    /// </summary>
-    public delegate void CommandHandler();
-
-    /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
-    /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
-    /// </summary>
-    public interface ICommand : IViewElement
+    public interface ITestPropertiesView : IView
     {
-        /// <summary>
-        /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
-        /// </summary>
-        event CommandHandler Execute;
+        event CommandHandler DisplayHiddenPropertiesChanged;
 
-        string ToolTipText { get; set; }
-    }
+        bool Visible { get; set; }
+        string Header { get; set; }
+        IViewElement TestPanel { get; }
+        IViewElement ResultPanel { get; }
 
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
-
-        string ToolTipText { get; set; }
+        string TestType { get; set; }
+        string FullName { get; set; }
+        string Description { get; set; }
+        string Categories { get; set; }
+        string TestCount { get; set; }
+        string RunState { get; set; }
+        string SkipReason { get; set; }
+        bool DisplayHiddenProperties { get; }
+        string Properties { get; set; }
+        string Outcome { get; set; }
+        string ElapsedTime { get; set; }
+        string AssertCount { get; set; }
+        string Message { get; set; }
+        string StackTrace { get; set; }
+        string Output { get; set; }
     }
 }

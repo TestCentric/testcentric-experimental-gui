@@ -21,21 +21,27 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace NUnit.Gui.Model
 {
+    using Engine;
+
     /// <summary>
-    /// Indicates how a tree should be displayed
+    /// ITestItem is the common interface shared by TestNodes
+    /// and TestGroups and allows either to be selected in
+    /// the tree.
     /// </summary>
-    public enum TreeDisplayStyle
+    public interface ITestItem
     {
-        Auto,		// Select based on space available
-        Expand,		// Expand fully
-        Collapse,	// Collapse fully
-        HideTests	// Expand all but the fixtures, leaving
-        // leaf nodes hidden
+        /// <summary>
+        /// The name of this item
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// Get a TestFilter for use in selecting this item
+        /// to be run by the engine.
+        /// </summary>
+        /// <returns></returns>
+        TestFilter GetTestFilter();
     }
 }

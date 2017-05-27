@@ -64,31 +64,31 @@ Task("InitializeBuild")
     .Does(() =>
 {
     NuGetRestore(GUI_SOLUTION, new NuGetRestoreSettings
-	{
-		Source = PACKAGE_SOURCE,
-		Verbosity = NuGetVerbosity.Detailed
-	});
+    {
+        Source = PACKAGE_SOURCE,
+        Verbosity = NuGetVerbosity.Detailed
+    });
 
-	if (BuildSystem.IsRunningOnAppVeyor)
-	{
-		var tag = AppVeyor.Environment.Repository.Tag;
+    if (BuildSystem.IsRunningOnAppVeyor)
+    {
+        var tag = AppVeyor.Environment.Repository.Tag;
 
-		if (tag.IsTag)
-		{
-			packageVersion = tag.Name;
-		}
-		else
-		{
-			var buildNumber = AppVeyor.Environment.Build.Number.ToString("00000");
-			var branch = AppVeyor.Environment.Repository.Branch;
-			var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
+        if (tag.IsTag)
+        {
+            packageVersion = tag.Name;
+        }
+        else
+        {
+            var buildNumber = AppVeyor.Environment.Build.Number.ToString("00000");
+            var branch = AppVeyor.Environment.Repository.Branch;
+            var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
 
-			if (branch == "master" && !isPullRequest)
-			{
-				packageVersion = version + "-dev-" + buildNumber + dbgSuffix;
-			}
-			else
-			{
+            if (branch == "master" && !isPullRequest)
+            {
+                packageVersion = version + "-dev-" + buildNumber + dbgSuffix;
+            }
+            else
+            {
                 var suffix = "-ci-" + buildNumber + dbgSuffix;
 
                 if (isPullRequest)
@@ -101,11 +101,11 @@ Task("InitializeBuild")
                     suffix = suffix.Substring(0, 21);
 
                 packageVersion = version + suffix;
-			}
-		}
+            }
+        }
 
-		AppVeyor.UpdateBuildVersion(packageVersion);
-	}
+        AppVeyor.UpdateBuildVersion(packageVersion);
+    }
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -116,25 +116,25 @@ Task("Build")
     .IsDependentOn("InitializeBuild")
     .Does(() =>
     {
-		if(IsRunningOnWindows())
-		{
-			// Use MSBuild
-			MSBuild(GUI_SOLUTION, new MSBuildSettings()
-				.SetConfiguration(configuration)
-				.SetVerbosity(Verbosity.Minimal)
-				.SetNodeReuse(false)
-				.SetPlatformTarget(PlatformTarget.MSIL)
-			);
-		}
-		else
-		{
-			// Use XBuild
-			XBuild(GUI_SOLUTION, new XBuildSettings()
-				.WithTarget("Build")
-				.WithProperty("Configuration", configuration)
-				.SetVerbosity(Verbosity.Minimal)
-			);
-		}
+        if(IsRunningOnWindows())
+        {
+            // Use MSBuild
+            MSBuild(GUI_SOLUTION, new MSBuildSettings()
+                .SetConfiguration(configuration)
+                .SetVerbosity(Verbosity.Minimal)
+                .SetNodeReuse(false)
+                .SetPlatformTarget(PlatformTarget.MSIL)
+            );
+        }
+        else
+        {
+            // Use XBuild
+            XBuild(GUI_SOLUTION, new XBuildSettings()
+                .WithTarget("Build")
+                .WithProperty("Configuration", configuration)
+                .SetVerbosity(Verbosity.Minimal)
+            );
+        }
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -142,42 +142,42 @@ Task("Build")
 //////////////////////////////////////////////////////////////////////
 
 Task("Test")
-	.IsDependentOn("Build")
-	.Does(() =>
-	{
-		NUnit3(GUI_TESTS);
-	});
+    .IsDependentOn("Build")
+    .Does(() =>
+    {
+        NUnit3(GUI_TESTS);
+    });
 
 //////////////////////////////////////////////////////////////////////
 // PACKAGE
 //////////////////////////////////////////////////////////////////////
 
 Task("PackageZip")
-	.IsDependentOn("Build")
-	.Does(() =>
-	{
-		CreateDirectory(PACKAGE_DIR);
+    .IsDependentOn("Build")
+    .Does(() =>
+    {
+        CreateDirectory(PACKAGE_DIR);
 
-		CopyFileToDirectory("LICENSE", BIN_DIR);
-		CopyFileToDirectory("CHANGES.txt", BIN_DIR);
+        CopyFileToDirectory("LICENSE", BIN_DIR);
+        CopyFileToDirectory("CHANGES.txt", BIN_DIR);
 
-		var zipFiles = new FilePath[]
-		{
-			BIN_DIR + "LICENSE",
-			BIN_DIR + "CHANGES.txt",
-			BIN_DIR + "nunit-gui.exe",
-			BIN_DIR + "nunit-gui.exe.config",
-			BIN_DIR + "nunit-gui.pdb",
-			BIN_DIR + "nunit.uikit.dll",
-			BIN_DIR + "nunit.uikit.pdb",
-			BIN_DIR + "nunit.engine.api.dll",
-			BIN_DIR + "nunit.engine.dll",
-			BIN_DIR + "nunit.engine.addins",
-			BIN_DIR + "Mono.Cecil.dll"
-		};
+        var zipFiles = new FilePath[]
+        {
+            BIN_DIR + "LICENSE",
+            BIN_DIR + "CHANGES.txt",
+            BIN_DIR + "nunit-gui.exe",
+            BIN_DIR + "nunit-gui.exe.config",
+            BIN_DIR + "nunit-gui.pdb",
+            BIN_DIR + "nunit.uikit.dll",
+            BIN_DIR + "nunit.uikit.pdb",
+            BIN_DIR + "nunit.engine.api.dll",
+            BIN_DIR + "nunit.engine.dll",
+            BIN_DIR + "nunit.engine.addins",
+            BIN_DIR + "Mono.Cecil.dll"
+        };
 
-		Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
-	});
+        Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
+    });
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
@@ -185,18 +185,18 @@ Task("PackageZip")
 
 Task("Rebuild")
     .IsDependentOn("Clean")
-	.IsDependentOn("Build");
+    .IsDependentOn("Build");
 
 Task("Package")
-	.IsDependentOn("PackageZip");
+    .IsDependentOn("PackageZip");
 
 Task("Appveyor")
-	.IsDependentOn("Build")
-	.IsDependentOn("Test")
-	.IsDependentOn("Package");
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("Package");
 
 Task("Travis")
-	.IsDependentOn("Build");
+    .IsDependentOn("Build");
 
 Task("Default")
     .IsDependentOn("Build");

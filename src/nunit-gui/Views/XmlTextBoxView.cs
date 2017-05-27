@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -8,10 +8,10 @@
 // distribute, sublicense, and/or sell copies of the Software, and to
 // permit persons to whom the Software is furnished to do so, subject to
 // the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -21,39 +21,36 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.UiKit.Elements
+using System.Windows.Forms;
+
+namespace NUnit.Gui.Views
 {
-    /// <summary>
-    /// CommandHandler is used to request an action
-    /// </summary>
-    public delegate void CommandHandler();
-
-    /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
-    /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
-    /// </summary>
-    public interface ICommand : IViewElement
+    internal class XmlTextBoxView : IXmlTextBoxView
     {
-        /// <summary>
-        /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
-        /// </summary>
-        event CommandHandler Execute;
+        private RichTextBox _xmlTextBox;
 
-        string ToolTipText { get; set; }
-    }
+        public XmlTextBoxView(RichTextBox xmlTextBox)
+        {
+            _xmlTextBox = xmlTextBox;
+        }
 
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
+        public bool WordWrap { get { return _xmlTextBox.WordWrap; } set { _xmlTextBox.WordWrap = value; } }
 
-        string ToolTipText { get; set; }
+        public string SelectedText { get { return _xmlTextBox.SelectedText; } }
+
+        public void Copy()
+        {
+            _xmlTextBox.Copy();
+        }
+
+        public void Focus()
+        {
+            _xmlTextBox.Focus();
+        }
+
+        public void SelectAll()
+        {
+            _xmlTextBox.SelectAll();
+        }
     }
 }

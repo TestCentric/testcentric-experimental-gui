@@ -61,14 +61,14 @@ namespace NUnit.Gui.Presenters
 
             // View Events
             _view.Load += MainForm_Load;
-            _view.FormClosing += MainForm_Closing;
-            _view.DragDrop += MainForm_DragDrop;
+            _view.MainViewClosing += MainForm_Closing;
+            _view.FilesDragAndDropped += MainForm_DragDrop;
 
-            _view.NewProjectCommand.Execute += _model.NewProject;
+            _view.NewProjectCommand.Execute += () => _view.MessageDisplay.Info("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
             _view.OpenProjectCommand.Execute += OnOpenProjectCommand;
             _view.CloseCommand.Execute += _model.UnloadTests;
-            _view.SaveCommand.Execute += _model.SaveProject;
-            _view.SaveAsCommand.Execute += _model.SaveProject;
+            _view.SaveCommand.Execute += () => _view.MessageDisplay.Info("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
+            _view.SaveAsCommand.Execute += () => _view.MessageDisplay.Info("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
             _view.ReloadTestsCommand.Execute += _model.ReloadTests;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;
@@ -85,14 +85,12 @@ namespace NUnit.Gui.Presenters
             _view.AboutNUnitCommand.Execute += () =>
                 { MessageBox.Show("This will show the About Box", "Not Yet Implemented"); };
 
-            _view.FormClosing += (s, e) => _model.Dispose();
+            _view.MainViewClosing += () => _model.Dispose(); //TODO should this be moved to the method MainForm_Closing?
         }
 
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        private void MainForm_DragDrop(string[] files)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files != null)
-                _model.LoadTests(files);
+            _model.LoadTests(files);
         }
 
         #endregion
@@ -144,19 +142,21 @@ namespace NUnit.Gui.Presenters
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            var location = _model.Settings.Gui.MainForm.Location;
-            var size = _model.Settings.Gui.MainForm.Size;
-            if (size == Size.Empty)
-                size = _view.Size;
+            var shape = _model.Settings.Gui.MainForm.LocationAndSize;
 
-            if (size.Width < 160) size.Width = 160;
-            if (size.Height < 32) size.Height = 32;
+            if(shape.IsDefaultSize())
+                shape = shape.MatchSize(_view.WindowShape);
 
-            if (!IsVisiblePosition(location, size))
-                location = new Point(0, 0);
+            if (shape.Width < 160) shape.Width = 160;
+            if (shape.Height < 32) shape.Height = 32;
 
-            _view.Location = location;
-            _view.Size = size;
+            if (!IsVisiblePosition(shape))
+            {
+                shape.X = 0;
+                shape.Y = 0;
+            }
+
+            _view.WindowShape = shape;
 
             // Set to maximized if required
             if (_model.Settings.Gui.MainForm.Maximized)
@@ -168,16 +168,15 @@ namespace NUnit.Gui.Presenters
             _model.OnStartup();
         }
 
-        private void MainForm_Closing(object sender, FormClosingEventArgs ea)
+        private void MainForm_Closing()
         {
+            //TODO: Should I make unsubscribe this method from the view's Closing event?
             var windowState = _view.WindowState;
-            var location = _view.Location;
-            var size = _view.Size;
+            var shape = _view.WindowShape;
 
             if (windowState == FormWindowState.Normal)
             {
-                _model.Settings.Gui.MainForm.Location = location;
-                _model.Settings.Gui.MainForm.Size = size;
+                _model.Settings.Gui.MainForm.LocationAndSize = shape;
                 _model.Settings.Gui.MainForm.Maximized = false;
 
                 //this.statusBar.SizingGrip = true;
@@ -188,6 +187,8 @@ namespace NUnit.Gui.Presenters
 
                 //this.statusBar.SizingGrip = false;
             }
+            //TODO maybe move _model.Dispose here
+            _model.Settings.Gui.MainForm.Font = _view.Font;
         }
 
         private void SelectedRuntime_SelectionChanged()
@@ -223,7 +224,7 @@ namespace NUnit.Gui.Presenters
 
             string message = string.Format("New {0} setting will not take effect until you reload.\r\n\r\n\t\tReload Now?", key);
 
-            if (_view.MessageDisplay.Ask(message, "Settings Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (_view.MessageDisplay.Ask(message, "Settings Changed") == UiKit.DialogResult.Yes)
                 _model.ReloadTests();
         }
 
@@ -290,9 +291,9 @@ namespace NUnit.Gui.Presenters
 
         // Ensure that the proposed window position intersects
         // at least one screen area.
-        private static bool IsVisiblePosition(Point location, Size size)
+        private static bool IsVisiblePosition(WindowShape shape)
         {
-            Rectangle myArea = new Rectangle(location, size);
+            Rectangle myArea = new Rectangle(shape.X, shape.Y, shape.Width, shape.Height);
             bool intersect = false;
             foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
             {

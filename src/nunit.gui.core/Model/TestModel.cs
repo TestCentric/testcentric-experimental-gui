@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using NUnit.Engine;
@@ -203,12 +202,12 @@ namespace NUnit.Gui.Model
 
         public void NewProject(string filename)
         {
-            MessageBox.Show("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
+            throw new NotImplementedException("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.");
         }
 
         public void SaveProject()
         {
-            MessageBox.Show("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
+            throw new NotImplementedException("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.");
         }
 
         public void LoadTests(IList<string> files)

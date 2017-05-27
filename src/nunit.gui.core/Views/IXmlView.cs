@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,41 +21,23 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
-using System.Security.Principal;
-using System.Windows.Forms;
+using System.Xml;
+using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.Gui.Views
 {
-    using Engine;
-
-    /// <summary>
-    /// SettingsModel is the top level of a set of wrapper
-    /// classes that provide type-safe access to settingsService.
-    /// </summary>
-    public class EngineSettings : SettingsWrapper
+    public interface IXmlView : IView
     {
-        public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
-
-        private const string reloadOnChangeKey = "ReloadOnChange";
-        public bool ReloadOnChange
-        {
-            get { return GetSetting(reloadOnChangeKey, true); }
-            set { SaveSetting(reloadOnChangeKey, value); }
-        }
-
-        private const string rerunOnChangeKey = "RerunOnChange";
-        public bool RerunOnChange
-        {
-            get { return GetSetting(rerunOnChangeKey, false); }
-            set { SaveSetting(rerunOnChangeKey, value); }
-        }
-
-        private const string reloadOnRunKey = "ReloadOnRun";
-        public bool ReloadOnRun
-        {
-            get { return GetSetting(reloadOnRunKey, false); }
-            set { SaveSetting(reloadOnRunKey, value); }
-        }
+        bool Visible { get; set; }
+        string Header { get; set; }
+        IViewElement XmlPanel { get; }
+        IXmlTextBoxView XmlTextBox { get; }
+        IMenu CopyToolStripMenuItem { get; }
+        IMenu WordWrapToolStripMenuItem { get; }
+        XmlNode TestXml { get; set; }
+        event CommandHandler SelectAllCommand;
+        event CommandHandler SelectionChanged;
+        event CommandHandler CopyCommand;
+        event CommandHandler WordWrapChanged;
     }
 }
