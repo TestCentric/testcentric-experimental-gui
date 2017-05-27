@@ -129,8 +129,8 @@ namespace NUnit.Gui.Views
         public IMessageDisplay MessageDisplay { get; private set; }
 
         // Events
-        public event MainViewClosingEvent MainViewClosing;
-        public event FilesDragAndDroppedEvent FilesDragAndDropped;
+        public event CommandHandler MainViewClosing;
+        public event FilesDragAndDroppedCommandHandler FilesDragAndDropped;
 
         public WindowShape WindowShape
         {

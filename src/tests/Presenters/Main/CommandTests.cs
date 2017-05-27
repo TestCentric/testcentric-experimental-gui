@@ -71,7 +71,7 @@ namespace NUnit.Gui.Presenters.Main
             Model.Received().UnloadTests();
         }
 
-        [Test]
+        [Test, Ignore("Not decided if supporting saving or using project editor")]
         public void SaveCommand_CallsSaveProject()
         {
             View.SaveCommand.Execute += Raise.Event<CommandHandler>();

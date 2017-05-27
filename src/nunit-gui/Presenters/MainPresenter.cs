@@ -64,11 +64,11 @@ namespace NUnit.Gui.Presenters
             _view.MainViewClosing += MainForm_Closing;
             _view.FilesDragAndDropped += MainForm_DragDrop;
 
-            _view.NewProjectCommand.Execute += _model.NewProject;
+            _view.NewProjectCommand.Execute += () => _view.MessageDisplay.Info("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
             _view.OpenProjectCommand.Execute += OnOpenProjectCommand;
             _view.CloseCommand.Execute += _model.UnloadTests;
-            _view.SaveCommand.Execute += _model.SaveProject;
-            _view.SaveAsCommand.Execute += _model.SaveProject;
+            _view.SaveCommand.Execute += () => _view.MessageDisplay.Info("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
+            _view.SaveAsCommand.Execute += () => _view.MessageDisplay.Info("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
             _view.ReloadTestsCommand.Execute += _model.ReloadTests;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;

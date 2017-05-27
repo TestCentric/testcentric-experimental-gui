@@ -31,12 +31,7 @@ namespace NUnit.Gui.Views
     /// Event when the main view has files dragged and dropped
     /// </summary>
     /// <param name="filesNames">list of file names of files dropped. Never null, potentially empty</param>
-    public delegate void FilesDragAndDroppedEvent(string[] filesNames);
-
-    /// <summary>
-    /// Event when a close event is called by main view
-    /// </summary>
-    public delegate void MainViewClosingEvent();
+    public delegate void FilesDragAndDroppedCommandHandler(string[] filesNames);
 
     public interface IMainView : IView
     {
@@ -45,8 +40,8 @@ namespace NUnit.Gui.Views
         FormWindowState WindowState { get; set; }
         ViewFont Font { get; set; }
 
-        event MainViewClosingEvent MainViewClosing;
-        event FilesDragAndDroppedEvent FilesDragAndDropped;
+        event CommandHandler MainViewClosing;
+        event FilesDragAndDroppedCommandHandler FilesDragAndDropped;
 
         // File Menu
         IMenu FileMenu { get; }
