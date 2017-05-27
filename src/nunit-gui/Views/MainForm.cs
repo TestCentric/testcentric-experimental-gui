@@ -132,6 +132,21 @@ namespace NUnit.Gui.Views
         public event MainViewClosingEvent MainViewClosing;
         public event FilesDragAndDroppedEvent FilesDragAndDropped;
 
+        public WindowShape WindowShape
+        {
+            get { return new WindowShape(Location.X, Location.Y, Size.Width, Size.Height); }
+            set
+            {
+                Location = new System.Drawing.Point(value.X, value.Y);
+                Size = new System.Drawing.Size(value.Width, value.Height);
+            }
+        }
+        ViewFont IMainView.Font
+        {
+            get { return new ViewFont(Font.Name, Font.Size); }
+            set { Font = new System.Drawing.Font(value.FontName, value.Size); }
+        }
+
         #endregion
 
         #region Subordinate Views Contained in MainForm

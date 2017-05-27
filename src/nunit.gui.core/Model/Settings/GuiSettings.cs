@@ -59,18 +59,11 @@ namespace NUnit.Gui.Model.Settings
     {
         public MainFormSettings(ISettings settingsService) : base(settingsService, "Gui.MainForm") { }
 
-        private const string locationKey = "Location";
-        public Point Location
+        private const string windowShapeKey = "LocationAndSize";
+        public WindowShape LocationAndSize
         {
-            get { return GetSetting(locationKey, new Point(10, 10)); }
-            set { SaveSetting(locationKey, value); }
-        }
-
-        private const string sizeKey = "Size";
-        public Size Size
-        {
-            get { return GetSetting(sizeKey, Size.Empty); }
-            set { SaveSetting(sizeKey, value); }
+            get { return GetSetting(windowShapeKey, new WindowShape()); }
+            set { SaveSetting(windowShapeKey, value); }
         }
 
         private const string maximizedKey = "Maximized";
@@ -81,9 +74,9 @@ namespace NUnit.Gui.Model.Settings
         }
 
         private const string fontKey = "Font";
-        public Font Font
+        public ViewFont Font
         {
-            get { return GetSetting(fontKey, Form.DefaultFont); }
+            get { return GetSetting(fontKey, new ViewFont("Microsoft Sans Serif", 8.25f)); }
             set { SaveSetting(fontKey, value); }
         }
     }

@@ -21,7 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
 using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
@@ -42,10 +41,9 @@ namespace NUnit.Gui.Views
     public interface IMainView : IView
     {
         // General Window info
-        Point Location { get; set; }
-        Size Size { get; set; }
+        WindowShape WindowShape { get; set; }
         FormWindowState WindowState { get; set; }
-        Font Font { get; set; }
+        ViewFont Font { get; set; }
 
         event MainViewClosingEvent MainViewClosing;
         event FilesDragAndDroppedEvent FilesDragAndDropped;

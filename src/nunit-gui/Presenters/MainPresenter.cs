@@ -142,19 +142,21 @@ namespace NUnit.Gui.Presenters
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
-            var location = _model.Settings.Gui.MainForm.Location;
-            var size = _model.Settings.Gui.MainForm.Size;
-            if (size == Size.Empty)
-                size = _view.Size;
+            var shape = _model.Settings.Gui.MainForm.LocationAndSize;
 
-            if (size.Width < 160) size.Width = 160;
-            if (size.Height < 32) size.Height = 32;
+            if(shape.IsDefaultSize())
+                shape = shape.MatchSize(_view.WindowShape);
 
-            if (!IsVisiblePosition(location, size))
-                location = new Point(0, 0);
+            if (shape.Width < 160) shape.Width = 160;
+            if (shape.Height < 32) shape.Height = 32;
 
-            _view.Location = location;
-            _view.Size = size;
+            if (!IsVisiblePosition(shape))
+            {
+                shape.X = 0;
+                shape.Y = 0;
+            }
+
+            _view.WindowShape = shape;
 
             // Set to maximized if required
             if (_model.Settings.Gui.MainForm.Maximized)
@@ -170,13 +172,11 @@ namespace NUnit.Gui.Presenters
         {
             //TODO: Should I make unsubscribe this method from the view's Closing event?
             var windowState = _view.WindowState;
-            var location = _view.Location;
-            var size = _view.Size;
+            var shape = _view.WindowShape;
 
             if (windowState == FormWindowState.Normal)
             {
-                _model.Settings.Gui.MainForm.Location = location;
-                _model.Settings.Gui.MainForm.Size = size;
+                _model.Settings.Gui.MainForm.LocationAndSize = shape;
                 _model.Settings.Gui.MainForm.Maximized = false;
 
                 //this.statusBar.SizingGrip = true;
@@ -188,6 +188,7 @@ namespace NUnit.Gui.Presenters
                 //this.statusBar.SizingGrip = false;
             }
             //TODO maybe move _model.Dispose here
+            _model.Settings.Gui.MainForm.Font = _view.Font;
         }
 
         private void SelectedRuntime_SelectionChanged()
@@ -290,9 +291,9 @@ namespace NUnit.Gui.Presenters
 
         // Ensure that the proposed window position intersects
         // at least one screen area.
-        private static bool IsVisiblePosition(Point location, Size size)
+        private static bool IsVisiblePosition(WindowShape shape)
         {
-            Rectangle myArea = new Rectangle(location, size);
+            Rectangle myArea = new Rectangle(shape.X, shape.Y, shape.Width, shape.Height);
             bool intersect = false;
             foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
             {
