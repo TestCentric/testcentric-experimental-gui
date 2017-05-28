@@ -240,8 +240,7 @@ namespace NUnit.Gui.Model
             _files = null;
             _resultIndex.Clear();
 
-            if (TestUnloaded != null)
-                TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
+            TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
         }
 
         public void ReloadTests()
@@ -268,24 +267,17 @@ namespace NUnit.Gui.Model
         {
             var package = new TestPackage(testFiles);
 
-            // TODO: Remove temporary Settings used in testing GUI
-            //package.Settings["ProcessModel"] = "InProcess";
-            //package.Settings["NumberOfTestWorkers"] = 0;
-
-            //if (options.ProcessModel != null)
-            //    package.AddSetting("ProcessModel", options.ProcessModel);
-
-            //if (options.DomainUsage != null)
-            //    package.AddSetting("DomainUsage", options.DomainUsage);
-
-            //if (options.ActiveConfig != null)
-            //    package.AddSetting("ActiveConfig", options.ActiveConfig);
+            // We use AddSetting rather than just setting the value because
+            // it propagates the setting to all subprojects.
 
             if (Options.InternalTraceLevel != null)
-                package.Settings["InternalTraceLevel"] = Options.InternalTraceLevel;
+                package.AddSetting(EnginePackageSettings.InternalTraceLevel, Options.InternalTraceLevel);
+
+            // We use shadow copy so that the user may re-compile while the gui is running.
+            package.AddSetting(EnginePackageSettings.ShadowCopyFiles, true);
 
             foreach (var entry in PackageSettings)
-                package.Settings[entry.Key] = entry.Value;
+                package.AddSetting(entry.Key, entry.Value);
 
             return package;
         }
