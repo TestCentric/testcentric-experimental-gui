@@ -225,8 +225,7 @@ namespace NUnit.Gui.Model
 
             _resultIndex.Clear();
 
-            if (TestLoaded != null)
-                TestLoaded(new TestNodeEventArgs(TestAction.TestLoaded, Tests));
+            TestLoaded?.Invoke(new TestNodeEventArgs(TestAction.TestLoaded, Tests));
 
             foreach (var subPackage in _package.SubPackages)
                 RecentFiles.SetMostRecent(subPackage.FullName);
@@ -240,7 +239,7 @@ namespace NUnit.Gui.Model
             _files = null;
             _resultIndex.Clear();
 
-            TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
+            TestUnloaded?.Invoke(new TestEventArgs(TestAction.TestUnloaded));
         }
 
         public void ReloadTests()
@@ -257,7 +256,7 @@ namespace NUnit.Gui.Model
 
             _resultIndex.Clear();
 
-            TestReloaded(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
+            TestReloaded?.Invoke(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
         }
 
         #region Helper Methods
@@ -319,8 +318,7 @@ namespace NUnit.Gui.Model
 
         public void NotifySelectedItemChanged(ITestItem testItem)
         {
-            if (SelectedItemChanged != null)
-                SelectedItemChanged(new TestItemEventArgs(testItem));
+            SelectedItemChanged?.Invoke(new TestItemEventArgs(testItem));
         }
 
         #endregion
@@ -350,39 +348,33 @@ namespace NUnit.Gui.Model
             switch (xmlNode.Name)
             {
                 case "start-test":
-                    if (TestStarting != null)
-                        TestStarting(new TestNodeEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
+                    TestStarting?.Invoke(new TestNodeEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-suite":
-                    if (SuiteStarting != null)
-                        SuiteStarting(new TestNodeEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
+                    SuiteStarting?.Invoke(new TestNodeEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-run":
-                    if (RunStarting != null)
-                        RunStarting(new RunStartingEventArgs(xmlNode.GetAttribute("count", -1)));
+                    RunStarting?.Invoke(new RunStartingEventArgs(xmlNode.GetAttribute("count", -1)));
                     break;
 
                 case "test-case":
                     ResultNode result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    if (TestFinished != null)
-                        TestFinished(new TestResultEventArgs(TestAction.TestFinished, result));
+                    TestFinished?.Invoke(new TestResultEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-suite":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    if (SuiteFinished != null)
-                        SuiteFinished(new TestResultEventArgs(TestAction.TestFinished, result));
+                    SuiteFinished?.Invoke(new TestResultEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-run":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    if (RunFinished != null)
-                        RunFinished(new TestResultEventArgs(TestAction.RunFinished, result));
+                    RunFinished?.Invoke(new TestResultEventArgs(TestAction.RunFinished, result));
                     break;
             }
         }
