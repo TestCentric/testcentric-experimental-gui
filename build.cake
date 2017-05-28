@@ -173,7 +173,11 @@ Task("PackageZip")
 			BIN_DIR + "nunit.engine.api.dll",
 			BIN_DIR + "nunit.engine.dll",
 			BIN_DIR + "nunit.engine.addins",
-			BIN_DIR + "Mono.Cecil.dll"
+			BIN_DIR + "Mono.Cecil.dll",
+			BIN_DIR + "nunit-agent.exe",
+			BIN_DIR + "nunit-agent.exe.config",
+			BIN_DIR + "nunit-agent-x86.exe",
+			BIN_DIR + "nunit-agent-x86.exe.config"
 		};
 
 		Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
