@@ -368,7 +368,7 @@ namespace NUnit.Gui.Model
                 case "test-suite":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    SuiteFinished?.Invoke(new TestResultEventArgs(TestAction.TestFinished, result));
+                    SuiteFinished?.Invoke(new TestResultEventArgs(TestAction.SuiteFinished, result));
                     break;
 
                 case "test-run":
