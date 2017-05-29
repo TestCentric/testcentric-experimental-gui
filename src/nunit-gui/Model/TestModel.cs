@@ -225,8 +225,7 @@ namespace NUnit.Gui.Model
 
             _resultIndex.Clear();
 
-            if (TestLoaded != null)
-                TestLoaded(new TestNodeEventArgs(TestAction.TestLoaded, Tests));
+            TestLoaded?.Invoke(new TestNodeEventArgs(TestAction.TestLoaded, Tests));
 
             foreach (var subPackage in _package.SubPackages)
                 RecentFiles.SetMostRecent(subPackage.FullName);
@@ -240,8 +239,7 @@ namespace NUnit.Gui.Model
             _files = null;
             _resultIndex.Clear();
 
-            if (TestUnloaded != null)
-                TestUnloaded(new TestEventArgs(TestAction.TestUnloaded));
+            TestUnloaded?.Invoke(new TestEventArgs(TestAction.TestUnloaded));
         }
 
         public void ReloadTests()
@@ -258,7 +256,7 @@ namespace NUnit.Gui.Model
 
             _resultIndex.Clear();
 
-            TestReloaded(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
+            TestReloaded?.Invoke(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
         }
 
         #region Helper Methods
@@ -268,24 +266,17 @@ namespace NUnit.Gui.Model
         {
             var package = new TestPackage(testFiles);
 
-            // TODO: Remove temporary Settings used in testing GUI
-            //package.Settings["ProcessModel"] = "InProcess";
-            //package.Settings["NumberOfTestWorkers"] = 0;
-
-            //if (options.ProcessModel != null)
-            //    package.AddSetting("ProcessModel", options.ProcessModel);
-
-            //if (options.DomainUsage != null)
-            //    package.AddSetting("DomainUsage", options.DomainUsage);
-
-            //if (options.ActiveConfig != null)
-            //    package.AddSetting("ActiveConfig", options.ActiveConfig);
+            // We use AddSetting rather than just setting the value because
+            // it propagates the setting to all subprojects.
 
             if (Options.InternalTraceLevel != null)
-                package.Settings["InternalTraceLevel"] = Options.InternalTraceLevel;
+                package.AddSetting(EnginePackageSettings.InternalTraceLevel, Options.InternalTraceLevel);
+
+            // We use shadow copy so that the user may re-compile while the gui is running.
+            package.AddSetting(EnginePackageSettings.ShadowCopyFiles, true);
 
             foreach (var entry in PackageSettings)
-                package.Settings[entry.Key] = entry.Value;
+                package.AddSetting(entry.Key, entry.Value);
 
             return package;
         }
@@ -327,8 +318,7 @@ namespace NUnit.Gui.Model
 
         public void NotifySelectedItemChanged(ITestItem testItem)
         {
-            if (SelectedItemChanged != null)
-                SelectedItemChanged(new TestItemEventArgs(testItem));
+            SelectedItemChanged?.Invoke(new TestItemEventArgs(testItem));
         }
 
         #endregion
@@ -358,39 +348,33 @@ namespace NUnit.Gui.Model
             switch (xmlNode.Name)
             {
                 case "start-test":
-                    if (TestStarting != null)
-                        TestStarting(new TestNodeEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
+                    TestStarting?.Invoke(new TestNodeEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-suite":
-                    if (SuiteStarting != null)
-                        SuiteStarting(new TestNodeEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
+                    SuiteStarting?.Invoke(new TestNodeEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
                     break;
 
                 case "start-run":
-                    if (RunStarting != null)
-                        RunStarting(new RunStartingEventArgs(xmlNode.GetAttribute("count", -1)));
+                    RunStarting?.Invoke(new RunStartingEventArgs(xmlNode.GetAttribute("count", -1)));
                     break;
 
                 case "test-case":
                     ResultNode result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    if (TestFinished != null)
-                        TestFinished(new TestResultEventArgs(TestAction.TestFinished, result));
+                    TestFinished?.Invoke(new TestResultEventArgs(TestAction.TestFinished, result));
                     break;
 
                 case "test-suite":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    if (SuiteFinished != null)
-                        SuiteFinished(new TestResultEventArgs(TestAction.TestFinished, result));
+                    SuiteFinished?.Invoke(new TestResultEventArgs(TestAction.SuiteFinished, result));
                     break;
 
                 case "test-run":
                     result = new ResultNode(xmlNode);
                     _resultIndex[result.Id] = result;
-                    if (RunFinished != null)
-                        RunFinished(new TestResultEventArgs(TestAction.RunFinished, result));
+                    RunFinished?.Invoke(new TestResultEventArgs(TestAction.RunFinished, result));
                     break;
             }
         }
