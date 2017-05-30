@@ -177,6 +177,13 @@ namespace NUnit.UiKit.Controls
 
 			Size sizeNeeded = Size.Ceiling( g.MeasureString( tipText, Font, layoutArea ) );
 
+            // If the needed width is smaller than that of the original label,
+            // it can be visually confusing, so we adjust. This can only happen
+            // with ExpansionStyle.Both, so we won't get here unless either the
+            // height or the width is greater.
+            if (sizeNeeded.Width < itemBounds.Width)
+                sizeNeeded.Width = itemBounds.Width;
+
 			this.ClientSize = sizeNeeded;
 			this.Size = sizeNeeded + new Size( 2, 2 );
 			this.textRect = new Rectangle( 1, 1, sizeNeeded.Width, sizeNeeded.Height );

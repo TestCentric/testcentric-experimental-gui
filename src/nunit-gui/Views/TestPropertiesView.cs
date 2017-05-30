@@ -52,8 +52,7 @@ namespace NUnit.Gui.Views
         string Outcome { get; set;  }
         string ElapsedTime { get; set;  }
         string AssertCount { get; set;  }
-        string Message { get; set;  }
-        string StackTrace { get; set;  }
+        string Assertions { get; set;  }
         string Output { get; set; }
     }
 
@@ -155,16 +154,10 @@ namespace NUnit.Gui.Views
             set { InvokeIfRequired(() => { assertCount.Text = value; }); }
         }
 
-        public string Message
+        public string Assertions
         {
-            get { return message.Text; }
-            set { InvokeIfRequired(() => { message.Text = value; }); }
-        }
-
-        public string StackTrace
-        {
-            get { return stackTrace.Text; }
-            set { InvokeIfRequired(() => { stackTrace.Text = value; }); }
+            get { return assertions.Text; }
+            set { InvokeIfRequired(() => { assertions.Text = value; }); }
         }
 
         public string Output

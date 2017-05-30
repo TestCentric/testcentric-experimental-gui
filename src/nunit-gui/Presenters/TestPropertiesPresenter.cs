@@ -22,6 +22,7 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -105,27 +106,43 @@ namespace NUnit.Gui.Presenters
                     _view.ElapsedTime = resultNode.Duration.ToString("f3");
                     _view.AssertCount = resultNode.AssertCount.ToString();
 
-                    var assertions = resultNode.Xml.SelectNodes("assertions/assertion");
-                    XmlNode message = null;
-                    XmlNode stackTrace = null;
+                    var assertionNodes = resultNode.Xml.SelectNodes("assertions/assertion");
+                    var assertionResults = new List<AssertionResult>();
 
-                    if (assertions.Count > 0)
+                    foreach (XmlNode assertion in assertionNodes)
+                        assertionResults.Add(new AssertionResult(assertion));
+
+                    // If there were no actual assertionresult entries, we fake
+                    // one if there is a message to display
+                    if (assertionResults.Count == 0)
                     {
-                        message = assertions[0].SelectSingleNode("message");
-                        stackTrace = assertions[0].SelectSingleNode("stack-trace");
-                    }
-                    else if (resultNode.Outcome.Status == TestStatus.Failed)
-                    {
-                        message = resultNode.Xml.SelectSingleNode("failure/message");
-                        stackTrace = resultNode.Xml.SelectSingleNode("failure/stack-trace");
-                    }
-                    else
-                    {
-                        message = resultNode.Xml.SelectSingleNode("reason/message");
+                        if (resultNode.Outcome.Status == TestStatus.Failed)
+                        {
+                            string status = resultNode.Outcome.Label ?? "Failed";
+                            XmlNode failure = resultNode.Xml.SelectSingleNode("failure");
+                            if (failure != null)
+                                assertionResults.Add(new AssertionResult(failure, status));
+                        }
+                        else
+                        {
+                            string status = resultNode.Outcome.Label ?? "Skipped";
+                            XmlNode reason = resultNode.Xml.SelectSingleNode("reason");
+                            if (reason != null)
+                                assertionResults.Add(new AssertionResult(reason, status));
+                        }
                     }
 
-                    _view.Message = message?.InnerText ?? "";
-                    _view.StackTrace = stackTrace?.InnerText ?? "";
+                    sb = new StringBuilder();
+                    int index = 0;
+                    foreach(var assertion in assertionResults)
+                    {
+                        sb.AppendFormat("{0}) {1}\n", ++index, assertion.Status);
+                        sb.AppendLine(assertion.Message);
+                        if (assertion.StackTrace != null)
+                            sb.AppendLine(assertion.StackTrace);
+
+                    }
+                    _view.Assertions = sb.ToString();
 
                     var output = resultNode.Xml.SelectSingleNode("output");
                     _view.Output = output != null ? output.InnerText : "";
@@ -182,6 +199,30 @@ namespace NUnit.Gui.Presenters
             }
 
             return message;
+        }
+
+        #endregion
+
+        #region Nested AssertionResult Class
+
+        public struct AssertionResult
+        {
+            public AssertionResult(XmlNode assertion, string status)
+                : this(assertion)
+            {
+                Status = status;
+            }
+
+            public AssertionResult(XmlNode assertion)
+            {
+                Status = assertion.GetAttribute("label") ?? assertion.GetAttribute("result");
+                Message = assertion.SelectSingleNode("message")?.InnerText;
+                StackTrace = assertion.SelectSingleNode("stack-trace")?.InnerText;
+            }
+
+            public string Status { get; }
+            public string Message { get; }
+            public string StackTrace { get; }
         }
 
         #endregion
