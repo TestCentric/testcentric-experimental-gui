@@ -35,19 +35,9 @@ namespace NUnit.Gui.Model
     /// </summary>
     public class ResultNode : TestNode
     {
-        #region Construction and Initialization
+        #region Constructors
 
         public ResultNode(XmlNode xmlNode) : base(xmlNode)
-        {
-            InitializeResultProperties();
-        }
-
-        public ResultNode(string xmlText) : base(xmlText)
-        {
-            InitializeResultProperties();
-        }
-
-        private void InitializeResultProperties()
         {
             Status = GetStatus();
             Label = GetAttribute("label");
@@ -59,15 +49,17 @@ namespace NUnit.Gui.Model
                 : 0.0;
         }
 
+        public ResultNode(string xmlText) : base(XmlHelper.CreateXmlNode(xmlText)) { }
+
         #endregion
 
         #region Public Properties
 
-        public TestStatus Status { get; private set; }
-        public string Label { get; private set; }
-        public ResultState Outcome { get; private set; }
-        public int AssertCount { get; private set; }
-        public double Duration { get; private set; }
+        public TestStatus Status { get; }
+        public string Label { get; }
+        public ResultState Outcome { get; }
+        public int AssertCount { get; }
+        public double Duration { get; }
 
         #endregion
 

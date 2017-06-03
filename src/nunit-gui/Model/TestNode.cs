@@ -49,25 +49,11 @@ namespace NUnit.Gui.Model
     /// </summary>
     public class TestNode : ITestItem
     {
+        #region Constructors
+
         public TestNode(XmlNode xmlNode)
         {
             Xml = xmlNode;
-
-            InitializeTestProperties();
-        }
-
-        public TestNode(string xmlText)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xmlText);
-            Xml = doc.FirstChild;
-
-            InitializeTestProperties();
-        }
-
-        private void InitializeTestProperties()
-        {
-            // Initialize properties that should always be present in a TestNode
             IsSuite = Xml.Name == "test-suite" || Xml.Name == "test-run";
             Id = Xml.GetAttribute("id");
             Name = Xml.GetAttribute("name");
@@ -77,16 +63,20 @@ namespace NUnit.Gui.Model
             RunState = GetRunState();
         }
 
+        public TestNode(string xmlText) : this(XmlHelper.CreateXmlNode(xmlText)) { }
+
+        #endregion
+
         #region Public Properties
 
-        public XmlNode Xml { get; private set; }
-        public bool IsSuite { get; private set; }
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string FullName  { get; private set; }
-        public string Type { get; private set; }
-        public int TestCount { get; private set; }
-        public RunState RunState { get; private set; }
+        public XmlNode Xml { get; }
+        public bool IsSuite { get; }
+        public string Id { get; }
+        public string Name { get; }
+        public string FullName  { get; }
+        public string Type { get; }
+        public int TestCount { get; }
+        public RunState RunState { get; }
 
         private List<TestNode> _children;
         public IList<TestNode> Children
