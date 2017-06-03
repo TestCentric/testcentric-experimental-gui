@@ -306,6 +306,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.assertions.BackColor = System.Drawing.Color.LightYellow;
             this.assertions.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
+            this.assertions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.assertions.Location = new System.Drawing.Point(3, 57);
             this.assertions.Name = "assertions";
             this.assertions.Size = new System.Drawing.Size(527, 114);
