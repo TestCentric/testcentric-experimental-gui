@@ -49,7 +49,7 @@ namespace NUnit.Gui.Model
                 : 0.0;
         }
 
-        public ResultNode(string xmlText) : base(XmlHelper.CreateXmlNode(xmlText)) { }
+        public ResultNode(string xmlText) : this(XmlHelper.CreateXmlNode(xmlText)) { }
 
         #endregion
 
