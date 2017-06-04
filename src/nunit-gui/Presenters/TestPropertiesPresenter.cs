@@ -166,11 +166,36 @@ namespace NUnit.Gui.Presenters
                 sb.AppendFormat("{0}) {1}\n", ++index, assertion.Status);
                 sb.AppendLine(assertion.Message);
                 if (assertion.StackTrace != null)
-                    sb.AppendLine(assertion.StackTrace);
+                    sb.AppendLine(AdjustStackTrace(assertion.StackTrace));
 
             }
 
             _view.Assertions = sb.ToString();
+        }
+
+        // Some versions of the framework return the stacktrace
+        // without leading spaces, so we add them if needed.
+        // TODO: Make sure this is valid across various cultures.
+        private const string LEADING_SPACES = "   ";
+
+        private static string AdjustStackTrace(string stackTrace)
+        {
+            // Check if no adjustment needed. We assume that all
+            // lines start the same - either with or without spaces.
+            if (stackTrace.StartsWith(LEADING_SPACES))
+                return stackTrace;
+
+            var sr = new StringReader(stackTrace);
+            var sb = new StringBuilder();
+            string line = sr.ReadLine();
+            while (line != null)
+            {
+                sb.Append(LEADING_SPACES);
+                sb.AppendLine(line);
+                line = sr.ReadLine();
+            }
+
+            return sb.ToString();
         }
 
         private void DisplayOutput(ResultNode resultNode)
