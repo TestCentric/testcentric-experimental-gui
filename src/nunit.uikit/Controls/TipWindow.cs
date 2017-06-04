@@ -31,6 +31,16 @@ namespace NUnit.UiKit.Controls
 {
     public class TipWindow : Form
     {
+        // Margin of screen, used to limit TipWindow expansion
+        private const int SCREEN_EDGE = 20;
+        private const int SCREEN_MARGIN = 2 * SCREEN_EDGE;
+
+        // Padding to leave inside the TipWindow around the text
+        private const int PADDING_LEFT = 4;
+        private const int PADDING_RIGHT = 4;
+        private const int PADDING_TOP = 4;
+        private const int PADDING_BOTTOM = 4;
+
         /// <summary>
         /// Direction in which to expand
         /// </summary>
@@ -131,7 +141,7 @@ namespace NUnit.UiKit.Controls
 
             Graphics g = Graphics.FromHwnd( Handle );
             Screen screen = Screen.FromControl( _control );
-            SizeF layoutArea = new SizeF( screen.WorkingArea.Width - 40, screen.WorkingArea.Height - 40 );
+            SizeF layoutArea = new SizeF( screen.WorkingArea.Width - SCREEN_MARGIN, screen.WorkingArea.Height - SCREEN_MARGIN );
             if ( Expansion == ExpansionStyle.Vertical )
                 layoutArea.Width = ItemBounds.Width;
             else if ( Expansion == ExpansionStyle.Horizontal )
@@ -147,8 +157,8 @@ namespace NUnit.UiKit.Controls
                 sizeNeeded.Width = ItemBounds.Width;
 
             ClientSize = sizeNeeded;
-            Size = sizeNeeded + new Size( 2, 2 );
-            _textRect = new Rectangle( 1, 1, sizeNeeded.Width, sizeNeeded.Height );
+            Size = sizeNeeded + new Size(PADDING_LEFT + PADDING_RIGHT, PADDING_TOP + PADDING_BOTTOM);
+            _textRect = new Rectangle( PADDING_LEFT, PADDING_TOP, sizeNeeded.Width, sizeNeeded.Height );
 
             // Catch mouse leaving the control
             _control.MouseLeave += new EventHandler( control_MouseLeave );
@@ -159,19 +169,19 @@ namespace NUnit.UiKit.Controls
             if ( Right > screen.WorkingArea.Right )
             {
                 Left = Math.Max( 
-                    screen.WorkingArea.Right - Width - 20, 
-                    screen.WorkingArea.Left + 20);
+                    screen.WorkingArea.Right - Width - SCREEN_EDGE, 
+                    screen.WorkingArea.Left + SCREEN_EDGE);
             }
 
-            if ( Bottom > screen.WorkingArea.Bottom - 20 )
+            if ( Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
             {
                 if ( Overlay )
                     Top = Math.Max(
-                        screen.WorkingArea.Bottom - Height - 20,
-                        screen.WorkingArea.Top + 20 );
+                        screen.WorkingArea.Bottom - Height - SCREEN_EDGE,
+                        screen.WorkingArea.Top + SCREEN_EDGE);
 
-                if ( Bottom > screen.WorkingArea.Bottom - 20 )
-                    Height = screen.WorkingArea.Bottom - 20 - Top;
+                if ( Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
+                    Height = screen.WorkingArea.Bottom - SCREEN_EDGE - Top;
 
             }
 
@@ -206,8 +216,9 @@ namespace NUnit.UiKit.Controls
                 
             Graphics g = e.Graphics;
             Rectangle outlineRect = ClientRectangle;
-            outlineRect.Inflate( -1, -1 );
-            g.DrawRectangle( Pens.Black, outlineRect );
+            outlineRect.Width--;
+            outlineRect.Height--;
+            g.DrawRectangle(Pens.Black, outlineRect);
             g.DrawString( TipText, Font, Brushes.Black, _textRect );
         }
 

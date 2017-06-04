@@ -139,6 +139,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.properties.BackColor = System.Drawing.Color.LightYellow;
+            this.properties.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.properties.Location = new System.Drawing.Point(6, 128);
             this.properties.Name = "properties";
             this.properties.Size = new System.Drawing.Size(526, 98);
@@ -286,6 +287,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.output.BackColor = System.Drawing.Color.LightYellow;
             this.output.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
+            this.output.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.output.Location = new System.Drawing.Point(5, 203);
             this.output.Name = "output";
             this.output.Size = new System.Drawing.Size(527, 187);
