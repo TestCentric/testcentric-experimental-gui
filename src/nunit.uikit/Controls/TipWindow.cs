@@ -29,331 +29,277 @@ using System.Runtime.InteropServices;
 
 namespace NUnit.UiKit.Controls
 {
-	public class TipWindow : Form
-	{
-		/// <summary>
-		/// Direction in which to expand
-		/// </summary>
-		public enum ExpansionStyle
-		{
-			Horizontal,
-			Vertical,
-			Both
-		}
+    public class TipWindow : Form
+    {
+        // Margin of screen, used to limit TipWindow expansion
+        private const int SCREEN_EDGE = 20;
+        private const int SCREEN_MARGIN = 2 * SCREEN_EDGE;
 
-		#region Instance Variables
+        // Padding to leave inside the TipWindow around the text
+        private const int PADDING_LEFT = 4;
+        private const int PADDING_RIGHT = 4;
+        private const int PADDING_TOP = 4;
+        private const int PADDING_BOTTOM = 4;
 
-		/// <summary>
-		/// Text we are displaying
-		/// </summary>
-		private string tipText;
+        /// <summary>
+        /// Direction in which to expand
+        /// </summary>
+        public enum ExpansionStyle
+        {
+            Horizontal,
+            Vertical,
+            Both
+        }
 
-		/// <summary>
-		/// The control for which we are showing expanded text
-		/// </summary>
-		private Control control;
+        #region Instance Variables
 
-		/// <summary>
-		/// Rectangle representing bounds to overlay. For a listbox, this
-		/// is a single item rectangle. For other controls, it is usually
-		/// the entire client area.
-		/// </summary>
-		private Rectangle itemBounds;
+        /// <summary>
+        /// The control for which we are showing expanded text
+        /// </summary>
+        private Control _control;
 
-		/// <summary>
-		/// True if we may overlay control or item
-		/// </summary>
-		private bool overlay = true;
-			
-		/// <summary>
-		/// Directions we are allowed to expand
-		/// </summary>
-		private ExpansionStyle expansion = ExpansionStyle.Horizontal;
+        /// <summary>
+        /// Timer used for auto-close
+        /// </summary>
+        private System.Windows.Forms.Timer _autoCloseTimer;
 
-		/// <summary>
-		/// Time before automatically closing
-		/// </summary>
-		private int autoCloseDelay = 0;
+        /// <summary>
+        /// Timer used for mouse leave delay
+        /// </summary>
+        private System.Windows.Forms.Timer _mouseLeaveTimer;
 
-		/// <summary>
-		/// Timer used for auto-close
-		/// </summary>
-		private System.Windows.Forms.Timer autoCloseTimer;
+        /// <summary>
+        /// Rectangle used to display text
+        /// </summary>
+        private Rectangle _textRect;
 
-		/// <summary>
-		/// Time to wait for after mouse leaves
-		/// the window or the label before closing.
-		/// </summary>
-		private int mouseLeaveDelay = 300;
+        #endregion
 
-		/// <summary>
-		/// Timer used for mouse leave delay
-		/// </summary>
-		private System.Windows.Forms.Timer mouseLeaveTimer;
+        #region Construction and Initialization
 
-		/// <summary>
-		/// Rectangle used to display text
-		/// </summary>
-		private Rectangle textRect;
+        public TipWindow( Control control )
+        {
+            InitializeComponent();
+            InitControl( control );
 
-		/// <summary>
-		/// Indicates whether any clicks should be passed to the underlying control
-		/// </summary>
-		private bool wantClicks = false;
+            // Note: This causes an error if called on a listbox
+            // with no item as yet selected, therefore, it is handled
+            // differently in the constructor for a listbox.
+            TipText = control.Text;
+        }
 
-		#endregion
+        public TipWindow( ListBox listbox, int index )
+        {
+            InitializeComponent();
+            InitControl( listbox );
 
-		#region Construction and Initialization
+            ItemBounds = listbox.GetItemRectangle( index );
+            TipText = listbox.Items[ index ].ToString();
+        }
 
-		public TipWindow( Control control )
-		{
-			InitializeComponent();
-			InitControl( control );
+        private void InitControl( Control control )
+        {
+            _control = control;
+            Owner = control.FindForm();
+            ItemBounds = control.ClientRectangle;
 
-			// Note: This causes an error if called on a listbox
-			// with no item as yet selected, therefore, it is handled
-			// differently in the constructor for a listbox.
-			this.tipText = control.Text;
-		}
+            ControlBox = false;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            BackColor = Color.LightYellow;
+            FormBorderStyle = FormBorderStyle.None;
+            StartPosition = FormStartPosition.Manual; 			
 
-		public TipWindow( ListBox listbox, int index )
-		{
-			InitializeComponent();
-			InitControl( listbox );
+            Font = control.Font;
+        }
 
-			this.itemBounds = listbox.GetItemRectangle( index );
-			this.tipText = listbox.Items[ index ].ToString();
-		}
+        private void InitializeComponent()
+        {
+            // 
+            // TipWindow
+            // 
+            BackColor = System.Drawing.Color.LightYellow;
+            ClientSize = new System.Drawing.Size(292, 268);
+            ControlBox = false;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "TipWindow";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 
-		private void InitControl( Control control )
-		{
-			this.control = control;
-			this.Owner = control.FindForm();
-			this.itemBounds = control.ClientRectangle;
+        }
 
-			this.ControlBox = false;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.BackColor = Color.LightYellow;
-			this.FormBorderStyle = FormBorderStyle.None;
-			this.StartPosition = FormStartPosition.Manual; 			
+        protected override void OnLoad(System.EventArgs e)
+        {
+            // At this point, further changes to the properties
+            // of the label will have no effect on the tip.
+            Point origin = _control.Parent.PointToScreen( _control.Location );
+            origin.Offset( ItemBounds.Left, ItemBounds.Top );
+            if ( !Overlay )	origin.Offset( 0, ItemBounds.Height );
+            Location = origin;
 
-			this.Font = control.Font;
-		}
+            Graphics g = Graphics.FromHwnd( Handle );
+            Screen screen = Screen.FromControl( _control );
+            SizeF layoutArea = new SizeF( screen.WorkingArea.Width - SCREEN_MARGIN, screen.WorkingArea.Height - SCREEN_MARGIN );
+            if ( Expansion == ExpansionStyle.Vertical )
+                layoutArea.Width = ItemBounds.Width;
+            else if ( Expansion == ExpansionStyle.Horizontal )
+                layoutArea.Height = ItemBounds.Height;
 
-		private void InitializeComponent()
-		{
-			// 
-			// TipWindow
-			// 
-			this.BackColor = System.Drawing.Color.LightYellow;
-			this.ClientSize = new System.Drawing.Size(292, 268);
-			this.ControlBox = false;
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "TipWindow";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Size sizeNeeded = Size.Ceiling( g.MeasureString( TipText, Font, layoutArea ) );
 
-		}
+            // If the needed width is smaller than that of the original label,
+            // it can be visually confusing, so we adjust. This can only happen
+            // with ExpansionStyle.Both, so we won't get here unless either the
+            // height or the width is greater.
+            if (sizeNeeded.Width < ItemBounds.Width)
+                sizeNeeded.Width = ItemBounds.Width;
 
-		protected override void OnLoad(System.EventArgs e)
-		{
-			// At this point, further changes to the properties
-			// of the label will have no effect on the tip.
-			Point origin = control.Parent.PointToScreen( control.Location );
-			origin.Offset( itemBounds.Left, itemBounds.Top );
-			if ( !overlay )	origin.Offset( 0, itemBounds.Height );
-			this.Location = origin;
+            ClientSize = sizeNeeded;
+            Size = sizeNeeded + new Size(PADDING_LEFT + PADDING_RIGHT, PADDING_TOP + PADDING_BOTTOM);
+            _textRect = new Rectangle( PADDING_LEFT, PADDING_TOP, sizeNeeded.Width, sizeNeeded.Height );
 
-			Graphics g = Graphics.FromHwnd( Handle );
-			Screen screen = Screen.FromControl( control );
-			SizeF layoutArea = new SizeF( screen.WorkingArea.Width - 40, screen.WorkingArea.Height - 40 );
-			if ( expansion == ExpansionStyle.Vertical )
-				layoutArea.Width = itemBounds.Width;
-			else if ( expansion == ExpansionStyle.Horizontal )
-				layoutArea.Height = itemBounds.Height;
+            // Catch mouse leaving the control
+            _control.MouseLeave += new EventHandler( control_MouseLeave );
 
-			Size sizeNeeded = Size.Ceiling( g.MeasureString( tipText, Font, layoutArea ) );
+            // Catch the form that holds the control closing
+            _control.FindForm().Closed += new EventHandler( control_FormClosed );
 
-			this.ClientSize = sizeNeeded;
-			this.Size = sizeNeeded + new Size( 2, 2 );
-			this.textRect = new Rectangle( 1, 1, sizeNeeded.Width, sizeNeeded.Height );
+            if ( Right > screen.WorkingArea.Right )
+            {
+                Left = Math.Max( 
+                    screen.WorkingArea.Right - Width - SCREEN_EDGE, 
+                    screen.WorkingArea.Left + SCREEN_EDGE);
+            }
 
-			// Catch mouse leaving the control
-			control.MouseLeave += new EventHandler( control_MouseLeave );
+            if ( Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
+            {
+                if ( Overlay )
+                    Top = Math.Max(
+                        screen.WorkingArea.Bottom - Height - SCREEN_EDGE,
+                        screen.WorkingArea.Top + SCREEN_EDGE);
 
-			// Catch the form that holds the control closing
-			control.FindForm().Closed += new EventHandler( control_FormClosed );
+                if ( Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
+                    Height = screen.WorkingArea.Bottom - SCREEN_EDGE - Top;
 
-			if ( this.Right > screen.WorkingArea.Right )
-			{
-				this.Left = Math.Max( 
-					screen.WorkingArea.Right - this.Width - 20, 
-					screen.WorkingArea.Left + 20);
-			}
+            }
 
-			if ( this.Bottom > screen.WorkingArea.Bottom - 20 )
-			{
-				if ( overlay )
-					this.Top = Math.Max(
-						screen.WorkingArea.Bottom - this.Height - 20,
-						screen.WorkingArea.Top + 20 );
+            if ( AutoCloseDelay > 0 )
+            {
+                _autoCloseTimer = new System.Windows.Forms.Timer();
+                _autoCloseTimer.Interval = AutoCloseDelay;
+                _autoCloseTimer.Tick += new EventHandler( OnAutoClose );
+                _autoCloseTimer.Start();
+            }
+        }
 
-				if ( this.Bottom > screen.WorkingArea.Bottom - 20 )
-					this.Height = screen.WorkingArea.Bottom - 20 - this.Top;
+        #endregion
 
-			}
+        #region Properties
 
-			if ( autoCloseDelay > 0 )
-			{
-				autoCloseTimer = new System.Windows.Forms.Timer();
-				autoCloseTimer.Interval = autoCloseDelay;
-				autoCloseTimer.Tick += new EventHandler( OnAutoClose );
-				autoCloseTimer.Start();
-			}
-		}
+        public bool Overlay { get; set; }
+        public ExpansionStyle Expansion { get; set; }
+        public int AutoCloseDelay { get; set; }
+        public int MouseLeaveDelay { get; set; }
+        public string TipText { get; set; }
+        public Rectangle ItemBounds { get; set; }
+        public bool WantClicks { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Event Handlers
 
-		public bool Overlay
-		{
-			get { return overlay; }
-			set { overlay = value; }
-		}
+        protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
+        {
+            base.OnPaint( e );
+                
+            Graphics g = e.Graphics;
+            Rectangle outlineRect = ClientRectangle;
+            outlineRect.Width--;
+            outlineRect.Height--;
+            g.DrawRectangle(Pens.Black, outlineRect);
+            g.DrawString( TipText, Font, Brushes.Black, _textRect );
+        }
 
-		public ExpansionStyle Expansion
-		{
-			get { return expansion; }
-			set { expansion = value; }
-		}
+        private void OnAutoClose( object sender, System.EventArgs e )
+        {
+            Close();
+        }
 
-		public int AutoCloseDelay
-		{
-			get { return autoCloseDelay; }
-			set { autoCloseDelay = value; }
-		}
+        protected override void OnMouseEnter(System.EventArgs e)
+        {
+            if ( _mouseLeaveTimer != null )
+            {
+                _mouseLeaveTimer.Stop();
+                _mouseLeaveTimer.Dispose();
+                System.Diagnostics.Debug.WriteLine( "Entered TipWindow - stopped mouseLeaveTimer" );
+            }
+        }
 
-		public int MouseLeaveDelay
-		{
-			get { return mouseLeaveDelay; }
-			set { mouseLeaveDelay = value; }
-		}
+        protected override void OnMouseLeave(System.EventArgs e)
+        {
+            if ( MouseLeaveDelay > 0  )
+            {
+                _mouseLeaveTimer = new System.Windows.Forms.Timer();
+                _mouseLeaveTimer.Interval = MouseLeaveDelay;
+                _mouseLeaveTimer.Tick += new EventHandler( OnAutoClose );
+                _mouseLeaveTimer.Start();
+                System.Diagnostics.Debug.WriteLine( "Left TipWindow - started mouseLeaveTimer" );
+            }
+        }
 
-		public string TipText
-		{
-			get { return tipText; }
-			set { tipText = value; }
-		}
+        /// <summary>
+        /// The form our label is on closed, so we should. 
+        /// </summary>
+        private void control_FormClosed( object sender, System.EventArgs e )
+        {
+            Close();
+        }
 
-		public Rectangle ItemBounds
-		{
-			get { return itemBounds; }
-			set { itemBounds = value; }
-		}
+        /// <summary>
+        /// The mouse left the label. We ignore if we are
+        /// overlaying the label but otherwise start a
+        /// delay for closing the window
+        /// </summary>
+        private void control_MouseLeave( object sender, System.EventArgs e )
+        {
+            if ( MouseLeaveDelay > 0 && !Overlay )
+            {
+                _mouseLeaveTimer = new System.Windows.Forms.Timer();
+                _mouseLeaveTimer.Interval = MouseLeaveDelay;
+                _mouseLeaveTimer.Tick += new EventHandler( OnAutoClose );
+                _mouseLeaveTimer.Start();
+                System.Diagnostics.Debug.WriteLine( "Left Control - started mouseLeaveTimer" );
+            }
+        }
 
-		public bool WantClicks
-		{
-			get { return wantClicks; }
-			set { wantClicks = value; }
-		}
+        #endregion
+    
+        [DllImport("user32.dll")]
+        static extern uint SendMessage(
+            IntPtr hwnd,
+            int msg,
+            IntPtr wparam,
+            IntPtr lparam
+            );
+    
+        protected override void WndProc(ref Message m)
+        {
+            uint WM_LBUTTONDOWN = 0x201;
+            uint WM_RBUTTONDOWN = 0x204;
+            uint WM_MBUTTONDOWN = 0x207;
 
-		#endregion
-
-		#region Event Handlers
-
-		protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
-		{
-			base.OnPaint( e );
-				
-			Graphics g = e.Graphics;
-			Rectangle outlineRect = this.ClientRectangle;
-			outlineRect.Inflate( -1, -1 );
-			g.DrawRectangle( Pens.Black, outlineRect );
-			g.DrawString( tipText, Font, Brushes.Black, textRect );
-		}
-
-		private void OnAutoClose( object sender, System.EventArgs e )
-		{
-			this.Close();
-		}
-
-		protected override void OnMouseEnter(System.EventArgs e)
-		{
-			if ( mouseLeaveTimer != null )
-			{
-				mouseLeaveTimer.Stop();
-				mouseLeaveTimer.Dispose();
-				System.Diagnostics.Debug.WriteLine( "Entered TipWindow - stopped mouseLeaveTimer" );
-			}
-		}
-
-		protected override void OnMouseLeave(System.EventArgs e)
-		{
-			if ( mouseLeaveDelay > 0  )
-			{
-				mouseLeaveTimer = new System.Windows.Forms.Timer();
-				mouseLeaveTimer.Interval = mouseLeaveDelay;
-				mouseLeaveTimer.Tick += new EventHandler( OnAutoClose );
-				mouseLeaveTimer.Start();
-				System.Diagnostics.Debug.WriteLine( "Left TipWindow - started mouseLeaveTimer" );
-			}
-		}
-
-		/// <summary>
-		/// The form our label is on closed, so we should. 
-		/// </summary>
-		private void control_FormClosed( object sender, System.EventArgs e )
-		{
-			this.Close();
-		}
-
-		/// <summary>
-		/// The mouse left the label. We ignore if we are
-		/// overlaying the label but otherwise start a
-		/// delay for closing the window
-		/// </summary>
-		private void control_MouseLeave( object sender, System.EventArgs e )
-		{
-			if ( mouseLeaveDelay > 0 && !overlay )
-			{
-				mouseLeaveTimer = new System.Windows.Forms.Timer();
-				mouseLeaveTimer.Interval = mouseLeaveDelay;
-				mouseLeaveTimer.Tick += new EventHandler( OnAutoClose );
-				mouseLeaveTimer.Start();
-				System.Diagnostics.Debug.WriteLine( "Left Control - started mouseLeaveTimer" );
-			}
-		}
-
-		#endregion
-	
-		[DllImport("user32.dll")]
-		static extern uint SendMessage(
-			IntPtr hwnd,
-			int msg,
-			IntPtr wparam,
-			IntPtr lparam
-			);
-	
-		protected override void WndProc(ref Message m)
-		{
-			uint WM_LBUTTONDOWN = 0x201;
-			uint WM_RBUTTONDOWN = 0x204;
-			uint WM_MBUTTONDOWN = 0x207;
-
-			if ( m.Msg == WM_LBUTTONDOWN || m.Msg == WM_RBUTTONDOWN || m.Msg == WM_MBUTTONDOWN )
-			{	
-				if ( m.Msg != WM_LBUTTONDOWN )
-					this.Close();
-				SendMessage( control.Handle, m.Msg, m.WParam, m.LParam );
-			}
-			else
-			{
-				base.WndProc (ref m);
-			}
-		}
-	}
+            if ( m.Msg == WM_LBUTTONDOWN || m.Msg == WM_RBUTTONDOWN || m.Msg == WM_MBUTTONDOWN )
+            {	
+                if ( m.Msg != WM_LBUTTONDOWN )
+                    Close();
+                SendMessage( _control.Handle, m.Msg, m.WParam, m.LParam );
+            }
+            else
+            {
+                base.WndProc (ref m);
+            }
+        }
+    }
 }

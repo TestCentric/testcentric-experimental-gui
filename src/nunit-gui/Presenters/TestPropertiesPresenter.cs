@@ -22,6 +22,7 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -53,20 +54,23 @@ namespace NUnit.Gui.Presenters
             _model.TestLoaded += (ea) => _view.Visible = true;
             _model.TestReloaded += (ea) => _view.Visible = true;
             _model.TestUnloaded += (ea) => _view.Visible = false;
-            _model.RunFinished += (ea) => DisplayTestProperties();
+            _model.RunFinished += (ea) => DisplaySelectedItem();
             _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
-            _view.DisplayHiddenPropertiesChanged += () => DisplayTestProperties();
+            _view.DisplayHiddenPropertiesChanged += () => DisplaySelectedItem();
         }
 
         private void OnSelectedItemChanged(ITestItem testItem)
         {
             _selectedItem = testItem;
-            DisplayTestProperties();
+            DisplaySelectedItem();
         }
 
-        private void DisplayTestProperties()
+        private void DisplaySelectedItem()
         {
             // TODO: Insert checks for errors in the XML
+
+            if (_selectedItem != null)
+                _view.Header = _selectedItem.Name;
 
             var testNode = _selectedItem as TestNode;
             var resultNode = _model.GetResultForTest(testNode);
@@ -76,67 +80,128 @@ namespace NUnit.Gui.Presenters
 
             // TODO: We should actually try to set the font for bold items
             // dynamically, since the global application font may be changed.
+
             if (testNode != null)
             {
                 _view.SuspendLayout();
 
-                _view.Header = testNode.Name;
-                _view.TestType = GetTestType(testNode);
-                _view.FullName = testNode.FullName;
-                _view.Description = testNode.GetProperty("Description");
-                _view.Categories = testNode.GetPropertyList("Category");
-                _view.TestCount = testNode.TestCount.ToString();
-                _view.RunState = testNode.RunState.ToString();
-                _view.SkipReason = testNode.GetProperty("_SKIPREASON");
-
-                var sb = new StringBuilder();
-                foreach (string item in testNode.GetAllProperties(_view.DisplayHiddenProperties))
-                {
-                    if (sb.Length > 0)
-                        sb.Append(Environment.NewLine);
-                    sb.Append(item);
-                }
-                _view.Properties = sb.ToString();
+                DisplayTestInfo(testNode);
 
                 if (resultNode != null)
-                {
-                    _view.Outcome = resultNode.Outcome.ToString();
-
-                    _view.ElapsedTime = resultNode.Duration.ToString("f3");
-                    _view.AssertCount = resultNode.AssertCount.ToString();
-
-                    var assertions = resultNode.Xml.SelectNodes("assertions/assertion");
-                    XmlNode message = null;
-                    XmlNode stackTrace = null;
-
-                    if (assertions.Count > 0)
-                    {
-                        message = assertions[0].SelectSingleNode("message");
-                        stackTrace = assertions[0].SelectSingleNode("stack-trace");
-                    }
-                    else if (resultNode.Outcome.Status == TestStatus.Failed)
-                    {
-                        message = resultNode.Xml.SelectSingleNode("failure/message");
-                        stackTrace = resultNode.Xml.SelectSingleNode("failure/stack-trace");
-                    }
-                    else
-                    {
-                        message = resultNode.Xml.SelectSingleNode("reason/message");
-                    }
-
-                    _view.Message = message?.InnerText ?? "";
-                    _view.StackTrace = stackTrace?.InnerText ?? "";
-
-                    var output = resultNode.Xml.SelectSingleNode("output");
-                    _view.Output = output != null ? output.InnerText : "";
-                }
+                    DisplayResultInfo(resultNode);
 
                 _view.ResumeLayout();
             }
-            else if (_selectedItem != null)
+        }
+
+        private void DisplayTestInfo(TestNode testNode)
+        {
+            _view.TestType = GetTestType(testNode);
+            _view.FullName = testNode.FullName;
+            _view.Description = testNode.GetProperty("Description");
+            _view.Categories = testNode.GetPropertyList("Category");
+            _view.TestCount = testNode.TestCount.ToString();
+            _view.RunState = testNode.RunState.ToString();
+            _view.SkipReason = testNode.GetProperty("_SKIPREASON");
+
+            DisplayTestProperties(testNode);
+        }
+
+        private void DisplayTestProperties(TestNode testNode)
+        {
+            var sb = new StringBuilder();
+            foreach (string item in testNode.GetAllProperties(_view.DisplayHiddenProperties))
             {
-                _view.Header = _selectedItem.Name;
+                if (sb.Length > 0)
+                    sb.Append(Environment.NewLine);
+                sb.Append(item);
             }
+            _view.Properties = sb.ToString();
+        }
+
+        private void DisplayResultInfo(ResultNode resultNode)
+        {
+            _view.Outcome = resultNode.Outcome.ToString();
+
+            _view.ElapsedTime = resultNode.Duration.ToString("f3");
+            _view.AssertCount = resultNode.AssertCount.ToString();
+
+            DisplayAssertionResults(resultNode);
+            DisplayOutput(resultNode);
+        }
+
+        private void DisplayAssertionResults(ResultNode resultNode)
+        {
+            StringBuilder sb;
+            var assertionNodes = resultNode.Xml.SelectNodes("assertions/assertion");
+            var assertionResults = new List<AssertionResult>();
+
+            foreach (XmlNode assertion in assertionNodes)
+                assertionResults.Add(new AssertionResult(assertion));
+
+            // If there were no actual assertionresult entries, we fake
+            // one if there is a message to display
+            if (assertionResults.Count == 0)
+            {
+                if (resultNode.Outcome.Status == TestStatus.Failed)
+                {
+                    string status = resultNode.Outcome.Label ?? "Failed";
+                    XmlNode failure = resultNode.Xml.SelectSingleNode("failure");
+                    if (failure != null)
+                        assertionResults.Add(new AssertionResult(failure, status));
+                }
+                else
+                {
+                    string status = resultNode.Outcome.Label ?? "Skipped";
+                    XmlNode reason = resultNode.Xml.SelectSingleNode("reason");
+                    if (reason != null)
+                        assertionResults.Add(new AssertionResult(reason, status));
+                }
+            }
+
+            sb = new StringBuilder();
+            int index = 0;
+            foreach (var assertion in assertionResults)
+            {
+                sb.AppendFormat("{0}) {1}\n", ++index, assertion.Status);
+                sb.AppendLine(assertion.Message);
+                if (assertion.StackTrace != null)
+                    sb.AppendLine(AdjustStackTrace(assertion.StackTrace));
+
+            }
+
+            _view.Assertions = sb.ToString();
+        }
+
+        // Some versions of the framework return the stacktrace
+        // without leading spaces, so we add them if needed.
+        // TODO: Make sure this is valid across various cultures.
+        private const string LEADING_SPACES = "   ";
+
+        private static string AdjustStackTrace(string stackTrace)
+        {
+            // Check if no adjustment needed. We assume that all
+            // lines start the same - either with or without spaces.
+            if (stackTrace.StartsWith(LEADING_SPACES))
+                return stackTrace;
+
+            var sr = new StringReader(stackTrace);
+            var sb = new StringBuilder();
+            string line = sr.ReadLine();
+            while (line != null)
+            {
+                sb.Append(LEADING_SPACES);
+                sb.AppendLine(line);
+                line = sr.ReadLine();
+            }
+
+            return sb.ToString();
+        }
+
+        private void DisplayOutput(ResultNode resultNode)
+        {
+            var output = resultNode.Xml.SelectSingleNode("output");
+            _view.Output = output != null ? output.InnerText : "";
         }
 
         public static string GetTestType(TestNode testNode)
@@ -182,6 +247,30 @@ namespace NUnit.Gui.Presenters
             }
 
             return message;
+        }
+
+        #endregion
+
+        #region Nested AssertionResult Class
+
+        public struct AssertionResult
+        {
+            public AssertionResult(XmlNode assertion, string status)
+                : this(assertion)
+            {
+                Status = status;
+            }
+
+            public AssertionResult(XmlNode assertion)
+            {
+                Status = assertion.GetAttribute("label") ?? assertion.GetAttribute("result");
+                Message = assertion.SelectSingleNode("message")?.InnerText;
+                StackTrace = assertion.SelectSingleNode("stack-trace")?.InnerText;
+            }
+
+            public string Status { get; }
+            public string Message { get; }
+            public string StackTrace { get; }
         }
 
         #endregion

@@ -769,7 +769,7 @@ namespace NUnit.Gui.Views
             this.propertiesView.FullName = "";
             this.propertiesView.Header = "";
             this.propertiesView.Location = new System.Drawing.Point(2, 2);
-            this.propertiesView.Message = "";
+            this.propertiesView.Assertions = "";
             this.propertiesView.Name = "propertiesView";
             this.propertiesView.Outcome = "";
             this.propertiesView.Output = "";
@@ -778,7 +778,6 @@ namespace NUnit.Gui.Views
             this.propertiesView.RunState = "";
             this.propertiesView.Size = new System.Drawing.Size(337, 332);
             this.propertiesView.SkipReason = "";
-            this.propertiesView.StackTrace = "";
             this.propertiesView.TabIndex = 2;
             this.propertiesView.TestCount = "";
             this.propertiesView.TestType = "";

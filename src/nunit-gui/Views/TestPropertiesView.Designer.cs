@@ -47,7 +47,6 @@
             this.assertCountLabel = new System.Windows.Forms.Label();
             this.assertCount = new System.Windows.Forms.Label();
             this.messageLabel = new System.Windows.Forms.Label();
-            this.stackTraceLabel = new System.Windows.Forms.Label();
             this.testCount = new System.Windows.Forms.Label();
             this.runStateLabel = new System.Windows.Forms.Label();
             this.testCountLabel = new System.Windows.Forms.Label();
@@ -55,8 +54,7 @@
             this.resultPanel = new System.Windows.Forms.Panel();
             this.output = new NUnit.UiKit.Controls.ExpandingLabel();
             this.outputLabel = new System.Windows.Forms.Label();
-            this.stackTrace = new NUnit.UiKit.Controls.ExpandingLabel();
-            this.message = new NUnit.UiKit.Controls.ExpandingLabel();
+            this.assertions = new NUnit.UiKit.Controls.ExpandingLabel();
             this.testPanel = new System.Windows.Forms.Panel();
             this.fullName = new NUnit.UiKit.Controls.ExpandingLabel();
             this.description = new NUnit.UiKit.Controls.ExpandingLabel();
@@ -141,6 +139,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.properties.BackColor = System.Drawing.Color.LightYellow;
+            this.properties.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.properties.Location = new System.Drawing.Point(6, 128);
             this.properties.Name = "properties";
             this.properties.Size = new System.Drawing.Size(526, 98);
@@ -222,19 +221,12 @@
             // 
             // messageLabel
             // 
-            this.messageLabel.Location = new System.Drawing.Point(3, 38);
+            this.messageLabel.AutoSize = true;
+            this.messageLabel.Location = new System.Drawing.Point(3, 39);
             this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(53, 13);
+            this.messageLabel.Size = new System.Drawing.Size(82, 13);
             this.messageLabel.TabIndex = 25;
-            this.messageLabel.Text = "Message:";
-            // 
-            // stackTraceLabel
-            // 
-            this.stackTraceLabel.Location = new System.Drawing.Point(2, 115);
-            this.stackTraceLabel.Name = "stackTraceLabel";
-            this.stackTraceLabel.Size = new System.Drawing.Size(69, 13);
-            this.stackTraceLabel.TabIndex = 27;
-            this.stackTraceLabel.Text = "Stack Trace:";
+            this.messageLabel.Text = "Test Messages:";
             // 
             // testCount
             // 
@@ -277,13 +269,11 @@
             this.resultPanel.Controls.Add(this.outputLabel);
             this.resultPanel.Controls.Add(this.outcomeLabel);
             this.resultPanel.Controls.Add(this.outcome);
-            this.resultPanel.Controls.Add(this.stackTrace);
             this.resultPanel.Controls.Add(this.elapsedTimeLabel);
             this.resultPanel.Controls.Add(this.assertCountLabel);
-            this.resultPanel.Controls.Add(this.stackTraceLabel);
             this.resultPanel.Controls.Add(this.assertCount);
             this.resultPanel.Controls.Add(this.messageLabel);
-            this.resultPanel.Controls.Add(this.message);
+            this.resultPanel.Controls.Add(this.assertions);
             this.resultPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resultPanel.Location = new System.Drawing.Point(0, 0);
             this.resultPanel.Name = "resultPanel";
@@ -297,7 +287,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.output.BackColor = System.Drawing.Color.LightYellow;
             this.output.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
-            this.output.Location = new System.Drawing.Point(5, 208);
+            this.output.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.output.Location = new System.Drawing.Point(5, 203);
             this.output.Name = "output";
             this.output.Size = new System.Drawing.Size(527, 187);
             this.output.TabIndex = 29;
@@ -305,33 +296,23 @@
             // outputLabel
             // 
             this.outputLabel.AutoSize = true;
-            this.outputLabel.Location = new System.Drawing.Point(2, 182);
+            this.outputLabel.Location = new System.Drawing.Point(2, 180);
             this.outputLabel.Name = "outputLabel";
             this.outputLabel.Size = new System.Drawing.Size(42, 13);
             this.outputLabel.TabIndex = 0;
             this.outputLabel.Text = "Output:";
             // 
-            // stackTrace
+            // assertions
             // 
-            this.stackTrace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.assertions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.stackTrace.BackColor = System.Drawing.Color.LightYellow;
-            this.stackTrace.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
-            this.stackTrace.Location = new System.Drawing.Point(5, 128);
-            this.stackTrace.Name = "stackTrace";
-            this.stackTrace.Size = new System.Drawing.Size(527, 54);
-            this.stackTrace.TabIndex = 28;
-            // 
-            // message
-            // 
-            this.message.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.message.BackColor = System.Drawing.Color.LightYellow;
-            this.message.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
-            this.message.Location = new System.Drawing.Point(5, 51);
-            this.message.Name = "message";
-            this.message.Size = new System.Drawing.Size(527, 58);
-            this.message.TabIndex = 26;
+            this.assertions.BackColor = System.Drawing.Color.LightYellow;
+            this.assertions.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
+            this.assertions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.assertions.Location = new System.Drawing.Point(3, 57);
+            this.assertions.Name = "assertions";
+            this.assertions.Size = new System.Drawing.Size(527, 114);
+            this.assertions.TabIndex = 26;
             // 
             // testPanel
             // 
@@ -442,9 +423,7 @@
         private System.Windows.Forms.Label assertCountLabel;
         private System.Windows.Forms.Label assertCount;
         private System.Windows.Forms.Label messageLabel;
-        private NUnit.UiKit.Controls.ExpandingLabel message;
-        private System.Windows.Forms.Label stackTraceLabel;
-        private NUnit.UiKit.Controls.ExpandingLabel stackTrace;
+        private NUnit.UiKit.Controls.ExpandingLabel assertions;
         private System.Windows.Forms.Label testCount;
         private System.Windows.Forms.Label runStateLabel;
         private System.Windows.Forms.Label testCountLabel;
