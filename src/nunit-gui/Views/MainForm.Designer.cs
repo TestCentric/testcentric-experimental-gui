@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace NUnit.Gui.Views
+﻿namespace NUnit.Gui.Views
 {
     partial class MainForm
     {
@@ -833,12 +831,6 @@ namespace NUnit.Gui.Views
 
         }
 
-        private void MainForm_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-        }
-
         #endregion
 
         private NUnit.Gui.Views.StatusBarView statusBarView;
@@ -906,21 +898,21 @@ namespace NUnit.Gui.Views
         private TestPropertiesView propertiesView;
         private System.Windows.Forms.TabPage tabPage2;
         private XmlView xmlView;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem selectRuntimeToolStripMenuItem;
-        private ToolStripMenuItem defaultRuntimeToolStripMenuItem;
-        private ToolStripMenuItem processModelToolStripMenuItem1;
-        private ToolStripMenuItem defaultProcessToolStripMenuItem;
-        private ToolStripMenuItem inProcessToolStripMenuItem;
-        private ToolStripMenuItem singleProcessToolStripMenuItem;
-        private ToolStripMenuItem multipleProcessToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripMenuItem loadAsX86ToolStripMenuItem;
-        private ToolStripMenuItem domainUsageToolStripMenuItem1;
-        private ToolStripMenuItem defaultDomainToolStripMenuItem;
-        private ToolStripMenuItem singleDomainToolStripMenuItem;
-        private ToolStripMenuItem multipleDomainToolStripMenuItem;
-        private ToolStripMenuItem notYetImplementedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem selectRuntimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultRuntimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processModelToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem defaultProcessToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inProcessToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem singleProcessToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multipleProcessToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem loadAsX86ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem domainUsageToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem defaultDomainToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem singleDomainToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multipleDomainToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem notYetImplementedToolStripMenuItem;
     }
 }
 
