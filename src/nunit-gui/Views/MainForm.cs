@@ -144,5 +144,10 @@ namespace NUnit.Gui.Views
         {
             statusBarView.Visible = statusBarToolStripMenuItem.Checked;
         }
+
+        protected override void OnDragEnter(DragEventArgs drgevent){
+            if(drgevent.Data.GetDataPresent(DataFormats.FileDrop))
+                drgevent.Effect = DragDropEffects.Copy;
+        }
     }
 }
