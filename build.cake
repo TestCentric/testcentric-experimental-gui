@@ -11,7 +11,7 @@ var configuration = Argument("configuration", "Debug");
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "0.3";
+var version = "0.4";
 var modifier = "";
 
 var isAppveyor = BuildSystem.IsRunningOnAppVeyor;
@@ -172,7 +172,6 @@ Task("PackageZip")
             BIN_DIR + "nunit.uikit.pdb",
             BIN_DIR + "nunit.engine.api.dll",
             BIN_DIR + "nunit.engine.dll",
-            BIN_DIR + "nunit.engine.addins",
             BIN_DIR + "Mono.Cecil.dll",
             BIN_DIR + "nunit-agent.exe",
             BIN_DIR + "nunit-agent.exe.config",
