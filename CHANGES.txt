@@ -1,4 +1,27 @@
-﻿NUnit-Gui 0.3 - January 1, 2017
+﻿NUnit-Gui 0.4 - June 21, 2017
+
+Issues Resolved
+
+ * 14     Display relative path in GUI's tree (option)
+ * 26     Explicit tests are executed if a category is excluded
+ * 112    Add icons to solution
+ * 127    Decide Framework and C# levels for the gui project
+ * 130    Corrupted NUNit30Settings file
+ * 131    Initial Tree Display setting is not honored
+ * 140    Add support for Multiple Asserts
+ * 154    Change default to run in a separate process, allowing 32-bit processes to work among other things
+ * 155    Cannot drag and drop test assemblies
+ * 156    Fix RunTree image for transparency.
+ * 163    No validation of tracelevel
+ * 164    Missing escaping of content of CDATA in AddXmlCDataSection
+ * 170    Test assembly locked
+ * 173    Test result message and stacktrace not always updated
+ * 176    Upgrade to version 3.6.1 of engine
+ * 179    Compiling the project on a machine with only VS 2017
+ * 184    The path is not of a legal form exception on load
+ * 192    Nuget package for engine doesn't have agent config files
+
+NUnit-Gui 0.3 - January 1, 2017
 
 Issues Resolved
 
