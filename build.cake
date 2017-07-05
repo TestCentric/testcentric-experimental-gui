@@ -182,6 +182,38 @@ Task("PackageZip")
         Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
     });
 
+Task("PackageChocolatey")
+    .IsDependentOn("Build")
+    .Does(() =>
+    {
+        CreateDirectory(PACKAGE_DIR);
+
+		ChocolateyPack("choco/nunit-gui.nuspec", 
+			new ChocolateyPackSettings()
+			{
+				Version = packageVersion,
+				OutputDirectory = PACKAGE_DIR,
+				Files = new ChocolateyNuSpecContent[]
+                {
+                    new ChocolateyNuSpecContent() { Source = "../LICENSE" },
+                    new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe.config", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.uikit.dll", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.dll", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.api.dll", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "Mono.Cecil.dll", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent.exe", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent.exe.config", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = "nunit-agent.exe.ignore", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent-x86.exe", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent-x86.exe.config", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = "nunit-agent-x86.exe.ignore", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = "nunit.choco.addins", Target="tools" }
+                }
+			});
+    });
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
@@ -191,7 +223,8 @@ Task("Rebuild")
     .IsDependentOn("Build");
 
 Task("Package")
-    .IsDependentOn("PackageZip");
+    .IsDependentOn("PackageZip")
+    .IsDependentOn("PackageChocolatey");
 
 Task("Appveyor")
     .IsDependentOn("Build")

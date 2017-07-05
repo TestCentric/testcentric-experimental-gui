@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>nunit-gui</id>
+    <version>0.0.0</version>
+    <title>NUnit 3 GUI Runner</title>
+    <summary>GUI runner for the NUnit 3 unit-testing framework.</summary>
+    <description>
+      This package includes the nunit-gui runner and test engine for version 3 of the NUnit unit-testing framework.
+    </description>
+    <projectSourceUrl>https://github.com/CharliePoole/nunit-gui</projectSourceUrl>
+    <docsUrl>https://github.com/CharliePoole/nunit-gui/wiki</docsUrl>
+    <bugTrackerUrl>https://github.com/CharliePoole/nunit-gui/issues</bugTrackerUrl>
+    <iconUrl>https://cdn.rawgit.com/nunit/resources/master/images/icon/nunit_256.png</iconUrl>
+    <packageSourceUrl>https://github.com/CharliePoole/nunit-gui</packageSourceUrl>
+    <releaseNotes>https://raw.githubusercontent.com/CharliePoole/nunit-gui/master/CHANGES.txt</releaseNotes>
+    <mailingListUrl>https://groups.google.com/forum/#!forum/nunit-discuss</mailingListUrl>
+    <licenseUrl>http://nunit.org/nuget/nunit3-license.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>Charlie Poole</authors>
+    <owners>Charlie Poole</owners>
+    <language>en-US</language>
+    <tags>nunit gui runner test testing tdd</tags>
+    <copyright>Copyright (c) 2017 Charlie Poole</copyright>
+  </metadata>
+</package>
