@@ -95,6 +95,17 @@ namespace NUnit.Gui.Presenters
             _view.Received().OnTestPassed();
         }
 
+        [Test]
+        public void WhenTestsFinish_TestResultsAreCalculated()
+        {
+            var result = new ResultNode(XmlHelper.CreateXmlNode("<test-run/>"));
+
+            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
+
+            _view.Received().OnRunFinished(0);
+            _view.Received().OnTestRunSummaryCompiled(Arg.Any<string>());
+        }
+
         //[Test]
         //public void WhenTestSuiteCompletes_ProgressIsNotIncremented()
         //{

@@ -21,6 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System.Text;
 using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
@@ -37,6 +38,7 @@ namespace NUnit.Gui.Views
         void OnTestFailed();
         void OnTestWarning();
         void OnTestInconclusive();
+        void OnTestRunSummaryCompiled(string testRunSummary);
     }
 
     public partial class StatusBarView : UserControl, IStatusBarView
@@ -49,10 +51,17 @@ namespace NUnit.Gui.Views
         private int _failedCount;
         private int _warningCount;
         private int _inconclusiveCount;
+        private ToolTip _resultSummaryToolTip;
 
         public StatusBarView()
         {
             InitializeComponent();
+            _resultSummaryToolTip = new ToolTip()
+            {
+                IsBalloon = true,
+                UseAnimation = true,
+                UseFading = true,
+            };
         }
 
         public void OnTestLoaded(int testCount)
@@ -100,6 +109,15 @@ namespace NUnit.Gui.Views
             {
                 StatusLabel.Text = "Completed";
                 DisplayTime(elapsedTime);
+            });
+        }
+
+        public void OnTestRunSummaryCompiled(string testRunSummary)
+        {
+            InvokeIfRequired(() =>
+            {
+                _resultSummaryToolTip.ToolTipTitle = "Tests Run Summary";
+                _resultSummaryToolTip.Show(testRunSummary, this, 10000);
             });
         }
 
@@ -163,6 +181,7 @@ namespace NUnit.Gui.Views
 
         private void ClearCounters()
         {
+            InvokeIfRequired(() => _resultSummaryToolTip.Hide(this));
             _testsRun = 0;
             _passedCount = 0;
             _failedCount = 0;
