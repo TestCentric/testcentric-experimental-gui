@@ -100,7 +100,7 @@ namespace NUnit.Gui.Presenters
         {
             var result = new ResultNode(XmlHelper.CreateXmlNode("<test-run/>"));
 
-            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
+            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, result));
 
             _view.Received().OnRunFinished(0);
             _view.Received().OnTestRunSummaryCompiled(Arg.Any<string>());

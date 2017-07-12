@@ -22,7 +22,6 @@
 // ***********************************************************************
 
 using System.Globalization;
-using System.IO;
 using System.Text;
 
 namespace NUnit.Gui.Model
@@ -31,57 +30,43 @@ namespace NUnit.Gui.Model
     {
         public static string WriteSummaryReport(ResultSummary summary)
         {
-            var sb = new StringBuilder();
-            using (var writer = new StringWriter(sb))
+            var writer = new StringBuilder();
+            writer.AppendLine($"Overall result: {summary.OverallResult}");
+
+            writer.AppendUICultureFormattedNumber("  Test Count: ", summary.TestCount);
+            writer.AppendUICultureFormattedNumber(", Passed: ", summary.PassCount);
+            writer.AppendUICultureFormattedNumber(", Failed: ", summary.FailedCount);
+            writer.AppendUICultureFormattedNumber(", Warnings: ", summary.WarningCount);
+            writer.AppendUICultureFormattedNumber(", Inconclusive: ", summary.InconclusiveCount);
+            writer.AppendUICultureFormattedNumber(", Skipped: ", summary.TotalSkipCount);
+            writer.AppendLine();
+
+            if (summary.FailedCount > 0)
             {
-                writer.WriteLabelLine("Overall result: ", summary.OverallResult);
-
-                writer.WriteSummaryCount("  Test Count: ", summary.TestCount);
-                writer.WriteSummaryCount(", Passed: ", summary.PassCount);
-                writer.WriteSummaryCount(", Failed: ", summary.FailedCount/*, ColorStyle.Failure*/);
-                writer.WriteSummaryCount(", Warnings: ", summary.WarningCount/*, ColorStyle.Warning*/);
-                writer.WriteSummaryCount(", Inconclusive: ", summary.InconclusiveCount);
-                writer.WriteSummaryCount(", Skipped: ", summary.TotalSkipCount);
-                writer.WriteLine();
-
-                if (summary.FailedCount > 0)
-                {
-                    writer.WriteSummaryCount("    Failed Tests - Failures: ", summary.FailureCount);
-                    writer.WriteSummaryCount(", Errors: ", summary.ErrorCount/*, ColorStyle.Error*/);
-                    writer.WriteSummaryCount(", Invalid: ", summary.InvalidCount);
-                    writer.WriteLine();
-                }
-                if (summary.TotalSkipCount > 0)
-                {
-                    writer.WriteSummaryCount("    Skipped Tests - Ignored: ", summary.IgnoreCount);
-                    writer.WriteSummaryCount(", Explicit: ", summary.ExplicitCount);
-                    writer.WriteSummaryCount(", Other: ", summary.SkipCount);
-                    writer.WriteLine();
-                }
-
-                writer.WriteLabelLine("  Start time: ", summary.StartTime.ToString("u"));
-                writer.WriteLabelLine("    End time: ", summary.EndTime.ToString("u"));
-                writer.WriteLabelLine("    Duration: ", string.Format(NumberFormatInfo.InvariantInfo, "{0:0.000} seconds", summary.Duration));
-
-                return sb.ToString();
+                writer.AppendUICultureFormattedNumber("    Failed Tests - Failures: ", summary.FailureCount);
+                writer.AppendUICultureFormattedNumber(", Errors: ", summary.ErrorCount);
+                writer.AppendUICultureFormattedNumber(", Invalid: ", summary.InvalidCount);
+                writer.AppendLine();
             }
+            if (summary.TotalSkipCount > 0)
+            {
+                writer.AppendUICultureFormattedNumber("    Skipped Tests - Ignored: ", summary.IgnoreCount);
+                writer.AppendUICultureFormattedNumber(", Explicit: ", summary.ExplicitCount);
+                writer.AppendUICultureFormattedNumber(", Other: ", summary.SkipCount);
+                writer.AppendLine();
+            }
+
+            writer.AppendLine($"  Start time: {summary.StartTime:u}");
+            writer.AppendLine($"    End time: {summary.EndTime:u}");
+            writer.AppendLine($"    Duration: {summary.Duration:0.000}");
+
+            return writer.ToString();
         }
 
-        private static void WriteLabelLine(this TextWriter writer, string line, object option)
+        private static void AppendUICultureFormattedNumber(this StringBuilder sb, string label, int number)
         {
-            writer.WriteLabel(line, option);
-            writer.WriteLine();
-        }
-
-        private static void WriteLabel(this TextWriter writer, string label, object option)
-        {
-            writer.Write(label);
-            writer.Write(option.ToString());
-        }
-
-        private static void WriteSummaryCount(this TextWriter writer, string label, int count)
-        {
-            writer.WriteLabel(label, count.ToString(CultureInfo.CurrentUICulture));
+            sb.Append(label);
+            sb.Append(number.ToString("n0", CultureInfo.CurrentUICulture));
         }
     }
 }

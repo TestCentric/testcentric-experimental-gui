@@ -55,58 +55,68 @@ namespace NUnit.Gui.Model
                 case "test-case":
                     summary.TestCount++;
 
-                    switch (status)
-                    {
-                        case "Passed":
-                            summary.PassCount++;
-                            break;
-                        case "Failed":
-                            if (label == null)
-                                summary.FailureCount++;
-                            else if (label == "Invalid")
-                                summary.InvalidCount++;
-                            else
-                                summary.ErrorCount++;
-                            break;
-                        case "Warning":
-                            summary.WarningCount++;
-                            break;
-                        case "Inconclusive":
-                            summary.InconclusiveCount++;
-                            break;
-                        case "Skipped":
-                            if (label == "Ignored")
-                                summary.IgnoreCount++;
-                            else if (label == "Explicit")
-                                summary.ExplicitCount++;
-                            else
-                                summary.SkipCount++;
-                            break;
-                        default:
-                            summary.SkipCount++;
-                            break;
-                    }
+                    SummarizeTestCase(summary, status, label);
                     break;
 
                 case "test-suite":
-                    if (status == "Failed" && label == "Invalid")
-                    {
-                        if (type == "Assembly") summary.InvalidAssemblies++;
-                        else summary.InvalidTestFixtures++;
-                    }
-                    if (type == "Assembly" && status == "Failed" && label == "Error")
-                    {
-                        summary.InvalidAssemblies++;
-                        summary.UnexpectedError = true;
-                    }
-
-                    Summarize(node.ChildNodes, summary);
+                    SummarizeTestSuite(node.ChildNodes, summary, type, status, label);
                     break;
 
                 case "test-run":
                     Summarize(node.ChildNodes, summary);
                     break;
             }
+        }
+
+        private static void SummarizeTestCase(ResultSummary summary, string status, string label)
+        {
+            switch (status)
+            {
+                case "Passed":
+                    summary.PassCount++;
+                    break;
+                case "Failed":
+                    if (label == null)
+                        summary.FailureCount++;
+                    else if (label == "Invalid")
+                        summary.InvalidCount++;
+                    else
+                        summary.ErrorCount++;
+                    break;
+                case "Warning":
+                    summary.WarningCount++;
+                    break;
+                case "Inconclusive":
+                    summary.InconclusiveCount++;
+                    break;
+                case "Skipped":
+                    if (label == "Ignored")
+                        summary.IgnoreCount++;
+                    else if (label == "Explicit")
+                        summary.ExplicitCount++;
+                    else
+                        summary.SkipCount++;
+                    break;
+                default:
+                    summary.SkipCount++;
+                    break;
+            }
+        }
+
+        private static void SummarizeTestSuite(XmlNodeList childNodes, ResultSummary summary, string type, string status, string label)
+        {
+            if (status == "Failed" && label == "Invalid")
+            {
+                if (type == "Assembly") summary.InvalidAssemblies++;
+                else summary.InvalidTestFixtures++;
+            }
+            if (type == "Assembly" && status == "Failed" && label == "Error")
+            {
+                summary.InvalidAssemblies++;
+                summary.UnexpectedError = true;
+            }
+
+            Summarize(childNodes, summary);
         }
 
         private static void Summarize(XmlNodeList nodes, ResultSummary summary)

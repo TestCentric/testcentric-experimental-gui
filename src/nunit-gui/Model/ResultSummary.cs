@@ -50,12 +50,24 @@ namespace NUnit.Gui.Model
         /// </summary>
         public int TotalSkipCount => SkipCount + IgnoreCount + ExplicitCount;
 
+        /// <summary>
+        /// overall result of the test run as returned by the engine
+        /// </summary>
         public string OverallResult { get; set; }
 
+        /// <summary>
+        /// Total time in fractional seconds how long the test run lasted as returned by the engine
+        /// </summary>
         public double Duration { get; set; }
 
+        /// <summary>
+        /// Time the test run was started
+        /// </summary>
         public DateTime StartTime { get; set; }
 
+        /// <summary>
+        /// Time the test run ended
+        /// </summary>
         public DateTime EndTime { get; set; }
 
         /// <summary>
@@ -65,10 +77,13 @@ namespace NUnit.Gui.Model
         /// </summary>
         public int TestCount { get; set; }
 
+        /// <summary>
+        /// Total number of test cases for which results were marked as warning.
+        /// </summary>
         public int WarningCount { get; set; }
 
         /// <summary>
-        /// Gets the count of passed tests
+        /// Total number of test cases for which results were marked as passed.
         /// </summary>
         public int PassCount { get; set; }
 
