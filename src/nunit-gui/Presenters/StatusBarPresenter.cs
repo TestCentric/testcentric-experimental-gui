@@ -21,10 +21,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace NUnit.Gui.Presenters
 {
@@ -84,6 +82,8 @@ namespace NUnit.Gui.Presenters
         private void OnRunFinished(TestResultEventArgs ea)
         {
             _view.OnRunFinished(ea.Result.Duration);
+            var summary = ResultSummaryCreator.FromResultNode(ea.Result);
+            _view.OnTestRunSummaryCompiled(ResultSummaryReporter.WriteSummaryReport(summary));
         }
 
         public void OnTestStarting(TestNodeEventArgs e)

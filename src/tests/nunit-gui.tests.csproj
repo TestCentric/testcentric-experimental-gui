@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Model\ResultNodeTests.cs" />
     <Compile Include="Model\ResultStateTests.cs" />
+    <Compile Include="Model\ResultSummaryCreatorTests.cs" />
+    <Compile Include="Model\ResultSummaryReporterTests.cs" />
     <Compile Include="Model\TestModelAssemblyTests.cs" />
     <Compile Include="Model\TestModelPackageTests.cs" />
     <Compile Include="Model\TestSelectionTests.cs" />
