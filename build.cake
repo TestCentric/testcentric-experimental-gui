@@ -11,7 +11,7 @@ var configuration = Argument("configuration", "Debug");
 // SET PACKAGE VERSION
 //////////////////////////////////////////////////////////////////////
 
-var version = "0.4";
+var version = "0.5";
 var modifier = "";
 
 var isAppveyor = BuildSystem.IsRunningOnAppVeyor;

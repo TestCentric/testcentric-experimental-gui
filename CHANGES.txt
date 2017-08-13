@@ -1,4 +1,12 @@
-﻿NUnit-Gui 0.4 - June 21, 2017
+﻿NUnit-Gui 0.5 - August 12, 2017
+
+Issues Resolved
+
+ * 60	Get extensions working for the GUI
+ * 204	Move the GUI repository
+ * 205	Create a Chocolatey package for the GUI
+
+NUnit-Gui 0.4 - June 21, 2017
 
 Issues Resolved
 
