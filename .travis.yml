@@ -1,8 +1,5 @@
 language: csharp
 sudo: false
-os:
-  - linux
-  - osx
 mono:
   - latest
   - 4.6.2
