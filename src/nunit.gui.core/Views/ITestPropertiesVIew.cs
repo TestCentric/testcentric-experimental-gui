@@ -46,8 +46,7 @@ namespace NUnit.Gui.Views
         string Outcome { get; set; }
         string ElapsedTime { get; set; }
         string AssertCount { get; set; }
-        string Message { get; set; }
-        string StackTrace { get; set; }
+        string Assertions { get; set; }
         string Output { get; set; }
     }
 }
