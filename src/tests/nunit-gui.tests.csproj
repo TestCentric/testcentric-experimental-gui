@@ -104,6 +104,10 @@
       <Project>{9e15166c-d2b7-4b24-ab1c-1c69ffcec9d3}</Project>
       <Name>nunit-gui</Name>
     </ProjectReference>
+    <ProjectReference Include="..\nunit.gui.core\nunit.gui.core.csproj">
+      <Project>{e978a8d7-e4a4-4de9-94df-d82bd764936b}</Project>
+      <Name>nunit.gui.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
       <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
       <Name>nunit.uikit</Name>

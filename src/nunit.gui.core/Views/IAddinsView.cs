@@ -21,21 +21,12 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+using NUnit.Engine.Extensibility;
 
-namespace NUnit.Gui.Model
+namespace NUnit.Gui.Views
 {
-    /// <summary>
-    /// Indicates how a tree should be displayed
-    /// </summary>
-    public enum TreeDisplayStyle
+    public interface IAddinsView : IDialog
     {
-        Auto,		// Select based on space available
-        Expand,		// Expand fully
-        Collapse,	// Collapse fully
-        HideTests	// Expand all but the fixtures, leaving
-        // leaf nodes hidden
+        void AddExtensionPoint(IExtensionPoint extensionPoint);
     }
 }

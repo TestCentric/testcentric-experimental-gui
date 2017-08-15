@@ -21,9 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace NUnit.Gui.Model.Settings
 {
     using Engine;
@@ -32,18 +29,29 @@ namespace NUnit.Gui.Model.Settings
     /// SettingsModel is the top level of a set of wrapper
     /// classes that provide type-safe access to settingsService.
     /// </summary>
-    public class SettingsModel : SettingsWrapper
+    public class EngineSettings : SettingsWrapper
     {
-        public SettingsModel(ISettings settingsService) : base(settingsService, null) { }
+        public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
 
-        public GuiSettings Gui
+        private const string reloadOnChangeKey = "ReloadOnChange";
+        public bool ReloadOnChange
         {
-            get { return new GuiSettings(SettingsService); }
+            get { return GetSetting(reloadOnChangeKey, true); }
+            set { SaveSetting(reloadOnChangeKey, value); }
         }
 
-        public EngineSettings Engine
+        private const string rerunOnChangeKey = "RerunOnChange";
+        public bool RerunOnChange
         {
-            get { return new EngineSettings(SettingsService); }
+            get { return GetSetting(rerunOnChangeKey, false); }
+            set { SaveSetting(rerunOnChangeKey, value); }
+        }
+
+        private const string reloadOnRunKey = "ReloadOnRun";
+        public bool ReloadOnRun
+        {
+            get { return GetSetting(reloadOnRunKey, false); }
+            set { SaveSetting(reloadOnRunKey, value); }
         }
     }
 }

@@ -49,34 +49,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineOptions.cs" />
-    <Compile Include="Model\ITestItem.cs" />
-    <Compile Include="Model\ITestModel.cs" />
-    <Compile Include="Model\ResultSummary.cs" />
-    <Compile Include="Model\ResultSummaryCreator.cs" />
-    <Compile Include="Model\ResultSummaryReporter.cs" />
-    <Compile Include="Model\Settings\EngineSettings.cs" />
-    <Compile Include="Model\Settings\TestTreeSettings.cs" />
-    <Compile Include="Model\Settings\GuiSettings.cs" />
-    <Compile Include="Model\Settings\SettingsWrapper.cs" />
-    <Compile Include="Model\Settings\SettingsModel.cs" />
-    <Compile Include="Model\TestAction.cs" />
-    <Compile Include="Model\TestEventArgs.cs" />
-    <Compile Include="Model\ResultNode.cs" />
-    <Compile Include="Model\TestSelection.cs" />
-    <Compile Include="Model\ResultState.cs" />
-    <Compile Include="Model\RunState.cs" />
-    <Compile Include="Model\TestModel.cs" />
-    <Compile Include="Model\TestNode.cs" />
-    <Compile Include="Model\TestStartNotice.cs" />
-    <Compile Include="Model\TestStatus.cs" />
-    <Compile Include="Options.cs" />
     <Compile Include="Presenters\AddinsPresenter.cs" />
     <Compile Include="Presenters\CategoryGrouping.cs" />
     <Compile Include="Presenters\GroupDisplayStrategy.cs" />
@@ -174,7 +151,6 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\TreeDisplayStyle.cs" />
     <Compile Include="Views\XmlView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,6 +205,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\nunit.gui.core\nunit.gui.core.csproj">
+      <Project>{e978a8d7-e4a4-4de9-94df-d82bd764936b}</Project>
+      <Name>nunit.gui.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
       <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
       <Name>nunit.uikit</Name>
@@ -270,6 +250,9 @@
       <Link>nunit-agent.exe.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

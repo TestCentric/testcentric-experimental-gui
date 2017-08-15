@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,21 +21,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Xml;
-
-namespace NUnit.Gui.Model
+namespace NUnit.UiKit
 {
-    public class TestStartNotice
+    /// <summary>
+    /// Enumeration indicating what buttons to display in a message display.
+    /// The values used are limited in order to be able to translate
+    /// them for use on multiple gui frameworks.
+    /// </summary>
+    public enum MessageButtons
     {
-        public TestStartNotice(XmlNode xmlNode)
-        {
-            this.Id = xmlNode.GetAttribute("id");
-            this.Name = xmlNode.GetAttribute("name");
-            this.FullName = xmlNode.GetAttribute("fullname");
-        }
-
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string FullName { get; private set; }
+        OK,
+        OKCancel,
+        YesNo
     }
 }

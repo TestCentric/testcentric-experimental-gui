@@ -24,12 +24,6 @@
 using System.IO;
 using System.Xml;
 
-namespace System.Runtime.CompilerServices
-{
-    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method)]
-    public sealed class ExtensionAttribute : Attribute { }
-}
-
 namespace NUnit.Gui
 {
     /// <summary>
