@@ -26,21 +26,6 @@ using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
 {
-    // Interface is used by presenter and tests
-    public interface IStatusBarView : IView
-    {
-        void OnTestLoaded(int testCount);
-        void OnTestUnloaded();
-        void OnRunStarting(int testCount);
-        void OnRunFinished(double elapsedTime);
-        void OnTestStarting(string name);
-        void OnTestPassed();
-        void OnTestFailed();
-        void OnTestWarning();
-        void OnTestInconclusive();
-        void OnTestRunSummaryCompiled(string testRunSummary);
-    }
-
     public partial class StatusBarView : UserControl, IStatusBarView
     {
         // Counters are maintained in the view even though

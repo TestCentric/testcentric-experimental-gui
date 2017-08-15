@@ -21,15 +21,12 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+using NUnit.Engine.Extensibility;
 
 namespace NUnit.Gui.Views
 {
-    public interface ISettingsDialog
+    public interface IAddinsView : IDialog
     {
-        DialogResult Display();
+        void AddExtensionPoint(IExtensionPoint extensionPoint);
     }
 }

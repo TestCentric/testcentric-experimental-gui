@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,18 +21,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-
-namespace NUnit.Gui.Views
+namespace NUnit.UiKit
 {
-    public interface IDialogManager
+    /// <summary>
+    /// Enumeration indicating what buttons to display in a message display.
+    /// The values used are limited in order to be able to translate
+    /// them for use on multiple gui frameworks.
+    /// </summary>
+    public enum MessageButtons
     {
-        string[] GetFilesToOpen();
-
-        string GetFileOpenPath(string filter);
-
-        string GetSaveAsPath(string filter);
-
-        string GetFolderPath(string message, string initialPath);
+        OK,
+        OKCancel,
+        YesNo
     }
 }

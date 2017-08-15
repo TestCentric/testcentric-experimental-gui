@@ -21,34 +21,32 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Windows.Forms;
 using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
-    // Interface used for testing
-    public interface ITestTreeView : IView
+    public interface ITestPropertiesView : IView
     {
-        ICommand RunButton { get; }
-        ICommand RunAllCommand { get; }
-        ICommand RunSelectedCommand { get; }
-        ICommand RunFailedCommand { get; }
-        ICommand StopRunCommand { get; }
+        event CommandHandler DisplayHiddenPropertiesChanged;
 
-        IToolStripElement FormatButton { get; }
-        ISelection DisplayFormat { get; }
-        ISelection GroupBy { get; }
+        bool Visible { get; set; }
+        string Header { get; set; }
+        IViewElement TestPanel { get; }
+        IViewElement ResultPanel { get; }
 
-        ICommand RunContextCommand { get; }
-        ICommand RunCheckedCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
-        ICommand ExpandAllCommand { get; }
-        ICommand CollapseAllCommand { get; }
-        ICommand CollapseToFixturesCommand { get; }
-
-        void ExpandAll();
-        void CollapseAll();
-
-        ITreeViewElement Tree { get; }
+        string TestType { get; set; }
+        string FullName { get; set; }
+        string Description { get; set; }
+        string Categories { get; set; }
+        string TestCount { get; set; }
+        string RunState { get; set; }
+        string SkipReason { get; set; }
+        bool DisplayHiddenProperties { get; }
+        string Properties { get; set; }
+        string Outcome { get; set; }
+        string ElapsedTime { get; set; }
+        string AssertCount { get; set; }
+        string Assertions { get; set; }
+        string Output { get; set; }
     }
 }

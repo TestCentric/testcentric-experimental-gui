@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,41 +21,19 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Drawing;
-using System.Security.Principal;
-using System.Windows.Forms;
-
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.UiKit
 {
-    using Engine;
-
     /// <summary>
-    /// SettingsModel is the top level of a set of wrapper
-    /// classes that provide type-safe access to settingsService.
+    /// Results returned by dialogs and message displays. The
+    /// values used are limited in order to be able to translate
+    /// them for use on multiple gui frameworks.
     /// </summary>
-    public class EngineSettings : SettingsWrapper
+    public enum DialogResult
     {
-        public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
-
-        private const string reloadOnChangeKey = "ReloadOnChange";
-        public bool ReloadOnChange
-        {
-            get { return GetSetting(reloadOnChangeKey, true); }
-            set { SaveSetting(reloadOnChangeKey, value); }
-        }
-
-        private const string rerunOnChangeKey = "RerunOnChange";
-        public bool RerunOnChange
-        {
-            get { return GetSetting(rerunOnChangeKey, false); }
-            set { SaveSetting(rerunOnChangeKey, value); }
-        }
-
-        private const string reloadOnRunKey = "ReloadOnRun";
-        public bool ReloadOnRun
-        {
-            get { return GetSetting(reloadOnRunKey, false); }
-            set { SaveSetting(reloadOnRunKey, value); }
-        }
+        None,
+        OK,
+        Cancel,
+        Yes,
+        No
     }
 }

@@ -21,16 +21,16 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Drawing;
-
 namespace NUnit.Gui.Views
 {
-    public interface IView
+    public interface IDialogManager
     {
-        event EventHandler Load;
+        string[] GetFilesToOpen();
 
-        void SuspendLayout();
-        void ResumeLayout();
+        string GetFileOpenPath(string filter);
+
+        string GetSaveAsPath(string filter);
+
+        string GetFolderPath(string message, string initialPath);
     }
 }

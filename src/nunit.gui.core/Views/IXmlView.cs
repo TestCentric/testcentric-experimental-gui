@@ -1,5 +1,6 @@
-﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+﻿using System;
+// ***********************************************************************
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,39 +22,24 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.UiKit.Elements
+using System.Windows.Forms;
+using System.Xml;
+using NUnit.UiKit.Elements;
+
+namespace NUnit.Gui.Views
 {
-    /// <summary>
-    /// CommandHandler is used to request an action
-    /// </summary>
-    public delegate void CommandHandler();
-
-    /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
-    /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
-    /// </summary>
-    public interface ICommand : IViewElement
+    public interface IXmlView : IView
     {
-        /// <summary>
-        /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
-        /// </summary>
-        event CommandHandler Execute;
-
-        string ToolTipText { get; set; }
-    }
-
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
-
-        string ToolTipText { get; set; }
+        bool Visible { get; set; }
+        string Header { get; set; }
+        IViewElement XmlPanel { get; }
+        IControlElement<RichTextBox> XmlTextBox { get; }
+        IMenu CopyToolStripMenuItem { get; }
+        IMenu WordWrapToolStripMenuItem { get; }
+        XmlNode TestXml { get; set; }
+        event CommandHandler SelectAllCommand;
+        event CommandHandler SelectionChanged;
+        event CommandHandler CopyCommand;
+        event CommandHandler WordWrapChanged;
     }
 }

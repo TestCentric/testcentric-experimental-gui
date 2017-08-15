@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,39 +21,17 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.UiKit.Elements
+namespace NUnit.Gui.Model
 {
     /// <summary>
-    /// CommandHandler is used to request an action
+    /// Indicates how a tree should be displayed
     /// </summary>
-    public delegate void CommandHandler();
-
-    /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
-    /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
-    /// </summary>
-    public interface ICommand : IViewElement
+    public enum TreeDisplayStyle
     {
-        /// <summary>
-        /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
-        /// </summary>
-        event CommandHandler Execute;
-
-        string ToolTipText { get; set; }
-    }
-
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
-
-        string ToolTipText { get; set; }
+        Auto,		// Select based on space available
+        Expand,		// Expand fully
+        Collapse,	// Collapse fully
+        HideTests	// Expand all but the fixtures, leaving
+        // leaf nodes hidden
     }
 }

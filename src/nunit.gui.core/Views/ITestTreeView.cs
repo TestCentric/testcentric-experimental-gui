@@ -21,21 +21,33 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Xml;
+using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Model
+namespace NUnit.Gui.Views
 {
-    public class TestStartNotice
+    // Interface used for testing
+    public interface ITestTreeView : IView
     {
-        public TestStartNotice(XmlNode xmlNode)
-        {
-            this.Id = xmlNode.GetAttribute("id");
-            this.Name = xmlNode.GetAttribute("name");
-            this.FullName = xmlNode.GetAttribute("fullname");
-        }
+        ICommand RunButton { get; }
+        ICommand RunAllCommand { get; }
+        ICommand RunSelectedCommand { get; }
+        ICommand RunFailedCommand { get; }
+        ICommand StopRunCommand { get; }
 
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string FullName { get; private set; }
+        IToolStripElement FormatButton { get; }
+        ISelection DisplayFormat { get; }
+        ISelection GroupBy { get; }
+
+        ICommand RunContextCommand { get; }
+        ICommand RunCheckedCommand { get; }
+        IChecked ShowCheckBoxesCommand { get; }
+        ICommand ExpandAllCommand { get; }
+        ICommand CollapseAllCommand { get; }
+        ICommand CollapseToFixturesCommand { get; }
+
+        void ExpandAll();
+        void CollapseAll();
+
+        ITreeViewElement Tree { get; }
     }
 }

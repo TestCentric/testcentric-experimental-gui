@@ -21,39 +21,26 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.UiKit.Elements
+namespace NUnit.Gui.Model.Settings
 {
-    /// <summary>
-    /// CommandHandler is used to request an action
-    /// </summary>
-    public delegate void CommandHandler();
+    using Engine;
 
     /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
+    /// SettingsModel is the top level of a set of wrapper
+    /// classes that provide type-safe access to settingsService.
     /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
-    /// </summary>
-    public interface ICommand : IViewElement
+    public class SettingsModel : SettingsWrapper
     {
-        /// <summary>
-        /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
-        /// </summary>
-        event CommandHandler Execute;
+        public SettingsModel(ISettings settingsService) : base(settingsService, null) { }
 
-        string ToolTipText { get; set; }
-    }
+        public GuiSettings Gui
+        {
+            get { return new GuiSettings(SettingsService); }
+        }
 
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
-
-        string ToolTipText { get; set; }
+        public EngineSettings Engine
+        {
+            get { return new EngineSettings(SettingsService); }
+        }
     }
 }
