@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Presenters\AddinsPresenter.cs" />
     <Compile Include="Presenters\CategoryGrouping.cs" />
     <Compile Include="Presenters\GroupDisplayStrategy.cs" />

@@ -27,5 +27,4 @@ using System.Reflection;
 // Change them to the _values specific to your project.
 
 [assembly: AssemblyTitle("mock-assembly")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyDescription("Mock assembly used to test loading of assemblies in GUI")]
