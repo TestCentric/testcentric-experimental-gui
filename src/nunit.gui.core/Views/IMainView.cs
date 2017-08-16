@@ -28,6 +28,15 @@ using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
+    /// <summary>
+    /// Handler when the main view has files dragged and dropped
+    /// </summary>
+    /// <param name="filesNames">list of file names of files dropped. Never null, potentially empty</param>
+    public delegate void DragEventHandler(string[] filesNames);
+
+    /// <summary>
+    /// Event when a close event is called by main view
+    /// </summary>
     public interface IMainView : IView
     {
         // General Window info
@@ -36,8 +45,8 @@ namespace NUnit.Gui.Views
         FormWindowState WindowState { get; set; }
         Font Font { get; set; }
 
-        event FormClosingEventHandler FormClosing;
-        event DragEventHandler DragDrop;
+        event CommandHandler MainViewClosing;
+        event DragEventHandler DragDropFiles;
 
         // File Menu
         IMenu FileMenu { get; }

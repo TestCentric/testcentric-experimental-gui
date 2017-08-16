@@ -21,6 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System.ComponentModel;
 using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
@@ -29,6 +30,9 @@ namespace NUnit.Gui.Views
 {
     public partial class MainForm : Form, IMainView
     {
+        public event CommandHandler MainViewClosing;
+        public event DragEventHandler DragDropFiles;
+
         public MainForm()
         {
             InitializeComponent();
@@ -145,9 +149,27 @@ namespace NUnit.Gui.Views
             statusBarView.Visible = statusBarToolStripMenuItem.Checked;
         }
 
-        protected override void OnDragEnter(DragEventArgs drgevent){
-            if(drgevent.Data.GetDataPresent(DataFormats.FileDrop))
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            MainViewClosing?.Invoke();
+            base.OnClosing(e);
+        }
+
+        protected override void OnDragEnter(DragEventArgs drgevent)
+        {
+            if (drgevent.Data.GetDataPresent(DataFormats.FileDrop))
+            {
                 drgevent.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        protected override void OnDragDrop(DragEventArgs drgevent)
+        {
+            base.OnDragDrop(drgevent);
+
+            string[] files = (string[])drgevent.Data.GetData(DataFormats.FileDrop);
+            if (files != null)
+                DragDropFiles?.Invoke(files);
         }
     }
 }
