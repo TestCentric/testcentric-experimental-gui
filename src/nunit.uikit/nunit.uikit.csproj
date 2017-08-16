@@ -45,6 +45,7 @@
     <Compile Include="Controls\NUnitProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DialogResult.cs" />
     <Compile Include="Elements\ControlElement.cs" />
     <Compile Include="Elements\CheckBoxElement.cs" />
     <Compile Include="Elements\CheckedMenuGroup.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Elements\ToolStripElement.cs" />
     <Compile Include="Elements\TreeViewElement.cs" />
     <Compile Include="IMessageDisplay.cs" />
+    <Compile Include="MessageButtons.cs" />
     <Compile Include="MessageDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\TipWindow.cs">
