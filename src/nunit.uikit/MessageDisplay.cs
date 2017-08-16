@@ -49,22 +49,22 @@ namespace NUnit.UiKit
 
         public DialogResult Display(string message)
         {
-            return Display(message, _defaultCaption, MessageBoxButtons.OK);
+            return Display(message, _defaultCaption, MessageButtons.OK);
         }
 
         public DialogResult Display(string message, string caption)
         {
-            return Display(message, caption, MessageBoxButtons.OK);
+            return Display(message, caption, MessageButtons.OK);
         }
 
-        public DialogResult Display(string message, MessageBoxButtons buttons)
+        public DialogResult Display(string message, MessageButtons buttons)
         {
             return Display(message, _defaultCaption, buttons);
         }
 
-        public DialogResult Display(string message, string caption, MessageBoxButtons buttons)
+        public DialogResult Display(string message, string caption, MessageButtons buttons)
         {
-            return MessageBox.Show(message, caption, buttons, MessageBoxIcon.None);
+            return ShowMessageBox(message, caption, buttons, MessageBoxIcon.None);
         }
 
         #endregion
@@ -73,37 +73,32 @@ namespace NUnit.UiKit
 
         public DialogResult Error(string message)
         {
-            return Error(message, _defaultCaption, MessageBoxButtons.OK);
+            return Error(message, _defaultCaption, MessageButtons.OK);
         }
 
         public DialogResult Error(string message, string caption)
         {
-            return Error(message, caption, MessageBoxButtons.OK);
+            return Error(message, caption, MessageButtons.OK);
         }
 
-        public DialogResult Error(string message, MessageBoxButtons buttons)
+        public DialogResult Error(string message, MessageButtons buttons)
         {
             return Error(message, _defaultCaption, buttons);
         }
 
-        public DialogResult Error(string message, string caption, MessageBoxButtons buttons)
+        public DialogResult Error(string message, string caption, MessageButtons buttons)
         {
-            return MessageBox.Show(message, caption, buttons, MessageBoxIcon.Stop);
+            return ShowMessageBox(message, caption, buttons, MessageBoxIcon.Stop);
         }
 
         public DialogResult Error(string message, Exception exception)
         {
-            return Error(message, exception, MessageBoxButtons.OK);
+            return Error(message, exception, MessageButtons.OK);
         }
 
-        public DialogResult Error(string message, Exception exception, MessageBoxButtons buttons)
+        public DialogResult Error(string message, Exception exception, MessageButtons buttons)
         {
-            return Error( BuildMessage(message, exception, false), buttons);
-        }
-
-        public DialogResult FatalError(string message, Exception exception)
-        {
-            return Error( BuildMessage(message, exception, true), MessageBoxButtons.OK);
+            return Error( BuildMessage(message, exception), buttons);
         }
 
         #endregion
@@ -112,22 +107,22 @@ namespace NUnit.UiKit
 
         public DialogResult Info(string message)
         {
-            return Info(message, MessageBoxButtons.OK);
+            return Info(message, MessageButtons.OK);
         }
 
         public DialogResult Info(string message, string caption)
         {
-            return Info(message, caption, MessageBoxButtons.OK);
+            return Info(message, caption, MessageButtons.OK);
         }
 
-        public DialogResult Info(string message, MessageBoxButtons buttons)
+        public DialogResult Info(string message, MessageButtons buttons)
         {
             return Info(message, _defaultCaption, buttons);
         }
 
-        public DialogResult Info(string message, string caption, MessageBoxButtons buttons)
+        public DialogResult Info(string message, string caption, MessageButtons buttons)
         {
-            return MessageBox.Show(message, caption, buttons, MessageBoxIcon.Information);
+            return ShowMessageBox(message, caption, buttons, MessageBoxIcon.Information);
         }
 
         #endregion
@@ -136,22 +131,12 @@ namespace NUnit.UiKit
 
         public DialogResult Ask(string message)
         {
-            return Ask(message, _defaultCaption, MessageBoxButtons.YesNo);
+            return ShowMessageBox(message, _defaultCaption, MessageButtons.YesNo, MessageBoxIcon.Question);
         }
 
         public DialogResult Ask(string message, string caption)
         {
-            return Ask(message, caption, MessageBoxButtons.YesNo);
-        }
-
-        public DialogResult Ask(string message, MessageBoxButtons buttons)
-        {
-            return Ask(message, _defaultCaption, buttons);
-        }
-
-        public DialogResult Ask(string message, string caption, MessageBoxButtons buttons)
-        {
-            return MessageBox.Show(message, caption, buttons, MessageBoxIcon.Question);
+            return ShowMessageBox(message, caption, MessageButtons.YesNo, MessageBoxIcon.Question);
         }
 
         #endregion
@@ -159,6 +144,33 @@ namespace NUnit.UiKit
         #endregion
 
         #region Helper Methods
+
+        private static DialogResult ShowMessageBox(string message, string caption, MessageButtons buttons, MessageBoxIcon icon)
+        {
+            var messageBoxButtons =
+                buttons == MessageButtons.YesNo
+                    ? MessageBoxButtons.YesNo
+                    : buttons == MessageButtons.OKCancel
+                        ? MessageBoxButtons.OKCancel
+                        : MessageBoxButtons.OK;
+
+            var result = MessageBox.Show(message, caption, messageBoxButtons, icon);
+
+            switch (result)
+            {
+                default:
+                case System.Windows.Forms.DialogResult.None:
+                    return DialogResult.None;
+                case System.Windows.Forms.DialogResult.OK:
+                    return DialogResult.OK;
+                case System.Windows.Forms.DialogResult.Cancel:
+                    return DialogResult.Cancel;
+                case System.Windows.Forms.DialogResult.Yes:
+                    return DialogResult.Yes;
+                case System.Windows.Forms.DialogResult.No:
+                    return DialogResult.No;
+            }
+        }
 
         private static string BuildMessage(Exception exception)
         {
@@ -176,13 +188,9 @@ namespace NUnit.UiKit
             return sb.ToString();
         }
 
-        private static string BuildMessage(string message, Exception exception, bool isFatal)
+        private static string BuildMessage(string message, Exception exception)
         {
-            string msg = message + Environment.NewLine + Environment.NewLine + BuildMessage(exception);
-
-            return isFatal
-                ? msg
-                : msg + Environment.NewLine + Environment.NewLine + "For further information, use the Exception Details menu item.";
+            return message + Environment.NewLine + Environment.NewLine + BuildMessage(exception);
         }
 
         #endregion

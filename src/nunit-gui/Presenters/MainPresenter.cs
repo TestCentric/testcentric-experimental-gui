@@ -223,7 +223,7 @@ namespace NUnit.Gui.Presenters
 
             string message = string.Format("New {0} setting will not take effect until you reload.\r\n\r\n\t\tReload Now?", key);
 
-            if (_view.MessageDisplay.Ask(message, "Settings Changed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (_view.MessageDisplay.Ask(message, "Settings Changed") == UiKit.DialogResult.Yes)
                 _model.ReloadTests();
         }
 
