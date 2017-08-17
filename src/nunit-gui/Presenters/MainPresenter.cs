@@ -158,7 +158,7 @@ namespace NUnit.Gui.Presenters
 
             // Set to maximized if required
             if (_model.Settings.Gui.MainForm.Maximized)
-                _view.WindowState = FormWindowState.Maximized;
+                _view.IsMaximized = true;
 
             // Set the font to use
             _view.Font = _model.Settings.Gui.MainForm.Font;
@@ -168,23 +168,12 @@ namespace NUnit.Gui.Presenters
 
         private void MainForm_Closing()
         {
-            var windowState = _view.WindowState;
-            var location = _view.Location;
-            var size = _view.Size;
+            var isMaximized = _model.Settings.Gui.MainForm.Maximized = _view.IsMaximized;
 
-            if (windowState == FormWindowState.Normal)
+            if (!isMaximized)
             {
-                _model.Settings.Gui.MainForm.Location = location;
-                _model.Settings.Gui.MainForm.Size = size;
-                _model.Settings.Gui.MainForm.Maximized = false;
-
-                //this.statusBar.SizingGrip = true;
-            }
-            else if (windowState == FormWindowState.Maximized)
-            {
-                _model.Settings.Gui.MainForm.Maximized = true;
-
-                //this.statusBar.SizingGrip = false;
+                _model.Settings.Gui.MainForm.Location = _view.Location;
+                _model.Settings.Gui.MainForm.Size = _view.Size;
             }
         }
 

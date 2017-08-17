@@ -22,7 +22,6 @@
 // ***********************************************************************
 
 using System.Drawing;
-using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
 
@@ -42,7 +41,7 @@ namespace NUnit.Gui.Views
         // General Window info
         Point Location { get; set; }
         Size Size { get; set; }
-        FormWindowState WindowState { get; set; }
+        bool IsMaximized { get; set; }
         Font Font { get; set; }
 
         event CommandHandler MainViewClosing;

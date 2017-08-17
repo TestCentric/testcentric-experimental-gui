@@ -90,6 +90,12 @@ namespace NUnit.Gui.Views
 
         #region IMainView Members
 
+        public bool IsMaximized
+        {
+            get { return WindowState == FormWindowState.Maximized; }
+            set { WindowState = value ? FormWindowState.Maximized : FormWindowState.Normal; }
+        }
+
         // File Menu
         public IMenu FileMenu { get; private set; }
         public ICommand NewProjectCommand { get; private set; }
