@@ -22,22 +22,30 @@
 // ***********************************************************************
 
 using System.Drawing;
-using System.Windows.Forms;
 using NUnit.UiKit;
 using NUnit.UiKit.Elements;
 
 namespace NUnit.Gui.Views
 {
+    /// <summary>
+    /// Handler when the main view has files dragged and dropped
+    /// </summary>
+    /// <param name="filesNames">list of file names of files dropped. Never null, potentially empty</param>
+    public delegate void DragEventHandler(string[] filesNames);
+
+    /// <summary>
+    /// Event when a close event is called by main view
+    /// </summary>
     public interface IMainView : IView
     {
         // General Window info
         Point Location { get; set; }
         Size Size { get; set; }
-        FormWindowState WindowState { get; set; }
+        bool IsMaximized { get; set; }
         Font Font { get; set; }
 
-        event FormClosingEventHandler FormClosing;
-        event DragEventHandler DragDrop;
+        event CommandHandler MainViewClosing;
+        event DragEventHandler DragDropFiles;
 
         // File Menu
         IMenu FileMenu { get; }
