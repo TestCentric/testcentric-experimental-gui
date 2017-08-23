@@ -37,16 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.engine, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\nunit.engine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="nunit.engine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\nunit.engine.api.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.api.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -228,19 +225,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="nunit.ico" />
-    <None Include="..\..\packages\NUnit.Engine.3.6.1\lib\nunit-agent-x86.exe">
+    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent-x86.exe">
       <Link>nunit-agent-x86.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\packages\NUnit.Engine.3.6.1\lib\nunit-agent-x86.exe.config">
+    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent-x86.exe.config">
       <Link>nunit-agent-x86.exe.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\packages\NUnit.Engine.3.6.1\lib\nunit-agent.exe">
+    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent.exe">
       <Link>nunit-agent.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\packages\NUnit.Engine.3.6.1\lib\nunit-agent.exe.config">
+    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent.exe.config">
       <Link>nunit-agent.exe.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
