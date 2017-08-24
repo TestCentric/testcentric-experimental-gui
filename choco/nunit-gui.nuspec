@@ -9,6 +9,7 @@
     <description>
       This package includes the nunit-gui runner and test engine for version 3 of the NUnit unit-testing framework.
     </description>
+    <projectUrl>http://nunit.org</projectUrl>
     <projectSourceUrl>https://github.com/CharliePoole/nunit-gui</projectSourceUrl>
     <docsUrl>https://github.com/CharliePoole/nunit-gui/wiki</docsUrl>
     <bugTrackerUrl>https://github.com/CharliePoole/nunit-gui/issues</bugTrackerUrl>
