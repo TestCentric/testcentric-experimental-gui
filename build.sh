@@ -113,6 +113,5 @@ if [ ! -f "$CAKE_EXE" ]; then
     exit 1
 fi
 
-echo "${CAKE_ARGUMENTS[@]}"
 # Start Cake
 exec mono "$CAKE_EXE" $SCRIPT "${CAKE_ARGUMENTS[@]}"
