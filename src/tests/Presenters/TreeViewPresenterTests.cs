@@ -29,7 +29,6 @@ namespace NUnit.Gui.Presenters
     using Framework;
     using Views;
     using Model;
-    using Model.Settings;
     using NUnit.UiKit.Elements;
 
     public class TreeViewPresenterTests
@@ -43,7 +42,6 @@ namespace NUnit.Gui.Presenters
         {
             _view = Substitute.For<ITestTreeView>();
             _model = Substitute.For<ITestModel>();
-            _model.Settings.Returns<SettingsModel>(new SettingsModel(new UserSettingsFake()));
 
             _presenter = new TreeViewPresenter(_view, _model);
 

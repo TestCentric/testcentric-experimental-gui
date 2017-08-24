@@ -23,7 +23,6 @@
 
 using System.Windows.Forms;
 using NSubstitute;
-using NUnit.Gui.Model.Settings;
 
 namespace NUnit.Gui.Presenters.TestTree
 {
@@ -31,6 +30,7 @@ namespace NUnit.Gui.Presenters.TestTree
     using Framework;
     using Model;
     using Views;
+    using Settings;
 
     public abstract class DisplayStrategyTests
     {
@@ -43,9 +43,6 @@ namespace NUnit.Gui.Presenters.TestTree
         {
             _view = Substitute.For<ITestTreeView>();
             _model = Substitute.For<ITestModel>();
-            var settingsService = Substitute.For<ISettings>();
-            var settingsModel = new SettingsModel(settingsService);
-            _model.Settings.Returns(settingsModel);
 
             _strategy = GetDisplayStrategy();
         }

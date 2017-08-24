@@ -28,6 +28,9 @@ using NUnit.Engine;
 
 namespace NUnit.Gui.Presenters
 {
+    // TODO: With latest changes, this is no longer used.
+    // Keeping it for a while, as we may end up wanting
+    // to write more tests that use it.
     class UserSettingsFake : ISettings
     {
         private Dictionary<string, object> _settings = new Dictionary<string, object>();
@@ -83,8 +86,7 @@ namespace NUnit.Gui.Presenters
         {
             _settings[settingName] = settingValue;
 
-            if (Changed != null)
-                Changed(this, new SettingsEventArgs(settingName));
+            Changed?.Invoke(this, new SettingsEventArgs(settingName));
         }
     }
 }

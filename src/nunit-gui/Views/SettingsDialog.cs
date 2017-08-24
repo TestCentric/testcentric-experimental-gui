@@ -27,7 +27,7 @@ using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
 {
-    using Model.Settings;
+    using Settings;
     using SettingsPages;
 
     public partial class SettingsDialog : Form, IDialog

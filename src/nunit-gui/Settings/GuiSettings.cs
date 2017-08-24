@@ -24,11 +24,11 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.Gui.Settings
 {
     using Engine;
 
-    public class GuiSettings : SettingsWrapper
+    public class GuiSettings : SettingsGroup
     {
         public GuiSettings(ISettings settingsService) : base(settingsService, "Gui") { }
 
@@ -55,7 +55,7 @@ namespace NUnit.Gui.Model.Settings
         }
     }
 
-    public class MainFormSettings : SettingsWrapper
+    public class MainFormSettings : SettingsGroup
     {
         public MainFormSettings(ISettings settingsService) : base(settingsService, "Gui.MainForm") { }
 
@@ -88,7 +88,7 @@ namespace NUnit.Gui.Model.Settings
         }
     }
 
-    public class RecentProjectSettings : SettingsWrapper
+    public class RecentProjectSettings : SettingsGroup
     {
         public RecentProjectSettings(ISettings settingsService) : base(settingsService, "Gui.RecentProjects") { }
 
