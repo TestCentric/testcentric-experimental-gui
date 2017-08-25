@@ -68,11 +68,11 @@ namespace NUnit.Gui.Presenters
             _view.MainViewClosing += MainForm_Closing;
             _view.DragDropFiles += MainForm_DragDrop;
 
-            _view.NewProjectCommand.Execute += _model.NewProject;
+            _view.NewProjectCommand.Execute += ProjectSaveNotYetImplemented; // _model.NewProject;
             _view.OpenProjectCommand.Execute += OnOpenProjectCommand;
             _view.CloseCommand.Execute += _model.UnloadTests;
-            _view.SaveCommand.Execute += _model.SaveProject;
-            _view.SaveAsCommand.Execute += _model.SaveProject;
+            _view.SaveCommand.Execute += ProjectSaveNotYetImplemented; // _model.SaveProject;
+            _view.SaveAsCommand.Execute += ProjectSaveNotYetImplemented; // _model.SaveProject;
             _view.ReloadTestsCommand.Execute += _model.ReloadTests;
             _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
             _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;
@@ -95,6 +95,11 @@ namespace NUnit.Gui.Presenters
         private void MainForm_DragDrop(string[] files)
         {
             _model.LoadTests(files);
+        }
+
+        private void ProjectSaveNotYetImplemented()
+        {
+            _view.MessageDisplay.Error(TestModel.PROJECT_SAVE_MESSAGE, "Not Yet Implemented");
         }
 
         #endregion

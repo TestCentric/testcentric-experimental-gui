@@ -34,14 +34,13 @@ namespace NUnit.Gui.Presenters.Main
 
     public class CommandTests : MainPresenterTestBase
     {
-#if NYI
         [Test]
         public void NewProjectCommand_CallsNewProject()
         {
             View.NewProjectCommand.Execute += Raise.Event<CommandHandler>();
-            Model.Received().NewProject();
+            // This is NYI, change when we implement it
+            Model.DidNotReceive().NewProject();
         }
-#endif
 
         [Test]
         public void OpenProjectCommand_CallsLoadTests()
@@ -75,11 +74,16 @@ namespace NUnit.Gui.Presenters.Main
         public void SaveCommand_CallsSaveProject()
         {
             View.SaveCommand.Execute += Raise.Event<CommandHandler>();
-            Model.Received().SaveProject();
+            // This is NYI, change when we implement it
+            Model.DidNotReceive().SaveProject();
         }
 
+        [Test]
         public void SaveAsCommand_CallsSaveProject()
         {
+            View.SaveAsCommand.Execute += Raise.Event<CommandHandler>();
+            // This is NYI, change when we implement it
+            Model.DidNotReceive().SaveProject();
         }
 
         public void SaveResultsCommand_CallsSaveResults()

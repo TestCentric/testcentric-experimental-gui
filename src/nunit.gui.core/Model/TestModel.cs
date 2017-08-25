@@ -196,14 +196,17 @@ namespace NUnit.Gui.Model
             NewProject("Dummy");
         }
 
+        public const string PROJECT_SAVE_MESSAGE =
+            "It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.";
+
         public void NewProject(string filename)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(PROJECT_SAVE_MESSAGE);
         }
 
         public void SaveProject()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(PROJECT_SAVE_MESSAGE);
         }
 
         public void LoadTests(IList<string> files)
