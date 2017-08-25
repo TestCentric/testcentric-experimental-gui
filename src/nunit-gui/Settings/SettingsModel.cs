@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,17 +21,26 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model
+namespace NUnit.Gui.Settings
 {
+    using Engine;
+
     /// <summary>
-    /// Indicates how a tree should be displayed
+    /// SettingsModel is the top level of a set of wrapper
+    /// classes that provide type-safe access to user settings.
     /// </summary>
-    public enum TreeDisplayStyle
+    public class SettingsModel : SettingsGroup
     {
-        Auto,		// Select based on space available
-        Expand,		// Expand fully
-        Collapse,	// Collapse fully
-        HideTests	// Expand all but the fixtures, leaving
-        // leaf nodes hidden
+        public SettingsModel(ISettings settings) : base(settings, null) { }
+
+        public GuiSettings Gui
+        {
+            get { return new GuiSettings(SettingsService); }
+        }
+
+        public EngineSettings Engine
+        {
+            get { return new EngineSettings(SettingsService); }
+        }
     }
 }

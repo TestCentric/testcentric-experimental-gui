@@ -27,7 +27,6 @@ using NSubstitute;
 namespace NUnit.Gui.Presenters.TestTree
 {
     using Model;
-    using Model.Settings;
     using Views;
 
     public class TestTreePresenterTestBase
@@ -40,7 +39,6 @@ namespace NUnit.Gui.Presenters.TestTree
         {
             _view = Substitute.For<ITestTreeView>();
             _model = Substitute.For<ITestModel>();
-            _model.Settings.Returns<SettingsModel>(new SettingsModel( new UserSettingsFake() ));
 
             new TreeViewPresenter(_view, _model);
 

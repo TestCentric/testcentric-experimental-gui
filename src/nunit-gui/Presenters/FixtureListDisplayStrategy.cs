@@ -98,8 +98,8 @@ namespace NUnit.Gui.Presenters
 
         protected override string DefaultGroupSetting
         {
-            get { return _model.Settings.Gui.TestTree.FixtureList.GroupBy; }
-            set { _model.Settings.Gui.TestTree.FixtureList.GroupBy = value; }
+            get { return _settings.Gui.TestTree.FixtureList.GroupBy; }
+            set { _settings.Gui.TestTree.FixtureList.GroupBy = value; }
         }
 
         #endregion

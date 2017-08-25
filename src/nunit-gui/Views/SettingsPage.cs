@@ -26,7 +26,7 @@ using System.Windows.Forms;
 
 namespace NUnit.Gui.Views
 {
-    using Model.Settings;
+    using Settings;
     using UiKit;
 
     public partial class SettingsPage : UserControl

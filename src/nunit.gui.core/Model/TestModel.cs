@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Xml;
 using NUnit.Engine;
 
@@ -42,7 +41,6 @@ namespace NUnit.Gui.Model
             _testEngine = testEngine;
             Options = options;
             RecentFiles = testEngine.Services.GetService<IRecentFiles>();
-            Settings = new Settings.SettingsModel(testEngine.Services.GetService<ISettings>());
         }
 
         #endregion
@@ -97,8 +95,6 @@ namespace NUnit.Gui.Model
         }
 
         private IList<string> _files;
-
-        public Settings.SettingsModel Settings { get; private set; }
 
         // TODO: We are directly using an engine class here rather
         // than going through the API - need to fix this.
@@ -200,14 +196,17 @@ namespace NUnit.Gui.Model
             NewProject("Dummy");
         }
 
+        public const string PROJECT_SAVE_MESSAGE =
+            "It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.";
+
         public void NewProject(string filename)
         {
-            MessageBox.Show("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
+            throw new NotImplementedException(PROJECT_SAVE_MESSAGE);
         }
 
         public void SaveProject()
         {
-            MessageBox.Show("It's not yet decided if we will implement saving of projects. The alternative is to require use of the project editor, which already supports this.", "Not Yet Implemented");
+            throw new NotImplementedException(PROJECT_SAVE_MESSAGE);
         }
 
         public void LoadTests(IList<string> files)

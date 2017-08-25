@@ -21,25 +21,26 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.Gui.Settings
 {
     using Engine;
 
     /// <summary>
-    /// SettingsWrapper wraps an ISettings interface
-    /// and is the base of all the classes that form
-    /// the SettingsModel. SettingsWrapper may be used
-    /// directly to take advantage of the fact that
-    /// it encapsulates the prefix used for a given
-    /// group of settings or through derived classes
-    /// that provide properties for type-safe access
-    /// to particular settings.
+    /// SettingsGroup wraps an ISettings interface and
+    /// may also encapsulate the prefix used for a given 
+    /// group of settings.
     /// </summary>
-    public class SettingsWrapper
+    public class SettingsGroup
     {
         private string _prefix;
 
-        public SettingsWrapper(ISettings settingsService, string prefix)
+        /// <summary>
+        /// Construct a settings group for a given settings service
+        /// and with an optional prefix.
+        /// </summary>
+        /// <param name="settingsService">The settings service to be used</param>
+        /// <param name="prefix">An optional prefix for all setitngs keys</param>
+        public SettingsGroup(ISettings settingsService, string prefix = "")
         {
             this.SettingsService = settingsService;
             _prefix = prefix;
@@ -50,7 +51,7 @@ namespace NUnit.Gui.Model.Settings
                 _prefix += ".";
         }
 
-        protected ISettings SettingsService { get; private set; }
+        public ISettings SettingsService { get; }
 
         public object GetSetting(string name)
         {
@@ -74,6 +75,11 @@ namespace NUnit.Gui.Model.Settings
         public void RemoveSetting(string name)
         {
             SettingsService.RemoveSetting(_prefix + name);
+        }
+
+        public SettingsGroup GetSubKey(string subkey)
+        {
+            return new SettingsGroup(SettingsService, _prefix + subkey);
         }
     }
 }

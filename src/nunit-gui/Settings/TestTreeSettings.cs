@@ -21,11 +21,11 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.Gui.Settings
 {
     using Engine;
 
-    public class TestTreeSettings : SettingsWrapper
+    public class TestTreeSettings : SettingsGroup
     {
         public TestTreeSettings(ISettings settingsService) : base(settingsService, "Gui.TestTree") { }
 
@@ -75,7 +75,7 @@ namespace NUnit.Gui.Model.Settings
         //}
     }
 
-    public class FixtureListSettings : SettingsWrapper
+    public class FixtureListSettings : SettingsGroup
     {
         public FixtureListSettings(ISettings settings) : base(settings, "Gui.TestTree.FixtureList") { }
 
@@ -87,7 +87,7 @@ namespace NUnit.Gui.Model.Settings
         }
     }
 
-    public class TestListSettings : SettingsWrapper
+    public class TestListSettings : SettingsGroup
     {
         public TestListSettings(ISettings settings) : base(settings, "Gui.TestTree.TestList") { }
 

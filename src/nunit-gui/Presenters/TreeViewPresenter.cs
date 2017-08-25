@@ -53,6 +53,8 @@ namespace NUnit.Gui.Presenters
             _view = treeView;
             _model = model;
 
+            Settings = new Settings.TestTreeSettings(_model.GetService<ISettings>());
+
             InitializeRunCommands();
             WireUpEvents();
         }
@@ -200,10 +202,7 @@ namespace NUnit.Gui.Presenters
             _view.DisplayFormat.SelectedItem = format;
         }
 
-        private Model.Settings.TestTreeSettings Settings
-        {
-            get { return _model.Settings.Gui.TestTree; }
-        }
+        private Settings.TestTreeSettings Settings { get; }
 
         #endregion
     }

@@ -28,6 +28,7 @@ namespace NUnit.Gui.Presenters
 {
     using Views;
     using Model;
+    using Settings;
 
     /// <summary>
     /// NUnitTreeDisplayStrategy is used to display a the tests
@@ -52,7 +53,7 @@ namespace NUnit.Gui.Presenters
 
         public override void OnTestLoaded(TestNode testNode)
         {
-            var displayStyle = _model.Settings.Gui.TestTree.InitialTreeDisplay;
+            var displayStyle = _settings.Gui.TestTree.InitialTreeDisplay;
             ClearTree();
 
             TreeNode topNode = null;

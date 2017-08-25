@@ -30,6 +30,7 @@ namespace NUnit.Gui.Presenters
 {
     using Views;
     using Model;
+    using Settings;
     using Engine;
     using NUnit.UiKit.Elements;
 
@@ -48,6 +49,7 @@ namespace NUnit.Gui.Presenters
     {
         protected ITestTreeView _view;
         protected ITestModel _model;
+        protected SettingsModel _settings;
 
         protected Dictionary<string, List<TreeNode>> _nodeIndex = new Dictionary<string, List<TreeNode>>();
 
@@ -59,6 +61,7 @@ namespace NUnit.Gui.Presenters
         {
             _view = view;
             _model = model;
+            _settings = new SettingsModel(_model.GetService<ISettings>());
 
             this.Tree = view.Tree;
         }
