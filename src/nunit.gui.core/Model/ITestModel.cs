@@ -78,9 +78,11 @@ namespace NUnit.Gui.Model
         // See if a test is running
         bool IsTestRunning { get; }
 
+        // Do we have results from running the test?
         bool HasResults { get; }
 
-        IList<RuntimeFramework> AvailableRuntimes { get; }
+        // List of available runtimes
+        IList<IRuntimeFramework> AvailableRuntimes { get; }
 
         #endregion
 

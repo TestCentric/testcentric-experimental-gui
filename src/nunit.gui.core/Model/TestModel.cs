@@ -96,32 +96,30 @@ namespace NUnit.Gui.Model
 
         private IList<string> _files;
 
-        // TODO: We are directly using an engine class here rather
-        // than going through the API - need to fix this.
-        // Note that the engine returns more values than we really
-        // want to list. For example, we don't distinguish between
-        // client and full profiles when executing tests. So we do
-        // a lot of manipulation of this list here. Even if some of
-        // the problems in the engine are fixed, we may have to
-        // retain this code in order to work with older engines.
-        private List<RuntimeFramework> _runtimes;
-        public IList<RuntimeFramework> AvailableRuntimes
+        // The engine returns more values than we really want.
+        // For example, we don't currently distinguish between
+        // client and full profiles when executing tests. We
+        // drop unwanted entries here. Even if some of these items
+        // are removed in a later version of the engine, we may
+        // have to retain this code to work with older engines.
+        private List<IRuntimeFramework> _runtimes;
+        public IList<IRuntimeFramework> AvailableRuntimes
         {
             get
             {
                 if (_runtimes == null)
                 {
-                    _runtimes = new List<RuntimeFramework>();
-                    foreach (var runtime in RuntimeFramework.AvailableFrameworks)
+                    _runtimes = new List<IRuntimeFramework>();
+                    var availableFrameworks = GetService<IAvailableRuntimes>();
+                    foreach (var runtime in GetService<IAvailableRuntimes>().AvailableRuntimes)
                     {
                         // Nothing below 2.0
                         if (runtime.ClrVersion.Major < 2)
                             continue;
 
                         // Remove erroneous entries for 4.5 Client profile
-                        if (runtime.FrameworkVersion.Major == 4 && runtime.FrameworkVersion.Minor > 0)
-                            if (runtime.DisplayName.EndsWith("Client"))
-                                continue;
+                        if (runtime.FrameworkVersion.Major == 4 && runtime.FrameworkVersion.Minor > 0 && runtime.Profile == "Client")
+                            continue;
 
                         // Skip duplicates
                         var duplicate = false;
@@ -138,22 +136,17 @@ namespace NUnit.Gui.Model
 
                     _runtimes.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
 
-                    // Now eliminate child entries where full entry follows
-                    for (int i = _runtimes.Count - 2; i >=0; i--)
+                    // Now eliminate client entries where full entry follows
+                    for (int i = _runtimes.Count - 2; i >= 0; i--)
                     {
                         var rt1 = _runtimes[i];
                         var rt2 = _runtimes[i + 1];
 
-                        if (rt1.Runtime != rt2.Runtime)
-                            continue;
-                        if (rt1.FrameworkVersion != rt2.FrameworkVersion)
+                        if (rt1.Id != rt2.Id)
                             continue;
 
-                        if (_runtimes[i].DisplayName.EndsWith(" - Client") &&
-                            _runtimes[i+1].DisplayName.EndsWith(" - Full"))
-                        {
+                        if (rt1.Profile == "Client" && rt2.Profile == "Full")
                             _runtimes.RemoveAt(i);
-                        }
                     }
                 }
 
@@ -161,9 +154,9 @@ namespace NUnit.Gui.Model
             }
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         public void OnStartup()
         {
@@ -257,7 +250,7 @@ namespace NUnit.Gui.Model
             TestReloaded?.Invoke(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
         }
 
-        #region Helper Methods
+#region Helper Methods
 
         // Public for testing only
         public TestPackage MakeTestPackage(IList<string> testFiles)
@@ -279,7 +272,7 @@ namespace NUnit.Gui.Model
             return package;
         }
 
-        #endregion
+#endregion
 
         public void RunAllTests()
         {
@@ -319,11 +312,11 @@ namespace NUnit.Gui.Model
             SelectedItemChanged?.Invoke(new TestItemEventArgs(testItem));
         }
 
-        #endregion
+#endregion
 
-        #endregion
+#endregion
 
-        #region IServiceLocator Members
+#region IServiceLocator Members
 
         public T GetService<T>() where T: class
         {
@@ -335,9 +328,9 @@ namespace NUnit.Gui.Model
             return _testEngine.Services.GetService(serviceType);
         }
 
-        #endregion
+#endregion
 
-        #region ITestEventListener Members
+#region ITestEventListener Members
 
         public void OnTestEvent(string report)
         {
@@ -377,6 +370,6 @@ namespace NUnit.Gui.Model
             }
         }
 
-        #endregion
+#endregion
     }
 }

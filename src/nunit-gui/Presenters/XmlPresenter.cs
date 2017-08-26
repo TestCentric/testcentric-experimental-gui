@@ -27,8 +27,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-using Mono.Cecil;
-
 namespace NUnit.Gui.Presenters
 {
     using Model;
