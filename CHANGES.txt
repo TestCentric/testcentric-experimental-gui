@@ -3,6 +3,7 @@
 Issues Resolved
 
  * 60	Get extensions working for the GUI
+ * 137	Allow changing ProcessModel and DomainUsage
  * 204	Move the GUI repository
  * 205	Create a Chocolatey package for the GUI
 
