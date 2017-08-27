@@ -23,6 +23,7 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace NUnit.Gui.Presenters
@@ -57,6 +58,7 @@ namespace NUnit.Gui.Presenters
         private void WireUpEvents()
         {
             // Model Events
+            _model.TestsLoading += NotifyTestsLoading;
             _model.TestLoaded += (ea) => InitializeMainMenu();
             _model.TestUnloaded += (ea) => InitializeMainMenu();
             _model.TestReloaded += (ea) => InitializeMainMenu();
@@ -92,6 +94,14 @@ namespace NUnit.Gui.Presenters
             _view.MainViewClosing += () => _model.Dispose();
         }
 
+        private void NotifyTestsLoading(TestFilesLoadingEventArgs args)
+        {
+            var message = args.TestFilesLoading.Count == 1 ?
+                $"Loading Assembly: {Path.GetFileName(args.TestFilesLoading[0])}":
+                $"Loading {args.TestFilesLoading.Count} Assemblies...";
+            _view.OnTestAssembliesLoading(message);
+        }
+
         private void MainForm_DragDrop(string[] files)
         {
             _model.LoadTests(files);
@@ -108,6 +118,8 @@ namespace NUnit.Gui.Presenters
 
         private void InitializeMainMenu()
         {
+            _view.OnTestAssembliesLoaded();
+
             bool isTestRunning = _model.IsTestRunning;
             bool canCloseOrSave = _model.HasTests && !isTestRunning;
 

@@ -52,6 +52,11 @@ namespace NUnit.Gui.Presenters.Main
             View.NewProjectCommand.Received().Enabled = true;
         }
 #endif
+        [Test]
+        public void View_Receives_TestAssembliesLoaded()
+        {
+            View.Received().OnTestAssembliesLoaded();
+        }
 
         [Test]
         public void OpenProject_IsEnabled()

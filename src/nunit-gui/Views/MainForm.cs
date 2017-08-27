@@ -137,6 +137,18 @@ namespace NUnit.Gui.Views
         public IDialogManager DialogManager { get; private set; }
         public IMessageDisplay MessageDisplay { get; private set; }
 
+        public void OnTestAssembliesLoading(string message)
+        {
+            _messageForm = new UiKit.Controls.LongRunningOperationDisplay(this, message);
+        }
+
+        public void OnTestAssembliesLoaded()
+        {
+            _messageForm?.Dispose();
+            _messageForm = null;
+        }
+
+        private UiKit.Controls.LongRunningOperationDisplay _messageForm;
         #endregion
 
         #region Subordinate Views Contained in MainForm

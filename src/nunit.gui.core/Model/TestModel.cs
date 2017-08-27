@@ -50,6 +50,7 @@ namespace NUnit.Gui.Model
         #region Events
 
         // Test loading events
+        public event TestFilesLoadingEventHandler TestsLoading;
         public event TestNodeEventHandler TestLoaded;
         public event TestNodeEventHandler TestReloaded;
         public event TestEventHandler TestUnloaded;
@@ -219,6 +220,8 @@ namespace NUnit.Gui.Model
                 UnloadTests();
 
             _files = files;
+            TestsLoading?.Invoke(new TestFilesLoadingEventArgs(files));
+
             _package = MakeTestPackage(files);
 
             Runner = _testEngine.GetRunner(_package);
