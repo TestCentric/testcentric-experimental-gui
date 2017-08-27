@@ -96,67 +96,78 @@ namespace NUnit.Gui.Model
 
         private IList<string> _files;
 
-        // The engine returns more values than we really want.
-        // For example, we don't currently distinguish between
-        // client and full profiles when executing tests. We
-        // drop unwanted entries here. Even if some of these items
-        // are removed in a later version of the engine, we may
-        // have to retain this code to work with older engines.
         private List<IRuntimeFramework> _runtimes;
         public IList<IRuntimeFramework> AvailableRuntimes
         {
             get
             {
                 if (_runtimes == null)
-                {
-                    _runtimes = new List<IRuntimeFramework>();
-                    var availableFrameworks = GetService<IAvailableRuntimes>();
-                    foreach (var runtime in GetService<IAvailableRuntimes>().AvailableRuntimes)
-                    {
-                        // Nothing below 2.0
-                        if (runtime.ClrVersion.Major < 2)
-                            continue;
-
-                        // Remove erroneous entries for 4.5 Client profile
-                        if (runtime.FrameworkVersion.Major == 4 && runtime.FrameworkVersion.Minor > 0 && runtime.Profile == "Client")
-                            continue;
-
-                        // Skip duplicates
-                        var duplicate = false;
-                        foreach (var rt in _runtimes)
-                            if (rt.DisplayName == runtime.DisplayName)
-                            {
-                                duplicate = true;
-                                break;
-                            }
-
-                        if (!duplicate)
-                            _runtimes.Add(runtime);
-                    }
-
-                    _runtimes.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
-
-                    // Now eliminate client entries where full entry follows
-                    for (int i = _runtimes.Count - 2; i >= 0; i--)
-                    {
-                        var rt1 = _runtimes[i];
-                        var rt2 = _runtimes[i + 1];
-
-                        if (rt1.Id != rt2.Id)
-                            continue;
-
-                        if (rt1.Profile == "Client" && rt2.Profile == "Full")
-                            _runtimes.RemoveAt(i);
-                    }
-                }
+                    _runtimes = GetAvailableRuntimes();
 
                 return _runtimes;
             }
         }
 
-#endregion
+        // The engine returns more values than we really want.
+        // For example, we don't currently distinguish between
+        // client and full profiles when executing tests. We
+        // drop unwanted entries here. Even if some of these items
+        // are removed in a later version of the engine, we may
+        // have to retain this code to work with older engines.
+        private List<IRuntimeFramework> GetAvailableRuntimes()
+        {
+            var runtimes = new List<IRuntimeFramework>();
 
-#region Methods
+            foreach (var runtime in GetService<IAvailableRuntimes>().AvailableRuntimes)
+            {
+                // Nothing below 2.0
+                if (runtime.ClrVersion.Major < 2)
+                    continue;
+
+                // Remove erroneous entries for 4.5 Client profile
+                if (IsErroneousNet45ClientProfile(runtime))
+                    continue;
+
+                // Skip duplicates
+                var duplicate = false;
+                foreach (var rt in _runtimes)
+                    if (rt.DisplayName == runtime.DisplayName)
+                    {
+                        duplicate = true;
+                        break;
+                    }
+
+                if (!duplicate)
+                    runtimes.Add(runtime);
+            }
+
+            runtimes.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
+
+            // Now eliminate client entries where full entry follows
+            for (int i = runtimes.Count - 2; i >= 0; i--)
+            {
+                var rt1 = runtimes[i];
+                var rt2 = runtimes[i + 1];
+
+                if (rt1.Id != rt2.Id)
+                    continue;
+
+                if (rt1.Profile == "Client" && rt2.Profile == "Full")
+                    runtimes.RemoveAt(i);
+            }
+
+            return runtimes;
+        }
+
+        // Some early versions of the engine return .NET 4.5 Client profile, which doesn't really exist
+        private static bool IsErroneousNet45ClientProfile(IRuntimeFramework runtime)
+        {
+            return runtime.FrameworkVersion.Major == 4 && runtime.FrameworkVersion.Minor > 0 && runtime.Profile == "Client";
+        }
+
+        #endregion
+
+        #region Methods
 
         public void OnStartup()
         {

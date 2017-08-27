@@ -81,7 +81,8 @@ namespace NUnit.Gui.Model
         // Do we have results from running the test?
         bool HasResults { get; }
 
-        // List of available runtimes
+        // List of available runtimes, based on the engine's list
+        // but filtered to meet the GUI's requirements
         IList<IRuntimeFramework> AvailableRuntimes { get; }
 
         #endregion
