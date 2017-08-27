@@ -70,6 +70,7 @@
     <Compile Include="Model\TestNodeTests.cs" />
     <Compile Include="Presenters\AddinsPresenterTests.cs" />
     <Compile Include="Presenters\Main\PackageSettingsTests.cs" />
+    <Compile Include="Presenters\Main\WhenTestsAreLoading.cs" />
     <Compile Include="Presenters\Main\WhenTestsAreReloaded.cs" />
     <Compile Include="Presenters\TestGroupTests.cs" />
     <Compile Include="Presenters\StatusBarPresenterTests.cs" />

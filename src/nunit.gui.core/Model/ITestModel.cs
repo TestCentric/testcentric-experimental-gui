@@ -34,12 +34,14 @@ namespace NUnit.Gui.Model
     public delegate void TestNodeEventHandler(TestNodeEventArgs args);
     public delegate void TestResultEventHandler(TestResultEventArgs args);
     public delegate void TestItemEventHandler(TestItemEventArgs args);
+    public delegate void TestFilesLoadingEventHandler(TestFilesLoadingEventArgs args);
 
     public interface ITestModel : IServiceLocator, System.IDisposable
     {
         #region Events
 
         // Events related to loading and unloading tests.
+        event TestFilesLoadingEventHandler TestsLoading;
         event TestNodeEventHandler TestLoaded;
         event TestNodeEventHandler TestReloaded;
         event TestEventHandler TestUnloaded;
