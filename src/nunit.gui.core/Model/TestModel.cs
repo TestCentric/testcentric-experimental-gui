@@ -131,7 +131,7 @@ namespace NUnit.Gui.Model
 
                 // Skip duplicates
                 var duplicate = false;
-                foreach (var rt in _runtimes)
+                foreach (var rt in runtimes)
                     if (rt.DisplayName == runtime.DisplayName)
                     {
                         duplicate = true;
