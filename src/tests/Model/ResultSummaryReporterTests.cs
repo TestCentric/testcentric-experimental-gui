@@ -139,13 +139,12 @@ namespace NUnit.Gui.Model
         }
 
         [Test]
-        public void ReportContainsStartAndEndDateAndDuration()
+        public void ReportContainsStartAndEndDate()
         {
             var summary = new ResultSummary
             {
                 StartTime = new DateTime(2015, 10, 21, 7, 28, 30),
                 EndTime = new DateTime(2015, 10, 21, 16, 20, 45),
-                Duration = 123.456789,
                 OverallResult = String.Empty
             };
 
@@ -153,7 +152,6 @@ namespace NUnit.Gui.Model
 
             Assert.That(report, Does.Contain("Start time: 2015-10-21 07:28:30Z"));
             Assert.That(report, Does.Contain("End time: 2015-10-21 16:20:45Z"));
-            Assert.That(report, Does.Contain("Duration: 123.457"));
         }
 
         [Test, SetUICulture("de-DE")]
@@ -171,6 +169,7 @@ namespace NUnit.Gui.Model
                 InvalidCount = 10000,
                 IgnoreCount = 10000,
                 ExplicitCount = 10000,
+                Duration = 123.456789,
                 OverallResult = String.Empty
             };
 
@@ -188,6 +187,7 @@ namespace NUnit.Gui.Model
             Assert.That(report, Does.Contain("Skipped Tests - Ignored: 10.000"));
             Assert.That(report, Does.Contain("Explicit: 10.000"));
             Assert.That(report, Does.Contain("Other: 10.000"));
+            Assert.That(report, Does.Contain("Duration: 123,457"));
         }
     }
 }
