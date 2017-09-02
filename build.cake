@@ -1,4 +1,6 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.6.1
+#tool nuget:?package=GitVersion.CommandLine
+#addin "Cake.Incubator"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -8,15 +10,15 @@ var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
 
 //////////////////////////////////////////////////////////////////////
-// SET PACKAGE VERSION
+// SET PACKAGE VERSION DEFAULTS
 //////////////////////////////////////////////////////////////////////
 
-var version = "0.5";
-var modifier = "";
+string version = "0.6.0";
+string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
+string packageVersion = version + dbgSuffix;
 
-var isAppveyor = BuildSystem.IsRunningOnAppVeyor;
-var dbgSuffix = configuration == "Debug" ? "-dbg" : "";
-var packageVersion = version + modifier + dbgSuffix;
+GitVersion GitVersionInfo { get; set; }
+BuildInfo Build { get; set;}
 
 //////////////////////////////////////////////////////////////////////
 // DEFINE RUN CONSTANTS
@@ -41,10 +43,6 @@ var PACKAGE_SOURCE = new string[]
     "https://www.myget.org/F/nunit-gui-team/api/v2"
 };
 
-// Packages
-var SRC_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + version + modifier + "-src.zip";
-var ZIP_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + packageVersion + ".zip";
-
 //////////////////////////////////////////////////////////////////////
 // CLEAN
 //////////////////////////////////////////////////////////////////////
@@ -57,10 +55,10 @@ Task("Clean")
 
 
 //////////////////////////////////////////////////////////////////////
-// INITIALIZE FOR BUILD
+// RESTORE NUGET PACKAGES
 //////////////////////////////////////////////////////////////////////
 
-Task("InitializeBuild")
+Task("RestorePackages")
     .Does(() =>
 {
     NuGetRestore(GUI_SOLUTION, new NuGetRestoreSettings
@@ -68,6 +66,19 @@ Task("InitializeBuild")
         Source = PACKAGE_SOURCE,
         Verbosity = NuGetVerbosity.Detailed
     });
+});
+
+//////////////////////////////////////////////////////////////////////
+// SET BUILD INFO
+//////////////////////////////////////////////////////////////////////
+Task("SetBuildInfo")
+    .Does(() =>
+{
+	GitVersionInfo = GitVersion();
+	Information("GitVersion Info:\n" + GitVersionInfo.Dump());
+
+	Build = new BuildInfo(GitVersionInfo);
+	Information("\nBuildInfo:\n" + Build.Dump());
 
     if (BuildSystem.IsRunningOnAppVeyor)
     {
@@ -113,7 +124,9 @@ Task("InitializeBuild")
 //////////////////////////////////////////////////////////////////////
 
 Task("Build")
-    .IsDependentOn("InitializeBuild")
+    .IsDependentOn("Clean")
+	.IsDependentOn("RestorePackages")
+	.IsDependentOn("SetBuildInfo")
     .Does(() =>
     {
         if(IsRunningOnWindows())
@@ -179,7 +192,7 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + "NUnit-Gui-" + packageVersion + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -215,12 +228,42 @@ Task("PackageChocolatey")
     });
 
 //////////////////////////////////////////////////////////////////////
-// TASK TARGETS
+// BUILD INFO
 //////////////////////////////////////////////////////////////////////
 
-Task("Rebuild")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Build");
+class BuildInfo
+{
+    public BuildInfo(GitVersion gitVersion)
+	{
+	    BranchName = gitVersion.BranchName;
+		PreReleaseLabel = gitVersion.PreReleaseLabel;
+		AssemblyVersion = gitVersion.AssemblySemVer;
+		AssemblyFileVersion = PackageVersion = 
+		    gitVersion.MajorMinorPatch + "-" + PreReleaseLabel + "-" + gitVersion.CommitsSinceVersionSourcePadded;
+	}
+
+	public string BranchName { get; set; }
+
+    public string AssemblyVersion { get; set; }
+	public string AssemblyFileVersion { get; set; }
+
+	public string PreReleaseLabel { get; set; }
+	public string PackageVersion { get; set; }
+
+	public string Dump()
+	{
+	    var NL = Environment.NewLine;
+		return "           BranchName: " + BranchName + NL +
+		       "      AssemblyVersion: " + AssemblyVersion + NL +
+		       "  AssemblyFileVersion: " + AssemblyFileVersion + NL +
+		       "      PreReleaseLabel: " + PreReleaseLabel + NL +
+		       "      Package Version: " + PackageVersion + NL;
+	}
+}
+
+//////////////////////////////////////////////////////////////////////
+// TASK TARGETS
+//////////////////////////////////////////////////////////////////////
 
 Task("Package")
     .IsDependentOn("PackageZip")

@@ -4,5 +4,5 @@ mono:
   - latest
   - 4.6.2
 script: 
+  - git fetch --unshallow
   - ./build.sh --target "Travis"
-    
