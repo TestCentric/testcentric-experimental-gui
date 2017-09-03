@@ -2,6 +2,8 @@
 #tool nuget:?package=GitVersion.CommandLine
 #addin "Cake.Incubator"
 
+using System.Text.RegularExpressions;
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -233,30 +235,56 @@ Task("PackageChocolatey")
 
 class BuildInfo
 {
+    private GitVersion _gitVersion;
+
     public BuildInfo(GitVersion gitVersion)
 	{
-	    BranchName = gitVersion.BranchName;
-		PreReleaseLabel = gitVersion.PreReleaseLabel;
-		AssemblyVersion = gitVersion.AssemblySemVer;
-		AssemblyFileVersion = PackageVersion = 
-		    gitVersion.MajorMinorPatch + "-" + PreReleaseLabel + "-" + gitVersion.CommitsSinceVersionSourcePadded;
+	    _gitVersion = gitVersion;
 	}
 
-	public string BranchName { get; set; }
+	public string BranchName
+	{ 
+		get { return _gitVersion.BranchName; }
+	}
 
-    public string AssemblyVersion { get; set; }
-	public string AssemblyFileVersion { get; set; }
+    public string AssemblyVersion 
+	{ 
+		get { return _gitVersion.AssemblySemVer; }
+	}
+	public string AssemblyFileVersion
+	{
+		get { return PackageVersion; }
+	}
 
-	public string PreReleaseLabel { get; set; }
-	public string PackageVersion { get; set; }
+	public string PreReleaseLabel
+	{ 
+		get { return _gitVersion.PreReleaseLabel; }
+	}
+
+	public string PackageVersion
+	{
+		get { return _gitVersion.MajorMinorPatch + "-" + PreReleaseLabel + "-" + _gitVersion.PreReleaseNumber.PadLeft(4, '0'); }
+	}
+
+	public bool IsPullRequest
+	{
+		// Requires correct setup of GitVersion.yml
+	    get { return PreReleaseLabel == "pr"; }
+	}
+
+	public string PullRequestNumber
+	{
+		get	{ return IsPullRequest ? _gitVersion.PreReleaseNumber : string.Empty; }
+	}
 
 	public string Dump()
 	{
 	    var NL = Environment.NewLine;
 		return "           BranchName: " + BranchName + NL +
+			   "        IsPullRequest: " + IsPullRequest.ToString() + NL +
+			   "    PullRequestNumber: " + PullRequestNumber + NL +
 		       "      AssemblyVersion: " + AssemblyVersion + NL +
 		       "  AssemblyFileVersion: " + AssemblyFileVersion + NL +
-		       "      PreReleaseLabel: " + PreReleaseLabel + NL +
 		       "      Package Version: " + PackageVersion + NL;
 	}
 }
