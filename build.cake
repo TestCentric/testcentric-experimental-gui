@@ -2,8 +2,6 @@
 #tool nuget:?package=GitVersion.CommandLine
 #addin "Cake.Incubator"
 
-using System.Text.RegularExpressions;
-
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -76,11 +74,11 @@ Task("RestorePackages")
 Task("SetBuildInfo")
     .Does(() =>
 {
-	GitVersionInfo = GitVersion();
-	Information("GitVersion Info:\n" + GitVersionInfo.Dump());
+    GitVersionInfo = GitVersion();
+    Information("GitVersion Info:\n" + GitVersionInfo.Dump());
 
-	Build = new BuildInfo(GitVersionInfo);
-	Information("\nBuildInfo:\n" + Build.Dump());
+    Build = new BuildInfo(GitVersionInfo);
+    Information("\nBuildInfo:\n" + Build.Dump());
 
     if (BuildSystem.IsRunningOnAppVeyor)
     {
@@ -127,8 +125,8 @@ Task("SetBuildInfo")
 
 Task("Build")
     .IsDependentOn("Clean")
-	.IsDependentOn("RestorePackages")
-	.IsDependentOn("SetBuildInfo")
+    .IsDependentOn("RestorePackages")
+    .IsDependentOn("SetBuildInfo")
     .Does(() =>
     {
         if(IsRunningOnWindows())
@@ -203,12 +201,12 @@ Task("PackageChocolatey")
     {
         CreateDirectory(PACKAGE_DIR);
 
-		ChocolateyPack("choco/nunit-gui.nuspec", 
-			new ChocolateyPackSettings()
-			{
-				Version = packageVersion,
-				OutputDirectory = PACKAGE_DIR,
-				Files = new ChocolateyNuSpecContent[]
+        ChocolateyPack("choco/nunit-gui.nuspec", 
+            new ChocolateyPackSettings()
+            {
+                Version = packageVersion,
+                OutputDirectory = PACKAGE_DIR,
+                Files = new ChocolateyNuSpecContent[]
                 {
                     new ChocolateyNuSpecContent() { Source = "../LICENSE" },
                     new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
@@ -226,7 +224,7 @@ Task("PackageChocolatey")
                     new ChocolateyNuSpecContent() { Source = "nunit-agent-x86.exe.ignore", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = "nunit.choco.addins", Target="tools" }
                 }
-			});
+            });
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -238,55 +236,93 @@ class BuildInfo
     private GitVersion _gitVersion;
 
     public BuildInfo(GitVersion gitVersion)
-	{
-	    _gitVersion = gitVersion;
-	}
+    {
+        _gitVersion = gitVersion;
+    }
 
-	public string BranchName
-	{ 
-		get { return _gitVersion.BranchName; }
+    public string BranchName
+    { 
+        get { return _gitVersion.BranchName; }
+    }
+
+    public string Version
+    {
+        get { return _gitVersion.MajorMinorPatch; }
+    }
+
+	private string _preReleaseLabel;
+    public string PreReleaseLabel
+    { 
+        get
+		{
+			if (_preReleaseLabel == null)
+			{
+				_preReleaseLabel = _gitVersion.PreReleaseLabel;
+				if (_preReleaseLabel != "dev" && _preReleaseLabel != "pr")
+					_preReleaseLabel = "ci";
+			}
+
+			return _preReleaseLabel;
+		}
+    }
+
+	private string _preReleaseSuffix;
+	public string PreReleaseSuffix
+	{
+		get 
+		{
+			if (_preReleaseSuffix == null)
+			{
+				_preReleaseSuffix = PreReleaseLabel + "-" + _gitVersion.PreReleaseNumber.PadLeft(4, '0');
+				if (PreReleaseLabel == "ci")
+					_preReleaseSuffix += "-" + System.Text.RegularExpressions.Regex.Replace(BranchName, "[^0-9A-Za-z-]+", "-");
+
+				// Nuget limits "special version part" to 20 chars.
+				if (_preReleaseSuffix.Length > 20)
+					_preReleaseSuffix = _preReleaseSuffix.Substring(0, 20);
+			}
+
+			return _preReleaseSuffix;
+		}
 	}
 
     public string AssemblyVersion 
-	{ 
-		get { return _gitVersion.AssemblySemVer; }
-	}
-	public string AssemblyFileVersion
-	{
-		get { return PackageVersion; }
-	}
+    { 
+        get { return _gitVersion.AssemblySemVer; }
+    }
+    public string AssemblyFileVersion
+    {
+        get { return PackageVersion; }
+    }
 
-	public string PreReleaseLabel
-	{ 
-		get { return _gitVersion.PreReleaseLabel; }
-	}
+    public string PackageVersion
+    {
+        get { return Version + "-" + PreReleaseSuffix; }
+    }
 
-	public string PackageVersion
-	{
-		get { return _gitVersion.MajorMinorPatch + "-" + PreReleaseLabel + "-" + _gitVersion.PreReleaseNumber.PadLeft(4, '0'); }
-	}
+    public bool IsPullRequest
+    {
+        // Requires correct setup of GitVersion.yml
+        get { return PreReleaseLabel == "pr"; }
+    }
 
-	public bool IsPullRequest
-	{
-		// Requires correct setup of GitVersion.yml
-	    get { return PreReleaseLabel == "pr"; }
-	}
+    public string PullRequestNumber
+    {
+        get	{ return IsPullRequest ? _gitVersion.PreReleaseNumber : string.Empty; }
+    }
 
-	public string PullRequestNumber
-	{
-		get	{ return IsPullRequest ? _gitVersion.PreReleaseNumber : string.Empty; }
-	}
-
-	public string Dump()
-	{
-	    var NL = Environment.NewLine;
-		return "           BranchName: " + BranchName + NL +
-			   "        IsPullRequest: " + IsPullRequest.ToString() + NL +
-			   "    PullRequestNumber: " + PullRequestNumber + NL +
-		       "      AssemblyVersion: " + AssemblyVersion + NL +
-		       "  AssemblyFileVersion: " + AssemblyFileVersion + NL +
-		       "      Package Version: " + PackageVersion + NL;
-	}
+    public string Dump()
+    {
+        var NL = Environment.NewLine;
+        return "           BranchName: " + BranchName + NL +
+			   "              Version: " + Version + NL +
+			   "     PreReleaseSuffix: " + PreReleaseSuffix + NL +
+               "        IsPullRequest: " + IsPullRequest.ToString() + NL +
+               "    PullRequestNumber: " + PullRequestNumber + NL +
+               "      AssemblyVersion: " + AssemblyVersion + NL +
+               "  AssemblyFileVersion: " + AssemblyFileVersion + NL +
+               "      Package Version: " + PackageVersion + NL;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
