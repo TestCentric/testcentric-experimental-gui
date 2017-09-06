@@ -2,6 +2,8 @@
 #tool nuget:?package=GitVersion.CommandLine
 #addin "Cake.Incubator"
 
+using System.Text.RegularExpressions;
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -233,83 +235,59 @@ Task("PackageChocolatey")
 
 class BuildInfo
 {
-    private GitVersion _gitVersion;
-
     public BuildInfo(GitVersion gitVersion)
     {
-        _gitVersion = gitVersion;
-    }
+		Version = gitVersion.MajorMinorPatch;
+		BranchName = gitVersion.BranchName;
+		BuildNumber = gitVersion.CommitsSinceVersionSourcePadded;
 
-    public string BranchName
-    { 
-        get { return _gitVersion.BranchName; }
-    }
+		// Initially assume it's neither master nor a PR
+		IsMaster = false;
+		IsPullRequest = false;
+		PullRequestNumber = string.Empty;
 
-    public string Version
-    {
-        get { return _gitVersion.MajorMinorPatch; }
-    }
-
-	private string _preReleaseLabel;
-    public string PreReleaseLabel
-    { 
-        get
+		if (BranchName == "master")
 		{
-			if (_preReleaseLabel == null)
-			{
-				_preReleaseLabel = _gitVersion.PreReleaseLabel;
-				if (_preReleaseLabel != "dev" && _preReleaseLabel != "pr")
-					_preReleaseLabel = "ci";
-			}
-
-			return _preReleaseLabel;
+			IsMaster = true;
+			PreReleaseSuffix = "dev-" + BuildNumber;
 		}
-    }
-
-	private string _preReleaseSuffix;
-	public string PreReleaseSuffix
-	{
-		get 
+		else
 		{
-			if (_preReleaseSuffix == null)
-			{
-				_preReleaseSuffix = PreReleaseLabel + "-" + _gitVersion.PreReleaseNumber.PadLeft(4, '0');
-				if (PreReleaseLabel == "ci")
-					_preReleaseSuffix += "-" + System.Text.RegularExpressions.Regex.Replace(BranchName, "[^0-9A-Za-z-]+", "-");
+			var re = new Regex(@"(pull|pull\-requests?|pr)[/-](\d*)[/-]");
+			var match = re.Match(BranchName);
 
+			if (match.Success)
+			{
+				IsPullRequest = true;
+				PullRequestNumber = match.Groups[2].Value;
+				PreReleaseSuffix = "pr-" + PullRequestNumber + "-" + BuildNumber;
+			}
+			else
+			{
+				PreReleaseSuffix = "ci-" + BuildNumber + "-" + Regex.Replace(BranchName, "[^0-9A-Za-z-]+", "-");
 				// Nuget limits "special version part" to 20 chars.
-				if (_preReleaseSuffix.Length > 20)
-					_preReleaseSuffix = _preReleaseSuffix.Substring(0, 20);
+				if (PreReleaseSuffix.Length > 20)
+					PreReleaseSuffix = PreReleaseSuffix.Substring(0, 20);
 			}
-
-			return _preReleaseSuffix;
 		}
-	}
 
-    public string AssemblyVersion 
-    { 
-        get { return _gitVersion.AssemblySemVer; }
-    }
-    public string AssemblyFileVersion
-    {
-        get { return PackageVersion; }
+		PackageVersion = Version + "-" + PreReleaseSuffix;
+
+        AssemblyVersion = gitVersion.AssemblySemVer;
+		AssemblyFileVersion = PackageVersion;
     }
 
-    public string PackageVersion
-    {
-        get { return Version + "-" + PreReleaseSuffix; }
-    }
+    public string BranchName { get; private set; }
+    public string Version { get; private set; }
+	public bool IsMaster { get; private set; }
+    public bool IsPullRequest { get; private set; }
+    public string PullRequestNumber { get; private set; }
+	public string BuildNumber { get; private set; }
+	public string PreReleaseSuffix { get; private set; }
+	public string PackageVersion { get; private set; }
 
-    public bool IsPullRequest
-    {
-        // Requires correct setup of GitVersion.yml
-        get { return PreReleaseLabel == "pr"; }
-    }
-
-    public string PullRequestNumber
-    {
-        get	{ return IsPullRequest ? _gitVersion.PreReleaseNumber : string.Empty; }
-    }
+    public string AssemblyVersion { get; private set; }
+    public string AssemblyFileVersion { get; private set; }
 
     public string Dump()
     {
