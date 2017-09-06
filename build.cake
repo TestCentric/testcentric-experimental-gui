@@ -117,7 +117,13 @@ Task("SetBuildInfo")
             }
         }
 
+        Information("\nUsing package version " + packageVersion + " on AppVeyor\n");
+
         AppVeyor.UpdateBuildVersion(packageVersion);
+    }
+    else
+    {
+        packageVersion = Build.PackageVersion;
     }
 });
 
@@ -237,54 +243,54 @@ class BuildInfo
 {
     public BuildInfo(GitVersion gitVersion)
     {
-		Version = gitVersion.MajorMinorPatch;
-		BranchName = gitVersion.BranchName;
-		BuildNumber = gitVersion.CommitsSinceVersionSourcePadded;
+        Version = gitVersion.MajorMinorPatch;
+        BranchName = gitVersion.BranchName;
+        BuildNumber = gitVersion.CommitsSinceVersionSourcePadded;
 
-		// Initially assume it's neither master nor a PR
-		IsMaster = false;
-		IsPullRequest = false;
-		PullRequestNumber = string.Empty;
+        // Initially assume it's neither master nor a PR
+        IsMaster = false;
+        IsPullRequest = false;
+        PullRequestNumber = string.Empty;
 
-		if (BranchName == "master")
-		{
-			IsMaster = true;
-			PreReleaseSuffix = "dev-" + BuildNumber;
-		}
-		else
-		{
-			var re = new Regex(@"(pull|pull\-requests?|pr)[/-](\d*)[/-]");
-			var match = re.Match(BranchName);
+        if (BranchName == "master")
+        {
+            IsMaster = true;
+            PreReleaseSuffix = "dev-" + BuildNumber;
+        }
+        else
+        {
+            var re = new Regex(@"(pull|pull\-requests?|pr)[/-](\d*)[/-]");
+            var match = re.Match(BranchName);
 
-			if (match.Success)
-			{
-				IsPullRequest = true;
-				PullRequestNumber = match.Groups[2].Value;
-				PreReleaseSuffix = "pr-" + PullRequestNumber + "-" + BuildNumber;
-			}
-			else
-			{
-				PreReleaseSuffix = "ci-" + BuildNumber + "-" + Regex.Replace(BranchName, "[^0-9A-Za-z-]+", "-");
-				// Nuget limits "special version part" to 20 chars.
-				if (PreReleaseSuffix.Length > 20)
-					PreReleaseSuffix = PreReleaseSuffix.Substring(0, 20);
-			}
-		}
+            if (match.Success)
+            {
+                IsPullRequest = true;
+                PullRequestNumber = match.Groups[2].Value;
+                PreReleaseSuffix = "pr-" + PullRequestNumber + "-" + BuildNumber;
+            }
+            else
+            {
+                PreReleaseSuffix = "ci-" + BuildNumber + "-" + Regex.Replace(BranchName, "[^0-9A-Za-z-]+", "-");
+                // Nuget limits "special version part" to 20 chars.
+                if (PreReleaseSuffix.Length > 20)
+                    PreReleaseSuffix = PreReleaseSuffix.Substring(0, 20);
+            }
+        }
 
-		PackageVersion = Version + "-" + PreReleaseSuffix;
+        PackageVersion = Version + "-" + PreReleaseSuffix;
 
         AssemblyVersion = gitVersion.AssemblySemVer;
-		AssemblyFileVersion = PackageVersion;
+        AssemblyFileVersion = PackageVersion;
     }
 
     public string BranchName { get; private set; }
     public string Version { get; private set; }
-	public bool IsMaster { get; private set; }
+    public bool IsMaster { get; private set; }
     public bool IsPullRequest { get; private set; }
     public string PullRequestNumber { get; private set; }
-	public string BuildNumber { get; private set; }
-	public string PreReleaseSuffix { get; private set; }
-	public string PackageVersion { get; private set; }
+    public string BuildNumber { get; private set; }
+    public string PreReleaseSuffix { get; private set; }
+    public string PackageVersion { get; private set; }
 
     public string AssemblyVersion { get; private set; }
     public string AssemblyFileVersion { get; private set; }
@@ -293,8 +299,8 @@ class BuildInfo
     {
         var NL = Environment.NewLine;
         return "           BranchName: " + BranchName + NL +
-			   "              Version: " + Version + NL +
-			   "     PreReleaseSuffix: " + PreReleaseSuffix + NL +
+               "              Version: " + Version + NL +
+               "     PreReleaseSuffix: " + PreReleaseSuffix + NL +
                "        IsPullRequest: " + IsPullRequest.ToString() + NL +
                "    PullRequestNumber: " + PullRequestNumber + NL +
                "      AssemblyVersion: " + AssemblyVersion + NL +
@@ -317,7 +323,8 @@ Task("Appveyor")
     .IsDependentOn("Package");
 
 Task("Travis")
-    .IsDependentOn("Build");
+    .IsDependentOn("Build")
+	.IsDependentOn("PackageZip");
 
 Task("Default")
     .IsDependentOn("Build");
