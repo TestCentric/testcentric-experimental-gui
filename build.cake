@@ -15,10 +15,6 @@ var configuration = Argument("configuration", "Debug");
 // SET PACKAGE VERSION DEFAULTS
 //////////////////////////////////////////////////////////////////////
 
-string version = "0.6.0";
-string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
-string packageVersion = version + dbgSuffix;
-
 GitVersion GitVersionInfo { get; set; }
 BuildInfo Build { get; set;}
 
@@ -84,6 +80,9 @@ Task("SetBuildInfo")
 
     if (BuildSystem.IsRunningOnAppVeyor)
     {
+		string version = "0.6.0";
+		string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
+	    string packageVersion = version + dbgSuffix;
         var tag = AppVeyor.Environment.Repository.Tag;
 
         if (tag.IsTag)
@@ -117,13 +116,9 @@ Task("SetBuildInfo")
             }
         }
 
-        Information("\nUsing package version " + packageVersion + " on AppVeyor\n");
+        Information("\nOld PackageVersion would be " + packageVersion + " on AppVeyor\n");
 
-        AppVeyor.UpdateBuildVersion(packageVersion);
-    }
-    else
-    {
-        packageVersion = Build.PackageVersion;
+        AppVeyor.UpdateBuildVersion(Build.PackageVersion);
     }
 });
 
@@ -200,7 +195,7 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        Zip(BIN_DIR, File(PACKAGE_DIR + "NUnit-Gui-" + packageVersion + ".zip"), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + "NUnit-Gui-" + Build.PackageVersion + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -212,7 +207,7 @@ Task("PackageChocolatey")
         ChocolateyPack("choco/nunit-gui.nuspec", 
             new ChocolateyPackSettings()
             {
-                Version = packageVersion,
+                Version = Build.PackageVersion,
                 OutputDirectory = PACKAGE_DIR,
                 Files = new ChocolateyNuSpecContent[]
                 {
