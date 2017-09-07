@@ -72,17 +72,25 @@ Task("RestorePackages")
 Task("SetBuildInfo")
     .Does(() =>
 {
-    GitVersionInfo = GitVersion();
-    Information("GitVersion Info:\n" + GitVersionInfo.Dump());
+    var settings = new GitVersionSettings();
+    if (!BuildSystem.IsLocalBuild)
+    {
+        settings.UpdateAssemblyInfo = true;
+        settings.UpdateAssemblyInfoFilePath = "src/CommonAssemblyInfo.cs";
+    }
 
+    GitVersionInfo = GitVersion(settings);
     Build = new BuildInfo(GitVersionInfo);
+
+// Debug info for testing GitVersion
+    Information("GitVersion Info:\n" + GitVersionInfo.Dump());
     Information("\nBuildInfo:\n" + Build.Dump());
 
     if (BuildSystem.IsRunningOnAppVeyor)
     {
-		string version = "0.6.0";
-		string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
-	    string packageVersion = version + dbgSuffix;
+        string version = "0.6.0";
+        string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
+        string packageVersion = version + dbgSuffix;
         var tag = AppVeyor.Environment.Repository.Tag;
 
         if (tag.IsTag)
@@ -117,9 +125,8 @@ Task("SetBuildInfo")
         }
 
         Information("\nOld PackageVersion would be " + packageVersion + " on AppVeyor\n");
-
-        AppVeyor.UpdateBuildVersion(Build.PackageVersion);
     }
+// End of debug info
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -317,7 +324,7 @@ Task("Appveyor")
 
 Task("Travis")
     .IsDependentOn("Build")
-	.IsDependentOn("PackageZip");
+    .IsDependentOn("PackageZip");
 
 Task("Default")
     .IsDependentOn("Build");

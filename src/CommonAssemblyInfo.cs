@@ -39,7 +39,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// Common version information for all assemblies.
+// Common version information for local developer builds.
 // Should be set to the NEXT planned version between releases.
+// For CI builds, this info will be updated by GitVersion.
 [assembly: AssemblyVersion("0.6.0.0")]
 [assembly: AssemblyFileVersion("0.6.0.0")]
