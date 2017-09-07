@@ -4,5 +4,5 @@ mono:
   - latest
   - 4.6.2
 script: 
-  - ./build.sh --target "Travis"
+  - ./build.sh -target="Travis" -configuration="Release" -verbosity="verbose"
     
