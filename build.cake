@@ -81,52 +81,6 @@ Task("SetBuildInfo")
 
     GitVersionInfo = GitVersion(settings);
     Build = new BuildInfo(GitVersionInfo);
-
-// Debug info for testing GitVersion
-    Information("GitVersion Info:\n" + GitVersionInfo.Dump());
-    Information("\nBuildInfo:\n" + Build.Dump());
-
-    if (BuildSystem.IsRunningOnAppVeyor)
-    {
-        string version = "0.6.0";
-        string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
-        string packageVersion = version + dbgSuffix;
-        var tag = AppVeyor.Environment.Repository.Tag;
-
-        if (tag.IsTag)
-        {
-            packageVersion = tag.Name;
-        }
-        else
-        {
-            var buildNumber = AppVeyor.Environment.Build.Number.ToString("00000");
-            var branch = AppVeyor.Environment.Repository.Branch;
-            var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
-
-            if (branch == "master" && !isPullRequest)
-            {
-                packageVersion = version + "-dev-" + buildNumber + dbgSuffix;
-            }
-            else
-            {
-                var suffix = "-ci-" + buildNumber + dbgSuffix;
-
-                if (isPullRequest)
-                    suffix += "-pr-" + AppVeyor.Environment.PullRequest.Number;
-                else
-                    suffix += "-" + branch;
-
-                // Nuget limits "special version part" to 20 chars. Add one for the hyphen.
-                if (suffix.Length > 21)
-                    suffix = suffix.Substring(0, 21);
-
-                packageVersion = version + suffix;
-            }
-        }
-
-        Information("\nOld PackageVersion would be " + packageVersion + " on AppVeyor\n");
-    }
-// End of debug info
 });
 
 //////////////////////////////////////////////////////////////////////
