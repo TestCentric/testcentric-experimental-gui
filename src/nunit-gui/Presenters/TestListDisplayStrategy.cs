@@ -106,8 +106,8 @@ namespace NUnit.Gui.Presenters
 
         protected override string DefaultGroupSetting
         {
-            get { return _model.Settings.Gui.TestTree.TestList.GroupBy; }
-            set { _model.Settings.Gui.TestTree.TestList.GroupBy = value; }
+            get { return _settings.Gui.TestTree.TestList.GroupBy; }
+            set { _settings.Gui.TestTree.TestList.GroupBy = value; }
         }
 
         #endregion

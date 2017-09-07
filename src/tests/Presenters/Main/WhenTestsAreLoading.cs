@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,29 +21,39 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.Framework;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters.TestTree
+namespace NUnit.Gui.Presenters.Main
 {
     using Model;
-    using Views;
+    using Framework;
 
-    public class TestTreePresenterTestBase
+    public class WhenTestsAreLoading : MainPresenterTestBase
     {
-        protected ITestTreeView _view;
-        protected ITestModel _model;
-
-        [SetUp]
-        public void CreatePresenter()
+        [Test]
+        public void View_Receives_FileNameOfSingleAssembly()
         {
-            _view = Substitute.For<ITestTreeView>();
-            _model = Substitute.For<ITestModel>();
+            var arguments = new TestFilesLoadingEventArgs(new[]
+                {
+                    "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll"
+                });
+            Model.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
 
-            new TreeViewPresenter(_view, _model);
+            View.Received().OnTestAssembliesLoading("Loading Assembly: SomeAssembly.AcceptanceTests.dll");
+        }
 
-            // Make it look like the view loaded
-            _view.Load += Raise.Event<System.EventHandler>(null, new System.EventArgs());
+        [Test]
+        public void View_Receives_CountOfMultipleAssemblies()
+        {
+            var arguments = new TestFilesLoadingEventArgs(new[]
+                {
+                    "C:\\git\\projects\\pull-request\\SomeAssembly.Tests.dll",
+                    "C:\\git\\projects\\pull-request\\SomeAssembly.IntegrationTests.dll",
+                    "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll"
+                });
+            Model.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
+
+            View.Received().OnTestAssembliesLoading("Loading 3 Assemblies...");
         }
     }
 }

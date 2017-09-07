@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model
+namespace NUnit.Gui.Settings
 {
     /// <summary>
     /// Indicates how a tree should be displayed

@@ -34,12 +34,14 @@ namespace NUnit.Gui.Model
     public delegate void TestNodeEventHandler(TestNodeEventArgs args);
     public delegate void TestResultEventHandler(TestResultEventArgs args);
     public delegate void TestItemEventHandler(TestItemEventArgs args);
+    public delegate void TestFilesLoadingEventHandler(TestFilesLoadingEventArgs args);
 
     public interface ITestModel : IServiceLocator, System.IDisposable
     {
         #region Events
 
         // Events related to loading and unloading tests.
+        event TestFilesLoadingEventHandler TestsLoading;
         event TestNodeEventHandler TestLoaded;
         event TestNodeEventHandler TestReloaded;
         event TestEventHandler TestUnloaded;
@@ -78,11 +80,12 @@ namespace NUnit.Gui.Model
         // See if a test is running
         bool IsTestRunning { get; }
 
+        // Do we have results from running the test?
         bool HasResults { get; }
 
-        Settings.SettingsModel Settings { get; }
-
-        IList<RuntimeFramework> AvailableRuntimes { get; }
+        // List of available runtimes, based on the engine's list
+        // but filtered to meet the GUI's requirements
+        IList<IRuntimeFramework> AvailableRuntimes { get; }
 
         #endregion
 

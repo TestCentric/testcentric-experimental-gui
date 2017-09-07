@@ -22,6 +22,7 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 
 namespace NUnit.Gui.Model
 {
@@ -84,5 +85,15 @@ namespace NUnit.Gui.Model
         }
 
         public ITestItem TestItem { get; private set; }
+    }
+
+    public class TestFilesLoadingEventArgs : EventArgs
+    {
+        public TestFilesLoadingEventArgs(IList<string> testFilesLoading)
+        {
+            TestFilesLoading = testFilesLoading;
+        }
+
+        public IList<string> TestFilesLoading { get; }
     }
 }

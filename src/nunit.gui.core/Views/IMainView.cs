@@ -103,5 +103,8 @@ namespace NUnit.Gui.Views
 
         // Messages
         IMessageDisplay MessageDisplay { get; }
+
+        void OnTestAssembliesLoading(string message);
+        void OnTestAssembliesLoaded();
     }
 }

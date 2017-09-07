@@ -28,7 +28,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using NUnit.Gui.Model;
-using NUnit.Gui.Model.Settings;
+using NUnit.Gui.Settings;
 
 namespace NUnit.Gui.Views.SettingsPages
 {

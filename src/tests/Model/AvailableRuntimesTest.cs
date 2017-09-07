@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,26 +21,37 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model.Settings
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NUnit.Framework;
+
+namespace NUnit.Gui.Model
 {
     using Engine;
 
-    /// <summary>
-    /// SettingsModel is the top level of a set of wrapper
-    /// classes that provide type-safe access to settingsService.
-    /// </summary>
-    public class SettingsModel : SettingsWrapper
+    public class AvailableRuntimesTest
     {
-        public SettingsModel(ISettings settingsService) : base(settingsService, null) { }
+        private IList<IRuntimeFramework> _availableRuntimes;
 
-        public GuiSettings Gui
+        [OneTimeSetUp]
+        public void CreateTestModel()
         {
-            get { return new GuiSettings(SettingsService); }
+            var engine = TestEngineActivator.CreateInstance();
+            Assert.NotNull(engine, "Unable to create engine instance for testing");
+
+            var model = new TestModel(engine, new CommandLineOptions());
+            _availableRuntimes = model.AvailableRuntimes;
+            Assert.NotNull(_availableRuntimes);
         }
 
-        public EngineSettings Engine
+        [Test]
+        public void AtLeastOneRuntimeIsAvailable()
         {
-            get { return new EngineSettings(SettingsService); }
+            Assert.That(_availableRuntimes.Count, Is.GreaterThan(0));
+            foreach (var runtime in _availableRuntimes)
+                Console.WriteLine("Available: " + runtime.DisplayName);
         }
     }
 }

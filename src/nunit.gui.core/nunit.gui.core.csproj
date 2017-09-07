@@ -31,14 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.engine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.api.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.Api.3.7.0\lib\nunit.engine.api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -50,6 +45,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="EnginePackageSettings.cs" />
     <Compile Include="ExtensionAttribute.cs" />
     <Compile Include="Model\ITestItem.cs" />
     <Compile Include="Model\ITestModel.cs" />
@@ -59,11 +55,6 @@
     <Compile Include="Model\ResultSummaryCreator.cs" />
     <Compile Include="Model\ResultSummaryReporter.cs" />
     <Compile Include="Model\RunState.cs" />
-    <Compile Include="Model\Settings\EngineSettings.cs" />
-    <Compile Include="Model\Settings\GuiSettings.cs" />
-    <Compile Include="Model\Settings\SettingsModel.cs" />
-    <Compile Include="Model\Settings\SettingsWrapper.cs" />
-    <Compile Include="Model\Settings\TestTreeSettings.cs" />
     <Compile Include="Model\TestAction.cs" />
     <Compile Include="Model\TestEventArgs.cs" />
     <Compile Include="Model\TestModel.cs" />
@@ -71,7 +62,6 @@
     <Compile Include="Model\TestSelection.cs" />
     <Compile Include="Model\TestStartNotice.cs" />
     <Compile Include="Model\TestStatus.cs" />
-    <Compile Include="Model\TreeDisplayStyle.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\IAddinsView.cs" />
@@ -85,15 +75,16 @@
     <Compile Include="Views\ITestTreeView.cs" />
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\IXmlView.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
       <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
       <Name>nunit.uikit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

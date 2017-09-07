@@ -36,14 +36,9 @@
     <ApplicationIcon>nunit.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.engine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.api.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.Engine.Api.3.7.0\lib\nunit.engine.api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -59,6 +54,11 @@
     <Compile Include="Presenters\GroupDisplayStrategy.cs" />
     <Compile Include="Presenters\DurationGrouping.cs" />
     <Compile Include="Presenters\OutcomeGrouping.cs" />
+    <Compile Include="Settings\EngineSettings.cs" />
+    <Compile Include="Settings\GuiSettings.cs" />
+    <Compile Include="Settings\SettingsGroup.cs" />
+    <Compile Include="Settings\SettingsModel.cs" />
+    <Compile Include="Settings\TestTreeSettings.cs" />
     <Compile Include="Presenters\TestGroup.cs" />
     <Compile Include="Presenters\FixtureListDisplayStrategy.cs" />
     <Compile Include="Presenters\NUnitTreeDisplayStrategy.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="Presenters\StatusBarPresenter.cs" />
     <Compile Include="Presenters\DisplayStrategy.cs" />
     <Compile Include="Presenters\XmlPresenter.cs" />
+    <Compile Include="Settings\TreeDisplayStyle.cs" />
     <Compile Include="Views\AddinPages\AddinsView.cs">
       <SubType>Form</SubType>
     </Compile>

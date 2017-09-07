@@ -30,7 +30,7 @@ using System.Windows.Forms;
 
 namespace NUnit.Gui.Views.SettingsPages
 {
-    using Model.Settings;
+    using Settings;
 
     public partial class AssemblyReloadSettingsPage : SettingsPage
     {

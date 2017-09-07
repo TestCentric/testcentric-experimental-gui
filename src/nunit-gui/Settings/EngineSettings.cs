@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model.Settings
+namespace NUnit.Gui.Settings
 {
     using Engine;
 
@@ -29,7 +29,7 @@ namespace NUnit.Gui.Model.Settings
     /// SettingsModel is the top level of a set of wrapper
     /// classes that provide type-safe access to settingsService.
     /// </summary>
-    public class EngineSettings : SettingsWrapper
+    public class EngineSettings : SettingsGroup
     {
         public EngineSettings(ISettings settingsService) : base(settingsService, "Engine.Options") { }
 

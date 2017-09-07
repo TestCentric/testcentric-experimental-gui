@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,29 +21,26 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.Framework;
-using NSubstitute;
-
-namespace NUnit.Gui.Presenters.TestTree
+namespace NUnit.Gui.Settings
 {
-    using Model;
-    using Views;
+    using Engine;
 
-    public class TestTreePresenterTestBase
+    /// <summary>
+    /// SettingsModel is the top level of a set of wrapper
+    /// classes that provide type-safe access to user settings.
+    /// </summary>
+    public class SettingsModel : SettingsGroup
     {
-        protected ITestTreeView _view;
-        protected ITestModel _model;
+        public SettingsModel(ISettings settings) : base(settings, null) { }
 
-        [SetUp]
-        public void CreatePresenter()
+        public GuiSettings Gui
         {
-            _view = Substitute.For<ITestTreeView>();
-            _model = Substitute.For<ITestModel>();
+            get { return new GuiSettings(SettingsService); }
+        }
 
-            new TreeViewPresenter(_view, _model);
-
-            // Make it look like the view loaded
-            _view.Load += Raise.Event<System.EventHandler>(null, new System.EventArgs());
+        public EngineSettings Engine
+        {
+            get { return new EngineSettings(SettingsService); }
         }
     }
 }
