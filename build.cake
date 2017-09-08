@@ -1,6 +1,5 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.6.1
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.7.0
 #tool nuget:?package=GitVersion.CommandLine
-#addin "Cake.Incubator"
 
 using System.Text.RegularExpressions;
 

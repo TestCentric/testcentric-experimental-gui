@@ -32,24 +32,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NSubstitute.2.0.3\lib\net35\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.engine, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\nunit.engine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="nunit.engine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.Engine.3.6.1\lib\nunit.engine.api.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\NUnit.Engine.3.7.0\lib\nunit.engine.api.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.6.1\lib\net35\nunit.framework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.7.1\lib\net35\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

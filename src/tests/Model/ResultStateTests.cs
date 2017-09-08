@@ -101,7 +101,7 @@ namespace NUnit.Gui.Model
             Assert.AreEqual(site, resultState.Site);
         }
 
-        [TestCase(TestStatus.Skipped, SpecialValue.Null, "Skipped")]
+        [TestCase(TestStatus.Skipped, null, "Skipped")]
         [TestCase(TestStatus.Passed, "", "Passed")]
         [TestCase(TestStatus.Passed, "testLabel", "Passed:testLabel")]
         public void ToString_Constructor_ReturnsExpectedString(TestStatus status, string label, string expected)

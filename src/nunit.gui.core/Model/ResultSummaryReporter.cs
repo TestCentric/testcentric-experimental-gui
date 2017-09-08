@@ -58,7 +58,7 @@ namespace NUnit.Gui.Model
 
             writer.AppendLine($"  Start time: {summary.StartTime:u}");
             writer.AppendLine($"    End time: {summary.EndTime:u}");
-            writer.AppendLine($"    Duration: {summary.Duration:0.000}");
+            writer.AppendUICultureFormattedNumber("    Duration: ", summary.Duration);
 
             return writer.ToString();
         }
@@ -67,6 +67,12 @@ namespace NUnit.Gui.Model
         {
             sb.Append(label);
             sb.Append(number.ToString("n0", CultureInfo.CurrentUICulture));
+        }
+
+        private static void AppendUICultureFormattedNumber(this StringBuilder sb, string label, double number)
+        {
+            sb.Append(label);
+            sb.Append(number.ToString("n3", CultureInfo.CurrentUICulture));
         }
     }
 }
