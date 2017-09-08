@@ -1,0 +1,19 @@
+mode: ContinuousDelivery
+branches:
+  master:
+    tag: dev
+    increment: Minor
+  releases?[/-]:
+    tag: ci
+    increment: Minor
+  features?[/-]:
+    tag: ci
+    increment: Minor
+  issues?[/-]:
+    tag: ci
+    increment: Minor
+  (pull|pull\-requests|pr)[/-]:
+    tag: pr
+    increment: Minor
+ignore:
+  sha: []

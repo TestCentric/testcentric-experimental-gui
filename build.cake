@@ -1,4 +1,7 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.7.0
+#tool nuget:?package=GitVersion.CommandLine
+
+using System.Text.RegularExpressions;
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -8,15 +11,11 @@ var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
 
 //////////////////////////////////////////////////////////////////////
-// SET PACKAGE VERSION
+// SET PACKAGE VERSION DEFAULTS
 //////////////////////////////////////////////////////////////////////
 
-var version = "0.5";
-var modifier = "";
-
-var isAppveyor = BuildSystem.IsRunningOnAppVeyor;
-var dbgSuffix = configuration == "Debug" ? "-dbg" : "";
-var packageVersion = version + modifier + dbgSuffix;
+GitVersion GitVersionInfo { get; set; }
+BuildInfo Build { get; set;}
 
 //////////////////////////////////////////////////////////////////////
 // DEFINE RUN CONSTANTS
@@ -41,10 +40,6 @@ var PACKAGE_SOURCE = new string[]
     "https://www.myget.org/F/nunit-gui-team/api/v2"
 };
 
-// Packages
-var SRC_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + version + modifier + "-src.zip";
-var ZIP_PACKAGE = PACKAGE_DIR + "NUnit-Gui-" + packageVersion + ".zip";
-
 //////////////////////////////////////////////////////////////////////
 // CLEAN
 //////////////////////////////////////////////////////////////////////
@@ -57,10 +52,10 @@ Task("Clean")
 
 
 //////////////////////////////////////////////////////////////////////
-// INITIALIZE FOR BUILD
+// RESTORE NUGET PACKAGES
 //////////////////////////////////////////////////////////////////////
 
-Task("InitializeBuild")
+Task("RestorePackages")
     .Does(() =>
 {
     NuGetRestore(GUI_SOLUTION, new NuGetRestoreSettings
@@ -68,44 +63,23 @@ Task("InitializeBuild")
         Source = PACKAGE_SOURCE,
         Verbosity = NuGetVerbosity.Detailed
     });
+});
 
-    if (BuildSystem.IsRunningOnAppVeyor)
+//////////////////////////////////////////////////////////////////////
+// SET BUILD INFO
+//////////////////////////////////////////////////////////////////////
+Task("SetBuildInfo")
+    .Does(() =>
+{
+    var settings = new GitVersionSettings();
+    if (!BuildSystem.IsLocalBuild)
     {
-        var tag = AppVeyor.Environment.Repository.Tag;
-
-        if (tag.IsTag)
-        {
-            packageVersion = tag.Name;
-        }
-        else
-        {
-            var buildNumber = AppVeyor.Environment.Build.Number.ToString("00000");
-            var branch = AppVeyor.Environment.Repository.Branch;
-            var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
-
-            if (branch == "master" && !isPullRequest)
-            {
-                packageVersion = version + "-dev-" + buildNumber + dbgSuffix;
-            }
-            else
-            {
-                var suffix = "-ci-" + buildNumber + dbgSuffix;
-
-                if (isPullRequest)
-                    suffix += "-pr-" + AppVeyor.Environment.PullRequest.Number;
-                else
-                    suffix += "-" + branch;
-
-                // Nuget limits "special version part" to 20 chars. Add one for the hyphen.
-                if (suffix.Length > 21)
-                    suffix = suffix.Substring(0, 21);
-
-                packageVersion = version + suffix;
-            }
-        }
-
-        AppVeyor.UpdateBuildVersion(packageVersion);
+        settings.UpdateAssemblyInfo = true;
+        settings.UpdateAssemblyInfoFilePath = "src/CommonAssemblyInfo.cs";
     }
+
+    GitVersionInfo = GitVersion(settings);
+    Build = new BuildInfo(GitVersionInfo);
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -113,7 +87,9 @@ Task("InitializeBuild")
 //////////////////////////////////////////////////////////////////////
 
 Task("Build")
-    .IsDependentOn("InitializeBuild")
+    .IsDependentOn("Clean")
+    .IsDependentOn("RestorePackages")
+    .IsDependentOn("SetBuildInfo")
     .Does(() =>
     {
         if(IsRunningOnWindows())
@@ -167,9 +143,7 @@ Task("PackageZip")
             BIN_DIR + "CHANGES.txt",
             BIN_DIR + "nunit-gui.exe",
             BIN_DIR + "nunit-gui.exe.config",
-            BIN_DIR + "nunit-gui.pdb",
             BIN_DIR + "nunit.uikit.dll",
-            BIN_DIR + "nunit.uikit.pdb",
             BIN_DIR + "nunit.engine.api.dll",
             BIN_DIR + "nunit.engine.dll",
             BIN_DIR + "Mono.Cecil.dll",
@@ -179,7 +153,7 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        Zip(BIN_DIR, File(ZIP_PACKAGE), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + "NUnit-Gui-" + Build.PackageVersion + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -188,12 +162,12 @@ Task("PackageChocolatey")
     {
         CreateDirectory(PACKAGE_DIR);
 
-		ChocolateyPack("choco/nunit-gui.nuspec", 
-			new ChocolateyPackSettings()
-			{
-				Version = packageVersion,
-				OutputDirectory = PACKAGE_DIR,
-				Files = new ChocolateyNuSpecContent[]
+        ChocolateyPack("choco/nunit-gui.nuspec", 
+            new ChocolateyPackSettings()
+            {
+                Version = Build.PackageVersion,
+                OutputDirectory = PACKAGE_DIR,
+                Files = new ChocolateyNuSpecContent[]
                 {
                     new ChocolateyNuSpecContent() { Source = "../LICENSE" },
                     new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
@@ -211,16 +185,86 @@ Task("PackageChocolatey")
                     new ChocolateyNuSpecContent() { Source = "nunit-agent-x86.exe.ignore", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = "nunit.choco.addins", Target="tools" }
                 }
-			});
+            });
     });
+
+//////////////////////////////////////////////////////////////////////
+// BUILD INFO
+//////////////////////////////////////////////////////////////////////
+
+class BuildInfo
+{
+    public BuildInfo(GitVersion gitVersion)
+    {
+        Version = gitVersion.MajorMinorPatch;
+        BranchName = gitVersion.BranchName;
+        BuildNumber = gitVersion.CommitsSinceVersionSourcePadded;
+
+        // Initially assume it's neither master nor a PR
+        IsMaster = false;
+        IsPullRequest = false;
+        PullRequestNumber = string.Empty;
+
+        if (BranchName == "master")
+        {
+            IsMaster = true;
+            PreReleaseSuffix = "dev-" + BuildNumber;
+        }
+        else
+        {
+            var re = new Regex(@"(pull|pull\-requests?|pr)[/-](\d*)[/-]");
+            var match = re.Match(BranchName);
+
+            if (match.Success)
+            {
+                IsPullRequest = true;
+                PullRequestNumber = match.Groups[2].Value;
+                PreReleaseSuffix = "pr-" + PullRequestNumber + "-" + BuildNumber;
+            }
+            else
+            {
+                PreReleaseSuffix = "ci-" + BuildNumber + "-" + Regex.Replace(BranchName, "[^0-9A-Za-z-]+", "-");
+                // Nuget limits "special version part" to 20 chars.
+                if (PreReleaseSuffix.Length > 20)
+                    PreReleaseSuffix = PreReleaseSuffix.Substring(0, 20);
+            }
+        }
+
+        PackageVersion = Version + "-" + PreReleaseSuffix;
+
+        AssemblyVersion = gitVersion.AssemblySemVer;
+        AssemblyFileVersion = PackageVersion;
+    }
+
+    public string BranchName { get; private set; }
+    public string Version { get; private set; }
+    public bool IsMaster { get; private set; }
+    public bool IsPullRequest { get; private set; }
+    public string PullRequestNumber { get; private set; }
+    public string BuildNumber { get; private set; }
+    public string PreReleaseSuffix { get; private set; }
+    public string PackageVersion { get; private set; }
+
+    public string AssemblyVersion { get; private set; }
+    public string AssemblyFileVersion { get; private set; }
+
+    public string Dump()
+    {
+        var NL = Environment.NewLine;
+        return "           BranchName: " + BranchName + NL +
+               "              Version: " + Version + NL +
+               "     PreReleaseSuffix: " + PreReleaseSuffix + NL +
+               "        IsPullRequest: " + IsPullRequest.ToString() + NL +
+               "    PullRequestNumber: " + PullRequestNumber + NL +
+               "      AssemblyVersion: " + AssemblyVersion + NL +
+               "  AssemblyFileVersion: " + AssemblyFileVersion + NL +
+               "      Package Version: " + PackageVersion + NL;
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
-
-Task("Rebuild")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Build");
 
 Task("Package")
     .IsDependentOn("PackageZip")
@@ -232,7 +276,8 @@ Task("Appveyor")
     .IsDependentOn("Package");
 
 Task("Travis")
-    .IsDependentOn("Build");
+    .IsDependentOn("Build")
+    .IsDependentOn("PackageZip");
 
 Task("Default")
     .IsDependentOn("Build");
