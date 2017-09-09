@@ -81,6 +81,17 @@
     <Compile Include="Views\AddinPages\ExtensionPointView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\IAddinsView.cs" />
+    <Compile Include="Views\IDialog.cs" />
+    <Compile Include="Views\IDialogManager.cs" />
+    <Compile Include="Views\IMainView.cs" />
+    <Compile Include="Views\IProgressBarView.cs" />
+    <Compile Include="Views\ISettingsDialog.cs" />
+    <Compile Include="Views\IStatusBarView.cs" />
+    <Compile Include="Views\ITestPropertiesVIew.cs" />
+    <Compile Include="Views\ITestTreeView.cs" />
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\IXmlView.cs" />
     <Compile Include="Views\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,9 +208,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nunit.gui.core\nunit.gui.core.csproj">
+    <ProjectReference Include="..\nunit.testmodel\nunit.testmodel.csproj">
       <Project>{e978a8d7-e4a4-4de9-94df-d82bd764936b}</Project>
-      <Name>nunit.gui.core</Name>
+      <Name>nunit.testmodel</Name>
     </ProjectReference>
     <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
       <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
@@ -226,22 +237,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="nunit.ico" />
-    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent-x86.exe">
-      <Link>nunit-agent-x86.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent-x86.exe.config">
-      <Link>nunit-agent-x86.exe.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent.exe">
-      <Link>nunit-agent.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\packages\NUnit.Engine.3.7.0\lib\nunit-agent.exe.config">
-      <Link>nunit-agent.exe.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
