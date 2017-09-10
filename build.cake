@@ -136,6 +136,9 @@ Task("PackageZip")
 
         CopyFileToDirectory("LICENSE", BIN_DIR);
         CopyFileToDirectory("CHANGES.txt", BIN_DIR);
+        // Temporary hack... needs update if we update the engine
+        CopyFileToDirectory("packages/NUnit.Engine.3.7.0/lib/nunit-agent.exe.config", BIN_DIR);
+        CopyFileToDirectory("packages/NUnit.Engine.3.7.0/lib/nunit-agent-x86.exe.config", BIN_DIR);
 
         var zipFiles = new FilePath[]
         {
@@ -144,6 +147,7 @@ Task("PackageZip")
             BIN_DIR + "nunit-gui.exe",
             BIN_DIR + "nunit-gui.exe.config",
             BIN_DIR + "nunit.uikit.dll",
+            BIN_DIR + "nunit.testmodel.dll",
             BIN_DIR + "nunit.engine.api.dll",
             BIN_DIR + "nunit.engine.dll",
             BIN_DIR + "Mono.Cecil.dll",
@@ -174,6 +178,7 @@ Task("PackageChocolatey")
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe.config", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.uikit.dll", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.testmodel.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.api.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "Mono.Cecil.dll", Target="tools" },
@@ -278,6 +283,11 @@ Task("Appveyor")
 Task("Travis")
     .IsDependentOn("Build")
     .IsDependentOn("PackageZip");
+
+Task("All")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("Package");
 
 Task("Default")
     .IsDependentOn("Build");

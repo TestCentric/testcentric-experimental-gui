@@ -6,7 +6,7 @@ before_build:
   - nuget restore nunit-gui.sln
 
 build_script: 
-  - ps: .\build.ps1 -Target "Appveyor"
+  - ps: .\build.ps1 -Target "Appveyor" -Configuration "Release"
   
 artifacts:
 - path: package\*.zip
