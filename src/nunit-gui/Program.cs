@@ -43,7 +43,11 @@ namespace NUnit.Gui
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Run(args);
+        }
 
+        public static void Run(string[] args)
+        {
             CommandLineOptions options = new CommandLineOptions();
             try
             {
