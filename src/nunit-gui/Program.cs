@@ -43,7 +43,17 @@ namespace NUnit.Gui
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            Run(args);
+        }
+        
+        /// <summary>
+        /// The main entry point for the application, minus GUI initialization
+        /// logic. This method is intended for wrapper applications that
+        /// already do their own GUI initializations that would conflict with
+        /// those done in <see cref="Main"/>.
+        /// </summary>
+        public static void Run(string[] args)
+        {
             CommandLineOptions options = new CommandLineOptions();
             try
             {
