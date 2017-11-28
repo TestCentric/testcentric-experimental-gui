@@ -41,5 +41,6 @@ namespace NUnit.Gui.Views
         event CommandHandler SelectionChanged;
         event CommandHandler CopyCommand;
         event CommandHandler WordWrapChanged;
+        event CommandHandler ViewGotFocus;
     }
 }

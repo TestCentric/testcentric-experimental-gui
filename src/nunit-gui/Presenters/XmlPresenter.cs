@@ -74,6 +74,8 @@ namespace NUnit.Gui.Presenters
             {
                 _view.XmlTextBox.Control.Copy();
             };
+
+            _view.ViewGotFocus += () => DisplayXml();
         }
 
         private void OnSelectedItemChanged(ITestItem testItem)
@@ -92,7 +94,8 @@ namespace NUnit.Gui.Presenters
             {
                 _view.SuspendLayout();
                 _view.Header = testNode.Name;
-                _view.TestXml = GetFullXml(testNode);
+                if (_view.Visible)
+                    _view.TestXml = GetFullXml(testNode);
                 _view.ResumeLayout();
             }
             else if (_selectedItem != null)
