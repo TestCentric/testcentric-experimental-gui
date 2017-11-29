@@ -192,7 +192,7 @@ namespace NUnit.Gui.Views
 
         private void TabControlSelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 1)
+            if (tabControl1.SelectedTab.Equals(tabPage2))
                 XmlView.InvokeFocus();
         }
     }
