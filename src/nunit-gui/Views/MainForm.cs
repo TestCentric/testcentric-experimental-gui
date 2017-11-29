@@ -189,5 +189,11 @@ namespace NUnit.Gui.Views
             if (files != null)
                 DragDropFiles?.Invoke(files);
         }
+
+        private void TabControlSelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Equals(tabPage2))
+                XmlView.InvokeFocus();
+        }
     }
 }

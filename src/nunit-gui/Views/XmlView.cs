@@ -35,6 +35,7 @@ namespace NUnit.Gui.Views
         public event CommandHandler SelectionChanged;
         public event CommandHandler CopyCommand;
         public event CommandHandler WordWrapChanged;
+        public event CommandHandler ViewGotFocus;
 
         public XmlView()
         {
@@ -67,7 +68,6 @@ namespace NUnit.Gui.Views
                 if (WordWrapChanged != null)
                     WordWrapChanged();
             };
-
         }
 
         public string Header
@@ -92,6 +92,11 @@ namespace NUnit.Gui.Views
                 _testXml = value;
                 InvokeIfRequired(() => xmlTextBox.Rtf = TestXml != null ? XmlHelper.ToRtfString(_testXml, 2) : "");
             }
+        }
+
+        public void InvokeFocus()
+        {
+            ViewGotFocus?.Invoke();
         }
 
         #region Helper Methods
