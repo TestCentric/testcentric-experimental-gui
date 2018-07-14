@@ -1,5 +1,6 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.7.0
 #tool nuget:?package=GitVersion.CommandLine
+#addin Cake.Incubator
 
 using System.Text.RegularExpressions;
 
@@ -24,6 +25,7 @@ BuildInfo Build { get; set;}
 // Directories
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
+var CHOCO_DIR = PROJECT_DIR + "choco/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
 
 // Solution
@@ -80,6 +82,9 @@ Task("SetBuildInfo")
 
     GitVersionInfo = GitVersion(settings);
     Build = new BuildInfo(GitVersionInfo);
+
+	Information("GitVersion ==>\n" + GitVersionInfo.Dump());
+	Information("BuildInfo ==>\n" + Build.Dump());
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -134,7 +139,7 @@ Task("PackageZip")
     {
         CreateDirectory(PACKAGE_DIR);
 
-        CopyFileToDirectory("LICENSE", BIN_DIR);
+        CopyFileToDirectory("LICENSE.txt", BIN_DIR);
         CopyFileToDirectory("CHANGES.txt", BIN_DIR);
         // Temporary hack... needs update if we update the engine
         CopyFileToDirectory("packages/NUnit.Engine.3.7.0/lib/nunit-agent.exe.config", BIN_DIR);
@@ -142,7 +147,7 @@ Task("PackageZip")
 
         var zipFiles = new FilePath[]
         {
-            BIN_DIR + "LICENSE",
+            BIN_DIR + "LICENSE.txt",
             BIN_DIR + "CHANGES.txt",
             BIN_DIR + "nunit-gui.exe",
             BIN_DIR + "nunit-gui.exe.config",
@@ -173,8 +178,9 @@ Task("PackageChocolatey")
                 OutputDirectory = PACKAGE_DIR,
                 Files = new ChocolateyNuSpecContent[]
                 {
-                    new ChocolateyNuSpecContent() { Source = "../LICENSE" },
-                    new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
+                    new ChocolateyNuSpecContent() { Source = PROJECT_DIR + "LICENSE.txt", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = PROJECT_DIR + "CHANGES.txt", Target="tools" },
+					new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "VERIFICATION.txt", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe.config", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.uikit.dll", Target="tools" },
@@ -184,11 +190,11 @@ Task("PackageChocolatey")
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "Mono.Cecil.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent.exe.config", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = "nunit-agent.exe.ignore", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "nunit-agent.exe.ignore", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent-x86.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent-x86.exe.config", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = "nunit-agent-x86.exe.ignore", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = "nunit.choco.addins", Target="tools" }
+                    new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "nunit-agent-x86.exe.ignore", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "nunit.choco.addins", Target="tools" }
                 }
             });
     });
@@ -213,7 +219,7 @@ class BuildInfo
         if (BranchName == "master")
         {
             IsMaster = true;
-            PreReleaseSuffix = "dev-" + BuildNumber;
+            //PreReleaseSuffix = "dev-" + BuildNumber;
         }
         else
         {
@@ -235,7 +241,9 @@ class BuildInfo
             }
         }
 
-        PackageVersion = Version + "-" + PreReleaseSuffix;
+        PackageVersion = PreReleaseSuffix != null
+		    ? Version + "-" + PreReleaseSuffix
+			: Version;
 
         AssemblyVersion = gitVersion.AssemblySemVer;
         AssemblyFileVersion = PackageVersion;
