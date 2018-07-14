@@ -26,7 +26,7 @@ using System.Xml;
 
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public partial class XmlView : UserControl, IXmlView
     {

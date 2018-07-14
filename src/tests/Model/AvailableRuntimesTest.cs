@@ -25,12 +25,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NUnit.Engine;
 using NUnit.Framework;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
-    using Engine;
-
     public class AvailableRuntimesTest
     {
         private IList<IRuntimeFramework> _availableRuntimes;

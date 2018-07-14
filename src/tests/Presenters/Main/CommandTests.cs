@@ -23,14 +23,14 @@
 
 using System.Collections.Generic;
 using System.IO;
+using NUnit.Engine;
+using NUnit.Framework;
 using NUnit.UiKit.Elements;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters.Main
+namespace TestCentric.Gui.Presenters.Main
 {
-    using Framework;
     using Views;
-    using Engine;
 
     public class CommandTests : MainPresenterTestBase
     {

@@ -28,7 +28,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Views.SettingsPages
+namespace TestCentric.Gui.Views.SettingsPages
 {
     using Settings;
 

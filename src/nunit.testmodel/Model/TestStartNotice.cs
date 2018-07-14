@@ -23,7 +23,7 @@
 
 using System.Xml;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     public class TestStartNotice
     {

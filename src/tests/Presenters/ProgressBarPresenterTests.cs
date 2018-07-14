@@ -22,12 +22,12 @@
 // ***********************************************************************
 
 using System.Xml;
+using NUnit.Framework;
 using NUnit.UiKit.Controls;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-    using Framework;
     using Views;
     using Model;
 

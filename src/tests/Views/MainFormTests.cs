@@ -25,7 +25,7 @@ using System.Linq;
 using NUnit.Framework;
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public class MainFormTests
     {

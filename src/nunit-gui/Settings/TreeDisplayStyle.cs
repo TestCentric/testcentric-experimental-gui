@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Settings
+namespace TestCentric.Gui.Settings
 {
     /// <summary>
     /// Indicates how a tree should be displayed

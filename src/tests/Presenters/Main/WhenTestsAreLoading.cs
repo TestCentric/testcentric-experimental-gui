@@ -21,12 +21,12 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NSubstitute;
+    using NUnit.Framework;
+    using NSubstitute;
 
-namespace NUnit.Gui.Presenters.Main
+namespace TestCentric.Gui.Presenters.Main
 {
     using Model;
-    using Framework;
 
     public class WhenTestsAreLoading : MainPresenterTestBase
     {

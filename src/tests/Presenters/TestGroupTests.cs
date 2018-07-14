@@ -23,10 +23,10 @@
 
 using System.Collections.Generic;
 using System.Xml;
+using NUnit.Framework;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-    using Framework;
     using Model;
 
     public class TestGroupTests

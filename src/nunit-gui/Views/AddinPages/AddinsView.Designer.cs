@@ -1,4 +1,4 @@
-﻿namespace NUnit.Gui.Views.AddinPages
+﻿namespace TestCentric.Gui.Views.AddinPages
 {
     partial class AddinsView
     {

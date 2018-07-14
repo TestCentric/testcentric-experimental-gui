@@ -24,7 +24,7 @@
 using NSubstitute;
 using NUnit.Framework;
 
-namespace NUnit.Gui.Presenters.Main
+namespace TestCentric.Gui.Presenters.Main
 {
     using Model;
 

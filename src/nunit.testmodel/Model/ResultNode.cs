@@ -24,7 +24,7 @@
 using System.Globalization;
 using System.Xml;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     /// <summary>
     /// TestNode represents a single NUnit test result in the test model.

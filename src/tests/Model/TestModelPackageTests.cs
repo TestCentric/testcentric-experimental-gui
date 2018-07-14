@@ -26,7 +26,7 @@ using NSubstitute;
 using NUnit.Engine;
 using NUnit.Framework;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     public class TestModelPackageTests
     {

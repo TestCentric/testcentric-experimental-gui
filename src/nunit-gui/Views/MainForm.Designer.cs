@@ -1,4 +1,4 @@
-﻿namespace NUnit.Gui.Views
+﻿namespace TestCentric.Gui.Views
 {
     partial class MainForm
     {
@@ -105,11 +105,11 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.testTreeView = new NUnit.Gui.Views.TestTreeView();
-            this.progressBarView = new NUnit.Gui.Views.ProgressBarView();
-            this.propertiesView = new NUnit.Gui.Views.TestPropertiesView();
-            this.xmlView = new NUnit.Gui.Views.XmlView();
-            this.statusBarView = new NUnit.Gui.Views.StatusBarView();
+            this.testTreeView = new TestCentric.Gui.Views.TestTreeView();
+            this.progressBarView = new TestCentric.Gui.Views.ProgressBarView();
+            this.propertiesView = new TestCentric.Gui.Views.TestPropertiesView();
+            this.xmlView = new TestCentric.Gui.Views.XmlView();
+            this.statusBarView = new TestCentric.Gui.Views.StatusBarView();
             this.tabPage1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -834,12 +834,12 @@
 
         #endregion
 
-        private NUnit.Gui.Views.StatusBarView statusBarView;
+        private TestCentric.Gui.Views.StatusBarView statusBarView;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private NUnit.Gui.Views.ProgressBarView progressBarView;
+        private TestCentric.Gui.Views.ProgressBarView progressBarView;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openProjectToolStripMenuItem;

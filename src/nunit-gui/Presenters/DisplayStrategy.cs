@@ -25,13 +25,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using NUnit.Engine;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Views;
     using Model;
     using Settings;
-    using Engine;
     using NUnit.UiKit.Elements;
 
     /// <summary>

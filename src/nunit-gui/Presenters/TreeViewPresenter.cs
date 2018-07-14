@@ -25,10 +25,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
+using NUnit.Engine;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-    using Engine;
     using Model;
     using Views;
 

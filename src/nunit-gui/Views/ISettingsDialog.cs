@@ -23,7 +23,7 @@
 
 using NUnit.UiKit;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public interface ISettingsDialog
     {

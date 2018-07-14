@@ -1,6 +1,7 @@
-﻿namespace NUnit.Gui.Presenters
+﻿using NUnit.Engine;
+
+namespace TestCentric.Gui.Presenters
 {
-    using Engine;
     using Views;
 
     public class AddinsPresenter

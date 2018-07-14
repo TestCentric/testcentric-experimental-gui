@@ -21,10 +21,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model
-{
-    using Framework;
+using NUnit.Framework;
 
+namespace TestCentric.Gui.Model
+{
     public class TestSelectionTests
     {
         private TestSelection selection;

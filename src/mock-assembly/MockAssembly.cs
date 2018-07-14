@@ -25,7 +25,7 @@ using System;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace NUnit.Gui.Tests
+namespace TestCentric.Gui.Tests
 {
     namespace Assemblies
     {

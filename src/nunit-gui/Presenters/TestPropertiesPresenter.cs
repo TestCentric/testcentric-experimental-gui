@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Model;
     using System.Xml;

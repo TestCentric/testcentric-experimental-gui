@@ -24,7 +24,7 @@
 using System.IO;
 using System.Xml;
 
-namespace NUnit.Gui
+namespace TestCentric.Gui
 {
     /// <summary>
     /// XmlHelper provides static methods for basic XML operations

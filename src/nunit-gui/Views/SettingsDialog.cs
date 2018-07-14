@@ -25,7 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     using Settings;
     using SettingsPages;

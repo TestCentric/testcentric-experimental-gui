@@ -21,10 +21,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model
-{
-    using Engine;
+using NUnit.Engine;
 
+namespace TestCentric.Gui.Model
+{
     /// <summary>
     /// ITestItem is the common interface shared by TestNodes
     /// and TestGroups and allows either to be selected in

@@ -23,10 +23,10 @@
 
 using System.Text;
 using System.Windows.Forms;
+using NUnit.Engine;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-    using Engine;
     using Model;
 
     /// <summary>

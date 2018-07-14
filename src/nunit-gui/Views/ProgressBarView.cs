@@ -25,7 +25,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using NUnit.UiKit.Controls;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public partial class ProgressBarView : UserControl, IProgressBarView
     {

@@ -24,7 +24,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Views;
     using Model;

@@ -23,7 +23,7 @@
 
 using NUnit.UiKit.Controls;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public interface IProgressBarView : IView
     {

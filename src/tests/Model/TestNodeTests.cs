@@ -23,7 +23,7 @@
 
 using NUnit.Framework;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     public class TestNodeTests
     {

@@ -23,7 +23,7 @@
 
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     // Interface used for testing
     public interface ITestTreeView : IView

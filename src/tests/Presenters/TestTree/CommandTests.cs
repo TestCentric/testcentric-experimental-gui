@@ -22,14 +22,14 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
+using NUnit.Engine;
+using NUnit.Framework;
 using NUnit.UiKit.Elements;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters.TestTree
+namespace TestCentric.Gui.Presenters.TestTree
 {
-    using Framework;
     using Model;
-    using Engine;
 
     public class CommandTests : TestTreePresenterTestBase
     {

@@ -1,4 +1,4 @@
-﻿namespace NUnit.Gui.Views
+﻿namespace TestCentric.Gui.Views
 {
     public partial class XmlView
     {

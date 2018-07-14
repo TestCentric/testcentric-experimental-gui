@@ -26,12 +26,13 @@ using System.Windows.Forms;
 using NSubstitute;
 
 using NUnit.Framework;
-using NUnit.Gui.Model;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-  public class TestPropertiesPresenterTests
-  {
+    using Model;
+
+    public class TestPropertiesPresenterTests
+                                                                                                                      {
     [TestCase("Assembly", "test.dll", "Runnable", ExpectedResult = "Assembly")]
     [TestCase("Assembly", "test.dll", "NotRunnable", ExpectedResult = "Assembly")]
     [TestCase("Assembly", "test.dll", "Ignored", ExpectedResult = "Assembly")]

@@ -1,4 +1,4 @@
-﻿namespace NUnit.Gui.Views.SettingsPages
+﻿namespace TestCentric.Gui.Views.SettingsPages
 {
     partial class GuiSettingsPage
     {

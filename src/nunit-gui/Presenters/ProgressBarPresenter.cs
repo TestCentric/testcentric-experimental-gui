@@ -23,7 +23,7 @@
 
 using NUnit.UiKit.Controls;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Model;
     using Views;

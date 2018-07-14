@@ -1,10 +1,9 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using NUnit.Engine.Extensibility;
 
-namespace NUnit.Gui.Views.AddinPages
+namespace TestCentric.Gui.Views.AddinPages
 {
-    using Engine.Extensibility;
-
     public partial class AddinsView : Form, IAddinsView
     {
         public AddinsView()
