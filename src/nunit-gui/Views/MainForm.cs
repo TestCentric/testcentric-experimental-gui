@@ -24,9 +24,10 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using NUnit.UiKit;
+using NUnit.UiKit.Controls;
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public partial class MainForm : Form, IMainView
     {
@@ -139,7 +140,7 @@ namespace NUnit.Gui.Views
 
         public void OnTestAssembliesLoading(string message)
         {
-            _messageForm = new UiKit.Controls.LongRunningOperationDisplay(this, message);
+            _messageForm = new NUnit.UiKit.Controls.LongRunningOperationDisplay(this, message);
         }
 
         public void OnTestAssembliesLoaded()
@@ -148,7 +149,7 @@ namespace NUnit.Gui.Views
             _messageForm = null;
         }
 
-        private UiKit.Controls.LongRunningOperationDisplay _messageForm;
+        private LongRunningOperationDisplay _messageForm;
         #endregion
 
         #region Subordinate Views Contained in MainForm

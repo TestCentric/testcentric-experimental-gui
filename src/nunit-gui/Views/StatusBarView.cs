@@ -24,7 +24,7 @@
 using System.Text;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public partial class StatusBarView : UserControl, IStatusBarView
     {

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Xml;
 using NUnit.Engine;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     public class TestModel : ITestModel, ITestEventListener
     {

@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Views;
     using Model;
@@ -46,7 +46,7 @@ namespace NUnit.Gui.Presenters
 
             // Ugly Hack! We should not be referencing view components here.
             // TODO: Create a better interface for a CheckedMenuGroup
-            var checkedMenuGroup = _view.GroupBy as UiKit.Elements.CheckedMenuGroup;
+            var checkedMenuGroup = _view.GroupBy as NUnit.UiKit.Elements.CheckedMenuGroup;
             if (checkedMenuGroup != null)
                 checkedMenuGroup.EnableItem("FIXTURE", false);
         }

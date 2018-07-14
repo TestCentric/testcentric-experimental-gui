@@ -24,7 +24,7 @@
 using System.Collections.Generic;
 using NUnit.Engine;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     /// <summary>
     /// Delegates for all events related to the model

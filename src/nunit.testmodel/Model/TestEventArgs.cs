@@ -24,7 +24,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     /// <summary>
     /// Argument used for all test events

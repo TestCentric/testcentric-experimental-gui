@@ -21,10 +21,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Settings
-{
-    using Engine;
+using NUnit.Engine;
 
+namespace TestCentric.Gui.Settings
+{
     /// <summary>
     /// SettingsGroup wraps an ISettings interface and
     /// may also encapsulate the prefix used for a given 

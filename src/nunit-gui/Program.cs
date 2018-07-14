@@ -27,7 +27,7 @@ using System.Windows.Forms;
 using Mono.Options;
 using NUnit.Engine;
 
-namespace NUnit.Gui
+namespace TestCentric.Gui
 {
     using Model;
     using Views;

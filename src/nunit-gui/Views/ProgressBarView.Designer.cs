@@ -1,4 +1,4 @@
-﻿namespace NUnit.Gui.Views
+﻿namespace TestCentric.Gui.Views
 {
     partial class ProgressBarView
     {

@@ -24,7 +24,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     public static class ResultSummaryReporter
     {

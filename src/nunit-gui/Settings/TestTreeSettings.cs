@@ -21,10 +21,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Settings
-{
-    using Engine;
+using NUnit.Engine;
 
+namespace TestCentric.Gui.Settings
+{
     public class TestTreeSettings : SettingsGroup
     {
         public TestTreeSettings(ISettings settingsService) : base(settingsService, "Gui.TestTree") { }

@@ -23,11 +23,10 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using NUnit.Engine;
 
-namespace NUnit.Gui.Settings
+namespace TestCentric.Gui.Settings
 {
-    using Engine;
-
     public class GuiSettings : SettingsGroup
     {
         public GuiSettings(ISettings settingsService) : base(settingsService, "Gui") { }

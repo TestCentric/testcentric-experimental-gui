@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public partial class TestTreeView : UserControl, ITestTreeView
     {

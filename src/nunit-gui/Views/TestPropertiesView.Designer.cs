@@ -1,4 +1,4 @@
-﻿namespace NUnit.Gui.Views
+﻿namespace TestCentric.Gui.Views
 {
     partial class TestPropertiesView
     {
@@ -430,7 +430,7 @@
         private System.Windows.Forms.Label runState;
         private System.Windows.Forms.Panel resultPanel;
         private System.Windows.Forms.Panel testPanel;
-        private UiKit.Controls.ExpandingLabel output;
+        private NUnit.UiKit.Controls.ExpandingLabel output;
         private System.Windows.Forms.Label outputLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
     }

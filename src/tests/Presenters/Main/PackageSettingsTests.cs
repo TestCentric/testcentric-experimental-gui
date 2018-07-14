@@ -25,7 +25,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Presenters.Main
+namespace TestCentric.Gui.Presenters.Main
 {
     public class PackageSettingsTests : MainPresenterTestBase
     {

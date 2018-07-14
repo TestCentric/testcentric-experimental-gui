@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using NUnit.Engine;
+using NUnit.Engine.Extensibility;
+using NUnit.Framework;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-    using Engine;
-    using Engine.Extensibility;
-    using Framework;
-    using System.Linq;
     using Views;
 
     [TestFixture]

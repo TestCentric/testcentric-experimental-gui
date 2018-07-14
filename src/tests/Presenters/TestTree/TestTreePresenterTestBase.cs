@@ -24,7 +24,7 @@
 using NUnit.Framework;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters.TestTree
+namespace TestCentric.Gui.Presenters.TestTree
 {
     using Model;
     using Views;

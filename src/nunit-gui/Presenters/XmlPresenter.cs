@@ -27,7 +27,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Model;
     using Views;

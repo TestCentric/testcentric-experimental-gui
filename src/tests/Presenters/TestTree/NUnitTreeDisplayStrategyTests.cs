@@ -22,12 +22,12 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
+using NUnit.Engine;
+using NUnit.Framework;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters.TestTree
+namespace TestCentric.Gui.Presenters.TestTree
 {
-    using Engine;
-    using Framework;
     using Model;
     using Views;
     using Settings;

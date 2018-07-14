@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     /// <summary>
     /// The TestStatus enum indicates the suiteResult of running a test

@@ -23,7 +23,7 @@
 
 using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public interface ITestPropertiesView : IView
     {

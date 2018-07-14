@@ -8,7 +8,7 @@ using System.Xml;
 
 using NUnit.Framework;
 
-namespace NUnit.Gui
+namespace TestCentric.Gui
 {
     public class XmlRtfConverterTests
     {

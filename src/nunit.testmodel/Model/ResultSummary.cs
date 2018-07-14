@@ -23,7 +23,7 @@
 
 using System;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
     /// <summary>
     /// Summary description for ResultSummary.

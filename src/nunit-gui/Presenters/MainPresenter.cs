@@ -25,14 +25,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using NUnit.Engine;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
     using Model;
     using Settings;
     using Views;
     using Views.AddinPages;
-    using Engine;
 
     public class MainPresenter : System.IDisposable
     {
@@ -231,7 +231,7 @@ namespace NUnit.Gui.Presenters
 
             string message = string.Format("New {0} setting will not take effect until you reload.\r\n\r\n\t\tReload Now?", key);
 
-            if (_view.MessageDisplay.Ask(message, "Settings Changed") == UiKit.DialogResult.Yes)
+            if (_view.MessageDisplay.Ask(message, "Settings Changed") == NUnit.UiKit.DialogResult.Yes)
                 _model.ReloadTests();
         }
 
@@ -258,7 +258,7 @@ namespace NUnit.Gui.Presenters
         {
             using(var addinsView = new AddinsView())
             {
-                var dialog = new AddinsPresenter(addinsView, _model.GetService<Engine.IExtensionService>());
+                var dialog = new AddinsPresenter(addinsView, _model.GetService<NUnit.Engine.IExtensionService>());
                 dialog.Show();
             }
         }

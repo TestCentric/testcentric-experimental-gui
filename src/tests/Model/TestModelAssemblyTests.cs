@@ -22,11 +22,11 @@
 // ***********************************************************************
 
 using System.IO;
+using NUnit.Engine;
+using NUnit.Framework;
 
-namespace NUnit.Gui.Model
+namespace TestCentric.Gui.Model
 {
-    using Engine;
-    using Framework;
     using Tests.Assemblies;
 
     [Explicit("Second TestEngine conflicts with main engine")]

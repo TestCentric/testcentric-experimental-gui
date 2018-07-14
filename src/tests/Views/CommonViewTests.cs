@@ -23,12 +23,11 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+using NUnit.Framework;
+using NUnit.UiKit.Elements;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
-    using Framework;
-    using UiKit.Elements;
-
     [TestFixture(typeof(MainForm))]
     [TestFixture(typeof(TestTreeView))]
     public class CommonViewTests<T> where T: new()

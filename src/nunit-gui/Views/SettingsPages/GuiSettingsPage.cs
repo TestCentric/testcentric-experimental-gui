@@ -27,10 +27,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NUnit.Gui.Model;
-using NUnit.Gui.Settings;
+using TestCentric.Gui.Model;
+using TestCentric.Gui.Settings;
 
-namespace NUnit.Gui.Views.SettingsPages
+namespace TestCentric.Gui.Views.SettingsPages
 {
     public partial class GuiSettingsPage : SettingsPage
     {

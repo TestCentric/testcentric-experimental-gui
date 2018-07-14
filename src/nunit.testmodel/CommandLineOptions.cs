@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using Mono.Options;
 
-namespace NUnit.Gui
+namespace TestCentric.Gui
 {
     /// <summary>
     /// GuiOptions encapsulates the option settingsServiceServiceService for

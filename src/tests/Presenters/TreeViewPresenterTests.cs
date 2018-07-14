@@ -22,14 +22,14 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
+using NUnit.Framework;
+using NUnit.UiKit.Elements;
 using NSubstitute;
 
-namespace NUnit.Gui.Presenters
+namespace TestCentric.Gui.Presenters
 {
-    using Framework;
     using Views;
     using Model;
-    using NUnit.UiKit.Elements;
 
     public class TreeViewPresenterTests
     {

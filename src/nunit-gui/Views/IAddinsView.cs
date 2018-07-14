@@ -23,7 +23,7 @@
 
 using NUnit.Engine.Extensibility;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public interface IAddinsView : IDialog
     {

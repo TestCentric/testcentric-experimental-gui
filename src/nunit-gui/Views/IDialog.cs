@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     /// <summary>
     /// Common interface implemented by all modal dialog views used in

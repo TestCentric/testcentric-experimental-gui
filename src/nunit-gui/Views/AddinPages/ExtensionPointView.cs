@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
+using NUnit.Engine.Extensibility;
 
-namespace NUnit.Gui.Views.AddinPages
+namespace TestCentric.Gui.Views.AddinPages
 {
-    using Engine.Extensibility;
     using System.Drawing;
 
     internal class ExtensionPointView : GroupBox

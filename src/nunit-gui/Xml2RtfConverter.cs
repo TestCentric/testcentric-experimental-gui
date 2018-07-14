@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Text;
 using System.Xml;
 
-namespace NUnit.Gui
+namespace TestCentric.Gui
 {
     public class Xml2RtfConverter
     {

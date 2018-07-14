@@ -24,7 +24,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace NUnit.Gui.Views
+namespace TestCentric.Gui.Views
 {
     public class DialogManager : IDialogManager
     {

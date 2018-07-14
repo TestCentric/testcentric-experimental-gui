@@ -21,10 +21,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace NUnit.Gui.Settings
-{
-    using Engine;
+using NUnit.Engine;
 
+namespace TestCentric.Gui.Settings
+{
     /// <summary>
     /// SettingsModel is the top level of a set of wrapper
     /// classes that provide type-safe access to settingsService.
