@@ -7,7 +7,7 @@
     <ProjectGuid>{9E15166C-D2B7-4B24-AB1C-1C69FFCEC9D3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NUnit.Gui</RootNamespace>
+    <RootNamespace>TestCentric.Gui</RootNamespace>
     <AssemblyName>nunit-gui</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

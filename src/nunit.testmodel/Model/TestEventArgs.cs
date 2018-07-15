@@ -87,6 +87,20 @@ namespace TestCentric.Gui.Model
         public ITestItem TestItem { get; private set; }
     }
 
+    public class TestOutputEventArgs : EventArgs
+    {
+        public TestOutputEventArgs(string testName, string stream, string text)
+        {
+            TestName = testName;
+            Stream = stream;
+            Text = text;
+        }
+
+        public string TestName { get; }
+        public string Stream { get; }
+        public string Text { get; }
+    }
+
     public class TestFilesLoadingEventArgs : EventArgs
     {
         public TestFilesLoadingEventArgs(IList<string> testFilesLoading)

@@ -51,6 +51,9 @@ namespace TestCentric.Gui.Model
 
         // Test loading events
         public event TestFilesLoadingEventHandler TestsLoading;
+        public event TestEventHandler TestsReloading;
+        public event TestEventHandler TestsUnloading;
+
         public event TestNodeEventHandler TestLoaded;
         public event TestNodeEventHandler TestReloaded;
         public event TestEventHandler TestUnloaded;
@@ -65,8 +68,12 @@ namespace TestCentric.Gui.Model
         public event TestNodeEventHandler TestStarting;
         public event TestResultEventHandler TestFinished;
 
+        public event TestOutputEventHandler TestOutput;
+
         // Test Selection Event
         public event TestItemEventHandler SelectedItemChanged;
+
+        public event TestEventHandler CategorySelectionChanged;
 
         #endregion
 

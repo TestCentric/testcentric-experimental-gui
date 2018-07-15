@@ -7,7 +7,7 @@
     <ProjectGuid>{49D8D9F5-FD8D-4B4F-800C-68DCEE9AE166}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NUnit.Gui</RootNamespace>
+    <RootNamespace>TestCentric.Gui</RootNamespace>
     <AssemblyName>nunit-gui.tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
