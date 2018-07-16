@@ -40,7 +40,7 @@ namespace TestCentric.Gui.Presenters.TestTree
 
             var resultNode = new ResultNode("<test-suite/>");
 
-            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
+            _model.Events.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
         }
 
 

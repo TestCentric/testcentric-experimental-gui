@@ -7,7 +7,7 @@
     <ProjectGuid>{E978A8D7-E4A4-4DE9-94DF-D82BD764936B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nunit.Gui</RootNamespace>
+    <RootNamespace>TestCentric.Gui</RootNamespace>
     <AssemblyName>nunit.testmodel</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,6 +45,7 @@
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="EnginePackageSettings.cs" />
     <Compile Include="ExtensionAttribute.cs" />
+    <Compile Include="Model\ITestEvents.cs" />
     <Compile Include="Model\ITestItem.cs" />
     <Compile Include="Model\ITestModel.cs" />
     <Compile Include="Model\ResultNode.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Model\RunState.cs" />
     <Compile Include="Model\TestAction.cs" />
     <Compile Include="Model\TestEventArgs.cs" />
+    <Compile Include="Model\TestEventDispatcher.cs" />
     <Compile Include="Model\TestModel.cs" />
     <Compile Include="Model\TestNode.cs" />
     <Compile Include="Model\TestSelection.cs" />

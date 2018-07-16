@@ -42,7 +42,7 @@ namespace TestCentric.Gui.Presenters.Main
             doc.LoadXml("<test-suite id='1'/>");
             TestNode testNode = new TestNode(doc.FirstChild);
             Model.Tests.Returns(testNode);
-            Model.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
+            Model.Events.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
         }
 
 #if NYI

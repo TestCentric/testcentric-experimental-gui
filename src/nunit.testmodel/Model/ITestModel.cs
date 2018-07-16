@@ -26,38 +26,12 @@ using NUnit.Engine;
 
 namespace TestCentric.Gui.Model
 {
-    /// <summary>
-    /// Delegates for all events related to the model
-    /// </summary>
-    public delegate void TestEventHandler(TestEventArgs args);
-    public delegate void RunStartingEventHandler(RunStartingEventArgs args);
-    public delegate void TestNodeEventHandler(TestNodeEventArgs args);
-    public delegate void TestResultEventHandler(TestResultEventArgs args);
-    public delegate void TestItemEventHandler(TestItemEventArgs args);
-    public delegate void TestFilesLoadingEventHandler(TestFilesLoadingEventArgs args);
-
     public interface ITestModel : IServiceLocator, System.IDisposable
     {
-        #region Events
+        #region General Properties
 
-        // Events related to loading and unloading tests.
-        event TestFilesLoadingEventHandler TestsLoading;
-        event TestNodeEventHandler TestLoaded;
-        event TestNodeEventHandler TestReloaded;
-        event TestEventHandler TestUnloaded;
-
-        // Events related to running tests
-        event RunStartingEventHandler RunStarting;
-        event TestNodeEventHandler SuiteStarting;
-        event TestNodeEventHandler TestStarting;
-
-        event TestResultEventHandler RunFinished;
-        event TestResultEventHandler SuiteFinished;
-        event TestResultEventHandler TestFinished;
-
-        // Event used to broadcast a change in the selected
-        // item, so that all presenters may be notified.
-        event TestItemEventHandler SelectedItemChanged;
+        // Event Dispatcher
+        ITestEvents Events { get; }
 
         #endregion
 

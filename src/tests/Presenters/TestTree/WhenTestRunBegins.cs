@@ -36,7 +36,7 @@ namespace TestCentric.Gui.Presenters.TestTree
             _model.IsPackageLoaded.Returns(true);
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
+            _model.Events.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
         }
 
         [Test]

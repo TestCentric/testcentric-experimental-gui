@@ -58,12 +58,12 @@ namespace TestCentric.Gui.Presenters
         private void WireUpEvents()
         {
             // Model Events
-            _model.TestsLoading += NotifyTestsLoading;
-            _model.TestLoaded += (ea) => InitializeMainMenu();
-            _model.TestUnloaded += (ea) => InitializeMainMenu();
-            _model.TestReloaded += (ea) => InitializeMainMenu();
-            _model.RunStarting += (ea) => InitializeMainMenu();
-            _model.RunFinished += (ea) => InitializeMainMenu();
+            _model.Events.TestsLoading += NotifyTestsLoading;
+            _model.Events.TestLoaded += (ea) => InitializeMainMenu();
+            _model.Events.TestUnloaded += (ea) => InitializeMainMenu();
+            _model.Events.TestReloaded += (ea) => InitializeMainMenu();
+            _model.Events.RunStarting += (ea) => InitializeMainMenu();
+            _model.Events.RunFinished += (ea) => InitializeMainMenu();
 
             // View Events
             _view.Load += MainForm_Load;

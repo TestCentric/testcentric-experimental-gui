@@ -35,7 +35,7 @@ namespace TestCentric.Gui.Presenters.Main
         {
             Model.HasTests.Returns(true);
             Model.IsTestRunning.Returns(true);
-            Model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
+            Model.Events.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
         }
 
 #if NYI

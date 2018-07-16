@@ -50,13 +50,13 @@ namespace TestCentric.Gui.Presenters
 
         private void WireUpEvents()
         {
-            _model.TestLoaded += OnTestLoaded;
-            _model.TestReloaded += OnTestReloaded;
-            _model.TestUnloaded += OnTestUnloaded;
-            _model.RunStarting += OnRunStarting;
-            _model.RunFinished += OnRunFinished;
-            _model.TestStarting += OnTestStarting;
-            _model.TestFinished += OnTestFinished;
+            _model.Events.TestLoaded += OnTestLoaded;
+            _model.Events.TestReloaded += OnTestReloaded;
+            _model.Events.TestUnloaded += OnTestUnloaded;
+            _model.Events.RunStarting += OnRunStarting;
+            _model.Events.RunFinished += OnRunFinished;
+            _model.Events.TestStarting += OnTestStarting;
+            _model.Events.TestFinished += OnTestFinished;
         }
 
         private void OnTestLoaded(TestNodeEventArgs ea)

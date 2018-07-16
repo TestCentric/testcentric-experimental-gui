@@ -37,7 +37,7 @@ namespace TestCentric.Gui.Presenters.Main
                 {
                     "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll"
                 });
-            Model.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
+            Model.Events.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
 
             View.Received().OnTestAssembliesLoading("Loading Assembly: SomeAssembly.AcceptanceTests.dll");
         }
@@ -51,7 +51,7 @@ namespace TestCentric.Gui.Presenters.Main
                     "C:\\git\\projects\\pull-request\\SomeAssembly.IntegrationTests.dll",
                     "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll"
                 });
-            Model.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
+            Model.Events.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
 
             View.Received().OnTestAssembliesLoading("Loading 3 Assemblies...");
         }
