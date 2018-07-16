@@ -36,7 +36,7 @@ namespace TestCentric.Gui.Presenters.TestTree
             _model.IsPackageLoaded.Returns(true);
             _model.HasTests.Returns(false);
             _model.IsTestRunning.Returns(false);
-            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
+            _model.Events.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
         }
 
         [Test]

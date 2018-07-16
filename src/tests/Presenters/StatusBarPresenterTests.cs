@@ -70,7 +70,7 @@ namespace TestCentric.Gui.Presenters
         {
             _model.HasTests.Returns(false);
             _model.IsTestRunning.Returns(false);
-            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
+            _model.Events.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
 
             _view.Received().OnTestUnloaded();
         }
@@ -80,7 +80,7 @@ namespace TestCentric.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
+            _model.Events.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
 
             _view.Received().OnRunStarting(1234);
         }
@@ -90,7 +90,7 @@ namespace TestCentric.Gui.Presenters
         {
             var result = new ResultNode(XmlHelper.CreateXmlNode("<test-case id='1'/>"));
 
-            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
+            _model.Events.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             _view.Received().OnTestPassed();
         }
@@ -100,7 +100,7 @@ namespace TestCentric.Gui.Presenters
         {
             var result = new ResultNode(XmlHelper.CreateXmlNode("<test-run/>"));
 
-            _model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, result));
+            _model.Events.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, result));
 
             _view.Received().OnRunFinished(0);
             _view.Received().OnTestRunSummaryCompiled(Arg.Any<string>());

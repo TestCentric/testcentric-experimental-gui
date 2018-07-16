@@ -51,11 +51,11 @@ namespace TestCentric.Gui.Presenters
 
         private void WireUpEvents()
         {
-            _model.TestLoaded += (ea) => _view.Visible = true;
-            _model.TestReloaded += (ea) => _view.Visible = true;
-            _model.TestUnloaded += (ea) => _view.Visible = false;
-            _model.RunFinished += (ea) => DisplaySelectedItem();
-            _model.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
+            _model.Events.TestLoaded += (ea) => _view.Visible = true;
+            _model.Events.TestReloaded += (ea) => _view.Visible = true;
+            _model.Events.TestUnloaded += (ea) => _view.Visible = false;
+            _model.Events.RunFinished += (ea) => DisplaySelectedItem();
+            _model.Events.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
             _view.DisplayHiddenPropertiesChanged += () => DisplaySelectedItem();
         }
 

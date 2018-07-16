@@ -28,11 +28,15 @@ using NUnit.Engine;
 
 namespace TestCentric.Gui.Model
 {
-    public class TestModel : ITestModel, ITestEventListener
+    public class TestModel : ITestModel
     {
         private ITestEngine _testEngine;
         private TestPackage _package;
-        private IDictionary<string, ResultNode> _resultIndex = new Dictionary<string, ResultNode>();
+        internal IDictionary<string, ResultNode> Results = new Dictionary<string, ResultNode>();
+
+        // Our event dispatcher. Events are exposed through the Events
+        // property. This is used when firing events from the model.
+        private TestEventDispatcher _events;
 
         #region Constructor
 
@@ -41,41 +45,16 @@ namespace TestCentric.Gui.Model
             _testEngine = testEngine;
             Options = options;
             RecentFiles = testEngine.Services.GetService<IRecentFiles>();
+
+            _events = new TestEventDispatcher(this);
         }
 
         #endregion
 
         #region ITestModel Members
 
-        #region Events
-
-        // Test loading events
-        public event TestFilesLoadingEventHandler TestsLoading;
-        public event TestEventHandler TestsReloading;
-        public event TestEventHandler TestsUnloading;
-
-        public event TestNodeEventHandler TestLoaded;
-        public event TestNodeEventHandler TestReloaded;
-        public event TestEventHandler TestUnloaded;
-
-        // Test running events
-        public event RunStartingEventHandler RunStarting;
-        public event TestResultEventHandler RunFinished;
-
-        public event TestNodeEventHandler SuiteStarting;
-        public event TestResultEventHandler SuiteFinished;
-
-        public event TestNodeEventHandler TestStarting;
-        public event TestResultEventHandler TestFinished;
-
-        public event TestOutputEventHandler TestOutput;
-
-        // Test Selection Event
-        public event TestItemEventHandler SelectedItemChanged;
-
-        public event TestEventHandler CategorySelectionChanged;
-
-        #endregion
+        // Event Dispatcher
+        public ITestEvents Events { get { return _events; } }
 
         #region Properties
 
@@ -99,7 +78,7 @@ namespace TestCentric.Gui.Model
 
         public bool HasResults
         {
-            get { return _resultIndex.Count > 0; }
+            get { return Results.Count > 0; }
         }
 
         private IList<string> _files;
@@ -227,7 +206,7 @@ namespace TestCentric.Gui.Model
                 UnloadTests();
 
             _files = files;
-            TestsLoading?.Invoke(new TestFilesLoadingEventArgs(files));
+            _events.FireTestsLoading(files);
 
             _package = MakeTestPackage(files);
 
@@ -235,9 +214,9 @@ namespace TestCentric.Gui.Model
 
             Tests = new TestNode(Runner.Explore(TestFilter.Empty));
 
-            _resultIndex.Clear();
+            Results.Clear();
 
-            TestLoaded?.Invoke(new TestNodeEventArgs(TestAction.TestLoaded, Tests));
+            _events.FireTestLoaded(Tests);
 
             foreach (var subPackage in _package.SubPackages)
                 RecentFiles.SetMostRecent(subPackage.FullName);
@@ -249,15 +228,15 @@ namespace TestCentric.Gui.Model
             Tests = null;
             _package = null;
             _files = null;
-            _resultIndex.Clear();
+            Results.Clear();
 
-            TestUnloaded?.Invoke(new TestEventArgs(TestAction.TestUnloaded));
+            _events.FireTestUnloaded();
         }
 
         public void ReloadTests()
         {
             Runner.Unload();
-            _resultIndex.Clear();
+            Results.Clear();
             Tests = null;
 
             _package = MakeTestPackage(_files);
@@ -266,9 +245,9 @@ namespace TestCentric.Gui.Model
 
             Tests = new TestNode(Runner.Explore(TestFilter.Empty));
 
-            _resultIndex.Clear();
+            Results.Clear();
 
-            TestReloaded?.Invoke(new TestNodeEventArgs(TestAction.TestReloaded, Tests));
+            _events.FireTestReloaded(Tests);
         }
 
 #region Helper Methods
@@ -308,7 +287,7 @@ namespace TestCentric.Gui.Model
 
         private void RunTests(TestFilter filter)
         {
-            Runner.RunAsync(this, filter);
+            Runner.RunAsync(_events, filter);
         }
 
         public void CancelTestRun()
@@ -321,7 +300,7 @@ namespace TestCentric.Gui.Model
             if (testNode != null)
             {
                 ResultNode result;
-                if (_resultIndex.TryGetValue(testNode.Id, out result))
+                if (Results.TryGetValue(testNode.Id, out result))
                     return result;
             }
 
@@ -330,7 +309,7 @@ namespace TestCentric.Gui.Model
 
         public void NotifySelectedItemChanged(ITestItem testItem)
         {
-            SelectedItemChanged?.Invoke(new TestItemEventArgs(testItem));
+            _events.FireSelectedItemChanged(testItem);
         }
 
 #endregion
@@ -347,48 +326,6 @@ namespace TestCentric.Gui.Model
         public object GetService(Type serviceType)
         {
             return _testEngine.Services.GetService(serviceType);
-        }
-
-#endregion
-
-#region ITestEventListener Members
-
-        public void OnTestEvent(string report)
-        {
-            XmlNode xmlNode = XmlHelper.CreateXmlNode(report);
-
-            switch (xmlNode.Name)
-            {
-                case "start-test":
-                    TestStarting?.Invoke(new TestNodeEventArgs(TestAction.TestStarting, new TestNode(xmlNode)));
-                    break;
-
-                case "start-suite":
-                    SuiteStarting?.Invoke(new TestNodeEventArgs(TestAction.SuiteStarting, new TestNode(xmlNode)));
-                    break;
-
-                case "start-run":
-                    RunStarting?.Invoke(new RunStartingEventArgs(xmlNode.GetAttribute("count", -1)));
-                    break;
-
-                case "test-case":
-                    ResultNode result = new ResultNode(xmlNode);
-                    _resultIndex[result.Id] = result;
-                    TestFinished?.Invoke(new TestResultEventArgs(TestAction.TestFinished, result));
-                    break;
-
-                case "test-suite":
-                    result = new ResultNode(xmlNode);
-                    _resultIndex[result.Id] = result;
-                    SuiteFinished?.Invoke(new TestResultEventArgs(TestAction.SuiteFinished, result));
-                    break;
-
-                case "test-run":
-                    result = new ResultNode(xmlNode);
-                    _resultIndex[result.Id] = result;
-                    RunFinished?.Invoke(new TestResultEventArgs(TestAction.RunFinished, result));
-                    break;
-            }
         }
 
 #endregion

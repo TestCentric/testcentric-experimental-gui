@@ -38,7 +38,7 @@ namespace TestCentric.Gui.Presenters.Main
             Model.IsTestRunning.Returns(false);
 
             var resultNode = new ResultNode("<test-suite/>");
-            Model.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
+            Model.Events.RunFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.RunFinished, resultNode));
         }
 
 #if NYI

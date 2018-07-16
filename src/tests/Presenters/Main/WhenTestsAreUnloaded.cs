@@ -35,7 +35,7 @@ namespace TestCentric.Gui.Presenters.Main
         {
             Model.HasTests.Returns(false);
             Model.IsTestRunning.Returns(false);
-            Model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
+            Model.Events.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
         }
 
 #if NYI

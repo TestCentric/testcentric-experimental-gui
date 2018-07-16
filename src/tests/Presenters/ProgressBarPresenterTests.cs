@@ -59,7 +59,7 @@ namespace TestCentric.Gui.Presenters
             _model.IsTestRunning.Returns(false);
 
             var testNode = new TestNode("<test-suite id='1' testcasecount='1234'/>");
-            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, testNode));
+            _model.Events.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, testNode));
 
             _view.Received().Initialize(100);
         }
@@ -69,7 +69,7 @@ namespace TestCentric.Gui.Presenters
         {
             _model.HasTests.Returns(false);
             _model.IsTestRunning.Returns(false);
-            _model.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
+            _model.Events.TestUnloaded += Raise.Event<TestEventHandler>(new TestEventArgs(TestAction.TestUnloaded));
 
             _view.Received().Initialize(100);
         }
@@ -81,7 +81,7 @@ namespace TestCentric.Gui.Presenters
             _model.IsTestRunning.Returns(false);
 
             var testNode = new TestNode("<test-suite id='1' testcasecount='1234'/>");
-            _model.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
+            _model.Events.TestReloaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestReloaded, testNode));
 
             _view.Received().Initialize(100);
         }
@@ -91,7 +91,7 @@ namespace TestCentric.Gui.Presenters
         {
             _model.HasTests.Returns(true);
             _model.IsTestRunning.Returns(true);
-            _model.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
+            _model.Events.RunStarting += Raise.Event<RunStartingEventHandler>(new RunStartingEventArgs(1234));
 
             _view.Received().Initialize(1234);
         }
@@ -101,7 +101,7 @@ namespace TestCentric.Gui.Presenters
         {
             var result = new ResultNode("<test-case id='1'/>");
 
-            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
+            _model.Events.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             _view.Received().Progress++;
         }
@@ -111,7 +111,7 @@ namespace TestCentric.Gui.Presenters
         {
             var result = new ResultNode("<test-suite id='1'/>");
 
-            _model.SuiteFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.SuiteFinished, result));
+            _model.Events.SuiteFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.SuiteFinished, result));
 
             _view.DidNotReceive().Progress++;
         }
@@ -165,8 +165,8 @@ namespace TestCentric.Gui.Presenters
 
             _model.HasTests.Returns(true);
             _model.Tests.Returns(result);
-            _model.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, result));
-            _model.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
+            _model.Events.TestLoaded += Raise.Event<TestNodeEventHandler>(new TestNodeEventArgs(TestAction.TestLoaded, result));
+            _model.Events.TestFinished += Raise.Event<TestResultEventHandler>(new TestResultEventArgs(TestAction.TestFinished, result));
 
             Assert.That(_view.Status, Is.EqualTo(expectedStatus));
         }

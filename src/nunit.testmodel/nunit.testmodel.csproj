@@ -56,6 +56,7 @@
     <Compile Include="Model\RunState.cs" />
     <Compile Include="Model\TestAction.cs" />
     <Compile Include="Model\TestEventArgs.cs" />
+    <Compile Include="Model\TestEventDispatcher.cs" />
     <Compile Include="Model\TestModel.cs" />
     <Compile Include="Model\TestNode.cs" />
     <Compile Include="Model\TestSelection.cs" />

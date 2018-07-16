@@ -26,8 +26,15 @@ using NUnit.Engine;
 
 namespace TestCentric.Gui.Model
 {
-    public interface ITestModel : ITestEvents, IServiceLocator, System.IDisposable
+    public interface ITestModel : IServiceLocator, System.IDisposable
     {
+        #region General Properties
+
+        // Event Dispatcher
+        ITestEvents Events { get; }
+
+        #endregion
+
         #region Properties
 
         CommandLineOptions Options { get; }

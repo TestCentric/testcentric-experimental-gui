@@ -66,29 +66,29 @@ namespace TestCentric.Gui.Presenters
         private void WireUpEvents()
         {
             // Model actions
-            _model.TestLoaded += (ea) =>
+            _model.Events.TestLoaded += (ea) =>
             {
                 _strategy.OnTestLoaded(ea.Test);
                 InitializeRunCommands();
             };
 
-            _model.TestReloaded += (ea) =>
+            _model.Events.TestReloaded += (ea) =>
             {
                 _strategy.OnTestLoaded(ea.Test);
                 InitializeRunCommands();
             };
 
-            _model.TestUnloaded += (ea) =>
+            _model.Events.TestUnloaded += (ea) =>
             {
                 _strategy.OnTestUnloaded();
                 InitializeRunCommands();
             };
 
-            _model.RunStarting += (ea) => InitializeRunCommands();
-            _model.RunFinished += (ea) => InitializeRunCommands();
+            _model.Events.RunStarting += (ea) => InitializeRunCommands();
+            _model.Events.RunFinished += (ea) => InitializeRunCommands();
 
-            _model.TestFinished += (ea) => _strategy.OnTestFinished(ea.Result);
-            _model.SuiteFinished += (ea) => _strategy.OnTestFinished(ea.Result);
+            _model.Events.TestFinished += (ea) => _strategy.OnTestFinished(ea.Result);
+            _model.Events.SuiteFinished += (ea) => _strategy.OnTestFinished(ea.Result);
 
             // View actions - Initial Load
             _view.Load += (s, e) =>
