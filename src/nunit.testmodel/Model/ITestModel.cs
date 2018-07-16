@@ -26,12 +26,15 @@ using NUnit.Engine;
 
 namespace TestCentric.Gui.Model
 {
-    public interface ITestModel : IServiceLocator, System.IDisposable
+    public interface ITestModel : System.IDisposable
     {
         #region General Properties
 
         // Event Dispatcher
         ITestEvents Events { get; }
+
+        // Engine Services
+        ITestServices Services { get; }
 
         #endregion
 
@@ -40,8 +43,6 @@ namespace TestCentric.Gui.Model
         CommandLineOptions Options { get; }
 
         IDictionary<string, object> PackageSettings { get; }
-
-        IRecentFiles RecentFiles { get; }
 
         bool IsPackageLoaded { get; }
 

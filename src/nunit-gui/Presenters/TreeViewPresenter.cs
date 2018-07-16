@@ -53,7 +53,7 @@ namespace TestCentric.Gui.Presenters
             _view = treeView;
             _model = model;
 
-            Settings = new Settings.TestTreeSettings(_model.GetService<ISettings>());
+            Settings = new Settings.TestTreeSettings(_model.Services.UserSettings);
 
             InitializeRunCommands();
             WireUpEvents();

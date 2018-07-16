@@ -48,6 +48,7 @@
     <Compile Include="Model\ITestEvents.cs" />
     <Compile Include="Model\ITestItem.cs" />
     <Compile Include="Model\ITestModel.cs" />
+    <Compile Include="Model\ITestServices.cs" />
     <Compile Include="Model\ResultNode.cs" />
     <Compile Include="Model\ResultState.cs" />
     <Compile Include="Model\ResultSummary.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Model\TestModel.cs" />
     <Compile Include="Model\TestNode.cs" />
     <Compile Include="Model\TestSelection.cs" />
+    <Compile Include="Model\TestServices.cs" />
     <Compile Include="Model\TestStartNotice.cs" />
     <Compile Include="Model\TestStatus.cs" />
     <Compile Include="Options.cs" />
