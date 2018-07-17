@@ -27,10 +27,10 @@ var PACKAGE_DIR = PROJECT_DIR + "package/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
 
 // Solution
-var GUI_SOLUTION = PROJECT_DIR + "nunit-gui.sln";
+var GUI_SOLUTION = PROJECT_DIR + "experimental-gui.sln";
 
 // Test Assembly
-var GUI_TESTS = BIN_DIR + "nunit-gui.tests.dll";
+var GUI_TESTS = BIN_DIR + "TestCentric.Gui.Tests.dll";
 
 // Package sources for nuget restore
 var PACKAGE_SOURCE = new string[]
