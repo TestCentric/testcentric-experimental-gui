@@ -44,9 +44,9 @@ namespace TestCentric.Gui.Model
         {
             _testEngine = testEngine;
             Options = options;
-            RecentFiles = testEngine.Services.GetService<IRecentFiles>();
 
             _events = new TestEventDispatcher(this);
+            Services = new TestServices(testEngine);
         }
 
         #endregion
@@ -56,13 +56,14 @@ namespace TestCentric.Gui.Model
         // Event Dispatcher
         public ITestEvents Events { get { return _events; } }
 
+        // Engine Services
+        public ITestServices Services { get; }
+
         #region Properties
 
         public CommandLineOptions Options { get; private set; }
 
         public IDictionary<string, object> PackageSettings { get; } = new Dictionary<string, object>();
-
-        public IRecentFiles RecentFiles { get; private set; }
 
         public ITestRunner Runner { get; private set; }
 
@@ -162,9 +163,9 @@ namespace TestCentric.Gui.Model
             {
                 LoadTests(Options.InputFiles);
             }
-            else if (!Options.NoLoad && RecentFiles.Entries.Count > 0)
+            else if (!Options.NoLoad && Services.RecentFiles.Entries.Count > 0)
             {
-                var entry = RecentFiles.Entries[0];
+                var entry = Services.RecentFiles.Entries[0];
                 if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
                     LoadTests(new[] { entry });
             }
@@ -219,7 +220,7 @@ namespace TestCentric.Gui.Model
             _events.FireTestLoaded(Tests);
 
             foreach (var subPackage in _package.SubPackages)
-                RecentFiles.SetMostRecent(subPackage.FullName);
+                Services.RecentFiles.SetMostRecent(subPackage.FullName);
         }
 
         public void UnloadTests()

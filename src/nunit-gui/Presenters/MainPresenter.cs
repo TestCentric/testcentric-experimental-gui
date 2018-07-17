@@ -48,7 +48,7 @@ namespace TestCentric.Gui.Presenters
         {
             _view = view;
             _model = model;
-            _settings = new SettingsModel(_model.GetService<ISettings>());
+            _settings = new SettingsModel(_model.Services.UserSettings);
 
             InitializeMainMenu();
 
@@ -258,7 +258,7 @@ namespace TestCentric.Gui.Presenters
         {
             using(var addinsView = new AddinsView())
             {
-                var dialog = new AddinsPresenter(addinsView, _model.GetService<NUnit.Engine.IExtensionService>());
+                var dialog = new AddinsPresenter(addinsView, _model.Services.ExtensionService);
                 dialog.Show();
             }
         }
@@ -277,7 +277,7 @@ namespace TestCentric.Gui.Presenters
 
             dropDownItems.Clear();
             int num = 0;
-            foreach (string entry in _model.RecentFiles.Entries)
+            foreach (string entry in _model.Services.RecentFiles.Entries)
             {
                 var menuText = string.Format("{0} {1}", ++num, entry);
                 var menuItem = new ToolStripMenuItem(menuText);

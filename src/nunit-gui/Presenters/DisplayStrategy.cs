@@ -61,7 +61,7 @@ namespace TestCentric.Gui.Presenters
         {
             _view = view;
             _model = model;
-            _settings = new SettingsModel(_model.GetService<ISettings>());
+            _settings = new SettingsModel(_model.Services.UserSettings);
 
             this.Tree = view.Tree;
         }
