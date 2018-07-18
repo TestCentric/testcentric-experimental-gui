@@ -21,6 +21,9 @@ BuildInfo Build { get; set;}
 // DEFINE RUN CONSTANTS
 //////////////////////////////////////////////////////////////////////
 
+// HACK: Engine Version - Must update this manually to match package used
+var ENGINE_VERSION = "3.8.0";
+
 // Directories
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
@@ -136,18 +139,17 @@ Task("PackageZip")
 
         CopyFileToDirectory("LICENSE", BIN_DIR);
         CopyFileToDirectory("CHANGES.txt", BIN_DIR);
-        // Temporary hack... needs update if we update the engine
-        CopyFileToDirectory("packages/NUnit.Engine.3.7.0/lib/nunit-agent.exe.config", BIN_DIR);
-        CopyFileToDirectory("packages/NUnit.Engine.3.7.0/lib/nunit-agent-x86.exe.config", BIN_DIR);
+        CopyFileToDirectory("packages/NUnit.Engine." + ENGINE_VERSION + "/lib/nunit-agent.exe.config", BIN_DIR);
+        CopyFileToDirectory("packages/NUnit.Engine." + ENGINE_VERSION + "/lib/nunit-agent-x86.exe.config", BIN_DIR);
 
         var zipFiles = new FilePath[]
         {
             BIN_DIR + "LICENSE",
             BIN_DIR + "CHANGES.txt",
-            BIN_DIR + "nunit-gui.exe",
-            BIN_DIR + "nunit-gui.exe.config",
+            BIN_DIR + "TestCentric.Gui.exe",
+            BIN_DIR + "TestCentric.Gui.exe.config",
             BIN_DIR + "nunit.uikit.dll",
-            BIN_DIR + "nunit.testmodel.dll",
+            BIN_DIR + "TestCentric.Gui.Model.dll",
             BIN_DIR + "nunit.engine.api.dll",
             BIN_DIR + "nunit.engine.dll",
             BIN_DIR + "Mono.Cecil.dll",
@@ -157,7 +159,7 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        Zip(BIN_DIR, File(PACKAGE_DIR + "NUnit-Gui-" + Build.PackageVersion + ".zip"), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + "Experimental-Gui-" + Build.PackageVersion + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -175,10 +177,10 @@ Task("PackageChocolatey")
                 {
                     new ChocolateyNuSpecContent() { Source = "../LICENSE" },
                     new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
-                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-gui.exe.config", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.exe", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.exe.config", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.uikit.dll", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.testmodel.dll", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.Model.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.api.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "Mono.Cecil.dll", Target="tools" },
