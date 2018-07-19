@@ -2,7 +2,7 @@
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
-    <id>nunit-gui</id>
+    <id>testcentric-experimental-gui</id>
     <version>0.0.0</version>
     <title>NUnit 3 GUI Runner</title>
     <summary>GUI runner for the NUnit 3 unit-testing framework.</summary>
