@@ -21,8 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "choco", "choco", "{1EA16CB4
 	ProjectSection(SolutionItems) = preProject
 		choco\nunit-agent-x86.exe.ignore = choco\nunit-agent-x86.exe.ignore
 		choco\nunit-agent.exe.ignore = choco\nunit-agent.exe.ignore
-		choco\nunit-gui.nuspec = choco\nunit-gui.nuspec
 		choco\nunit.choco.addins = choco\nunit.choco.addins
+		choco\testcentric-experimental-gui.nuspec = choco\testcentric-experimental-gui.nuspec
 		choco\VERIFICATION.txt = choco\VERIFICATION.txt
 	EndProjectSection
 EndProject

@@ -146,8 +146,8 @@ Task("PackageZip")
         {
             BIN_DIR + "LICENSE",
             BIN_DIR + "CHANGES.txt",
-            BIN_DIR + "TestCentric.Gui.exe",
-            BIN_DIR + "TestCentric.Gui.exe.config",
+            BIN_DIR + "tc-next.exe",
+            BIN_DIR + "tc-next.exe.config",
             BIN_DIR + "nunit.uikit.dll",
             BIN_DIR + "TestCentric.Gui.Model.dll",
             BIN_DIR + "nunit.engine.api.dll",
@@ -159,7 +159,7 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        Zip(BIN_DIR, File(PACKAGE_DIR + "Experimental-Gui-" + Build.PackageVersion + ".zip"), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + "testcentric-experimental-gui-" + Build.PackageVersion + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -168,7 +168,7 @@ Task("PackageChocolatey")
     {
         CreateDirectory(PACKAGE_DIR);
 
-        ChocolateyPack("choco/nunit-gui.nuspec", 
+        ChocolateyPack("choco/testcentric-experimental-gui.nuspec", 
             new ChocolateyPackSettings()
             {
                 Version = Build.PackageVersion,
@@ -177,8 +177,8 @@ Task("PackageChocolatey")
                 {
                     new ChocolateyNuSpecContent() { Source = "../LICENSE" },
                     new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
-                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.exe", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.exe.config", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "tc-next.exe", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = BIN_DIR + "tc-next.exe.config", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.uikit.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.Model.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit.engine.dll", Target="tools" },
