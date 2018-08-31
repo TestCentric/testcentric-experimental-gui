@@ -23,13 +23,13 @@
 
 using System.Xml;
 using NUnit.Framework;
-using NUnit.UiKit.Controls;
 using NSubstitute;
 
 namespace TestCentric.Gui.Presenters
 {
     using Views;
     using Model;
+    using Controls;
 
     public class ProgressBarPresenterTests
     {
@@ -128,31 +128,31 @@ namespace TestCentric.Gui.Presenters
         //}
 
         static object[] statusTestCases = new object[] {
-            new object[] { TestProgressBarStatus.Success, ResultState.Failure, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Warning, ResultState.Failure, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Failure, ResultState.Failure, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Success, ResultState.Error, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Warning, ResultState.Error, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Failure, ResultState.Error, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Success, ResultState.NotRunnable, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Warning, ResultState.NotRunnable, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Failure, ResultState.NotRunnable, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Success, ResultState.Ignored, TestProgressBarStatus.Warning },
-            new object[] { TestProgressBarStatus.Warning, ResultState.Ignored, TestProgressBarStatus.Warning },
-            new object[] { TestProgressBarStatus.Failure, ResultState.Ignored, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Success, ResultState.Inconclusive, TestProgressBarStatus.Success },
-            new object[] { TestProgressBarStatus.Warning, ResultState.Inconclusive, TestProgressBarStatus.Warning },
-            new object[] { TestProgressBarStatus.Failure, ResultState.Inconclusive, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Success, ResultState.Skipped, TestProgressBarStatus.Success },
-            new object[] { TestProgressBarStatus.Warning, ResultState.Skipped, TestProgressBarStatus.Warning },
-            new object[] { TestProgressBarStatus.Failure, ResultState.Skipped, TestProgressBarStatus.Failure },
-            new object[] { TestProgressBarStatus.Success, ResultState.Success, TestProgressBarStatus.Success },
-            new object[] { TestProgressBarStatus.Warning, ResultState.Success, TestProgressBarStatus.Warning },
-            new object[] { TestProgressBarStatus.Failure, ResultState.Success, TestProgressBarStatus.Failure }
+            new object[] { ProgressBarStatus.Success, ResultState.Failure, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Warning, ResultState.Failure, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Failure, ResultState.Failure, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Success, ResultState.Error, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Warning, ResultState.Error, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Failure, ResultState.Error, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Success, ResultState.NotRunnable, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Warning, ResultState.NotRunnable, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Failure, ResultState.NotRunnable, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Success, ResultState.Ignored, ProgressBarStatus.Warning },
+            new object[] { ProgressBarStatus.Warning, ResultState.Ignored, ProgressBarStatus.Warning },
+            new object[] { ProgressBarStatus.Failure, ResultState.Ignored, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Success, ResultState.Inconclusive, ProgressBarStatus.Success },
+            new object[] { ProgressBarStatus.Warning, ResultState.Inconclusive, ProgressBarStatus.Warning },
+            new object[] { ProgressBarStatus.Failure, ResultState.Inconclusive, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Success, ResultState.Skipped, ProgressBarStatus.Success },
+            new object[] { ProgressBarStatus.Warning, ResultState.Skipped, ProgressBarStatus.Warning },
+            new object[] { ProgressBarStatus.Failure, ResultState.Skipped, ProgressBarStatus.Failure },
+            new object[] { ProgressBarStatus.Success, ResultState.Success, ProgressBarStatus.Success },
+            new object[] { ProgressBarStatus.Warning, ResultState.Success, ProgressBarStatus.Warning },
+            new object[] { ProgressBarStatus.Failure, ResultState.Success, ProgressBarStatus.Failure }
         };
 
         [TestCaseSource("statusTestCases")]
-        public void BarShowsProperStatus(TestProgressBarStatus priorStatus, ResultState resultState, TestProgressBarStatus expectedStatus)
+        public void BarShowsProperStatus(ProgressBarStatus priorStatus, ResultState resultState, ProgressBarStatus expectedStatus)
         {
             _view.Status = priorStatus;
 

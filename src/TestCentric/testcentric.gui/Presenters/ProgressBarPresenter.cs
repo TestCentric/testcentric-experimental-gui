@@ -21,12 +21,11 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.UiKit.Controls;
-
 namespace TestCentric.Gui.Presenters
 {
     using Model;
     using Views;
+    using Controls;
 
     public class ProgressBarPresenter
     {
@@ -67,20 +66,20 @@ namespace TestCentric.Gui.Presenters
             // Status can only get worse during a run, so we can avoid
             // unnecessary calls to Invoke by checking current status.
             var currentStatus = _progressBar.Status;
-            if (currentStatus != TestProgressBarStatus.Failure)
+            if (currentStatus != ProgressBarStatus.Failure)
                 switch (result.Status)
                 {
                     case TestStatus.Failed:
-                        _progressBar.Status = TestProgressBarStatus.Failure;
+                        _progressBar.Status = ProgressBarStatus.Failure;
                         break;
                     case TestStatus.Warning:
-                        _progressBar.Status = TestProgressBarStatus.Warning;
+                        _progressBar.Status = ProgressBarStatus.Warning;
                         break;
                     case TestStatus.Skipped:
                         if (result.Label == "Invalid")
-                            _progressBar.Status = TestProgressBarStatus.Failure;
-                        else if (result.Label == "Ignored" && currentStatus != TestProgressBarStatus.Warning)
-                            _progressBar.Status = TestProgressBarStatus.Warning;
+                            _progressBar.Status = ProgressBarStatus.Failure;
+                        else if (result.Label == "Ignored" && currentStatus != ProgressBarStatus.Warning)
+                            _progressBar.Status = ProgressBarStatus.Warning;
                         break;
                 }
         }

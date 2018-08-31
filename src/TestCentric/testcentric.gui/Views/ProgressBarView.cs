@@ -23,10 +23,11 @@
 
 using System.Diagnostics;
 using System.Windows.Forms;
-using NUnit.UiKit.Controls;
 
 namespace TestCentric.Gui.Views
 {
+    using Controls;
+
     public partial class ProgressBarView : UserControl, IProgressBarView
     {
         private int _maximum;
@@ -42,7 +43,7 @@ namespace TestCentric.Gui.Views
 
             _maximum = max;
             _progress = 0;
-            _status = TestProgressBarStatus.Success;
+            _status = ProgressBarStatus.Success;
 
             InvokeIfRequired(() =>
             {
@@ -65,8 +66,8 @@ namespace TestCentric.Gui.Views
             }
         }
 
-        private TestProgressBarStatus _status;
-        public TestProgressBarStatus Status
+        private ProgressBarStatus _status;
+        public ProgressBarStatus Status
         {
             get { return _status; }
             set

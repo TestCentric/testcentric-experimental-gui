@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2015-2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -26,16 +26,16 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace NUnit.UiKit.Controls
+namespace TestCentric.Gui.Controls
 {
-    public enum TestProgressBarStatus
+    public enum ProgressBarStatus
     {
         Success = 0,
         Warning = 1,
         Failure = 2
     }
 
-    public class NUnitProgressBar : ProgressBar
+    public class TestCentricProgressBar : ProgressBar
     {
         public readonly static Color[][] BrushColors = 
         {
@@ -46,18 +46,17 @@ namespace NUnit.UiKit.Controls
         
         private Brush _brush;
 
-        public NUnitProgressBar()
+        public TestCentricProgressBar()
         {
-            this.SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
 
-            _status = TestProgressBarStatus.Success;
-            _brush = CreateBrush(_status);
+            CreateNewBrush();
         }
 
         #region Properties
 
-        private TestProgressBarStatus _status = TestProgressBarStatus.Success;
-        public TestProgressBarStatus Status
+        private ProgressBarStatus _status = ProgressBarStatus.Success;
+        public ProgressBarStatus Status
         {
             get { return _status; }
             set
@@ -66,9 +65,7 @@ namespace NUnit.UiKit.Controls
                 {
                     _status = value;
 
-                    if (_brush != null) 
-                        _brush.Dispose();
-                    _brush = CreateBrush(value);
+                    CreateNewBrush();
                 }
             }
         }
@@ -88,14 +85,20 @@ namespace NUnit.UiKit.Controls
             e.Graphics.FillRectangle(_brush, rec); //2, 2, rec.Width, rec.Height);
         }
 
-        private Brush CreateBrush(TestProgressBarStatus status)
+        private void CreateNewBrush()
         {
-            Color[] colors = BrushColors[(int)status];
-            return new LinearGradientBrush(
+            Color[] colors = BrushColors[(int)_status];
+
+            if (_brush != null)
+                _brush.Dispose();
+
+            _brush = new LinearGradientBrush(
                 new Point(0, 0), 
                 new Point(0, this.ClientSize.Height - 3), 
                 colors[0], 
                 colors[1]);
+
+            Invalidate();
         }
 
         #endregion
