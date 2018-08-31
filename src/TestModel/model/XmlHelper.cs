@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 
-namespace TestCentric
+namespace TestCentric.Gui.Model
 {
     /// <summary>
     /// XmlHelper provides static methods for basic XML operations.

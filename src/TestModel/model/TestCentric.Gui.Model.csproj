@@ -7,7 +7,7 @@
     <ProjectGuid>{E978A8D7-E4A4-4DE9-94DF-D82BD764936B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestCentric.Gui</RootNamespace>
+    <RootNamespace>TestCentric.Gui.Model</RootNamespace>
     <AssemblyName>TestCentric.Gui.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,25 +46,25 @@
     </Compile>
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="EnginePackageSettings.cs" />
-    <Compile Include="Model\ITestEvents.cs" />
-    <Compile Include="Model\ITestItem.cs" />
-    <Compile Include="Model\ITestModel.cs" />
-    <Compile Include="Model\ITestServices.cs" />
-    <Compile Include="Model\ResultNode.cs" />
-    <Compile Include="Model\ResultState.cs" />
-    <Compile Include="Model\ResultSummary.cs" />
-    <Compile Include="Model\ResultSummaryCreator.cs" />
-    <Compile Include="Model\ResultSummaryReporter.cs" />
-    <Compile Include="Model\RunState.cs" />
-    <Compile Include="Model\TestAction.cs" />
-    <Compile Include="Model\TestEventArgs.cs" />
-    <Compile Include="Model\TestEventDispatcher.cs" />
-    <Compile Include="Model\TestModel.cs" />
-    <Compile Include="Model\TestNode.cs" />
-    <Compile Include="Model\TestSelection.cs" />
-    <Compile Include="Model\TestServices.cs" />
-    <Compile Include="Model\TestStartNotice.cs" />
-    <Compile Include="Model\TestStatus.cs" />
+    <Compile Include="ITestEvents.cs" />
+    <Compile Include="ITestItem.cs" />
+    <Compile Include="ITestModel.cs" />
+    <Compile Include="ITestServices.cs" />
+    <Compile Include="ResultNode.cs" />
+    <Compile Include="ResultState.cs" />
+    <Compile Include="ResultSummary.cs" />
+    <Compile Include="ResultSummaryCreator.cs" />
+    <Compile Include="ResultSummaryReporter.cs" />
+    <Compile Include="RunState.cs" />
+    <Compile Include="TestAction.cs" />
+    <Compile Include="TestEventArgs.cs" />
+    <Compile Include="TestEventDispatcher.cs" />
+    <Compile Include="TestModel.cs" />
+    <Compile Include="TestNode.cs" />
+    <Compile Include="TestSelection.cs" />
+    <Compile Include="TestServices.cs" />
+    <Compile Include="TestStartNotice.cs" />
+    <Compile Include="TestStatus.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlHelper.cs" />
