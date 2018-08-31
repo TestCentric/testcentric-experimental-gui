@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.testProgressBar = new NUnit.UiKit.Controls.NUnitProgressBar();
+            this.testProgressBar = new TestCentric.Gui.Controls.TestCentricProgressBar();
             this.SuspendLayout();
             // 
             // testProgressBar
@@ -37,7 +37,7 @@
             this.testProgressBar.Location = new System.Drawing.Point(0, 13);
             this.testProgressBar.Name = "testProgressBar";
             this.testProgressBar.Size = new System.Drawing.Size(239, 14);
-            this.testProgressBar.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
+            this.testProgressBar.Status = TestCentric.Gui.Controls.ProgressBarStatus.Success;
             this.testProgressBar.TabIndex = 0;
             // 
             // ProgressBarView
@@ -54,6 +54,6 @@
 
         #endregion
 
-        private NUnit.UiKit.Controls.NUnitProgressBar testProgressBar;
+        private TestCentric.Gui.Controls.TestCentricProgressBar testProgressBar;
     }
 }

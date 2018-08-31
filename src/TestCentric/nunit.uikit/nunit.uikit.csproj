@@ -48,9 +48,6 @@
     <Compile Include="Controls\LongRunningOperationDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\NUnitProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DialogResult.cs" />
     <Compile Include="Elements\ControlElement.cs" />
     <Compile Include="Elements\CheckBoxElement.cs" />

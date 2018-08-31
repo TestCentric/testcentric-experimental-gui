@@ -753,7 +753,7 @@
             this.progressBarView.Location = new System.Drawing.Point(0, 0);
             this.progressBarView.Name = "progressBarView";
             this.progressBarView.Size = new System.Drawing.Size(175, 27);
-            this.progressBarView.Status = NUnit.UiKit.Controls.TestProgressBarStatus.Success;
+            this.progressBarView.Status = TestCentric.Gui.Controls.ProgressBarStatus.Success;
             this.progressBarView.TabIndex = 1;
             // 
             // propertiesView

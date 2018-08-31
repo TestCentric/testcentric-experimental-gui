@@ -21,14 +21,14 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.UiKit.Controls;
-
 namespace TestCentric.Gui.Views
 {
-    public interface IProgressBarView : IView
+    using Controls;
+
+    public interface IProgressBarView
     {
         int Progress { get; set; }
-        TestProgressBarStatus Status { get; set; }
+        ProgressBarStatus Status { get; set; }
 
         void Initialize(int max);
     }

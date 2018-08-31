@@ -52,6 +52,9 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controls\TestCentricProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Presenters\AddinsPresenter.cs" />
     <Compile Include="Presenters\CategoryGrouping.cs" />
     <Compile Include="Presenters\GroupDisplayStrategy.cs" />
