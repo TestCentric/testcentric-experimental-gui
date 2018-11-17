@@ -27,6 +27,7 @@ using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
 {
+	[Platform(Exclude="Linux", Reason="Uninitialized form causes an error in Travis-CI")]
     public class MainFormTests
     {
         private IMainView _view;
