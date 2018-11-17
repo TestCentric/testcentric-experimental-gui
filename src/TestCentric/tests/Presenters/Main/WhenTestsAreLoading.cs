@@ -33,13 +33,12 @@ namespace TestCentric.Gui.Presenters.Main
         [Test]
         public void View_Receives_FileNameOfSingleAssembly()
         {
-            var arguments = new TestFilesLoadingEventArgs(new[]
-                {
-                    "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll"
-                });
+			string path = "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll";
+			var arguments = new TestFilesLoadingEventArgs(new[] { path });
+
             Model.Events.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
 
-            View.Received().OnTestAssembliesLoading("Loading Assembly: SomeAssembly.AcceptanceTests.dll");
+			View.Received().OnTestAssembliesLoading($"Loading Assembly: {path}");
         }
 
         [Test]
