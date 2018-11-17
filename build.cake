@@ -14,8 +14,12 @@ var configuration = Argument("configuration", "Debug");
 // SET PACKAGE VERSION DEFAULTS
 //////////////////////////////////////////////////////////////////////
 
-GitVersion GitVersionInfo { get; set; }
-BuildInfo Build { get; set;}
+//GitVersion GitVersionInfo { get; set; }
+//BuildInfo Build { get; set;} = new BuildInfo();
+
+string version = "0.6.0";
+string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
+string packageVersion = version + dbgSuffix;
 
 //////////////////////////////////////////////////////////////////////
 // DEFINE RUN CONSTANTS
@@ -71,19 +75,19 @@ Task("RestorePackages")
 //////////////////////////////////////////////////////////////////////
 // SET BUILD INFO
 //////////////////////////////////////////////////////////////////////
-Task("SetBuildInfo")
-    .Does(() =>
-{
-    var settings = new GitVersionSettings();
-    if (!BuildSystem.IsLocalBuild)
-    {
-        settings.UpdateAssemblyInfo = true;
-        settings.UpdateAssemblyInfoFilePath = "src/CommonAssemblyInfo.cs";
-    }
-
-    GitVersionInfo = GitVersion(settings);
-    Build = new BuildInfo(GitVersionInfo);
-});
+//Task("SetBuildInfo")
+//    .Does(() =>
+//{
+//    var settings = new GitVersionSettings();
+//    if (!BuildSystem.IsLocalBuild)
+//    {
+//        settings.UpdateAssemblyInfo = true;
+//        settings.UpdateAssemblyInfoFilePath = "src/CommonAssemblyInfo.cs";
+//    }
+//
+//    GitVersionInfo = GitVersion(settings);
+//    Build = new BuildInfo(GitVersionInfo);
+//});
 
 //////////////////////////////////////////////////////////////////////
 // BUILD
@@ -92,7 +96,7 @@ Task("SetBuildInfo")
 Task("Build")
     .IsDependentOn("Clean")
     .IsDependentOn("RestorePackages")
-    .IsDependentOn("SetBuildInfo")
+    //.IsDependentOn("SetBuildInfo")
     .Does(() =>
     {
         if(IsRunningOnWindows())
@@ -159,7 +163,8 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        Zip(BIN_DIR, File(PACKAGE_DIR + "testcentric-experimental-gui-" + Build.PackageVersion + ".zip"), zipFiles);
+        //Zip(BIN_DIR, File(PACKAGE_DIR + "testcentric-experimental-gui-" + Build.PackageVersion + ".zip"), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + "testcentric-experimental-gui-" + packageVersion + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -171,7 +176,8 @@ Task("PackageChocolatey")
         ChocolateyPack("choco/testcentric-experimental-gui.nuspec", 
             new ChocolateyPackSettings()
             {
-                Version = Build.PackageVersion,
+                //Version = Build.PackageVersion,
+                Version = packageVersion,
                 OutputDirectory = PACKAGE_DIR,
                 Files = new ChocolateyNuSpecContent[]
                 {
