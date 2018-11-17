@@ -97,7 +97,7 @@ namespace TestCentric.Gui.Presenters
         private void NotifyTestsLoading(TestFilesLoadingEventArgs args)
         {
             var message = args.TestFilesLoading.Count == 1 ?
-                $"Loading Assembly: {Path.GetFileName(args.TestFilesLoading[0])}":
+                $"Loading Assembly: {args.TestFilesLoading[0]}":
                 $"Loading {args.TestFilesLoading.Count} Assemblies...";
             _view.OnTestAssembliesLoading(message);
         }
