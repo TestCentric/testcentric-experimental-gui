@@ -26,7 +26,7 @@ string packageVersion = version + dbgSuffix;
 //////////////////////////////////////////////////////////////////////
 
 // HACK: Engine Version - Must update this manually to match package used
-var ENGINE_VERSION = "3.8.0";
+var ENGINE_VERSION = "3.9.0";
 
 // Directories
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
