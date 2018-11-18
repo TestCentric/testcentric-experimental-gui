@@ -13,8 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.sh = build.sh
 		CHANGES.txt = CHANGES.txt
 		GitVersion.yml = GitVersion.yml
-		LICENSE.txt = LICENSE.txt
 		NuGet.config = NuGet.config
+		LICENSE = LICENSE
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "choco", "choco", "{1EA16CB4-2043-4297-BABC-A548900BA7E0}"
