@@ -1,4 +1,4 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.7.0
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.9.0
 #tool nuget:?package=GitVersion.CommandLine
 
 using System.Text.RegularExpressions;
@@ -75,14 +75,6 @@ var GUI_SOLUTION = PROJECT_DIR + "experimental-gui.sln";
 // Test Assembly
 var GUI_TESTS = BIN_DIR + "TestCentric.Gui.Tests.dll";
 
-// Package sources for nuget restore
-var PACKAGE_SOURCE = new string[]
-{
-    "https://www.nuget.org/api/v2",
-    "https://www.myget.org/F/nunit-gui-team/api/v3/index.json",
-    "https://www.myget.org/F/nunit-gui-team/api/v2"
-};
-
 //////////////////////////////////////////////////////////////////////
 // CLEAN
 //////////////////////////////////////////////////////////////////////
@@ -103,7 +95,6 @@ Task("RestorePackages")
 {
     NuGetRestore(GUI_SOLUTION, new NuGetRestoreSettings
     {
-        Source = PACKAGE_SOURCE,
         Verbosity = NuGetVerbosity.Detailed
     });
 });
