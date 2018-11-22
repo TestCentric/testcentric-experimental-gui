@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -21,18 +21,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
-using NUnit.Engine;
 
 namespace TestCentric.Gui.Presenters
 {
-    using Views;
+    using NUnit.UiKit.Elements;
     using Model;
     using Settings;
-    using NUnit.UiKit.Elements;
+    using Views;
 
     /// <summary>
     /// DisplayStrategy is the abstract base for the various
@@ -94,7 +91,7 @@ namespace TestCentric.Gui.Presenters
         public virtual void OnTestFinished(ResultNode result)
         {
             int imageIndex = CalcImageIndex(result.Outcome);
-            foreach(TreeNode treeNode in GetTreeNodesForTest(result))
+            foreach (TreeNode treeNode in GetTreeNodesForTest(result))
                 Tree.SetImageIndex(treeNode, imageIndex);
         }
 

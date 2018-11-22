@@ -21,13 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using TestCentric.Gui.Model;
 using TestCentric.Gui.Settings;
 
 namespace TestCentric.Gui.Views.SettingsPages

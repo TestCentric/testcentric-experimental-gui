@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -44,7 +44,7 @@ namespace TestCentric.Gui
             Application.SetCompatibleTextRenderingDefault(false);
             Run(args);
         }
-        
+
         /// <summary>
         /// The main entry point for the application, minus GUI initialization
         /// logic. This method is intended for wrapper applications that

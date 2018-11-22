@@ -21,7 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.ComponentModel;
 using System.Windows.Forms;
 using NUnit.UiKit.Elements;
 
@@ -54,10 +53,10 @@ namespace TestCentric.Gui.Views
 
             FormatButton = new ToolStripElement<ToolStripDropDownButton>(formatButton);
             DisplayFormat = new CheckedMenuGroup(
-                "displayFormat", 
+                "displayFormat",
                 nunitTreeMenuItem, fixtureListMenuItem, testListMenuItem);
             GroupBy = new CheckedMenuGroup(
-                "testGrouping", 
+                "testGrouping",
                 byAssemblyMenuItem, byFixtureMenuItem, byCategoryMenuItem, byOutcomeMenuItem, byDurationMenuItem);
 
             RunContextCommand = new MenuElement(this.runMenuItem);

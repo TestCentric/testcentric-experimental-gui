@@ -39,7 +39,7 @@ namespace TestCentric.Gui.Model
             summary.OverallResult = resultNode.Outcome.Status.ToString();
             summary.Duration = result.GetAttribute("duration", 0.0);
             summary.StartTime = result.GetAttribute("start-time", DateTime.MinValue);
-            summary.EndTime =  result.GetAttribute("end-time", DateTime.MaxValue);
+            summary.EndTime = result.GetAttribute("end-time", DateTime.MaxValue);
             Summarize(result, summary);
             return summary;
         }

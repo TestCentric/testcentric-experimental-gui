@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Xml;
 using NUnit.Engine;
 
 namespace TestCentric.Gui.Model
@@ -74,7 +73,7 @@ namespace TestCentric.Gui.Model
 
         public bool IsTestRunning
         {
-            get { return Runner != null && Runner.IsTestRunning;  }
+            get { return Runner != null && Runner.IsTestRunning; }
         }
 
         public bool HasResults
@@ -251,7 +250,7 @@ namespace TestCentric.Gui.Model
             _events.FireTestReloaded(Tests);
         }
 
-#region Helper Methods
+        #region Helper Methods
 
         // Public for testing only
         public TestPackage MakeTestPackage(IList<string> testFiles)
@@ -273,7 +272,7 @@ namespace TestCentric.Gui.Model
             return package;
         }
 
-#endregion
+        #endregion
 
         public void RunAllTests()
         {
@@ -295,7 +294,7 @@ namespace TestCentric.Gui.Model
         {
             Runner.StopRun(false);
         }
-        
+
         public ResultNode GetResultForTest(TestNode testNode)
         {
             if (testNode != null)
@@ -313,13 +312,13 @@ namespace TestCentric.Gui.Model
             _events.FireSelectedItemChanged(testItem);
         }
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
 
-#region IServiceLocator Members
+        #region IServiceLocator Members
 
-        public T GetService<T>() where T: class
+        public T GetService<T>() where T : class
         {
             return _testEngine.Services.GetService<T>();
         }
@@ -329,6 +328,6 @@ namespace TestCentric.Gui.Model
             return _testEngine.Services.GetService(serviceType);
         }
 
-#endregion
+        #endregion
     }
 }

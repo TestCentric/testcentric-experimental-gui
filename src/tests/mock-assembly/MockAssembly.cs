@@ -46,10 +46,10 @@ namespace TestCentric.Gui.Tests
                         + FixtureWithTestCases.Tests
                         + ParameterizedFixture.Tests
                         + GenericFixtureConstants.Tests;
-            
-            public const int Suites = MockTestFixture.Suites 
+
+            public const int Suites = MockTestFixture.Suites
                         + Singletons.OneTestCase.Suites
-                        + TestAssembly.MockTestFixture.Suites 
+                        + TestAssembly.MockTestFixture.Suites
                         + IgnoredFixture.Suites
                         + ExplicitFixture.Suites
                         + BadFixture.Suites
@@ -57,9 +57,9 @@ namespace TestCentric.Gui.Tests
                         + ParameterizedFixture.Suites
                         + GenericFixtureConstants.Suites
                         + NamespaceSuites;
-            
+
             public const int Nodes = Tests + Suites;
-            
+
             public const int ExplicitFixtures = 1;
             public const int SuitesRun = Suites - ExplicitFixtures;
 
@@ -73,7 +73,7 @@ namespace TestCentric.Gui.Tests
             public const int Skipped_Ignored = MockTestFixture.Skipped_Ignored + IgnoredFixture.Tests;
             public const int Skipped_Explicit = MockTestFixture.Skipped_Explicit + ExplicitFixture.Tests;
             public const int Skipped = Skipped_Ignored + Skipped_Explicit;
-            
+
             public const int Failed_Errors = MockTestFixture.Failed_Errors;
             public const int Failed_Failures = MockTestFixture.Failed_Failures;
             public const int Failed_NotRunnable = MockTestFixture.Failed_NotRunnable + BadFixture.Tests;
@@ -86,7 +86,7 @@ namespace TestCentric.Gui.Tests
             public const int Categories = MockTestFixture.Categories;
         }
 
-        [TestFixture(Description="Fake Test Fixture")]
+        [TestFixture(Description = "Fake Test Fixture")]
         [Category("FixtureCategory")]
         public class MockTestFixture
         {
@@ -110,16 +110,16 @@ namespace TestCentric.Gui.Tests
             public const int Categories = 5;
             public const int MockCategoryTests = 2;
 
-            [Test(Description="Mock Test #1")]
+            [Test(Description = "Mock Test #1")]
             public void MockTest1()
-            {}
+            { }
 
             [Test]
             [Category("MockCategory")]
-            [Property("Severity","Critical")]
+            [Property("Severity", "Critical")]
             [Description("This is a really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really long description")]
             public void MockTest2()
-            {}
+            { }
 
             [Test]
             [Category("MockCategory")]
@@ -129,7 +129,7 @@ namespace TestCentric.Gui.Tests
 
             [Test]
             protected static void MockTest5()
-            {}
+            { }
 
             [Test]
             public void FailingTest()
@@ -145,21 +145,21 @@ namespace TestCentric.Gui.Tests
 
             [Test, Property("TargetMethod", "SomeClassName"), Property("Size", 5), /*Property("TargetType", typeof( System.Threading.Thread ))*/]
             public void TestWithManyProperties()
-            {}
+            { }
 
             [Test]
             [Ignore("ignoring this test method for now")]
             [Category("Foo")]
             public void MockTest4()
-            {}
+            { }
 
             [Test, Explicit]
-            [Category( "Special" )]
+            [Category("Special")]
             public void ExplicitlyRunTest()
-            {}
+            { }
 
             [Test]
-            public void NotRunnableTest( int a, int b)
+            public void NotRunnableTest(int a, int b)
             {
             }
 
@@ -191,8 +191,8 @@ namespace TestCentric.Gui.Tests
             public const int Suites = 1;
 
             [Test]
-            public virtual void TestCase() 
-            {}
+            public virtual void TestCase()
+            { }
         }
     }
 
@@ -222,12 +222,12 @@ namespace TestCentric.Gui.Tests
 
         [Test]
         public void Test2() { }
-        
+
         [Test]
         public void Test3() { }
     }
 
-    [TestFixture,Explicit]
+    [TestFixture, Explicit]
     public class ExplicitFixture
     {
         public const int Tests = 2;
@@ -252,27 +252,27 @@ namespace TestCentric.Gui.Tests
         [Test]
         public void SomeTest() { }
     }
-    
+
     [TestFixture]
     public class FixtureWithTestCases
     {
         public const int Tests = 4;
         public const int Suites = 3;
-        
-        [TestCase(2, 2, ExpectedResult=4)]
-        [TestCase(9, 11, ExpectedResult=20)]
+
+        [TestCase(2, 2, ExpectedResult = 4)]
+        [TestCase(9, 11, ExpectedResult = 20)]
         public int MethodWithParameters(int x, int y)
         {
-            return x+y;
+            return x + y;
         }
-        
+
         [TestCase(2, 4)]
         [TestCase(9.2, 11.7)]
         public void GenericMethod<T>(T x, T y)
         {
         }
     }
-    
+
     [TestFixture(5)]
     [TestFixture(42)]
     public class ParameterizedFixture
@@ -281,29 +281,29 @@ namespace TestCentric.Gui.Tests
         public const int Suites = 3;
 
         public ParameterizedFixture(int num) { }
-        
+
         [Test]
         public void Test1() { }
-        
+
         [Test]
         public void Test2() { }
     }
-    
+
     public class GenericFixtureConstants
     {
         public const int Tests = 4;
         public const int Suites = 3;
     }
-    
+
     [TestFixture(5)]
     [TestFixture(11.5)]
     public class GenericFixture<T>
     {
-        public GenericFixture(T num){ }
-        
+        public GenericFixture(T num) { }
+
         [Test]
         public void Test1() { }
-        
+
         [Test]
         public void Test2() { }
     }

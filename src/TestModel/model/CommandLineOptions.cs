@@ -64,7 +64,7 @@ namespace TestCentric.Gui
             //this.Insert("test=", "Comma-separated list of {NAMES} of tests to run or explore. This option may be repeated.",
             //    v => ((List<string>)TestList).AddRange(TestNameParser.Parse(RequiredValue(v, "--test"))));
 
-            this.Add("config=", "Project {CONFIG} to load (e.g.: Debug).", 
+            this.Add("config=", "Project {CONFIG} to load (e.g.: Debug).",
                 v => ActiveConfig = RequiredValue(v, "--config"));
 
             this.Add("noload", "Suppress loading of most recent project.",
@@ -80,7 +80,7 @@ namespace TestCentric.Gui
             this.Add("trace=", "Set internal trace {LEVEL}.",
                 v => InternalTraceLevel = RequiredValue(v, "--trace", "Off", "Error", "Warning", "Info", "Verbose", "Debug"));
 
-            this.Add("help|h", "Display this message and exit.", 
+            this.Add("help|h", "Display this message and exit.",
                 v => ShowHelp = v != null);
 
             // Default
@@ -184,7 +184,7 @@ namespace TestCentric.Gui
 
             if (val == null || val == string.Empty)
                 ErrorMessages.Add("Missing required value for option '" + option + "'.");
-            else 
+            else
             {
                 int r;
                 if (int.TryParse(val, out r))
@@ -192,7 +192,7 @@ namespace TestCentric.Gui
                 else
                     ErrorMessages.Add("An int value was expected for option '{0}' but a value of '{1}' was used");
             }
-                
+
             return result;
         }
 

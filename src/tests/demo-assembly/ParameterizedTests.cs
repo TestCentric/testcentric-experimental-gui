@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
@@ -79,7 +79,7 @@ namespace NUnitTestDemo
             Assert.Ignore("Ignoring this test case");
         }
 
-        [TestCase(31, 11, ExcludePlatform="NET"), ExpectSkip]
+        [TestCase(31, 11, ExcludePlatform = "NET"), ExpectSkip]
         public void TestCaseIsSkipped_Property(int a, int b)
         {
         }
@@ -102,12 +102,12 @@ namespace NUnitTestDemo
             throw new Exception("Exception from test case");
         }
 
-        [TestCase(42, TestName="AlternateTestName"), ExpectPass]
+        [TestCase(42, TestName = "AlternateTestName"), ExpectPass]
         public void TestCaseWithAlternateName(int x)
         {
         }
 
-        [TestCase(42, TestName="NameWithSpecialChar->Here")]
+        [TestCase(42, TestName = "NameWithSpecialChar->Here")]
         public void TestCaseWithSpecialCharInName(int x)
         {
         }

@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -21,8 +21,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-    using NUnit.Framework;
-    using NSubstitute;
+using NUnit.Framework;
+using NSubstitute;
 
 namespace TestCentric.Gui.Presenters.Main
 {
@@ -33,12 +33,12 @@ namespace TestCentric.Gui.Presenters.Main
         [Test]
         public void View_Receives_FileNameOfSingleAssembly()
         {
-			string path = "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll";
-			var arguments = new TestFilesLoadingEventArgs(new[] { path });
+            string path = "C:\\git\\projects\\pull-request\\SomeAssembly.AcceptanceTests.dll";
+            var arguments = new TestFilesLoadingEventArgs(new[] { path });
 
             Model.Events.TestsLoading += Raise.Event<TestFilesLoadingEventHandler>(arguments);
 
-			View.Received().OnTestAssembliesLoading($"Loading Assembly: {path}");
+            View.Received().OnTestAssembliesLoading($"Loading Assembly: {path}");
         }
 
         [Test]

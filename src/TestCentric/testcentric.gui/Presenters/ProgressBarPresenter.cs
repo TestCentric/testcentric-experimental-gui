@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -23,9 +23,9 @@
 
 namespace TestCentric.Gui.Presenters
 {
+    using Controls;
     using Model;
     using Views;
-    using Controls;
 
     public class ProgressBarPresenter
     {

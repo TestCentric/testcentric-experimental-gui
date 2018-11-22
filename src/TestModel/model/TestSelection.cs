@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -49,7 +49,7 @@ namespace TestCentric.Gui.Model
         /// <param name="id"></param>
         public void RemoveId(string id)
         {
-            for(int index = 0; index < Count; index++)
+            for (int index = 0; index < Count; index++)
                 if (this[index].Id == id)
                 {
                     RemoveAt(index);

@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -23,7 +23,6 @@
 
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using NUnit.Engine;
 
@@ -87,7 +86,7 @@ namespace TestCentric.Gui.Presenters
             _view.AddinsCommand.Execute += OpenExtensionsDialogCommand_Execute;
 
             _view.NUnitHelpCommand.Execute += () =>
-                { MessageBox.Show("This will show Help", "Not Yet Implemented");  };
+                { MessageBox.Show("This will show Help", "Not Yet Implemented"); };
             _view.AboutNUnitCommand.Execute += () =>
                 { MessageBox.Show("This will show the About Box", "Not Yet Implemented"); };
 
@@ -97,7 +96,7 @@ namespace TestCentric.Gui.Presenters
         private void NotifyTestsLoading(TestFilesLoadingEventArgs args)
         {
             var message = args.TestFilesLoading.Count == 1 ?
-                $"Loading Assembly: {args.TestFilesLoading[0]}":
+                $"Loading Assembly: {args.TestFilesLoading[0]}" :
                 $"Loading {args.TestFilesLoading.Count} Assemblies...";
             _view.OnTestAssembliesLoading(message);
         }
@@ -256,7 +255,7 @@ namespace TestCentric.Gui.Presenters
 
         private void OpenExtensionsDialogCommand_Execute()
         {
-            using(var addinsView = new AddinsView())
+            using (var addinsView = new AddinsView())
             {
                 var dialog = new AddinsPresenter(addinsView, _model.Services.ExtensionService);
                 dialog.Show();

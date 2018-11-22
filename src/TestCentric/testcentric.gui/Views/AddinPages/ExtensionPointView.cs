@@ -45,7 +45,7 @@ namespace TestCentric.Gui.Views.AddinPages
             }
 
             if (!addedAnyExtensionNodes)
-                control.Controls.Add(new Label { Text = "Has No Extensions", Dock = DockStyle.Top});
+                control.Controls.Add(new Label { Text = "Has No Extensions", Dock = DockStyle.Top });
         }
 
         protected override void Dispose(bool disposing)

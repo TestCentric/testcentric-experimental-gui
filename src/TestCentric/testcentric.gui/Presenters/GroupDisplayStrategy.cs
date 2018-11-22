@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -22,16 +22,12 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
-using NUnit.Engine;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Presenters
 {
-    using Views;
     using Model;
+    using Views;
 
     /// <summary>
     /// GroupDisplayStrategy is the abstract base class for 
@@ -44,7 +40,7 @@ namespace TestCentric.Gui.Presenters
         #region Construction and Initialization
 
         public GroupDisplayStrategy(ITestTreeView view, ITestModel model)
-            : base(view, model) 
+            : base(view, model)
         {
             _view.GroupBy.Enabled = true;
             _view.GroupBy.SelectionChanged += OnGroupByChanged;
@@ -131,7 +127,7 @@ namespace TestCentric.Gui.Presenters
 
             return null;
         }
-        
+
         protected void UpdateDisplay()
         {
             if (_grouping != null)

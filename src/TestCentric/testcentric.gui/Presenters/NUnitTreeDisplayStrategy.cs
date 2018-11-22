@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -26,9 +26,9 @@ using System.Windows.Forms;
 
 namespace TestCentric.Gui.Presenters
 {
-    using Views;
     using Model;
     using Settings;
+    using Views;
 
     /// <summary>
     /// NUnitTreeDisplayStrategy is used to display a the tests
@@ -38,7 +38,7 @@ namespace TestCentric.Gui.Presenters
     {
         #region Construction and Initialization
 
-        public NUnitTreeDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model) 
+        public NUnitTreeDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model)
         {
             _view.GroupBy.Enabled = false;
             _view.CollapseToFixturesCommand.Enabled = true;

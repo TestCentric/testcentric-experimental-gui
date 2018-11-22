@@ -8,7 +8,7 @@ namespace TestCentric.Gui
 {
     public class Xml2RtfConverter
     {
-        public enum ColorKinds 
+        public enum ColorKinds
         {
             Element = 1,
             Value,
@@ -22,7 +22,7 @@ namespace TestCentric.Gui
         private Dictionary<ColorKinds, Color> _colorTable = new Dictionary<ColorKinds, Color>();
         private readonly int indentationSize;
 
-        public Xml2RtfConverter(int indentationSize, Dictionary<ColorKinds, Color> colorTable = null )
+        public Xml2RtfConverter(int indentationSize, Dictionary<ColorKinds, Color> colorTable = null)
         {
             this.indentationSize = indentationSize;
             if (colorTable != null)

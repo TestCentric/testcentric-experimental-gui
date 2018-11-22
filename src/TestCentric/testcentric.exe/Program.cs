@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -27,7 +27,7 @@ namespace TestCentric.Gui
 {
     class Program
     {
-		[STAThread]
+        [STAThread]
         public static void Main(string[] args)
         {
             AppEntry.Main(args);

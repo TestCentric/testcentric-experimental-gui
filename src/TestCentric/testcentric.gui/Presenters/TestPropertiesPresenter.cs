@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -25,11 +25,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml;
 
 namespace TestCentric.Gui.Presenters
 {
     using Model;
-    using System.Xml;
     using Views;
 
     public class TestPropertiesPresenter
@@ -213,7 +213,7 @@ namespace TestCentric.Gui.Presenters
                 var fi = new FileInfo(testNode.FullName);
                 string extension = fi.Extension.ToLower();
                 if (extension != ".exe" && extension != ".dll")
-                  return "Unknown";
+                    return "Unknown";
             }
             return testNode.Type;
         }

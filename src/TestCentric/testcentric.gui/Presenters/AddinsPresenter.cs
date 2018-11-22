@@ -18,7 +18,7 @@ namespace TestCentric.Gui.Presenters
         public void Show()
         {
             _view.SuspendLayout();
-            foreach(var extensionPoint in _extensionService.ExtensionPoints)
+            foreach (var extensionPoint in _extensionService.ExtensionPoints)
             {
                 _view.AddExtensionPoint(extensionPoint);
             }
