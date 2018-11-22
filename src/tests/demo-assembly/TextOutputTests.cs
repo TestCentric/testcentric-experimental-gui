@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
@@ -75,8 +75,8 @@ namespace NUnitTestDemo
             if (TestContext.Parameters.Count == 0)
                 Console.WriteLine("No TestParameters were passed");
             else
-            foreach (var name in TestContext.Parameters.Names)
-                Console.WriteLine("Parameter: {0} = {1}", name, TestContext.Parameters.Get(name));
+                foreach (var name in TestContext.Parameters.Names)
+                    Console.WriteLine("Parameter: {0} = {1}", name, TestContext.Parameters.Get(name));
         }
     }
 }

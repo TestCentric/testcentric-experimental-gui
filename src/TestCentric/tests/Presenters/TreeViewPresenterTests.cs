@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -65,7 +65,7 @@ namespace TestCentric.Gui.Presenters
 
         //    _view.Received().ClearResults();
         //}
-        
+
         static object[] resultData = new object[] {
             new object[] { ResultState.Success, TestTreeView.SuccessIndex },
             new object[] { ResultState.Ignored, TestTreeView.WarningIndex },

@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -73,7 +73,7 @@ namespace TestCentric.Gui.Model
         public bool IsSuite { get; }
         public string Id { get; }
         public string Name { get; }
-        public string FullName  { get; }
+        public string FullName { get; }
         public string Type { get; }
         public int TestCount { get; }
         public RunState RunState { get; }

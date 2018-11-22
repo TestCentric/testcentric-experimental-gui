@@ -98,7 +98,7 @@ namespace NUnit.UiKit
 
         public DialogResult Error(string message, Exception exception, MessageButtons buttons)
         {
-            return Error( BuildMessage(message, exception), buttons);
+            return Error(BuildMessage(message, exception), buttons);
         }
 
         #endregion

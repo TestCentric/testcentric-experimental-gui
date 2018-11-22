@@ -23,9 +23,8 @@
 
 using System;
 using System.Drawing;
-using System.ComponentModel;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace NUnit.UiKit.Controls
 {
@@ -77,10 +76,10 @@ namespace NUnit.UiKit.Controls
 
         #region Construction and Initialization
 
-        public TipWindow( Control control )
+        public TipWindow(Control control)
         {
             InitializeComponent();
-            InitControl( control );
+            InitControl(control);
 
             // Note: This causes an error if called on a listbox
             // with no item as yet selected, therefore, it is handled
@@ -88,16 +87,16 @@ namespace NUnit.UiKit.Controls
             TipText = control.Text;
         }
 
-        public TipWindow( ListBox listbox, int index )
+        public TipWindow(ListBox listbox, int index)
         {
             InitializeComponent();
-            InitControl( listbox );
+            InitControl(listbox);
 
-            ItemBounds = listbox.GetItemRectangle( index );
-            TipText = listbox.Items[ index ].ToString();
+            ItemBounds = listbox.GetItemRectangle(index);
+            TipText = listbox.Items[index].ToString();
         }
 
-        private void InitControl( Control control )
+        private void InitControl(Control control)
         {
             _control = control;
             Owner = control.FindForm();
@@ -108,7 +107,7 @@ namespace NUnit.UiKit.Controls
             MinimizeBox = false;
             BackColor = Color.LightYellow;
             FormBorderStyle = FormBorderStyle.None;
-            StartPosition = FormStartPosition.Manual; 			
+            StartPosition = FormStartPosition.Manual;
 
             Font = control.Font;
         }
@@ -134,20 +133,20 @@ namespace NUnit.UiKit.Controls
         {
             // At this point, further changes to the properties
             // of the label will have no effect on the tip.
-            Point origin = _control.Parent.PointToScreen( _control.Location );
-            origin.Offset( ItemBounds.Left, ItemBounds.Top );
-            if ( !Overlay )	origin.Offset( 0, ItemBounds.Height );
+            Point origin = _control.Parent.PointToScreen(_control.Location);
+            origin.Offset(ItemBounds.Left, ItemBounds.Top);
+            if (!Overlay) origin.Offset(0, ItemBounds.Height);
             Location = origin;
 
-            Graphics g = Graphics.FromHwnd( Handle );
-            Screen screen = Screen.FromControl( _control );
-            SizeF layoutArea = new SizeF( screen.WorkingArea.Width - SCREEN_MARGIN, screen.WorkingArea.Height - SCREEN_MARGIN );
-            if ( Expansion == ExpansionStyle.Vertical )
+            Graphics g = Graphics.FromHwnd(Handle);
+            Screen screen = Screen.FromControl(_control);
+            SizeF layoutArea = new SizeF(screen.WorkingArea.Width - SCREEN_MARGIN, screen.WorkingArea.Height - SCREEN_MARGIN);
+            if (Expansion == ExpansionStyle.Vertical)
                 layoutArea.Width = ItemBounds.Width;
-            else if ( Expansion == ExpansionStyle.Horizontal )
+            else if (Expansion == ExpansionStyle.Horizontal)
                 layoutArea.Height = ItemBounds.Height;
 
-            Size sizeNeeded = Size.Ceiling( g.MeasureString( TipText, Font, layoutArea ) );
+            Size sizeNeeded = Size.Ceiling(g.MeasureString(TipText, Font, layoutArea));
 
             // If the needed width is smaller than that of the original label,
             // it can be visually confusing, so we adjust. This can only happen
@@ -158,38 +157,38 @@ namespace NUnit.UiKit.Controls
 
             ClientSize = sizeNeeded;
             Size = sizeNeeded + new Size(PADDING_LEFT + PADDING_RIGHT, PADDING_TOP + PADDING_BOTTOM);
-            _textRect = new Rectangle( PADDING_LEFT, PADDING_TOP, sizeNeeded.Width, sizeNeeded.Height );
+            _textRect = new Rectangle(PADDING_LEFT, PADDING_TOP, sizeNeeded.Width, sizeNeeded.Height);
 
             // Catch mouse leaving the control
-            _control.MouseLeave += new EventHandler( control_MouseLeave );
+            _control.MouseLeave += new EventHandler(control_MouseLeave);
 
             // Catch the form that holds the control closing
-            _control.FindForm().Closed += new EventHandler( control_FormClosed );
+            _control.FindForm().Closed += new EventHandler(control_FormClosed);
 
-            if ( Right > screen.WorkingArea.Right )
+            if (Right > screen.WorkingArea.Right)
             {
-                Left = Math.Max( 
-                    screen.WorkingArea.Right - Width - SCREEN_EDGE, 
+                Left = Math.Max(
+                    screen.WorkingArea.Right - Width - SCREEN_EDGE,
                     screen.WorkingArea.Left + SCREEN_EDGE);
             }
 
-            if ( Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
+            if (Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
             {
-                if ( Overlay )
+                if (Overlay)
                     Top = Math.Max(
                         screen.WorkingArea.Bottom - Height - SCREEN_EDGE,
                         screen.WorkingArea.Top + SCREEN_EDGE);
 
-                if ( Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
+                if (Bottom > screen.WorkingArea.Bottom - SCREEN_EDGE)
                     Height = screen.WorkingArea.Bottom - SCREEN_EDGE - Top;
 
             }
 
-            if ( AutoCloseDelay > 0 )
+            if (AutoCloseDelay > 0)
             {
                 _autoCloseTimer = new System.Windows.Forms.Timer();
                 _autoCloseTimer.Interval = AutoCloseDelay;
-                _autoCloseTimer.Tick += new EventHandler( OnAutoClose );
+                _autoCloseTimer.Tick += new EventHandler(OnAutoClose);
                 _autoCloseTimer.Start();
             }
         }
@@ -212,47 +211,47 @@ namespace NUnit.UiKit.Controls
 
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
-            base.OnPaint( e );
-                
+            base.OnPaint(e);
+
             Graphics g = e.Graphics;
             Rectangle outlineRect = ClientRectangle;
             outlineRect.Width--;
             outlineRect.Height--;
             g.DrawRectangle(Pens.Black, outlineRect);
-            g.DrawString( TipText, Font, Brushes.Black, _textRect );
+            g.DrawString(TipText, Font, Brushes.Black, _textRect);
         }
 
-        private void OnAutoClose( object sender, System.EventArgs e )
+        private void OnAutoClose(object sender, System.EventArgs e)
         {
             Close();
         }
 
         protected override void OnMouseEnter(System.EventArgs e)
         {
-            if ( _mouseLeaveTimer != null )
+            if (_mouseLeaveTimer != null)
             {
                 _mouseLeaveTimer.Stop();
                 _mouseLeaveTimer.Dispose();
-                System.Diagnostics.Debug.WriteLine( "Entered TipWindow - stopped mouseLeaveTimer" );
+                System.Diagnostics.Debug.WriteLine("Entered TipWindow - stopped mouseLeaveTimer");
             }
         }
 
         protected override void OnMouseLeave(System.EventArgs e)
         {
-            if ( MouseLeaveDelay > 0  )
+            if (MouseLeaveDelay > 0)
             {
                 _mouseLeaveTimer = new System.Windows.Forms.Timer();
                 _mouseLeaveTimer.Interval = MouseLeaveDelay;
-                _mouseLeaveTimer.Tick += new EventHandler( OnAutoClose );
+                _mouseLeaveTimer.Tick += new EventHandler(OnAutoClose);
                 _mouseLeaveTimer.Start();
-                System.Diagnostics.Debug.WriteLine( "Left TipWindow - started mouseLeaveTimer" );
+                System.Diagnostics.Debug.WriteLine("Left TipWindow - started mouseLeaveTimer");
             }
         }
 
         /// <summary>
         /// The form our label is on closed, so we should. 
         /// </summary>
-        private void control_FormClosed( object sender, System.EventArgs e )
+        private void control_FormClosed(object sender, System.EventArgs e)
         {
             Close();
         }
@@ -262,20 +261,20 @@ namespace NUnit.UiKit.Controls
         /// overlaying the label but otherwise start a
         /// delay for closing the window
         /// </summary>
-        private void control_MouseLeave( object sender, System.EventArgs e )
+        private void control_MouseLeave(object sender, System.EventArgs e)
         {
-            if ( MouseLeaveDelay > 0 && !Overlay )
+            if (MouseLeaveDelay > 0 && !Overlay)
             {
                 _mouseLeaveTimer = new System.Windows.Forms.Timer();
                 _mouseLeaveTimer.Interval = MouseLeaveDelay;
-                _mouseLeaveTimer.Tick += new EventHandler( OnAutoClose );
+                _mouseLeaveTimer.Tick += new EventHandler(OnAutoClose);
                 _mouseLeaveTimer.Start();
-                System.Diagnostics.Debug.WriteLine( "Left Control - started mouseLeaveTimer" );
+                System.Diagnostics.Debug.WriteLine("Left Control - started mouseLeaveTimer");
             }
         }
 
         #endregion
-    
+
         [DllImport("user32.dll")]
         static extern uint SendMessage(
             IntPtr hwnd,
@@ -283,22 +282,22 @@ namespace NUnit.UiKit.Controls
             IntPtr wparam,
             IntPtr lparam
             );
-    
+
         protected override void WndProc(ref Message m)
         {
             uint WM_LBUTTONDOWN = 0x201;
             uint WM_RBUTTONDOWN = 0x204;
             uint WM_MBUTTONDOWN = 0x207;
 
-            if ( m.Msg == WM_LBUTTONDOWN || m.Msg == WM_RBUTTONDOWN || m.Msg == WM_MBUTTONDOWN )
-            {	
-                if ( m.Msg != WM_LBUTTONDOWN )
+            if (m.Msg == WM_LBUTTONDOWN || m.Msg == WM_RBUTTONDOWN || m.Msg == WM_MBUTTONDOWN)
+            {
+                if (m.Msg != WM_LBUTTONDOWN)
                     Close();
-                SendMessage( _control.Handle, m.Msg, m.WParam, m.LParam );
+                SendMessage(_control.Handle, m.Msg, m.WParam, m.LParam);
             }
             else
             {
-                base.WndProc (ref m);
+                base.WndProc(ref m);
             }
         }
     }

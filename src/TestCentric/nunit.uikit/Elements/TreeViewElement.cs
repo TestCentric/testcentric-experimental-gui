@@ -43,7 +43,7 @@ namespace NUnit.UiKit.Elements
         {
             _checkBoxes = treeView.CheckBoxes;
 
-            treeView.AfterSelect += (s, e) => 
+            treeView.AfterSelect += (s, e) =>
             {
                 if (SelectedNodeChanged != null)
                     SelectedNodeChanged(e.Node);
@@ -63,14 +63,14 @@ namespace NUnit.UiKit.Elements
         private IContextMenuElement contextMenu;
         public IContextMenuElement ContextMenu
         {
-            get 
+            get
             {
                 if (contextMenu == null && Control.ContextMenuStrip != null)
                     contextMenu = new ContextMenuElement(Control.ContextMenuStrip);
 
                 return contextMenu;
             }
-            set 
+            set
             {
                 InvokeIfRequired(() =>
                 {

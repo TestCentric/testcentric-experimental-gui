@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -21,15 +21,12 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TestCentric.Gui.Presenters
 {
-    using Views;
     using Model;
+    using Views;
 
     /// <summary>
     /// TestListDisplayStrategy is used to display lists
@@ -39,7 +36,7 @@ namespace TestCentric.Gui.Presenters
     {
         #region Construction and Initialization
 
-        public TestListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model) 
+        public TestListDisplayStrategy(ITestTreeView view, ITestModel model) : base(view, model)
         {
             SetDefaultTestGrouping();
             _view.CollapseToFixturesCommand.Enabled = false;

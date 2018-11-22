@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -100,7 +100,7 @@ namespace TestCentric.Gui.Model
 
         // Broadcast event when SelectedTestItem changes
         void NotifySelectedItemChanged(ITestItem testItem);
-        
+
         #endregion
     }
 }

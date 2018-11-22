@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -27,7 +27,7 @@ using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
 {
-	[Platform(Exclude="Linux", Reason="Uninitialized form causes an error in Travis-CI")]
+    [Platform(Exclude = "Linux", Reason = "Uninitialized form causes an error in Travis-CI")]
     public class MainFormTests
     {
         private IMainView _view;

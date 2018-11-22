@@ -38,7 +38,7 @@ namespace TestCentric.Gui.Model
         /// Initializes a new instance of the <see cref="ResultState"/> class.
         /// </summary>
         /// <param name="status">The TestStatus.</param>
-        public ResultState(TestStatus status) : this (status, string.Empty, FailureSite.Test)
+        public ResultState(TestStatus status) : this(status, string.Empty, FailureSite.Test)
         {
         }
 
@@ -81,7 +81,7 @@ namespace TestCentric.Gui.Model
         /// The suiteResult is inconclusive
         /// </summary>
         public readonly static ResultState Inconclusive = new ResultState(TestStatus.Inconclusive);
-        
+
         /// <summary>
         /// The test was not runnable.
         /// </summary>
@@ -155,13 +155,13 @@ namespace TestCentric.Gui.Model
         /// Gets the TestStatus for the test.
         /// </summary>
         /// <val>The status.</val>
-        public TestStatus Status { get; private set;  }
+        public TestStatus Status { get; private set; }
 
         /// <summary>
         /// Gets the label under which this test result is
         /// categorized, if any.
         /// </summary>
-        public string Label { get; private set;  }
+        public string Label { get; private set; }
 
         /// <summary>
         /// Gets the stage of test execution in which

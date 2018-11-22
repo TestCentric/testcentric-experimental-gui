@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -30,8 +30,8 @@ namespace TestCentric.Gui.Views
 {
     [TestFixture(typeof(MainForm))]
     [TestFixture(typeof(TestTreeView))]
-	[Platform(Exclude = "Linux", Reason = "Uninitialized form causes an error in Travis-CI")]
-    public class CommonViewTests<T> where T: new()
+    [Platform(Exclude = "Linux", Reason = "Uninitialized form causes an error in Travis-CI")]
+    public class CommonViewTests<T> where T : new()
     {
         protected T View { get; private set; }
 
@@ -57,7 +57,7 @@ namespace TestCentric.Gui.Views
             {
                 IViewElement element = (IViewElement)prop.GetValue(View, new object[0]);
                 if (element != null)
-                    names.Add(element.Name); 
+                    names.Add(element.Name);
             }
 
             Assert.That(names, Is.Unique);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Engine;
@@ -28,7 +28,7 @@ namespace TestCentric.Gui.Presenters
 
             _extensionNodes = new List<IExtensionNode>();
             _extensionPoint.Extensions.Returns(_extensionNodes);
-            _extensionService.ExtensionPoints.Returns(new []{_extensionPoint});
+            _extensionService.ExtensionPoints.Returns(new[] { _extensionPoint });
             _presenter = new AddinsPresenter(_view, _extensionService);
         }
 
@@ -55,9 +55,9 @@ namespace TestCentric.Gui.Presenters
             public readonly List<IExtensionNode> AddedExtensionNodes = new List<IExtensionNode>();
             public readonly List<IExtensionPoint> AddedExtensionPoints = new List<IExtensionPoint>();
 
-            public void SuspendLayout(){}
+            public void SuspendLayout() { }
 
-            public void ResumeLayout() {}
+            public void ResumeLayout() { }
 
             public void ShowDialog() { }
 

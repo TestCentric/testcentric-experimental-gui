@@ -21,12 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using NUnit.UiKit.Controls;
 using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
@@ -42,14 +37,14 @@ namespace TestCentric.Gui.Views
             this.TestPanel = new ControlElement<Panel>(testPanel);
             this.ResultPanel = new ControlElement<Panel>(resultPanel);
 
-            displayHiddenProperties.CheckedChanged += (s,e) => 
+            displayHiddenProperties.CheckedChanged += (s, e) =>
             {
                 if (DisplayHiddenPropertiesChanged != null)
                     DisplayHiddenPropertiesChanged();
             };
         }
 
-        public string Header 
+        public string Header
         {
             get { return header.Text; }
             set { InvokeIfRequired(() => { header.Text = value; }); }
@@ -105,7 +100,7 @@ namespace TestCentric.Gui.Views
             get { return displayHiddenProperties.Checked; }
         }
 
-        public string Properties 
+        public string Properties
         {
             get { return properties.Text; }
             set { properties.Text = value; }

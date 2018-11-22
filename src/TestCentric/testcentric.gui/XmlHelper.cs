@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -44,7 +44,7 @@ namespace TestCentric.Gui
         public static XmlNode CreateTopLevelElement(string name)
         {
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml( "<" + name + "/>" );
+            doc.LoadXml("<" + name + "/>");
             return doc.FirstChild;
         }
 

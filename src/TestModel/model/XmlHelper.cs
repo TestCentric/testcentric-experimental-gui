@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2010-2014 Charlie Poole, Rob Prouse
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -22,7 +22,6 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 
@@ -41,7 +40,7 @@ namespace TestCentric.Gui.Model
         public static XmlNode CreateTopLevelElement(string name)
         {
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml( "<" + name + "/>" );
+            doc.LoadXml("<" + name + "/>");
             return doc.FirstChild;
         }
 

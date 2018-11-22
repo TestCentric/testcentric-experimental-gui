@@ -21,7 +21,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
 using System.Windows.Forms;
 
 namespace TestCentric.Gui.Views
@@ -35,7 +34,7 @@ namespace TestCentric.Gui.Views
             OpenFileDialog dlg = new OpenFileDialog();
 
             dlg.Title = "Open Project";
-            dlg.Filter = 
+            dlg.Filter =
                 "Projects & Assemblies(*.nunit,*.csproj,*.vbproj,*.vjsproj, *.vcproj,*.sln,*.dll,*.exe )|*.nunit;*.csproj;*.vjsproj;*.vbproj;*.vcproj;*.sln;*.dll;*.exe|" +
                 "All Project Types (*.nunit,*.csproj,*.vbproj,*.vjsproj,*.vcproj,*.sln)|*.nunit;*.csproj;*.vjsproj;*.vbproj;*.vcproj;*.sln|" +
                 "Test Projects (*.nunit)|*.nunit|" +

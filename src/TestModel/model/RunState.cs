@@ -36,7 +36,7 @@ namespace TestCentric.Gui.Model
         /// <summary>
         /// The test is not runnable.
         /// </summary>
-        NotRunnable, 
+        NotRunnable,
 
         /// <summary>
         /// The test is runnable. 

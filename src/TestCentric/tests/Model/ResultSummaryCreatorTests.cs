@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Copyright (c) 2017 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -131,7 +131,7 @@ namespace TestCentric.Gui.Model
         [Test]
         public void WhenNoResultIsSpecifiedInTestCase_SkipCountIsIncremented()
         {
-            var innerXml = 
+            var innerXml =
                 "<test-case result='Passed'/>" +
                 "<test-case/>";
             var summary = CreateResultSummary($"<test-run>{innerXml}</test-run>");
