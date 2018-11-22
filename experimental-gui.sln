@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo-assembly", "src\tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mock-assembly", "src\tests\mock-assembly\mock-assembly.csproj", "{2E368281-3BA8-4050-B05E-0E0E43F8F446}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCentric.Gui.Exe", "src\TestCentric\testcentric.exe\TestCentric.Gui.Exe.csproj", "{D5556639-F04B-4389-92C8-E110D6688BA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{2E368281-3BA8-4050-B05E-0E0E43F8F446}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E368281-3BA8-4050-B05E-0E0E43F8F446}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E368281-3BA8-4050-B05E-0E0E43F8F446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5556639-F04B-4389-92C8-E110D6688BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5556639-F04B-4389-92C8-E110D6688BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5556639-F04B-4389-92C8-E110D6688BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5556639-F04B-4389-92C8-E110D6688BA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{49D8D9F5-FD8D-4B4F-800C-68DCEE9AE166} = {8B8D9C87-A43A-4715-90E1-44146D29127C}
 		{03C3F9EC-FB25-46C0-8F0D-17A0C6E60E9F} = {61B56A51-E44C-44AD-83D7-2A9B1303108C}
 		{2E368281-3BA8-4050-B05E-0E0E43F8F446} = {61B56A51-E44C-44AD-83D7-2A9B1303108C}
+		{D5556639-F04B-4389-92C8-E110D6688BA7} = {8B8D9C87-A43A-4715-90E1-44146D29127C}
 	EndGlobalSection
 EndGlobal
