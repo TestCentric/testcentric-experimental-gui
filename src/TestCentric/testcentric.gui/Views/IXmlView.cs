@@ -23,10 +23,11 @@
 
 using System.Windows.Forms;
 using System.Xml;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
 {
+	using Elements;
+
     public interface IXmlView : IView
     {
         bool Visible { get; set; }

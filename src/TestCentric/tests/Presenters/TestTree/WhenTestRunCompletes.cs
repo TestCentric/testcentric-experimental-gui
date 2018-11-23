@@ -23,11 +23,11 @@
 
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Presenters.TestTree
 {
     using Model;
+    using Elements;
 
     public class WhenTestRunCompletes : TestTreePresenterTestBase
     {

@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -23,13 +23,13 @@
 
 using System.Windows.Forms;
 using NUnit.Framework;
-using NUnit.UiKit.Elements;
 using NSubstitute;
 
 namespace TestCentric.Gui.Presenters
 {
     using Views;
     using Model;
+    using Elements;
 
     public class TreeViewPresenterTests
     {

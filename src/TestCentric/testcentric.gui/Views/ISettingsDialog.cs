@@ -21,10 +21,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using NUnit.UiKit;
-
 namespace TestCentric.Gui.Views
 {
+    using Elements;
+
     public interface ISettingsDialog
     {
         DialogResult Display();

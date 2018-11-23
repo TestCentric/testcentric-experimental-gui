@@ -25,12 +25,12 @@ using System.Collections.Generic;
 using System.IO;
 using NUnit.Engine;
 using NUnit.Framework;
-using NUnit.UiKit.Elements;
 using NSubstitute;
 
 namespace TestCentric.Gui.Presenters.Main
 {
     using Views;
+    using Elements;
 
     public class CommandTests : MainPresenterTestBase
     {

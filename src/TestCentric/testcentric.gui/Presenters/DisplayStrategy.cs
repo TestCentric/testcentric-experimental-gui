@@ -26,10 +26,10 @@ using System.Windows.Forms;
 
 namespace TestCentric.Gui.Presenters
 {
-    using NUnit.UiKit.Elements;
     using Model;
     using Settings;
     using Views;
+	using Elements;
 
     /// <summary>
     /// DisplayStrategy is the abstract base for the various

@@ -23,12 +23,12 @@
 
 using System.ComponentModel;
 using System.Windows.Forms;
-using NUnit.UiKit;
-using NUnit.UiKit.Controls;
-using NUnit.UiKit.Elements;
+using TestCentric.Gui.Controls;
 
 namespace TestCentric.Gui.Views
 {
+	using Elements;
+
     public partial class MainForm : Form, IMainView
     {
         public event CommandHandler MainViewClosing;
@@ -140,7 +140,7 @@ namespace TestCentric.Gui.Views
 
         public void OnTestAssembliesLoading(string message)
         {
-            _messageForm = new NUnit.UiKit.Controls.LongRunningOperationDisplay(this, message);
+			_messageForm = new TestCentric.Gui.Controls.LongRunningOperationDisplay(this, message);
         }
 
         public void OnTestAssembliesLoaded()

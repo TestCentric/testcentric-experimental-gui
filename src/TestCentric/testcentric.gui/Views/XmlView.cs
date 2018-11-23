@@ -24,10 +24,10 @@
 using System.Windows.Forms;
 using System.Xml;
 
-using NUnit.UiKit.Elements;
-
 namespace TestCentric.Gui.Views
 {
+	using Elements;
+
     public partial class XmlView : UserControl, IXmlView
     {
         private XmlNode _testXml;

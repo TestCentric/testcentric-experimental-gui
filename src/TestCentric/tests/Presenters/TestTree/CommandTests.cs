@@ -24,12 +24,12 @@
 using System.Windows.Forms;
 using NUnit.Engine;
 using NUnit.Framework;
-using NUnit.UiKit.Elements;
 using NSubstitute;
 
 namespace TestCentric.Gui.Presenters.TestTree
 {
     using Model;
+    using Elements;
 
     public class CommandTests : TestTreePresenterTestBase
     {

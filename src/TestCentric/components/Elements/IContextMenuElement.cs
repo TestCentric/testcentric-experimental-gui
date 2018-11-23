@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,32 +21,22 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace TestCentric.Gui.Views
+using System.Windows.Forms;
+
+namespace TestCentric.Gui.Elements
 {
-    using Elements;
-
-    public interface ITestPropertiesView : IView
+    /// <summary>
+    /// MenuElement is the implementation of ToolStripItem 
+    /// used in the actual application.
+    /// </summary>
+    public interface IContextMenuElement : IControlElement<ContextMenuStrip>
     {
-        event CommandHandler DisplayHiddenPropertiesChanged;
+        event CommandHandler Popup;
 
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement TestPanel { get; }
-        IViewElement ResultPanel { get; }
+        ToolStripItemCollection Items { get; }
 
-        string TestType { get; set; }
-        string FullName { get; set; }
-        string Description { get; set; }
-        string Categories { get; set; }
-        string TestCount { get; set; }
-        string RunState { get; set; }
-        string SkipReason { get; set; }
-        bool DisplayHiddenProperties { get; }
-        string Properties { get; set; }
-        string Outcome { get; set; }
-        string ElapsedTime { get; set; }
-        string AssertCount { get; set; }
-        string Assertions { get; set; }
-        string Output { get; set; }
+        void AddSeparator();
+
+        void Add(ToolStripMenuItem menuItem);
     }
 }

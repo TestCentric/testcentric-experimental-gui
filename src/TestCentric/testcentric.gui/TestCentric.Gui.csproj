@@ -215,9 +215,9 @@
       <Project>{e978a8d7-e4a4-4de9-94df-d82bd764936b}</Project>
       <Name>TestCentric.Gui.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\nunit.uikit\nunit.uikit.csproj">
-      <Project>{353bc38a-ffb9-4cac-a542-afbf016d2629}</Project>
-      <Name>nunit.uikit</Name>
+    <ProjectReference Include="..\components\TestCentric.Gui.Components.csproj">
+      <Project>{353BC38A-FFB9-4CAC-A542-AFBF016D2629}</Project>
+      <Name>TestCentric.Gui.Components</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

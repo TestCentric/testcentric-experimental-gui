@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,32 +21,33 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace TestCentric.Gui.Views
+namespace TestCentric.Gui.Elements
 {
-    using Elements;
-
-    public interface ITestPropertiesView : IView
+    /// <summary>
+    /// The ISelection interface represents a single UI element
+    /// or a group of elements that allow the user to select one
+    /// of a set of items.
+    /// </summary>
+    public interface ISelection : IViewElement
     {
-        event CommandHandler DisplayHiddenPropertiesChanged;
+        /// <summary>
+        /// Gets the index of the currently selected item
+        /// </summary>
+        int SelectedIndex { get; }
 
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement TestPanel { get; }
-        IViewElement ResultPanel { get; }
+        /// <summary>
+        /// Gets the string value of the currently selected item
+        /// </summary>
+        string SelectedItem { get; set; }
 
-        string TestType { get; set; }
-        string FullName { get; set; }
-        string Description { get; set; }
-        string Categories { get; set; }
-        string TestCount { get; set; }
-        string RunState { get; set; }
-        string SkipReason { get; set; }
-        bool DisplayHiddenProperties { get; }
-        string Properties { get; set; }
-        string Outcome { get; set; }
-        string ElapsedTime { get; set; }
-        string AssertCount { get; set; }
-        string Assertions { get; set; }
-        string Output { get; set; }
+        /// <summary>
+        /// Refresh selection if possible, otherwise noop
+        /// </summary>
+        void Refresh();
+
+        /// <summary>
+        /// Event raised when the selection is changed by the user
+        /// </summary>
+        event CommandHandler SelectionChanged;
     }
 }
