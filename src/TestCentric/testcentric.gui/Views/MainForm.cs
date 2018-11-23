@@ -27,7 +27,7 @@ using TestCentric.Gui.Controls;
 
 namespace TestCentric.Gui.Views
 {
-	using Elements;
+    using Elements;
 
     public partial class MainForm : Form, IMainView
     {
@@ -140,7 +140,7 @@ namespace TestCentric.Gui.Views
 
         public void OnTestAssembliesLoading(string message)
         {
-			_messageForm = new TestCentric.Gui.Controls.LongRunningOperationDisplay(this, message);
+            _messageForm = new TestCentric.Gui.Controls.LongRunningOperationDisplay(this, message);
         }
 
         public void OnTestAssembliesLoaded()

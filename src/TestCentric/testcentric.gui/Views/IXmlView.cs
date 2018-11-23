@@ -26,7 +26,7 @@ using System.Xml;
 
 namespace TestCentric.Gui.Views
 {
-	using Elements;
+    using Elements;
 
     public interface IXmlView : IView
     {

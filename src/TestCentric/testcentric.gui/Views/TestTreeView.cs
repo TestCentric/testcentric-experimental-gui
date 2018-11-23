@@ -25,7 +25,7 @@ using System.Windows.Forms;
 
 namespace TestCentric.Gui.Views
 {
-	using Elements;
+    using Elements;
 
     public partial class TestTreeView : UserControl, ITestTreeView
     {
