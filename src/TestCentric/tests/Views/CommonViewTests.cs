@@ -24,10 +24,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
 {
+    using Elements;
+
     [TestFixture(typeof(MainForm))]
     [TestFixture(typeof(TestTreeView))]
     [Platform(Exclude = "Linux", Reason = "Uninitialized form causes an error in Travis-CI")]

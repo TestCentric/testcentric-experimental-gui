@@ -29,7 +29,7 @@ namespace TestCentric.Gui.Views
 {
     using Settings;
     using SettingsPages;
-
+ 
     public partial class SettingsDialog : Form, IDialog
     {
         private readonly SettingsModel _settings;
@@ -208,7 +208,7 @@ namespace TestCentric.Gui.Views
 
             ApplySettings();
 
-            DialogResult = DialogResult.OK;
+            DialogResult = System.Windows.Forms.DialogResult.OK;
 
             Close();
         }

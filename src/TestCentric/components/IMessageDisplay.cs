@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,32 +21,30 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace TestCentric.Gui.Views
+using System;
+
+namespace TestCentric.Gui.Elements
 {
-    using Elements;
-
-    public interface ITestPropertiesView : IView
+    public interface IMessageDisplay
     {
-        event CommandHandler DisplayHiddenPropertiesChanged;
+        DialogResult Display(string message);
+        DialogResult Display(string message, string caption);
+        DialogResult Display(string message, MessageButtons buttons);
+        DialogResult Display(string message, string caption, MessageButtons buttons);
 
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement TestPanel { get; }
-        IViewElement ResultPanel { get; }
+        DialogResult Error(string message);
+        DialogResult Error(string message, string caption);
+        DialogResult Error(string message, MessageButtons buttons);
+        DialogResult Error(string message, string caption, MessageButtons buttons);
+        DialogResult Error(string message, Exception exception);
+        DialogResult Error(string message, Exception exception, MessageButtons buttons);
 
-        string TestType { get; set; }
-        string FullName { get; set; }
-        string Description { get; set; }
-        string Categories { get; set; }
-        string TestCount { get; set; }
-        string RunState { get; set; }
-        string SkipReason { get; set; }
-        bool DisplayHiddenProperties { get; }
-        string Properties { get; set; }
-        string Outcome { get; set; }
-        string ElapsedTime { get; set; }
-        string AssertCount { get; set; }
-        string Assertions { get; set; }
-        string Output { get; set; }
+        DialogResult Info(string message);
+        DialogResult Info(string message, string caption);
+        DialogResult Info(string message, MessageButtons buttons);
+        DialogResult Info(string message, string caption, MessageButtons buttons);
+
+        DialogResult Ask(string message);
+        DialogResult Ask(string message, string caption);
     }
 }

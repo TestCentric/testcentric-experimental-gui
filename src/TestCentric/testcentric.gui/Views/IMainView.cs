@@ -22,11 +22,11 @@
 // ***********************************************************************
 
 using System.Drawing;
-using NUnit.UiKit;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
 {
+    using Elements;
+
     /// <summary>
     /// Handler when the main view has files dragged and dropped
     /// </summary>

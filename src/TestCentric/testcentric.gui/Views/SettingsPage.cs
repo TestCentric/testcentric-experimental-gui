@@ -23,11 +23,12 @@
 
 using System;
 using System.Windows.Forms;
-using NUnit.UiKit;
+using TestCentric.Gui;
 
 namespace TestCentric.Gui.Views
 {
     using Settings;
+    using Elements;
 
     public partial class SettingsPage : UserControl
     {

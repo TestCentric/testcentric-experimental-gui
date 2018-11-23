@@ -22,10 +22,11 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Views
 {
+    using Elements;
+
     public partial class TestPropertiesView : UserControl, ITestPropertiesView
     {
         public event CommandHandler DisplayHiddenPropertiesChanged;

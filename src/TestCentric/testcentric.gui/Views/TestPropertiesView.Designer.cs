@@ -52,12 +52,12 @@
             this.testCountLabel = new System.Windows.Forms.Label();
             this.runState = new System.Windows.Forms.Label();
             this.resultPanel = new System.Windows.Forms.Panel();
-            this.output = new NUnit.UiKit.Controls.ExpandingLabel();
+            this.output = new TestCentric.Gui.Controls.ExpandingLabel();
             this.outputLabel = new System.Windows.Forms.Label();
-            this.assertions = new NUnit.UiKit.Controls.ExpandingLabel();
+            this.assertions = new TestCentric.Gui.Controls.ExpandingLabel();
             this.testPanel = new System.Windows.Forms.Panel();
-            this.fullName = new NUnit.UiKit.Controls.ExpandingLabel();
-            this.description = new NUnit.UiKit.Controls.ExpandingLabel();
+            this.fullName = new TestCentric.Gui.Controls.ExpandingLabel();
+            this.description = new TestCentric.Gui.Controls.ExpandingLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.resultPanel.SuspendLayout();
             this.testPanel.SuspendLayout();
@@ -286,7 +286,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.output.BackColor = System.Drawing.Color.LightYellow;
-            this.output.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
+            this.output.Expansion = TestCentric.Gui.Controls.TipWindow.ExpansionStyle.Both;
             this.output.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.output.Location = new System.Drawing.Point(5, 203);
             this.output.Name = "output";
@@ -307,7 +307,7 @@
             this.assertions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.assertions.BackColor = System.Drawing.Color.LightYellow;
-            this.assertions.Expansion = NUnit.UiKit.Controls.TipWindow.ExpansionStyle.Both;
+            this.assertions.Expansion = TestCentric.Gui.Controls.TipWindow.ExpansionStyle.Both;
             this.assertions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.assertions.Location = new System.Drawing.Point(3, 57);
             this.assertions.Name = "assertions";
@@ -406,9 +406,9 @@
         private System.Windows.Forms.Label testTypeLabel;
         private System.Windows.Forms.Label testType;
         private System.Windows.Forms.Label fullNameLabel;
-        private NUnit.UiKit.Controls.ExpandingLabel fullName;
+        private TestCentric.Gui.Controls.ExpandingLabel fullName;
         private System.Windows.Forms.Label descriptionLabel;
-        private NUnit.UiKit.Controls.ExpandingLabel description;
+        private TestCentric.Gui.Controls.ExpandingLabel description;
         private System.Windows.Forms.Label categoriesLabel;
         private System.Windows.Forms.Label categories;
         private System.Windows.Forms.Label propertiesLabel;
@@ -423,14 +423,14 @@
         private System.Windows.Forms.Label assertCountLabel;
         private System.Windows.Forms.Label assertCount;
         private System.Windows.Forms.Label messageLabel;
-        private NUnit.UiKit.Controls.ExpandingLabel assertions;
+        private TestCentric.Gui.Controls.ExpandingLabel assertions;
         private System.Windows.Forms.Label testCount;
         private System.Windows.Forms.Label runStateLabel;
         private System.Windows.Forms.Label testCountLabel;
         private System.Windows.Forms.Label runState;
         private System.Windows.Forms.Panel resultPanel;
         private System.Windows.Forms.Panel testPanel;
-        private NUnit.UiKit.Controls.ExpandingLabel output;
+        private TestCentric.Gui.Controls.ExpandingLabel output;
         private System.Windows.Forms.Label outputLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
     }

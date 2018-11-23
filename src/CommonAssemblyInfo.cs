@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 //
 [assembly: AssemblyCompany("NUnit Software")]
 [assembly: AssemblyProduct("NUnit GUI Runner")]
-[assembly: AssemblyCopyright("Copyright (c) 2015-2017 Charlie Poole")]
+[assembly: AssemblyCopyright("Copyright (c) 2015-2018 Charlie Poole")]
 [assembly: AssemblyTrademark("NUnit is a trademark of NUnit Software")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,32 +21,34 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace TestCentric.Gui.Views
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace TestCentric.Gui.Elements
 {
-    using Elements;
+    public delegate void TreeNodeActionHandler(TreeNode treeNode);
 
-    public interface ITestPropertiesView : IView
+    /// <summary>
+    /// The ITreeViewElement interface provides additional methods
+    /// used when wrapping a TreeView.
+    /// </summary>
+    public interface ITreeViewElement : IControlElement<TreeView>
     {
-        event CommandHandler DisplayHiddenPropertiesChanged;
+        event TreeNodeActionHandler SelectedNodeChanged;
 
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement TestPanel { get; }
-        IViewElement ResultPanel { get; }
+        bool CheckBoxes { get; set; }
+        int VisibleCount { get; }
 
-        string TestType { get; set; }
-        string FullName { get; set; }
-        string Description { get; set; }
-        string Categories { get; set; }
-        string TestCount { get; set; }
-        string RunState { get; set; }
-        string SkipReason { get; set; }
-        bool DisplayHiddenProperties { get; }
-        string Properties { get; set; }
-        string Outcome { get; set; }
-        string ElapsedTime { get; set; }
-        string AssertCount { get; set; }
-        string Assertions { get; set; }
-        string Output { get; set; }
+        TreeNode SelectedNode { get; set; }
+        IList<TreeNode> CheckedNodes { get; }
+
+        IContextMenuElement ContextMenu { get; set; }
+
+        void Clear();
+        void ExpandAll();
+        void CollapseAll();
+        void Add(TreeNode treeNode);
+        void Load(TreeNode treeNode);
+        void SetImageIndex(TreeNode treeNode, int imageIndex);
     }
 }

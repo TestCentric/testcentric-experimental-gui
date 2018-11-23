@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{353BC38A-FFB9-4CAC-A542-AFBF016D2629}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestCentric.Gui</RootNamespace>
+    <AssemblyName>TestCentric.Gui.Components</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Controls\ExpandingLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LongRunningOperationDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogResult.cs" />
+    <Compile Include="Elements\ControlElement.cs" />
+    <Compile Include="Elements\CheckBoxElement.cs" />
+    <Compile Include="Elements\CheckedMenuGroup.cs" />
+    <Compile Include="Elements\ContextMenuElement.cs" />
+    <Compile Include="Elements\IContextMenuElement.cs" />
+    <Compile Include="Elements\ISelection.cs" />
+    <Compile Include="Elements\ICommand.cs" />
+    <Compile Include="Elements\IPopup.cs" />
+    <Compile Include="Elements\IChecked.cs" />
+    <Compile Include="Elements\IMenu.cs" />
+    <Compile Include="Elements\ITreeViewElement.cs" />
+    <Compile Include="Elements\IToolStripElement.cs" />
+    <Compile Include="Elements\IControlElement.cs" />
+    <Compile Include="Elements\IViewElement.cs" />
+    <Compile Include="Elements\MenuElement.cs" />
+    <Compile Include="Elements\SplitButtonElement.cs" />
+    <Compile Include="Elements\ToolStripElement.cs" />
+    <Compile Include="Elements\TreeViewElement.cs" />
+    <Compile Include="IMessageDisplay.cs" />
+    <Compile Include="MessageButtons.cs" />
+    <Compile Include="MessageDisplay.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controls\TipWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TipWindow.resx">
+      <DependentUpon>TipWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

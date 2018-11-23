@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,32 +21,41 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace TestCentric.Gui.Views
+using System.Windows.Forms;
+
+namespace TestCentric.Gui.Elements
 {
-    using Elements;
-
-    public interface ITestPropertiesView : IView
+    /// <summary>
+    /// The IViewElement interface wraps an individual gui
+    /// item like a control or toolstrip item. It is generally
+    /// exposed by views and is the base of other interfaces
+	/// in the TestCentric.Gui.Elements namespace.
+    /// </summary>
+    public interface IViewElement
     {
-        event CommandHandler DisplayHiddenPropertiesChanged;
+        /// <summary>
+        /// Gets the Name of the element in the progressBar
+        /// </summary>
+        string Name { get; }
 
+        /// <summary>
+        /// Gets or sets the Enabled status of the element
+        /// </summary>
+        bool Enabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Visible status of the element
+        /// </summary>
         bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement TestPanel { get; }
-        IViewElement ResultPanel { get; }
 
-        string TestType { get; set; }
-        string FullName { get; set; }
-        string Description { get; set; }
-        string Categories { get; set; }
-        string TestCount { get; set; }
-        string RunState { get; set; }
-        string SkipReason { get; set; }
-        bool DisplayHiddenProperties { get; }
-        string Properties { get; set; }
-        string Outcome { get; set; }
-        string ElapsedTime { get; set; }
-        string AssertCount { get; set; }
-        string Assertions { get; set; }
-        string Output { get; set; }
+        /// <summary>
+        /// Gets or sets the Text of an element
+        /// </summary>
+        string Text { get; set; }
+
+        /// <summary>
+        /// Invoke a delegate if necessary, otherwise just call it
+        /// </summary>
+        void InvokeIfRequired(MethodInvoker _delegate);
     }
 }

@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // Copyright (c) 2016 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -32,6 +32,7 @@ namespace TestCentric.Gui.Presenters
     using Settings;
     using Views;
     using Views.AddinPages;
+    using Elements;
 
     public class MainPresenter : System.IDisposable
     {
@@ -230,7 +231,7 @@ namespace TestCentric.Gui.Presenters
 
             string message = string.Format("New {0} setting will not take effect until you reload.\r\n\r\n\t\tReload Now?", key);
 
-            if (_view.MessageDisplay.Ask(message, "Settings Changed") == NUnit.UiKit.DialogResult.Yes)
+            if (_view.MessageDisplay.Ask(message, "Settings Changed") == DialogResult.Yes)
                 _model.ReloadTests();
         }
 

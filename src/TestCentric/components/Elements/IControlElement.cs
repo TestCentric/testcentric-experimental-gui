@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2016 Charlie Poole
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,32 +21,23 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-namespace TestCentric.Gui.Views
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace TestCentric.Gui.Elements
 {
-    using Elements;
-
-    public interface ITestPropertiesView : IView
+    /// <summary>
+    /// IControlElement is implemented by elements that wrap controls.
+    /// </summary>
+    public interface IControlElement : IViewElement
     {
-        event CommandHandler DisplayHiddenPropertiesChanged;
+        Point Location { get; set; }
+        Size Size { get; set; }
+        Size ClientSize { get; set; }
+    }
 
-        bool Visible { get; set; }
-        string Header { get; set; }
-        IViewElement TestPanel { get; }
-        IViewElement ResultPanel { get; }
-
-        string TestType { get; set; }
-        string FullName { get; set; }
-        string Description { get; set; }
-        string Categories { get; set; }
-        string TestCount { get; set; }
-        string RunState { get; set; }
-        string SkipReason { get; set; }
-        bool DisplayHiddenProperties { get; }
-        string Properties { get; set; }
-        string Outcome { get; set; }
-        string ElapsedTime { get; set; }
-        string AssertCount { get; set; }
-        string Assertions { get; set; }
-        string Output { get; set; }
+    public interface IControlElement<T> : IControlElement where T : Control
+    {
+        T Control { get; }
     }
 }

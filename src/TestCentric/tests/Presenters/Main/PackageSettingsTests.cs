@@ -23,10 +23,11 @@
 
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.UiKit.Elements;
 
 namespace TestCentric.Gui.Presenters.Main
 {
+    using Elements;
+
     public class PackageSettingsTests : MainPresenterTestBase
     {
         [TestCase("Single")]
