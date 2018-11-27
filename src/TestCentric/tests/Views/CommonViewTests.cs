@@ -49,21 +49,6 @@ namespace TestCentric.Gui.Views
                 Assert.Fail("{0} was not initialized", prop.Name);
         }
 
-        [Test]
-        public void ViewElementsHaveUniqueNames()
-        {
-            var names = new List<string>();
-
-            foreach (PropertyInfo prop in GetViewElementProperties())
-            {
-                IViewElement element = (IViewElement)prop.GetValue(View, new object[0]);
-                if (element != null)
-                    names.Add(element.Name);
-            }
-
-            Assert.That(names, Is.Unique);
-        }
-
         static protected IEnumerable<PropertyInfo> GetViewElementProperties()
         {
             foreach (PropertyInfo prop in typeof(T).GetProperties())

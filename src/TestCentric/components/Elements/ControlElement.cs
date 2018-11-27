@@ -56,11 +56,6 @@ namespace TestCentric.Gui.Elements
             set { InvokeIfRequired(() => { Control.ClientSize = value; }); }
         }
 
-        public string Name
-        {
-            get { return Control.Name; }
-        }
-
         public bool Enabled
         {
             get { return Control.Enabled; }

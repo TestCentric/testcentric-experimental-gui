@@ -34,11 +34,6 @@ namespace TestCentric.Gui.Elements
     public interface IViewElement
     {
         /// <summary>
-        /// Gets the Name of the element in the progressBar
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         /// Gets or sets the Enabled status of the element
         /// </summary>
         bool Enabled { get; set; }
