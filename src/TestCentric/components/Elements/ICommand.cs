@@ -46,8 +46,6 @@ namespace TestCentric.Gui.Elements
         /// toolStripItem is associated.
         /// </summary>
         event CommandHandler Execute;
-
-        string ToolTipText { get; set; }
     }
 
     public interface ICommand<T> : IViewElement
