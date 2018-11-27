@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2017 Charlie Poole
+// Copyright (c) 2017-2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -29,12 +29,13 @@ namespace TestCentric.Gui.Controls
 {
     public class LongRunningOperationDisplay : Form
     {
-        private readonly Cursor _ownerCursor;
         private readonly Label _operation;
+        private readonly Cursor _originalCursor;
+
         public LongRunningOperationDisplay(Form owner, string text)
         {
             Owner = owner;
-            _ownerCursor = owner.Cursor;
+            _originalCursor = owner.Cursor;
             _operation = new Label()
             {
                 BorderStyle = BorderStyle.FixedSingle,
@@ -49,6 +50,8 @@ namespace TestCentric.Gui.Controls
             Show();
             Invalidate();
             Update();
+
+            Application.DoEvents();
         }
 
         private void InitializeComponent()
@@ -80,10 +83,11 @@ namespace TestCentric.Gui.Controls
 
             Location = origin;
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                Owner.Cursor = _ownerCursor;
+                Owner.Cursor = _originalCursor;
 
             base.Dispose(disposing);
         }

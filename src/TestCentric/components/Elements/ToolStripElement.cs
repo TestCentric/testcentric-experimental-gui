@@ -37,11 +37,6 @@ namespace TestCentric.Gui.Elements
 
         public T ToolStripItem { get; private set; }
 
-        public string Name
-        {
-            get { return ToolStripItem.Name; }
-        }
-
         public bool Enabled
         {
             get { return ToolStripItem.Enabled; }

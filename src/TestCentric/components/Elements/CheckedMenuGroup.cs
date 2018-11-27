@@ -41,7 +41,6 @@ namespace TestCentric.Gui.Elements
         public CheckedMenuGroup(ToolStripMenuItem topMenu)
         {
             TopMenu = topMenu;
-            Name = topMenu.Name + "Group";
             foreach (ToolStripMenuItem menuItem in topMenu.DropDown.Items)
                 MenuItems.Add(menuItem);
 
@@ -50,8 +49,7 @@ namespace TestCentric.Gui.Elements
 
         public CheckedMenuGroup(string name, params ToolStripMenuItem[] menuItems)
         {
-            Name = name;
-            foreach (var menuItem in menuItems)
+             foreach (var menuItem in menuItems)
                 MenuItems.Add(menuItem);
 
             InitializeMenuItems();
@@ -112,8 +110,6 @@ namespace TestCentric.Gui.Elements
                 return _toolStrip;
             }
         }
-
-        public string Name { get; }
 
         public string Text { get; set; }
 
