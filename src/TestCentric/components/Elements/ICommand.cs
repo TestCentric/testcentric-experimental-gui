@@ -51,7 +51,5 @@ namespace TestCentric.Gui.Elements
     public interface ICommand<T> : IViewElement
     {
         event CommandHandler<T> Execute;
-
-        string ToolTipText { get; set; }
     }
 }
