@@ -56,7 +56,6 @@
     <Compile Include="Elements\IContextMenuElement.cs" />
     <Compile Include="Elements\ISelection.cs" />
     <Compile Include="Elements\ICommand.cs" />
-    <Compile Include="Elements\IPopup.cs" />
     <Compile Include="Elements\IChecked.cs" />
     <Compile Include="Elements\IMenu.cs" />
     <Compile Include="Elements\ITreeViewElement.cs" />
