@@ -34,8 +34,8 @@ namespace TestCentric.Gui.Views
         string Header { get; set; }
         IViewElement XmlPanel { get; }
         IControlElement<RichTextBox> XmlTextBox { get; }
-        IMenu CopyToolStripMenuItem { get; }
-        IMenu WordWrapToolStripMenuItem { get; }
+        ICommand CopyToolStripMenuItem { get; }
+        IChecked WordWrapToolStripMenuItem { get; }
         XmlNode TestXml { get; set; }
         event CommandHandler SelectAllCommand;
         event CommandHandler SelectionChanged;

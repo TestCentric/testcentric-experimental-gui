@@ -80,9 +80,9 @@ namespace TestCentric.Gui.Views
 
         public IControlElement<RichTextBox> XmlTextBox { get; private set; }
 
-        public IMenu CopyToolStripMenuItem { get; private set; }
+        public ICommand CopyToolStripMenuItem { get; private set; }
 
-        public IMenu WordWrapToolStripMenuItem { get; private set; }
+        public IChecked WordWrapToolStripMenuItem { get; private set; }
 
         public XmlNode TestXml
         {

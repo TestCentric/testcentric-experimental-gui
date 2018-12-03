@@ -28,8 +28,12 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// IMenu is implemented by MenuElements
     /// </summary>
-    public interface IMenu : IToolStripElement, ICommand, IPopup, IChecked
+    public interface IMenu : IToolStripElement
     {
+        event CommandHandler Popup;
+
+        // TODO: Remove this control-specific logic as well as
+        // the derivation from IToolStripElement.
         ToolStripItemCollection DropDownItems { get; }
     }
 }

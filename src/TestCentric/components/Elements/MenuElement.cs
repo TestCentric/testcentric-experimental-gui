@@ -26,10 +26,12 @@ using System.Windows.Forms;
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// MenuElement is the implementation of ToolStripItem 
-    /// used in the actual application.
+    /// MenuElement is the implemented here using a ToolStripItem 
+    /// but the view exposes each element using one of the three 
+    /// key interfaces (IMenu, ICommand or IChecked) which should
+    /// not contain any control-specific logic.
     /// </summary>
-    public class MenuElement : ToolStripElement<ToolStripMenuItem>, IMenu
+    public class MenuElement : ToolStripElement<ToolStripMenuItem>, IMenu, ICommand, IChecked
     {
         public event CommandHandler Execute;
         public event CommandHandler Popup;

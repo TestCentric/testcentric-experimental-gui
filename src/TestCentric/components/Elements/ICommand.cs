@@ -29,14 +29,8 @@ namespace TestCentric.Gui.Elements
     public delegate void CommandHandler();
 
     /// <summary>
-    /// CommandHandler<typeparamref name="T"/> is used to request an action
-    /// taking a single argument/>
-    /// </summary>
-    public delegate void CommandHandler<T>(T arg);
-
-    /// <summary>
-    /// The ICommand interface represents a menu toolStripItem,
-    /// which executes a command.
+    /// The ICommand interface represents any GUI item, which
+    /// executes a command, e.g. a button or a menu item.
     /// </summary>
     public interface ICommand : IViewElement
     {
@@ -46,10 +40,5 @@ namespace TestCentric.Gui.Elements
         /// toolStripItem is associated.
         /// </summary>
         event CommandHandler Execute;
-    }
-
-    public interface ICommand<T> : IViewElement
-    {
-        event CommandHandler<T> Execute;
     }
 }

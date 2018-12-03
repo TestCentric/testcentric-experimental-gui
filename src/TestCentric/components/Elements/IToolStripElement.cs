@@ -25,7 +25,9 @@ namespace TestCentric.Gui.Elements
 {
     /// <summary>
     /// IToolStripElement is implemented by elements that wrap ToolStripItems.
-    /// </summary>
+    /// </summary
+    // TODO: This interface should not exist since it exposes a
+    // specific control type.
     public interface IToolStripElement : IViewElement
     {
         string ToolTipText { get; set; }
