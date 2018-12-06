@@ -67,31 +67,34 @@ namespace TestCentric.Gui.Presenters
 
         private void DisplaySelectedItem()
         {
-            // TODO: Insert checks for errors in the XML
+            TestNode testNode = _selectedItem as TestNode;
+            ResultNode resultNode = null;
 
+            // TODO: Insert checks for errors in the XML
             if (_selectedItem != null)
+            {
                 _view.Header = _selectedItem.Name;
 
-            var testNode = _selectedItem as TestNode;
-            var resultNode = _model.GetResultForTest(testNode);
+                if (testNode != null)
+                {
+                    _view.TestPanel.Visible = true;
+                    _view.SuspendLayout();
+
+                    DisplayTestInfo(testNode);
+
+                    resultNode = _model.GetResultForTest(testNode);
+                    if (resultNode != null)
+                        DisplayResultInfo(resultNode);
+
+                    _view.ResumeLayout();
+                }
+            }
 
             _view.TestPanel.Visible = testNode != null;
             _view.ResultPanel.Visible = resultNode != null;
 
             // TODO: We should actually try to set the font for bold items
             // dynamically, since the global application font may be changed.
-
-            if (testNode != null)
-            {
-                _view.SuspendLayout();
-
-                DisplayTestInfo(testNode);
-
-                if (resultNode != null)
-                    DisplayResultInfo(resultNode);
-
-                _view.ResumeLayout();
-            }
         }
 
         private void DisplayTestInfo(TestNode testNode)
