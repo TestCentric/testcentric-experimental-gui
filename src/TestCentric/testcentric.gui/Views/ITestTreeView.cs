@@ -40,7 +40,7 @@ namespace TestCentric.Gui.Views
 
         ICommand RunContextCommand { get; }
         ICommand RunCheckedCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
+        IChecked ShowCheckBoxes { get; }
         ICommand ExpandAllCommand { get; }
         ICommand CollapseAllCommand { get; }
         ICommand CollapseToFixturesCommand { get; }

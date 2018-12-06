@@ -62,7 +62,7 @@ namespace TestCentric.Gui.Views
 
             RunContextCommand = new MenuElement(this.runMenuItem);
             RunCheckedCommand = new MenuElement(this.runCheckedMenuItem);
-            ShowCheckBoxesCommand = new MenuElement(showCheckboxesMenuItem);
+            ShowCheckBoxes = new MenuElement(showCheckboxesMenuItem);
             ExpandAllCommand = new MenuElement(expandAllMenuItem);
             CollapseAllCommand = new MenuElement(collapseAllMenuItem);
             CollapseToFixturesCommand = new MenuElement(collapseToFixturesMenuItem);
@@ -80,7 +80,7 @@ namespace TestCentric.Gui.Views
 
         public ICommand RunContextCommand { get; private set; }
         public ICommand RunCheckedCommand { get; private set; }
-        public IChecked ShowCheckBoxesCommand { get; private set; }
+        public IChecked ShowCheckBoxes { get; private set; }
         public ICommand ExpandAllCommand { get; private set; }
         public ICommand CollapseAllCommand { get; private set; }
         public ICommand CollapseToFixturesCommand { get; private set; }
