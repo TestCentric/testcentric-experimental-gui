@@ -28,7 +28,7 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// ToolStripItem is a generic wrapper for ToolStripItems
     /// </summary>
-    public class ToolStripElement<T> : IToolStripElement where T : ToolStripItem
+    public class ToolStripElement<T> : IViewElement, IToolTip where T : ToolStripItem
     {
         public ToolStripElement(T toolStripItem)
         {

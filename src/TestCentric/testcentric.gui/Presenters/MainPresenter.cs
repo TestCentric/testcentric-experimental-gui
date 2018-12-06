@@ -76,7 +76,7 @@ namespace TestCentric.Gui.Presenters
             _view.SaveCommand.Execute += ProjectSaveNotYetImplemented; // _model.SaveProject;
             _view.SaveAsCommand.Execute += ProjectSaveNotYetImplemented; // _model.SaveProject;
             _view.ReloadTestsCommand.Execute += _model.ReloadTests;
-            _view.RecentProjectsMenu.Popup += RecentProjectsMenu_Popup;
+            _view.RecentProjectsMenu.Popup += PopulateRecentProjectsMenu;
             _view.SelectedRuntime.SelectionChanged += SelectedRuntime_SelectionChanged;
             _view.ProcessModel.SelectionChanged += ProcessModel_SelectionChanged;
             _view.DomainUsage.SelectionChanged += DomainUsage_SelectionChanged;
@@ -134,24 +134,9 @@ namespace TestCentric.Gui.Presenters
             _view.RecentProjectsMenu.Enabled = !isTestRunning;
             _view.ExitCommand.Enabled = true;
 
-            // Special handling for available runtimes. Use model to initialize
-            // HACK: This exposes the underlying ToolStripMenuItem
-            var dropDownItems = _view.SelectRuntimeMenu.DropDownItems;
-            // Null check for when we are using a mock view to test
-            // Count check to avoid initializing twice
-            if (dropDownItems != null && dropDownItems.Count == 1)
-            {
-                foreach (var runtime in _model.AvailableRuntimes)
-                {
-                    var text = runtime.DisplayName;
-                    // Don't use Full suffix, but keep Client if present
-                    if (text.EndsWith(" - Full"))
-                        text = text.Substring(0, text.Length - 7);
-                    dropDownItems.Add(new ToolStripMenuItem(text) { Tag = runtime.ToString() });
-                }
+            PopulateRecentProjectsMenu();
 
-                _view.SelectedRuntime.Refresh();
-            }
+            PopulateSelectedRuntimeMenu();
 
             // Project Menu
             _view.ProjectMenu.Enabled = _view.ProjectMenu.Visible = _model.HasTests;
@@ -267,26 +252,38 @@ namespace TestCentric.Gui.Presenters
 
         #region Menu Popup Handlers
 
-        private void RecentProjectsMenu_Popup()
+        private void PopulateSelectedRuntimeMenu()
         {
-            // HACK: This expsoses the underlying ToolStripMenuItem
-            var dropDownItems = _view.RecentProjectsMenu.DropDownItems;
-            // Test for null, in case we are running tests with a mock
-            if (dropDownItems == null)
-                return;
-
-            dropDownItems.Clear();
-            int num = 0;
-            foreach (string entry in _model.Services.RecentFiles.Entries)
+            if (_view.SelectRuntimeMenu.Items != null && _view.SelectRuntimeMenu.Items.Count == 1)
             {
-                var menuText = string.Format("{0} {1}", ++num, entry);
-                var menuItem = new ToolStripMenuItem(menuText);
-                menuItem.Click += (sender, ea) =>
+                foreach (var runtime in _model.AvailableRuntimes)
                 {
-                    string path = ((ToolStripMenuItem)sender).Text.Substring(2);
-                    _model.LoadTests(new[] { path });
-                };
-                dropDownItems.Add(menuItem);
+                    var text = runtime.DisplayName;
+                    // Don't use Full suffix, but keep Client if present
+                    if (text.EndsWith(" - Full"))
+                        text = text.Substring(0, text.Length - 7);
+                    var menuItem = new ToolStripMenuItem(text) { Tag = runtime.ToString() };
+                    _view.SelectRuntimeMenu.Items.Add(menuItem);
+                }
+
+                _view.SelectedRuntime.Refresh();
+            }
+        }
+
+        private void PopulateRecentProjectsMenu()
+        {
+            if (_view.RecentProjectsMenu.Items != null) // Null when mocked
+            {
+                _view.RecentProjectsMenu.Items.Clear();
+
+                int num = 0;
+                foreach (string entry in _model.Services.RecentFiles.Entries)
+                {
+                    var menuText = string.Format("{0} {1}", ++num, entry);
+                    var menuItem = new ToolStripMenuItem(menuText);
+                    menuItem.Click += (s, e) => _model.LoadTests(new[] { entry });
+                    _view.RecentProjectsMenu.Items.Add(menuItem);
+                }
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2017 Charlie Poole
+// Copyright (c) 2017-2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -26,14 +26,16 @@ using System.Windows.Forms;
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// IMenu is implemented by MenuElements
+    /// IMenu is implemented by MenuElements that display subitems
     /// </summary>
-    public interface IMenu : IToolStripElement
+    public interface IMenu : IViewElement
     {
         event CommandHandler Popup;
-
-        // TODO: Remove this control-specific logic as well as
-        // the derivation from IToolStripElement.
-        ToolStripItemCollection DropDownItems { get; }
+       
+        // TODO: Stop exposing the implementation detail that assumes
+        // use of a ToolStripMenuItem rather than a MenuItem. I did
+        // a spike creating a wrapping collection, but it was too much
+        // code for too little benefit.
+        ToolStripItemCollection Items { get; }
     }
 }

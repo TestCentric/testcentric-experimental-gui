@@ -60,8 +60,8 @@ namespace TestCentric.Gui.Elements
             };
         }
 
-        private IContextMenuElement contextMenu;
-        public IContextMenuElement ContextMenu
+        private IContextMenu contextMenu;
+        public IContextMenu ContextMenu
         {
             get
             {

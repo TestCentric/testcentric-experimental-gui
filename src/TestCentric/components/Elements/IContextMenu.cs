@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2015-2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -26,17 +26,7 @@ using System.Windows.Forms;
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// MenuElement is the implementation of ToolStripItem 
-    /// used in the actual application.
+    /// IContextMenu combines the IMenu interface with a ContextMenuStrip.
     /// </summary>
-    public interface IContextMenuElement : IControlElement<ContextMenuStrip>
-    {
-        event CommandHandler Popup;
-
-        ToolStripItemCollection Items { get; }
-
-        void AddSeparator();
-
-        void Add(ToolStripMenuItem menuItem);
-    }
+    public interface IContextMenu : IControlElement<ContextMenuStrip>, IMenu { }
 }

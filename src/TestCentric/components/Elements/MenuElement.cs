@@ -21,6 +21,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace TestCentric.Gui.Elements
@@ -67,7 +69,7 @@ namespace TestCentric.Gui.Elements
             }
         }
 
-        public ToolStripItemCollection DropDownItems
+        public ToolStripItemCollection Items
         {
             get { return ToolStripItem.DropDown.Items; }
         }

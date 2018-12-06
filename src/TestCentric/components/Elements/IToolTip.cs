@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -24,11 +24,12 @@
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// IToolStripElement is implemented by elements that wrap ToolStripItems.
-    /// </summary
-    // TODO: This interface should not exist since it exposes a
-    // specific control type.
-    public interface IToolStripElement : IViewElement
+    /// IToolTip is implemented by elements, which are able to
+    /// get and set their own tool tip text. It is a single-
+    /// capability index and is generally used in conjunction
+    /// with IViewElement or a derived interface.
+    /// </summary>
+    public interface IToolTip
     {
         string ToolTipText { get; set; }
     }

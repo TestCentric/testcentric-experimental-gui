@@ -34,7 +34,7 @@ namespace TestCentric.Gui.Views
         ICommand RunFailedCommand { get; }
         ICommand StopRunCommand { get; }
 
-        IToolStripElement FormatButton { get; }
+        IToolTip FormatButton { get; }
         ISelection DisplayFormat { get; }
         ISelection GroupBy { get; }
 

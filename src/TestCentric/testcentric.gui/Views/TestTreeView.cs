@@ -85,7 +85,7 @@ namespace TestCentric.Gui.Views
         public ICommand CollapseAllCommand { get; private set; }
         public ICommand CollapseToFixturesCommand { get; private set; }
 
-        public IToolStripElement FormatButton { get; private set; }
+        public IToolTip FormatButton { get; private set; }
         public ISelection DisplayFormat { get; private set; }
         public ISelection GroupBy { get; private set; }
 

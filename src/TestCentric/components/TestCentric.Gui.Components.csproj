@@ -53,13 +53,13 @@
     <Compile Include="Elements\CheckBoxElement.cs" />
     <Compile Include="Elements\CheckedMenuGroup.cs" />
     <Compile Include="Elements\ContextMenuElement.cs" />
-    <Compile Include="Elements\IContextMenuElement.cs" />
+    <Compile Include="Elements\IContextMenu.cs" />
     <Compile Include="Elements\ISelection.cs" />
     <Compile Include="Elements\ICommand.cs" />
     <Compile Include="Elements\IChecked.cs" />
     <Compile Include="Elements\IMenu.cs" />
     <Compile Include="Elements\ITreeViewElement.cs" />
-    <Compile Include="Elements\IToolStripElement.cs" />
+    <Compile Include="Elements\IToolTip.cs" />
     <Compile Include="Elements\IControlElement.cs" />
     <Compile Include="Elements\IViewElement.cs" />
     <Compile Include="Elements\MenuElement.cs" />
