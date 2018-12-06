@@ -48,15 +48,5 @@ namespace TestCentric.Gui.Elements
         {
             get { return Control.Items; }
         }
-
-        public void AddSeparator()
-        {
-            Control.Items.Add(new ToolStripSeparator());
-        }
-
-        public void Add(ToolStripMenuItem menuItem)
-        {
-            Control.Items.Add(menuItem);
-        }
     }
 }
