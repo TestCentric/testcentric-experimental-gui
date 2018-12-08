@@ -42,7 +42,7 @@ namespace TestCentric.Gui.Elements
         TreeNode SelectedNode { get; set; }
         IList<TreeNode> CheckedNodes { get; }
 
-        IContextMenu ContextMenu { get; set; }
+        IMenu ContextMenu { get; }
 
         void Clear();
         void ExpandAll();

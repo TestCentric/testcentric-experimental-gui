@@ -29,8 +29,6 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// IControlElement is implemented by elements that wrap controls.
     /// </summary>
-    // TODO: This should not exist since it exposes the fact that the
-    // underlying gui element is a control.
     public interface IControlElement : IViewElement
     {
         Point Location { get; set; }
@@ -38,6 +36,12 @@ namespace TestCentric.Gui.Elements
         Size ClientSize { get; set; }
     }
 
+    /// <summary>
+    /// IControlElement&lt;T&gt; is implemented by elements that wrap controls
+    /// and also expose the control itself for use by other classes.
+    /// </summary>
+    // TODO: This should not exist since it exposes the fact that the
+    // underlying gui element is a control.
     public interface IControlElement<T> : IControlElement where T : Control
     {
         T Control { get; }

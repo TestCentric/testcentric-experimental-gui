@@ -29,12 +29,15 @@ namespace TestCentric.Gui.Elements
     /// MenuElement is the implementation of ToolStripItem 
     /// used in the actual application.
     /// </summary>
-    public class ContextMenuElement : ControlElement<ContextMenuStrip>, IContextMenu
+    public class ContextMenuElement : ControlElement, IMenu
     {
+        public ContextMenuStrip _contextMenu;
 
         public ContextMenuElement(ContextMenuStrip contextMenu)
             : base(contextMenu)
         {
+            _contextMenu = contextMenu;
+
             contextMenu.Opening += (s, cea) =>
             {
                 if (Popup != null)
@@ -46,7 +49,7 @@ namespace TestCentric.Gui.Elements
 
         public ToolStripItemCollection Items
         {
-            get { return Control.Items; }
+            get { return _contextMenu.Items; }
         }
     }
 }

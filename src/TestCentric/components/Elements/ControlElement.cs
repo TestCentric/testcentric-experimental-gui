@@ -29,57 +29,73 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// ControlElement is a generic wrapper for controls.
     /// </summary>
-    public class ControlElement<T> : IControlElement<T> where T : Control
+    public class ControlElement : IControlElement
     {
-        public ControlElement(T control)
+        protected Control _control;
+
+        public ControlElement(Control control)
+        {
+            _control = control;
+        }
+
+        public Point Location
+        {
+            get { return _control.Location; }
+            set { InvokeIfRequired(() => { _control.Location = value; }); }
+        }
+
+        public Size Size
+        {
+            get { return _control.Size; }
+            set { InvokeIfRequired(() => { _control.Size = value; }); }
+        }
+
+        public Size ClientSize
+        {
+            get { return _control.ClientSize; }
+            set { InvokeIfRequired(() => { _control.ClientSize = value; }); }
+        }
+
+        public bool Enabled
+        {
+            get { return _control.Enabled; }
+            set { InvokeIfRequired(() => { _control.Enabled = value; }); }
+        }
+
+        public bool Visible
+        {
+            get { return _control.Visible; }
+            set { InvokeIfRequired(() => { _control.Visible = value; }); }
+        }
+
+        public string Text
+        {
+            get { return _control.Text; }
+            set { InvokeIfRequired(() => { _control.Text = value; }); }
+        }
+
+        public void InvokeIfRequired(MethodInvoker del)
+        {
+            if (_control.InvokeRequired)
+                _control.BeginInvoke(del, new object[0]);
+            else
+                del();
+        }
+    }
+
+    /// <summary>
+    /// ControlElement is a generic wrapper for controls where the control 
+    /// itself needs to be made publicly available.
+    /// </summary>
+    public class ControlElement<T> : ControlElement, IControlElement<T> where T : Control
+    {
+        public ControlElement(T control) : base(control)
         {
             this.Control = control;
         }
 
         public T Control { get; private set; }
 
-        public Point Location
-        {
-            get { return Control.Location; }
-            set { InvokeIfRequired(() => { Control.Location = value; }); }
-        }
-
-        public Size Size
-        {
-            get { return Control.Size; }
-            set { InvokeIfRequired(() => { Control.Size = value; }); }
-        }
-
-        public Size ClientSize
-        {
-            get { return Control.ClientSize; }
-            set { InvokeIfRequired(() => { Control.ClientSize = value; }); }
-        }
-
-        public bool Enabled
-        {
-            get { return Control.Enabled; }
-            set { InvokeIfRequired(() => { Control.Enabled = value; }); }
-        }
-
-        public bool Visible
-        {
-            get { return Control.Visible; }
-            set { InvokeIfRequired(() => { Control.Visible = value; }); }
-        }
-
-        public string Text
-        {
-            get { return Control.Text; }
-            set { InvokeIfRequired(() => { Control.Text = value; }); }
-        }
-
-        public void InvokeIfRequired(MethodInvoker del)
-        {
-            if (Control.InvokeRequired)
-                Control.BeginInvoke(del, new object[0]);
-            else
-                del();
-        }
     }
 }
+

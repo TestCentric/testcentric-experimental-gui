@@ -60,23 +60,15 @@ namespace TestCentric.Gui.Elements
             };
         }
 
-        private IContextMenu contextMenu;
-        public IContextMenu ContextMenu
+        private IMenu _contextMenu;
+        public IMenu ContextMenu
         {
             get
             {
-                if (contextMenu == null && Control.ContextMenuStrip != null)
-                    contextMenu = new ContextMenuElement(Control.ContextMenuStrip);
+                if (_contextMenu == null && Control.ContextMenuStrip != null)
+                    _contextMenu = new ContextMenuElement(Control.ContextMenuStrip);
 
-                return contextMenu;
-            }
-            set
-            {
-                InvokeIfRequired(() =>
-                {
-                    contextMenu = value;
-                    Control.ContextMenuStrip = contextMenu.Control;
-                });
+                return _contextMenu;
             }
         }
 
