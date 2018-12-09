@@ -41,7 +41,7 @@ namespace TestCentric.Gui.Views
         {
             InitializeComponent();
 
-            XmlPanel = new ControlElement<Panel>(xmlPanel);
+            XmlPanel = new ControlElement(xmlPanel);
             CopyToolStripMenuItem = new MenuElement(copyToolStripMenuItem);
             WordWrapToolStripMenuItem = new MenuElement(wordWrapToolStripMenuItem);
             selectAllToolStripMenuItem.Click += (s, a) =>

@@ -35,15 +35,4 @@ namespace TestCentric.Gui.Elements
         Size Size { get; set; }
         Size ClientSize { get; set; }
     }
-
-    /// <summary>
-    /// IControlElement&lt;T&gt; is implemented by elements that wrap controls
-    /// and also expose the control itself for use by other classes.
-    /// </summary>
-    // TODO: This should not exist since it exposes the fact that the
-    // underlying gui element is a control.
-    public interface IControlElement<T> : IControlElement where T : Control
-    {
-        T Control { get; }
-    }
 }

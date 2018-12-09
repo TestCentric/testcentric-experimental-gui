@@ -80,8 +80,8 @@ namespace TestCentric.Gui.Views
             NUnitHelpCommand = new MenuElement(nUnitHelpToolStripMenuItem);
             AboutNUnitCommand = new MenuElement(aboutNUnitToolStripMenuItem);
 
-            TestResult = new ControlElement<Label>(testResult);
-            TestName = new ControlElement<Label>(testName);
+            TestResult = new ControlElement(testResult);
+            TestName = new ControlElement(testName);
 
             DialogManager = new DialogManager();
             MessageDisplay = new MessageDisplay();

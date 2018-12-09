@@ -35,8 +35,8 @@ namespace TestCentric.Gui.Views
         {
             InitializeComponent();
 
-            this.TestPanel = new ControlElement<Panel>(testPanel);
-            this.ResultPanel = new ControlElement<Panel>(resultPanel);
+            this.TestPanel = new ControlElement(testPanel);
+            this.ResultPanel = new ControlElement(resultPanel);
 
             displayHiddenProperties.CheckedChanged += (s, e) =>
             {

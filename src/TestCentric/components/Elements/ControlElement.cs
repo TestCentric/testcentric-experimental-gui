@@ -82,20 +82,5 @@ namespace TestCentric.Gui.Elements
                 del();
         }
     }
-
-    /// <summary>
-    /// ControlElement is a generic wrapper for controls where the control 
-    /// itself needs to be made publicly available.
-    /// </summary>
-    public class ControlElement<T> : ControlElement, IControlElement<T> where T : Control
-    {
-        public ControlElement(T control) : base(control)
-        {
-            this.Control = control;
-        }
-
-        public T Control { get; private set; }
-
-    }
 }
 

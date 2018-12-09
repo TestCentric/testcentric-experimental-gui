@@ -104,10 +104,8 @@ namespace TestCentric.Gui.Presenters
             {
                 OnTestLoaded(testNode);
 
-                TreeView treeControl = Tree.Control;
-
-                if (treeControl != null) // TODO: Null when mocking - fix this
-                    foreach (TreeNode treeNode in treeControl.Nodes)
+                if (Tree.Nodes != null) // TODO: Null when mocked
+                    foreach (TreeNode treeNode in Tree.Nodes)
                         ApplyResultsToTree(treeNode);
             }
         }
@@ -212,9 +210,8 @@ namespace TestCentric.Gui.Presenters
 
         public void CollapseToFixtures()
         {
-            TreeView treeControl = _view.Tree.Control;
-            if (treeControl != null) // TODO: Null when mocking - fix this
-                foreach (TreeNode treeNode in _view.Tree.Control.Nodes)
+            if (_view.Tree.Nodes != null) // TODO: Null when mocked
+                foreach (TreeNode treeNode in _view.Tree.Nodes)
                     CollapseToFixtures(treeNode);
         }
 
