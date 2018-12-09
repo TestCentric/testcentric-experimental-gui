@@ -52,7 +52,7 @@ namespace TestCentric.Gui.Views
             RunFailedCommand = new MenuElement(runFailedMenuItem);
             StopRunCommand = new MenuElement(stopRunMenuItem);
 
-            FormatButton = new ToolStripElement<ToolStripDropDownButton>(formatButton);
+            FormatButton = new ToolStripElement(formatButton);
             DisplayFormat = new CheckedMenuGroup(
                 "displayFormat",
                 nunitTreeMenuItem, fixtureListMenuItem, testListMenuItem);
