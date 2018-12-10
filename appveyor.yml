@@ -1,8 +1,5 @@
 image: Visual Studio 2017
 
-before_build:
-  - nuget restore experimental-gui.sln
-
 build_script: 
   - ps: .\build.ps1 -Target "Appveyor" -Configuration "Release"
   
