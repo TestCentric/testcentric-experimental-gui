@@ -18,8 +18,8 @@ var configuration = Argument("configuration", "Debug");
 //BuildInfo Build { get; set;} = new BuildInfo();
 
 string version = "0.6.0";
+string modifier = "";
 string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
-string packageVersion = version + dbgSuffix;
 
 //////////////////////////////////////////////////////////////////////
 // BUILD ENVIRONMENT
@@ -67,7 +67,12 @@ var ENGINE_VERSION = "3.9.0";
 // Directories
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
 var PACKAGE_DIR = PROJECT_DIR + "package/";
+var CHOCO_DIR = PROJECT_DIR + "choco/";
 var BIN_DIR = PROJECT_DIR + "bin/" + configuration + "/";
+
+// Packaging
+var PACKAGE_NAME = "testcentric-experimental-gui";
+var PACKAGE_VERSION = version + modifier + dbgSuffix;
 
 // Solution
 var GUI_SOLUTION = PROJECT_DIR + "experimental-gui.sln";
@@ -134,6 +139,9 @@ Task("Build")
         {
             XBuild(GUI_SOLUTION, xBuildSettings);
         }
+
+        CopyFileToDirectory("packages/NUnit.Engine." + ENGINE_VERSION + "/lib/nunit-agent.exe.config", BIN_DIR);
+        CopyFileToDirectory("packages/NUnit.Engine." + ENGINE_VERSION + "/lib/nunit-agent-x86.exe.config", BIN_DIR);
     });
 
 //////////////////////////////////////////////////////////////////////
@@ -159,8 +167,6 @@ Task("PackageZip")
 
         CopyFileToDirectory("LICENSE", BIN_DIR);
         CopyFileToDirectory("CHANGES.txt", BIN_DIR);
-        CopyFileToDirectory("packages/NUnit.Engine." + ENGINE_VERSION + "/lib/nunit-agent.exe.config", BIN_DIR);
-        CopyFileToDirectory("packages/NUnit.Engine." + ENGINE_VERSION + "/lib/nunit-agent-x86.exe.config", BIN_DIR);
 
         var zipFiles = new FilePath[]
         {
@@ -180,8 +186,8 @@ Task("PackageZip")
             BIN_DIR + "nunit-agent-x86.exe.config"
         };
 
-        //Zip(BIN_DIR, File(PACKAGE_DIR + "testcentric-experimental-gui-" + Build.PackageVersion + ".zip"), zipFiles);
-        Zip(BIN_DIR, File(PACKAGE_DIR + "testcentric-experimental-gui-" + packageVersion + ".zip"), zipFiles);
+        //Zip(BIN_DIR, File(PACKAGE_DIR + PACKAGE_NAME + "-" + Build.PackageVersion + ".zip"), zipFiles);
+        Zip(BIN_DIR, File(PACKAGE_DIR + PACKAGE_NAME +"-" + PACKAGE_VERSION + ".zip"), zipFiles);
     });
 
 Task("PackageChocolatey")
@@ -190,16 +196,17 @@ Task("PackageChocolatey")
     {
         CreateDirectory(PACKAGE_DIR);
 
-        ChocolateyPack("choco/testcentric-experimental-gui.nuspec", 
+        ChocolateyPack(CHOCO_DIR + PACKAGE_NAME + ".nuspec", 
             new ChocolateyPackSettings()
             {
                 //Version = Build.PackageVersion,
-                Version = packageVersion,
+                Version = PACKAGE_VERSION,
                 OutputDirectory = PACKAGE_DIR,
                 Files = new ChocolateyNuSpecContent[]
                 {
-                    new ChocolateyNuSpecContent() { Source = "../LICENSE" },
-                    new ChocolateyNuSpecContent() { Source = "../CHANGES.txt" },
+                    new ChocolateyNuSpecContent() { Source = PROJECT_DIR + "LICENSE" },
+                    new ChocolateyNuSpecContent() { Source = PROJECT_DIR + "CHANGES.txt" },
+					new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "VERIFICATION.txt" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "tc-next.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "tc-next.exe.config", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "TestCentric.Gui.Runner.dll", Target="tools"},
@@ -210,11 +217,11 @@ Task("PackageChocolatey")
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "Mono.Cecil.dll", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent.exe.config", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = "nunit-agent.exe.ignore", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "nunit-agent.exe.ignore", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent-x86.exe", Target="tools" },
                     new ChocolateyNuSpecContent() { Source = BIN_DIR + "nunit-agent-x86.exe.config", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = "nunit-agent-x86.exe.ignore", Target="tools" },
-                    new ChocolateyNuSpecContent() { Source = "nunit.choco.addins", Target="tools" }
+                    new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "nunit-agent-x86.exe.ignore", Target="tools" },
+                    new ChocolateyNuSpecContent() { Source = CHOCO_DIR + "nunit.choco.addins", Target="tools" }
                 }
             });
     });
@@ -317,7 +324,7 @@ Task("All")
     .IsDependentOn("Package");
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Test");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
