@@ -53,23 +53,13 @@ namespace TestCentric.Gui.Presenters
             _model.Events.RunFinished += (ea) => DisplayXml();
             _model.Events.SelectedItemChanged += (ea) => OnSelectedItemChanged(ea.TestItem);
 
-            _view.SelectAllCommand += () =>
-            {
-                _view.XmlTextBox.Control.Focus();
-                _view.XmlTextBox.Control.SelectAll();
-            };
-            _view.SelectionChanged += () =>
-            {
-                _view.CopyToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_view.XmlTextBox.Control.SelectedText);
-            };
-            _view.WordWrapChanged += () =>
-            {
-                _view.XmlTextBox.Control.WordWrap = _view.WordWrapToolStripMenuItem.Checked;
-            };
-            _view.CopyCommand += () =>
-            {
-                _view.XmlTextBox.Control.Copy();
-            };
+            _view.SelectAllCommand += () => _view.SelectAll();
+
+            _view.SelectionChanged += () => _view.CopyToolStripMenuItem.Enabled = !string.IsNullOrEmpty(_view.SelectedText);
+
+            _view.WordWrapChanged += () => _view.WordWrap = _view.WordWrapToolStripMenuItem.Checked;
+
+            _view.CopyCommand += () => _view.Copy();
 
             _view.ViewGotFocus += () => DisplayXml();
         }

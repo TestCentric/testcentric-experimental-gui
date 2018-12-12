@@ -31,12 +31,21 @@ namespace TestCentric.Gui.Views
     public interface IXmlView : IView
     {
         bool Visible { get; set; }
+        bool WordWrap { get; set; }
+
         string Header { get; set; }
         IViewElement XmlPanel { get; }
-        IControlElement<RichTextBox> XmlTextBox { get; }
-        IMenu CopyToolStripMenuItem { get; }
-        IMenu WordWrapToolStripMenuItem { get; }
+
+        ICommand CopyToolStripMenuItem { get; }
+        IChecked WordWrapToolStripMenuItem { get; }
+
         XmlNode TestXml { get; set; }
+
+        string SelectedText { get; set; }
+        
+        void SelectAll();
+        void Copy();
+
         event CommandHandler SelectAllCommand;
         event CommandHandler SelectionChanged;
         event CommandHandler CopyCommand;

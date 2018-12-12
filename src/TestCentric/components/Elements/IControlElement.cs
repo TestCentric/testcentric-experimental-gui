@@ -35,9 +35,4 @@ namespace TestCentric.Gui.Elements
         Size Size { get; set; }
         Size ClientSize { get; set; }
     }
-
-    public interface IControlElement<T> : IControlElement where T : Control
-    {
-        T Control { get; }
-    }
 }

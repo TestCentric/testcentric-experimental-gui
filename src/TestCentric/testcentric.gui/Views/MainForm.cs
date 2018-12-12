@@ -80,8 +80,8 @@ namespace TestCentric.Gui.Views
             NUnitHelpCommand = new MenuElement(nUnitHelpToolStripMenuItem);
             AboutNUnitCommand = new MenuElement(aboutNUnitToolStripMenuItem);
 
-            TestResult = new ControlElement<Label>(testResult);
-            TestName = new ControlElement<Label>(testName);
+            TestResult = new ControlElement(testResult);
+            TestName = new ControlElement(testName);
 
             DialogManager = new DialogManager();
             MessageDisplay = new MessageDisplay();
@@ -150,15 +150,19 @@ namespace TestCentric.Gui.Views
         }
 
         private LongRunningOperationDisplay _messageForm;
+
         #endregion
 
         #region Subordinate Views Contained in MainForm
+
+        // NOTE that these are available to the form as actual classes rather than interfaces.
 
         public TestTreeView TestTreeView { get { return testTreeView; } }
         public ProgressBarView ProgressBarView { get { return progressBarView; } }
         public StatusBarView StatusBarView { get { return statusBarView; } }
         public TestPropertiesView PropertiesView { get { return propertiesView; } }
         public XmlView XmlView { get { return xmlView; } }
+
         #endregion
 
         #endregion

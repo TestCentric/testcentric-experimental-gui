@@ -28,26 +28,29 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// CheckBoxElement specializes ControlElement for use with a CheckBox.
     /// </summary>
-    public class CheckBoxElement : ControlElement<CheckBox>, IChecked
+    public class CheckBoxElement : ControlElement, IChecked
     {
+        private CheckBox _checkBox;
+
         public event CommandHandler CheckedChanged;
 
         public CheckBoxElement(CheckBox checkBox)
             : base(checkBox)
         {
+            _checkBox = checkBox;
             checkBox.CheckedChanged += delegate { if (CheckedChanged != null) CheckedChanged(); };
         }
 
         public bool Checked
         {
-            get { return Control.Checked; }
+            get { return _checkBox.Checked; }
             set
             {
-                if (Control.Checked != value)
+                if (_checkBox.Checked != value)
                 {
                     InvokeIfRequired(() =>
                     {
-                        Control.Checked = value;
+                        _checkBox.Checked = value;
                     });
                 }
             }

@@ -34,13 +34,13 @@ namespace TestCentric.Gui.Views
         ICommand RunFailedCommand { get; }
         ICommand StopRunCommand { get; }
 
-        IToolStripElement FormatButton { get; }
+        IToolTip FormatButton { get; }
         ISelection DisplayFormat { get; }
         ISelection GroupBy { get; }
 
         ICommand RunContextCommand { get; }
         ICommand RunCheckedCommand { get; }
-        IChecked ShowCheckBoxesCommand { get; }
+        IChecked ShowCheckBoxes { get; }
         ICommand ExpandAllCommand { get; }
         ICommand CollapseAllCommand { get; }
         ICommand CollapseToFixturesCommand { get; }

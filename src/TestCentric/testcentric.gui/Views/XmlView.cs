@@ -41,8 +41,7 @@ namespace TestCentric.Gui.Views
         {
             InitializeComponent();
 
-            XmlPanel = new ControlElement<Panel>(xmlPanel);
-            XmlTextBox = new ControlElement<RichTextBox>(xmlTextBox);
+            XmlPanel = new ControlElement(xmlPanel);
             CopyToolStripMenuItem = new MenuElement(copyToolStripMenuItem);
             WordWrapToolStripMenuItem = new MenuElement(wordWrapToolStripMenuItem);
             selectAllToolStripMenuItem.Click += (s, a) =>
@@ -78,11 +77,15 @@ namespace TestCentric.Gui.Views
 
         public IViewElement XmlPanel { get; private set; }
 
-        public IControlElement<RichTextBox> XmlTextBox { get; private set; }
+        public ICommand CopyToolStripMenuItem { get; private set; }
 
-        public IMenu CopyToolStripMenuItem { get; private set; }
+        public IChecked WordWrapToolStripMenuItem { get; private set; }
 
-        public IMenu WordWrapToolStripMenuItem { get; private set; }
+        public bool WordWrap
+        {
+            get { return xmlTextBox.WordWrap; }
+            set { InvokeIfRequired(() => xmlTextBox.WordWrap = value ); }
+        }
 
         public XmlNode TestXml
         {
@@ -92,6 +95,23 @@ namespace TestCentric.Gui.Views
                 _testXml = value;
                 InvokeIfRequired(() => xmlTextBox.Rtf = TestXml != null ? XmlHelper.ToRtfString(_testXml, 2) : "");
             }
+        }
+
+        public string SelectedText
+        {
+            get { return xmlTextBox.SelectedText; }
+            set { InvokeIfRequired(() => xmlTextBox.SelectedText = value); }
+        }
+
+        public void SelectAll()
+        {
+            xmlTextBox.Focus();
+            xmlTextBox.SelectAll();
+        }
+
+        public void Copy()
+        {
+            xmlTextBox.Copy();
         }
 
         public void InvokeFocus()

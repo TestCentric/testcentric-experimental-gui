@@ -99,7 +99,7 @@ namespace TestCentric.Gui.Presenters
             _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
             _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
             _view.CollapseToFixturesCommand.Execute += () => _strategy.CollapseToFixtures();
-            _view.ShowCheckBoxesCommand.CheckedChanged += () => _view.Tree.CheckBoxes = _view.ShowCheckBoxesCommand.Checked; ;
+            _view.ShowCheckBoxes.CheckedChanged += () => _view.Tree.CheckBoxes = _view.ShowCheckBoxes.Checked; ;
             _view.RunContextCommand.Execute += () =>
             {
                 if (_selectedTestItem != null)

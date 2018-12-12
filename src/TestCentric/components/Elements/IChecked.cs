@@ -27,7 +27,7 @@ namespace TestCentric.Gui.Elements
     /// The IChecked interface is implemented by either a CheckBox
     /// or a MenuItem, which supports being checked or unchecked.
     /// </summary>
-    public interface IChecked
+    public interface IChecked : IViewElement
     {
         bool Checked { get; }
 

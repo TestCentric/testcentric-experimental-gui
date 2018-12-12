@@ -28,7 +28,7 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// SplitButtonElement extends ToolStripElement for use with a SplitButton.
     /// </summary>
-    public class SplitButtonElement : ToolStripElement<ToolStripSplitButton>, ICommand
+    public class SplitButtonElement : ToolStripElement, ICommand
     {
         public SplitButtonElement(ToolStripSplitButton button) : base(button)
         {

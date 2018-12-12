@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Copyright (c) 2015 Charlie Poole
+// Copyright (c) 2018 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -21,22 +21,16 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Windows.Forms;
-
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// MenuElement is the implementation of ToolStripItem 
-    /// used in the actual application.
+    /// IToolTip is implemented by elements, which are able to
+    /// get and set their own tool tip text. It is a single-
+    /// capability index and is generally used in conjunction
+    /// with IViewElement or a derived interface.
     /// </summary>
-    public interface IContextMenuElement : IControlElement<ContextMenuStrip>
+    public interface IToolTip
     {
-        event CommandHandler Popup;
-
-        ToolStripItemCollection Items { get; }
-
-        void AddSeparator();
-
-        void Add(ToolStripMenuItem menuItem);
+        string ToolTipText { get; set; }
     }
 }

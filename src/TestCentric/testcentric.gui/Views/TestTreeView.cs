@@ -52,7 +52,7 @@ namespace TestCentric.Gui.Views
             RunFailedCommand = new MenuElement(runFailedMenuItem);
             StopRunCommand = new MenuElement(stopRunMenuItem);
 
-            FormatButton = new ToolStripElement<ToolStripDropDownButton>(formatButton);
+            FormatButton = new ToolStripElement(formatButton);
             DisplayFormat = new CheckedMenuGroup(
                 "displayFormat",
                 nunitTreeMenuItem, fixtureListMenuItem, testListMenuItem);
@@ -62,7 +62,7 @@ namespace TestCentric.Gui.Views
 
             RunContextCommand = new MenuElement(this.runMenuItem);
             RunCheckedCommand = new MenuElement(this.runCheckedMenuItem);
-            ShowCheckBoxesCommand = new MenuElement(showCheckboxesMenuItem);
+            ShowCheckBoxes = new MenuElement(showCheckboxesMenuItem);
             ExpandAllCommand = new MenuElement(expandAllMenuItem);
             CollapseAllCommand = new MenuElement(collapseAllMenuItem);
             CollapseToFixturesCommand = new MenuElement(collapseToFixturesMenuItem);
@@ -80,12 +80,12 @@ namespace TestCentric.Gui.Views
 
         public ICommand RunContextCommand { get; private set; }
         public ICommand RunCheckedCommand { get; private set; }
-        public IChecked ShowCheckBoxesCommand { get; private set; }
+        public IChecked ShowCheckBoxes { get; private set; }
         public ICommand ExpandAllCommand { get; private set; }
         public ICommand CollapseAllCommand { get; private set; }
         public ICommand CollapseToFixturesCommand { get; private set; }
 
-        public IToolStripElement FormatButton { get; private set; }
+        public IToolTip FormatButton { get; private set; }
         public ISelection DisplayFormat { get; private set; }
         public ISelection GroupBy { get; private set; }
 

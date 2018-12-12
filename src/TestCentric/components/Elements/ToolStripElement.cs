@@ -28,42 +28,42 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// ToolStripItem is a generic wrapper for ToolStripItems
     /// </summary>
-    public class ToolStripElement<T> : IToolStripElement where T : ToolStripItem
+    public class ToolStripElement : IViewElement, IToolTip
     {
-        public ToolStripElement(T toolStripItem)
-        {
-            this.ToolStripItem = toolStripItem;
-        }
+        private ToolStripItem _toolStripItem;
 
-        public T ToolStripItem { get; private set; }
+        public ToolStripElement(ToolStripItem toolStripItem)
+        {
+            _toolStripItem = toolStripItem;
+        }
 
         public bool Enabled
         {
-            get { return ToolStripItem.Enabled; }
-            set { InvokeIfRequired(() => { ToolStripItem.Enabled = value; }); }
+            get { return _toolStripItem.Enabled; }
+            set { InvokeIfRequired(() => { _toolStripItem.Enabled = value; }); }
         }
 
         public bool Visible
         {
-            get { return ToolStripItem.Visible; }
-            set { InvokeIfRequired(() => { ToolStripItem.Visible = value; }); }
+            get { return _toolStripItem.Visible; }
+            set { InvokeIfRequired(() => { _toolStripItem.Visible = value; }); }
         }
 
         public string Text
         {
-            get { return ToolStripItem.Text; }
-            set { InvokeIfRequired(() => { ToolStripItem.Text = value; }); }
+            get { return _toolStripItem.Text; }
+            set { InvokeIfRequired(() => { _toolStripItem.Text = value; }); }
         }
 
         public string ToolTipText
         {
-            get { return ToolStripItem.ToolTipText; }
-            set { InvokeIfRequired(() => { ToolStripItem.ToolTipText = value; }); }
+            get { return _toolStripItem.ToolTipText; }
+            set { InvokeIfRequired(() => { _toolStripItem.ToolTipText = value; }); }
         }
 
         public void InvokeIfRequired(MethodInvoker del)
         {
-            var toolStrip = ToolStripItem.GetCurrentParent();
+            var toolStrip = _toolStripItem.GetCurrentParent();
 
             if (toolStrip != null && toolStrip.InvokeRequired)
                 toolStrip.BeginInvoke(del, new object[0]);

@@ -21,23 +21,31 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// MenuElement is the implementation of ToolStripItem 
-    /// used in the actual application.
+    /// MenuElement is the implemented here using a ToolStripItem 
+    /// but the view exposes each element using one of the three 
+    /// key interfaces (IMenu, ICommand or IChecked) which should
+    /// not contain any control-specific logic.
     /// </summary>
-    public class MenuElement : ToolStripElement<ToolStripMenuItem>, IMenu
+    public class MenuElement : ToolStripElement, IMenu, ICommand, IChecked
     {
         public event CommandHandler Execute;
         public event CommandHandler Popup;
         public event CommandHandler CheckedChanged;
 
+        private ToolStripMenuItem _menuItem;
+
         public MenuElement(ToolStripMenuItem menuItem)
             : base(menuItem)
         {
+            _menuItem = menuItem;
+
             menuItem.Click += delegate { if (Execute != null) Execute(); };
             menuItem.DropDownOpening += delegate { if (Popup != null) Popup(); };
             menuItem.CheckedChanged += delegate { if (CheckedChanged != null) CheckedChanged(); };
@@ -52,22 +60,22 @@ namespace TestCentric.Gui.Elements
 
         public bool Checked
         {
-            get { return ToolStripItem.Checked; }
+            get { return _menuItem.Checked; }
             set
             {
-                if (ToolStripItem.Checked != value)
+                if (_menuItem.Checked != value)
                 {
                     InvokeIfRequired(() =>
                     {
-                        ToolStripItem.Checked = value;
+                        _menuItem.Checked = value;
                     });
                 }
             }
         }
 
-        public ToolStripItemCollection DropDownItems
+        public ToolStripItemCollection Items
         {
-            get { return ToolStripItem.DropDown.Items; }
+            get { return _menuItem.DropDown.Items; }
         }
     }
 }
