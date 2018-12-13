@@ -2,7 +2,6 @@ language: csharp
 sudo: false
 mono:
   - latest
-  - 5.16.0
   - 5.10.1
   - 4.6.2
 script: 
