@@ -1,19 +1,14 @@
-branches:
-  except:
-    - /travis-.*/
-
-before_build:
-  - nuget restore experimental-gui.sln
+image: Visual Studio 2017
 
 build_script: 
   - ps: .\build.ps1 -Target "Appveyor" -Configuration "Release"
   
+# disable built-in tests.
+test: off
+
 artifacts:
 - path: package\*.zip
 - path: package\*.nupkg
-#  - path: package\*.msi
 
 # AppVeyor defaults to just its build number
 version: '{build}'
-# disable built-in tests.
-test: off
