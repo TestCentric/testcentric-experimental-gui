@@ -50,7 +50,7 @@ namespace TestCentric.Gui.Presenters
 
         protected Dictionary<string, List<TreeNode>> _nodeIndex = new Dictionary<string, List<TreeNode>>();
 
-        public ITreeViewElement Tree { get; private set; }
+        public ITreeView Tree { get; private set; }
 
         #region Construction and Initialization
 

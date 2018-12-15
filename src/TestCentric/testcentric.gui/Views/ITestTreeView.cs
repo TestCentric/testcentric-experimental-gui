@@ -48,6 +48,6 @@ namespace TestCentric.Gui.Views
         void ExpandAll();
         void CollapseAll();
 
-        ITreeViewElement Tree { get; }
+        ITreeView Tree { get; }
     }
 }

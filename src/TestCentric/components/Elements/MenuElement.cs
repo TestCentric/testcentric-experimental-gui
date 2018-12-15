@@ -46,9 +46,9 @@ namespace TestCentric.Gui.Elements
         {
             _menuItem = menuItem;
 
-            menuItem.Click += delegate { if (Execute != null) Execute(); };
-            menuItem.DropDownOpening += delegate { if (Popup != null) Popup(); };
-            menuItem.CheckedChanged += delegate { if (CheckedChanged != null) CheckedChanged(); };
+            menuItem.Click += (s, e) => Execute?.Invoke();
+            menuItem.DropDownOpening += (s, e) => Popup?.Invoke();
+            menuItem.CheckedChanged += (s, e) => CheckedChanged?.Invoke();
         }
 
         public MenuElement(string text) : this(new ToolStripMenuItem(text)) { }

@@ -26,7 +26,7 @@ using System.Windows.Forms;
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// CheckBoxElement specializes ControlElement for use with a CheckBox.
+    /// CheckBoxElement wraps a CheckBox as an IChecked.
     /// </summary>
     public class CheckBoxElement : ControlElement, IChecked
     {
@@ -34,11 +34,10 @@ namespace TestCentric.Gui.Elements
 
         public event CommandHandler CheckedChanged;
 
-        public CheckBoxElement(CheckBox checkBox)
-            : base(checkBox)
+        public CheckBoxElement(CheckBox checkBox) : base(checkBox)
         {
             _checkBox = checkBox;
-            checkBox.CheckedChanged += delegate { if (CheckedChanged != null) CheckedChanged(); };
+            checkBox.CheckedChanged += (s, e) => CheckedChanged?.Invoke();
         }
 
         public bool Checked
@@ -47,12 +46,7 @@ namespace TestCentric.Gui.Elements
             set
             {
                 if (_checkBox.Checked != value)
-                {
-                    InvokeIfRequired(() =>
-                    {
-                        _checkBox.Checked = value;
-                    });
-                }
+                    InvokeIfRequired(() => _checkBox.Checked = value);
             }
         }
     }

@@ -36,8 +36,7 @@ namespace TestCentric.Gui.Elements
     {
         /// <summary>
         /// Execute event is raised to signal the presenter
-        /// to execute the command with which this menu
-        /// toolStripItem is associated.
+        /// to execute the associated command.
         /// </summary>
         event CommandHandler Execute;
     }

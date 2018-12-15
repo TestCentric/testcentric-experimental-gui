@@ -57,7 +57,7 @@
     <Compile Include="Elements\ICommand.cs" />
     <Compile Include="Elements\IChecked.cs" />
     <Compile Include="Elements\IMenu.cs" />
-    <Compile Include="Elements\ITreeViewElement.cs" />
+    <Compile Include="Elements\ITreeView.cs" />
     <Compile Include="Elements\IToolTip.cs" />
     <Compile Include="Elements\IControlElement.cs" />
     <Compile Include="Elements\IViewElement.cs" />

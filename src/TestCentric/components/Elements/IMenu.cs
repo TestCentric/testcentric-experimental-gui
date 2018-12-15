@@ -26,16 +26,17 @@ using System.Windows.Forms;
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// IMenu is implemented by MenuElements that display subitems
+    /// IMenu is implemented by a menu item that displays subitems.
     /// </summary>
     public interface IMenu : IViewElement
     {
+        /// <summary>
+        /// Popup event is raised to signal the presenter
+        /// that the menu items under this element are
+        /// about to be displayed.
+        /// </summary>
         event CommandHandler Popup;
        
-        // TODO: Stop exposing the implementation detail that assumes
-        // use of a ToolStripMenuItem rather than a MenuItem. I did
-        // a spike creating a wrapping collection, but it was too much
-        // code for too little benefit.
         ToolStripItemCollection Items { get; }
     }
 }

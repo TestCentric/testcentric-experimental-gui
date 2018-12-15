@@ -34,7 +34,7 @@ namespace TestCentric.Gui.Elements
     ///    the current visual state of the tree.
     ///  * The CheckedNodes property returns a list of checked TreeNodes.
     /// </summary>
-    public class TreeViewElement : ControlElement, ITreeViewElement
+    public class TreeViewElement : ControlElement, ITreeView
     {
         public event TreeNodeActionHandler SelectedNodeChanged;
 
@@ -139,14 +139,6 @@ namespace TestCentric.Gui.Elements
         public void Add(TreeNode treeNode)
         {
             Add(treeNode, false);
-        }
-
-        public void Insert(int index, TreeNode treeNode)
-        {
-            InvokeIfRequired(() =>
-            {
-                _treeView.Nodes.Insert(index, treeNode);
-            });
         }
 
         public void Load(TreeNode treeNode)
