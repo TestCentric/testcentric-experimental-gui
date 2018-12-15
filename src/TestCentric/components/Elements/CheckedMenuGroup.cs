@@ -27,8 +27,7 @@ using System.Windows.Forms;
 namespace TestCentric.Gui.Elements
 {
     /// <summary>
-    /// MenuElement is the implementation of ToolStripItem 
-    /// used in the actual application.
+    /// CheckedMenuGroup wraps a set of checked menu items as an ISelection.
     /// </summary>
     public class CheckedMenuGroup : ISelection
     {

@@ -32,7 +32,7 @@ namespace TestCentric.Gui.Elements
     /// The ITreeViewElement interface provides additional methods
     /// used when wrapping a TreeView.
     /// </summary>
-    public interface ITreeViewElement : IControlElement
+    public interface ITreeView : IControlElement
     {
         event TreeNodeActionHandler SelectedNodeChanged;
 

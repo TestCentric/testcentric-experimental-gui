@@ -89,7 +89,7 @@ namespace TestCentric.Gui.Views
         public ISelection DisplayFormat { get; private set; }
         public ISelection GroupBy { get; private set; }
 
-        public ITreeViewElement Tree { get; private set; }
+        public ITreeView Tree { get; private set; }
 
         #endregion
 
