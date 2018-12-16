@@ -33,7 +33,7 @@ namespace TestCentric.Gui.Elements
     /// key interfaces (IMenu, ICommand or IChecked) which should
     /// not contain any control-specific logic.
     /// </summary>
-    public class MenuElement : ToolStripElement, IMenu, ICommand, IChecked
+    public class ToolStripMenuElement : ToolStripElement, IToolStripMenu, ICommand, IChecked
     {
         public event CommandHandler Execute;
         public event CommandHandler Popup;
@@ -41,7 +41,7 @@ namespace TestCentric.Gui.Elements
 
         private ToolStripMenuItem _menuItem;
 
-        public MenuElement(ToolStripMenuItem menuItem)
+        public ToolStripMenuElement(ToolStripMenuItem menuItem)
             : base(menuItem)
         {
             _menuItem = menuItem;
@@ -51,9 +51,9 @@ namespace TestCentric.Gui.Elements
             menuItem.CheckedChanged += (s, e) => CheckedChanged?.Invoke();
         }
 
-        public MenuElement(string text) : this(new ToolStripMenuItem(text)) { }
+        public ToolStripMenuElement(string text) : this(new ToolStripMenuItem(text)) { }
 
-        public MenuElement(string text, CommandHandler execute) : this(text)
+        public ToolStripMenuElement(string text, CommandHandler execute) : this(text)
         {
             this.Execute = execute;
         }

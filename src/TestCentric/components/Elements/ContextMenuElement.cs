@@ -29,7 +29,7 @@ namespace TestCentric.Gui.Elements
     /// MenuElement is the implementation of ToolStripItem 
     /// used in the actual application.
     /// </summary>
-    public class ContextMenuElement : ControlElement, IMenu
+    public class ContextMenuElement : ControlElement, IToolStripMenu
     {
         public ContextMenuStrip _contextMenu;
 

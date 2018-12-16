@@ -28,7 +28,7 @@ namespace TestCentric.Gui.Elements
     /// <summary>
     /// IMenu is implemented by a menu item that displays subitems.
     /// </summary>
-    public interface IMenu : IViewElement
+    public interface IToolStripMenu : IViewElement
     {
         /// <summary>
         /// Popup event is raised to signal the presenter

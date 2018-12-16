@@ -56,12 +56,12 @@
     <Compile Include="Elements\ISelection.cs" />
     <Compile Include="Elements\ICommand.cs" />
     <Compile Include="Elements\IChecked.cs" />
-    <Compile Include="Elements\IMenu.cs" />
+    <Compile Include="Elements\IToolStripMenu.cs" />
     <Compile Include="Elements\ITreeView.cs" />
     <Compile Include="Elements\IToolTip.cs" />
     <Compile Include="Elements\IControlElement.cs" />
     <Compile Include="Elements\IViewElement.cs" />
-    <Compile Include="Elements\MenuElement.cs" />
+    <Compile Include="Elements\ToolStripMenuElement.cs" />
     <Compile Include="Elements\SplitButtonElement.cs" />
     <Compile Include="Elements\ToolStripElement.cs" />
     <Compile Include="Elements\TreeViewElement.cs" />
