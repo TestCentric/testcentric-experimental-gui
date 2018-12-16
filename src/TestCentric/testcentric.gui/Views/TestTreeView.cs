@@ -47,10 +47,10 @@ namespace TestCentric.Gui.Views
             InitializeComponent();
 
             RunButton = new SplitButtonElement(runButton);
-            RunAllCommand = new MenuElement(runAllMenuItem);
-            RunSelectedCommand = new MenuElement(runSelectedMenuItem);
-            RunFailedCommand = new MenuElement(runFailedMenuItem);
-            StopRunCommand = new MenuElement(stopRunMenuItem);
+            RunAllCommand = new ToolStripMenuElement(runAllMenuItem);
+            RunSelectedCommand = new ToolStripMenuElement(runSelectedMenuItem);
+            RunFailedCommand = new ToolStripMenuElement(runFailedMenuItem);
+            StopRunCommand = new ToolStripMenuElement(stopRunMenuItem);
 
             FormatButton = new ToolStripElement(formatButton);
             DisplayFormat = new CheckedMenuGroup(
@@ -60,12 +60,12 @@ namespace TestCentric.Gui.Views
                 "testGrouping",
                 byAssemblyMenuItem, byFixtureMenuItem, byCategoryMenuItem, byOutcomeMenuItem, byDurationMenuItem);
 
-            RunContextCommand = new MenuElement(this.runMenuItem);
-            RunCheckedCommand = new MenuElement(this.runCheckedMenuItem);
-            ShowCheckBoxes = new MenuElement(showCheckboxesMenuItem);
-            ExpandAllCommand = new MenuElement(expandAllMenuItem);
-            CollapseAllCommand = new MenuElement(collapseAllMenuItem);
-            CollapseToFixturesCommand = new MenuElement(collapseToFixturesMenuItem);
+            RunContextCommand = new ToolStripMenuElement(this.runMenuItem);
+            RunCheckedCommand = new ToolStripMenuElement(this.runCheckedMenuItem);
+            ShowCheckBoxes = new ToolStripMenuElement(showCheckboxesMenuItem);
+            ExpandAllCommand = new ToolStripMenuElement(expandAllMenuItem);
+            CollapseAllCommand = new ToolStripMenuElement(collapseAllMenuItem);
+            CollapseToFixturesCommand = new ToolStripMenuElement(collapseToFixturesMenuItem);
 
             Tree = new TreeViewElement(treeView);
         }

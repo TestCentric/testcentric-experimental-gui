@@ -48,7 +48,7 @@ namespace TestCentric.Gui.Views
         event DragEventHandler DragDropFiles;
 
         // File Menu
-        IMenu FileMenu { get; }
+        IToolStripMenu FileMenu { get; }
         ICommand NewProjectCommand { get; }
         ICommand OpenProjectCommand { get; }
         ICommand CloseCommand { get; }
@@ -56,12 +56,12 @@ namespace TestCentric.Gui.Views
         ICommand SaveAsCommand { get; }
         ICommand SaveResultsCommand { get; }
         ICommand ReloadTestsCommand { get; }
-        IMenu SelectRuntimeMenu { get; }
+        IToolStripMenu SelectRuntimeMenu { get; }
         ISelection SelectedRuntime { get; }
         ISelection ProcessModel { get; }
         IChecked RunAsX86 { get; }
         ISelection DomainUsage { get; }
-        IMenu RecentProjectsMenu { get; }
+        IToolStripMenu RecentProjectsMenu { get; }
         ICommand ExitCommand { get; }
 
         // View Menu
@@ -72,7 +72,7 @@ namespace TestCentric.Gui.Views
         // Status Bar
 
         // Project Menu
-        IMenu ProjectMenu { get; }
+        IToolStripMenu ProjectMenu { get; }
         // Configurations
         // Insert Assembly
         // Insert Project

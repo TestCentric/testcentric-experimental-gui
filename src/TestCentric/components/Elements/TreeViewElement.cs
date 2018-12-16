@@ -63,8 +63,8 @@ namespace TestCentric.Gui.Elements
             };
         }
 
-        private IMenu _contextMenu;
-        public IMenu ContextMenu
+        private IToolStripMenu _contextMenu;
+        public IToolStripMenu ContextMenu
         {
             get
             {
