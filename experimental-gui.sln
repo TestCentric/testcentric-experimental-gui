@@ -13,8 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.sh = build.sh
 		CHANGES.txt = CHANGES.txt
 		GitVersion.yml = GitVersion.yml
-		NuGet.config = NuGet.config
 		LICENSE = LICENSE
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "choco", "choco", "{1EA16CB4-2043-4297-BABC-A548900BA7E0}"
@@ -45,6 +45,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCentric.Gui.Exe", "src\TestCentric\testcentric.exe\TestCentric.Gui.Exe.csproj", "{D5556639-F04B-4389-92C8-E110D6688BA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCentric.Gui.Components", "src\TestCentric\components\TestCentric.Gui.Components.csproj", "{353BC38A-FFB9-4CAC-A542-AFBF016D2629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCentric.Gui.Model.Tests", "src\TestModel\tests\TestCentric.Gui.Model.Tests.csproj", "{594FC8F2-8979-4A0A-9F57-F3EFD0939E1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{353BC38A-FFB9-4CAC-A542-AFBF016D2629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{353BC38A-FFB9-4CAC-A542-AFBF016D2629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{353BC38A-FFB9-4CAC-A542-AFBF016D2629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{594FC8F2-8979-4A0A-9F57-F3EFD0939E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{594FC8F2-8979-4A0A-9F57-F3EFD0939E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{594FC8F2-8979-4A0A-9F57-F3EFD0939E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{594FC8F2-8979-4A0A-9F57-F3EFD0939E1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +99,6 @@ Global
 		{2E368281-3BA8-4050-B05E-0E0E43F8F446} = {61B56A51-E44C-44AD-83D7-2A9B1303108C}
 		{D5556639-F04B-4389-92C8-E110D6688BA7} = {8B8D9C87-A43A-4715-90E1-44146D29127C}
 		{353BC38A-FFB9-4CAC-A542-AFBF016D2629} = {8B8D9C87-A43A-4715-90E1-44146D29127C}
+		{594FC8F2-8979-4A0A-9F57-F3EFD0939E1C} = {D1BBF49A-67BC-4370-85D6-C7D7C5621E53}
 	EndGlobalSection
 EndGlobal
