@@ -36,15 +36,26 @@ namespace TestCentric.Gui.Model
         // Engine Services
         ITestServices Services { get; }
 
+        // Project Support
+        bool NUnitProjectSupport { get; }
+        bool VisualStudioSupport { get; }
+
+        // List of available runtimes, based on the engine's list
+        // but filtered to meet the GUI's requirements
+        IList<IRuntimeFramework> AvailableRuntimes { get; }
+
+        // Result Format Support
+        IEnumerable<string> ResultFormats { get; }
+
         #endregion
 
-        #region Properties
+        #region Current State of the Model
+
+        bool IsPackageLoaded { get; }
 
         CommandLineOptions Options { get; }
 
         IDictionary<string, object> PackageSettings { get; }
-
-        bool IsPackageLoaded { get; }
 
         // TestNode hierarchy representing the discovered tests
         TestNode Tests { get; }
@@ -57,10 +68,6 @@ namespace TestCentric.Gui.Model
 
         // Do we have results from running the test?
         bool HasResults { get; }
-
-        // List of available runtimes, based on the engine's list
-        // but filtered to meet the GUI's requirements
-        IList<IRuntimeFramework> AvailableRuntimes { get; }
 
         #endregion
 
@@ -96,7 +103,7 @@ namespace TestCentric.Gui.Model
         void CancelTestRun();
 
         // Get the result for a test if available
-        ResultNode GetResultForTest(TestNode testNode);
+        ResultNode GetResultForTest(string id);
 
         // Broadcast event when SelectedTestItem changes
         void NotifySelectedItemChanged(ITestItem testItem);

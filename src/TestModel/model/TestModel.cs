@@ -29,6 +29,10 @@ namespace TestCentric.Gui.Model
 {
     public class TestModel : ITestModel
     {
+        private const string PROJECT_LOADER_EXTENSION_PATH = "/NUnit/Engine/TypeExtensions/IProjectLoader";
+        private const string NUNIT_PROJECT_LOADER = "NUnit.Engine.Services.ProjectLoaders.NUnitProjectLoader";
+        private const string VISUAL_STUDIO_PROJECT_LOADER = "NUnit.Engine.Services.ProjectLoaders.VisualStudioProjectLoader";
+
         private ITestEngine _testEngine;
         private TestPackage _package;
         internal IDictionary<string, ResultNode> Results = new Dictionary<string, ResultNode>();
@@ -42,10 +46,18 @@ namespace TestCentric.Gui.Model
         public TestModel(ITestEngine testEngine, CommandLineOptions options)
         {
             _testEngine = testEngine;
+            Services = new TestServices(testEngine);
             Options = options;
 
+            foreach (var node in Services.ExtensionService.GetExtensionNodes(PROJECT_LOADER_EXTENSION_PATH))
+            {
+                if (node.TypeName == NUNIT_PROJECT_LOADER)
+                    NUnitProjectSupport = true;
+                else if (node.TypeName == VISUAL_STUDIO_PROJECT_LOADER)
+                    VisualStudioSupport = true;
+            }
+
             _events = new TestEventDispatcher(this);
-            Services = new TestServices(testEngine);
         }
 
         #endregion
@@ -57,6 +69,40 @@ namespace TestCentric.Gui.Model
 
         // Engine Services
         public ITestServices Services { get; }
+
+        // Project Support
+        public bool NUnitProjectSupport { get; }
+        public bool VisualStudioSupport { get; }
+
+        // Runtime Support
+        private List<IRuntimeFramework> _runtimes;
+        public IList<IRuntimeFramework> AvailableRuntimes
+        {
+            get
+            {
+                if (_runtimes == null)
+                    _runtimes = GetAvailableRuntimes();
+
+                return _runtimes;
+            }
+        }
+
+        // Result Format Support
+        private List<string> _resultFormats;
+        public IEnumerable<string> ResultFormats
+        {
+            get
+            {
+                if (_resultFormats == null)
+                {
+                    _resultFormats = new List<string>();
+                    foreach (string format in Services.ResultService.Formats)
+                        _resultFormats.Add(format);
+                }
+
+                return _resultFormats;
+            }
+        }
 
         #region Properties
 
@@ -82,18 +128,6 @@ namespace TestCentric.Gui.Model
         }
 
         private IList<string> _files;
-
-        private List<IRuntimeFramework> _runtimes;
-        public IList<IRuntimeFramework> AvailableRuntimes
-        {
-            get
-            {
-                if (_runtimes == null)
-                    _runtimes = GetAvailableRuntimes();
-
-                return _runtimes;
-            }
-        }
 
         // The engine returns more values than we really want.
         // For example, we don't currently distinguish between
@@ -153,6 +187,7 @@ namespace TestCentric.Gui.Model
         }
 
         #endregion
+
 
         #region Methods
 
@@ -295,12 +330,12 @@ namespace TestCentric.Gui.Model
             Runner.StopRun(false);
         }
 
-        public ResultNode GetResultForTest(TestNode testNode)
+        public ResultNode GetResultForTest(string id)
         {
-            if (testNode != null)
+            if (!string.IsNullOrEmpty(id))
             {
                 ResultNode result;
-                if (Results.TryGetValue(testNode.Id, out result))
+                if (Results.TryGetValue(id, out result))
                     return result;
             }
 
