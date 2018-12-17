@@ -68,15 +68,6 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Model\AvailableRuntimesTest.cs" />
-    <Compile Include="Model\ResultNodeTests.cs" />
-    <Compile Include="Model\ResultStateTests.cs" />
-    <Compile Include="Model\ResultSummaryCreatorTests.cs" />
-    <Compile Include="Model\ResultSummaryReporterTests.cs" />
-    <Compile Include="Model\TestModelAssemblyTests.cs" />
-    <Compile Include="Model\TestModelPackageTests.cs" />
-    <Compile Include="Model\TestSelectionTests.cs" />
-    <Compile Include="Model\TestNodeTests.cs" />
     <Compile Include="Presenters\AddinsPresenterTests.cs" />
     <Compile Include="Presenters\Main\PackageSettingsTests.cs" />
     <Compile Include="Presenters\Main\WhenTestsAreLoading.cs" />
@@ -131,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
