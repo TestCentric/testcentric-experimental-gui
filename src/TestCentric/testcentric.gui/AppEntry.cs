@@ -88,10 +88,10 @@ namespace TestCentric.Gui
             if (options.InternalTraceLevel != null)
                 testEngine.InternalTraceLevel = (InternalTraceLevel)Enum.Parse(typeof(InternalTraceLevel), options.InternalTraceLevel);
 
-            var model = new TestModel(testEngine, options);
+            var model = new TestModel(testEngine);
 
             var form = new MainForm();
-            new MainPresenter(form, model);
+            new MainPresenter(form, model, options);
             new ProgressBarPresenter(form.ProgressBarView, model);
             new TreeViewPresenter(form.TestTreeView, model);
             new StatusBarPresenter(form.StatusBarView, model);

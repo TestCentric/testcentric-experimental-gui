@@ -40,7 +40,7 @@ namespace TestCentric.Gui.Model
             var engine = TestEngineActivator.CreateInstance();
             Assert.NotNull(engine, "Unable to create engine instance for testing");
 
-            var model = new TestModel(engine, new CommandLineOptions());
+            var model = new TestModel(engine);
             _availableRuntimes = model.AvailableRuntimes;
             Assert.NotNull(_availableRuntimes);
         }

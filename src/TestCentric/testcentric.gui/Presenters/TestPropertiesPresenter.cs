@@ -82,7 +82,7 @@ namespace TestCentric.Gui.Presenters
 
                     DisplayTestInfo(testNode);
 
-                    resultNode = _model.GetResultForTest(testNode);
+                    resultNode = _model.GetResultForTest(testNode.Id);
                     if (resultNode != null)
                         DisplayResultInfo(resultNode);
 

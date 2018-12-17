@@ -39,16 +39,18 @@ namespace TestCentric.Gui.Presenters
         IMainView _view;
         ITestModel _model;
         SettingsModel _settings;
+        CommandLineOptions _options;
 
         private Dictionary<string, TreeNode> _nodeIndex = new Dictionary<string, TreeNode>();
 
         #region Construction and Initialization
 
-        public MainPresenter(IMainView view, ITestModel model)
+        public MainPresenter(IMainView view, ITestModel model, CommandLineOptions options)
         {
             _view = view;
             _model = model;
             _settings = new SettingsModel(_model.Services.UserSettings);
+            _options = options;
 
             InitializeMainMenu();
 
@@ -169,7 +171,23 @@ namespace TestCentric.Gui.Presenters
             // Set the font to use
             _view.Font = _settings.Gui.MainForm.Font;
 
-            _model.OnStartup();
+            if (_options.InternalTraceLevel != null)
+                _model.PackageSettings.Add(EnginePackageSettings.InternalTraceLevel, _options.InternalTraceLevel);
+
+            //_model.OnStartup();
+            if (_options.InputFiles.Count > 0)
+            {
+                _model.LoadTests(_options.InputFiles);
+            }
+            else if (!_options.NoLoad && _model.Services.RecentFiles.Entries.Count > 0)
+            {
+                var entry = _model.Services.RecentFiles.Entries[0];
+                if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
+                    _model.LoadTests(new[] { entry });
+            }
+
+            if (_options.RunAllTests && _model.IsPackageLoaded)
+                _model.RunAllTests();
         }
 
         private void MainForm_Closing()

@@ -239,7 +239,7 @@ namespace TestCentric.Gui.Presenters
 
         public ResultNode GetResultForTest(TestNode testNode)
         {
-            return _model.GetResultForTest(testNode);
+            return _model.GetResultForTest(testNode.Id);
         }
 
         #endregion

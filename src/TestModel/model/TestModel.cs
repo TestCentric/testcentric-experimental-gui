@@ -29,6 +29,10 @@ namespace TestCentric.Gui.Model
 {
     public class TestModel : ITestModel
     {
+        private const string PROJECT_LOADER_EXTENSION_PATH = "/NUnit/Engine/TypeExtensions/IProjectLoader";
+        private const string NUNIT_PROJECT_LOADER = "NUnit.Engine.Services.ProjectLoaders.NUnitProjectLoader";
+        private const string VISUAL_STUDIO_PROJECT_LOADER = "NUnit.Engine.Services.ProjectLoaders.VisualStudioProjectLoader";
+
         private ITestEngine _testEngine;
         private TestPackage _package;
         internal IDictionary<string, ResultNode> Results = new Dictionary<string, ResultNode>();
@@ -39,13 +43,20 @@ namespace TestCentric.Gui.Model
 
         #region Constructor
 
-        public TestModel(ITestEngine testEngine, CommandLineOptions options)
+        public TestModel(ITestEngine testEngine)
         {
             _testEngine = testEngine;
-            Options = options;
+            Services = new TestServices(testEngine);
+
+            foreach (var node in Services.ExtensionService.GetExtensionNodes(PROJECT_LOADER_EXTENSION_PATH))
+            {
+                if (node.TypeName == NUNIT_PROJECT_LOADER)
+                    NUnitProjectSupport = true;
+                else if (node.TypeName == VISUAL_STUDIO_PROJECT_LOADER)
+                    VisualStudioSupport = true;
+            }
 
             _events = new TestEventDispatcher(this);
-            Services = new TestServices(testEngine);
         }
 
         #endregion
@@ -58,9 +69,41 @@ namespace TestCentric.Gui.Model
         // Engine Services
         public ITestServices Services { get; }
 
-        #region Properties
+        // Project Support
+        public bool NUnitProjectSupport { get; }
+        public bool VisualStudioSupport { get; }
 
-        public CommandLineOptions Options { get; private set; }
+        // Runtime Support
+        private List<IRuntimeFramework> _runtimes;
+        public IList<IRuntimeFramework> AvailableRuntimes
+        {
+            get
+            {
+                if (_runtimes == null)
+                    _runtimes = GetAvailableRuntimes();
+
+                return _runtimes;
+            }
+        }
+
+        // Result Format Support
+        private List<string> _resultFormats;
+        public IEnumerable<string> ResultFormats
+        {
+            get
+            {
+                if (_resultFormats == null)
+                {
+                    _resultFormats = new List<string>();
+                    foreach (string format in Services.ResultService.Formats)
+                        _resultFormats.Add(format);
+                }
+
+                return _resultFormats;
+            }
+        }
+
+        #region Properties
 
         public IDictionary<string, object> PackageSettings { get; } = new Dictionary<string, object>();
 
@@ -82,18 +125,6 @@ namespace TestCentric.Gui.Model
         }
 
         private IList<string> _files;
-
-        private List<IRuntimeFramework> _runtimes;
-        public IList<IRuntimeFramework> AvailableRuntimes
-        {
-            get
-            {
-                if (_runtimes == null)
-                    _runtimes = GetAvailableRuntimes();
-
-                return _runtimes;
-            }
-        }
 
         // The engine returns more values than we really want.
         // For example, we don't currently distinguish between
@@ -154,24 +185,8 @@ namespace TestCentric.Gui.Model
 
         #endregion
 
+
         #region Methods
-
-        public void OnStartup()
-        {
-            if (Options.InputFiles.Count > 0)
-            {
-                LoadTests(Options.InputFiles);
-            }
-            else if (!Options.NoLoad && Services.RecentFiles.Entries.Count > 0)
-            {
-                var entry = Services.RecentFiles.Entries[0];
-                if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
-                    LoadTests(new[] { entry });
-            }
-
-            if (Options.RunAllTests && IsPackageLoaded)
-                RunAllTests();
-        }
 
         public void Dispose()
         {
@@ -260,9 +275,6 @@ namespace TestCentric.Gui.Model
             // We use AddSetting rather than just setting the value because
             // it propagates the setting to all subprojects.
 
-            if (Options.InternalTraceLevel != null)
-                package.AddSetting(EnginePackageSettings.InternalTraceLevel, Options.InternalTraceLevel);
-
             // We use shadow copy so that the user may re-compile while the gui is running.
             package.AddSetting(EnginePackageSettings.ShadowCopyFiles, true);
 
@@ -295,12 +307,12 @@ namespace TestCentric.Gui.Model
             Runner.StopRun(false);
         }
 
-        public ResultNode GetResultForTest(TestNode testNode)
+        public ResultNode GetResultForTest(string id)
         {
-            if (testNode != null)
+            if (!string.IsNullOrEmpty(id))
             {
                 ResultNode result;
-                if (Results.TryGetValue(testNode.Id, out result))
+                if (Results.TryGetValue(id, out result))
                     return result;
             }
 

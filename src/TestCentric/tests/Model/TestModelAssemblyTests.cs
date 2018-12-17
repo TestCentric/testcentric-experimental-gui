@@ -42,7 +42,7 @@ namespace TestCentric.Gui.Model
             var engine = TestEngineActivator.CreateInstance();
             Assert.NotNull(engine, "Unable to create engine instance for testing");
 
-            _model = new TestModel(engine, new CommandLineOptions());
+            _model = new TestModel(engine);
 
             _model.LoadTests(new[] { Path.Combine(TestContext.CurrentContext.TestDirectory, MOCK_ASSEMBLY) });
         }

@@ -92,7 +92,7 @@ namespace TestCentric.Gui.Presenters
 
         private XmlNode GetFullXml(TestNode testNode)
         {
-            ResultNode resultNode = _model.GetResultForTest(testNode);
+            ResultNode resultNode = _model.GetResultForTest(testNode.Id);
             XmlNode currentXml;
             if (resultNode != null)
             {

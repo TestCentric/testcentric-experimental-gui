@@ -41,7 +41,7 @@ namespace TestCentric.Gui.Presenters.Main
             View = Substitute.For<IMainView>();
             Model = Substitute.For<ITestModel>();
 
-            Presenter = new MainPresenter(View, Model);
+            Presenter = new MainPresenter(View, Model, null);
         }
 
         [TearDown]
