@@ -43,11 +43,10 @@ namespace TestCentric.Gui.Model
 
         #region Constructor
 
-        public TestModel(ITestEngine testEngine, CommandLineOptions options)
+        public TestModel(ITestEngine testEngine)
         {
             _testEngine = testEngine;
             Services = new TestServices(testEngine);
-            Options = options;
 
             foreach (var node in Services.ExtensionService.GetExtensionNodes(PROJECT_LOADER_EXTENSION_PATH))
             {
@@ -105,8 +104,6 @@ namespace TestCentric.Gui.Model
         }
 
         #region Properties
-
-        public CommandLineOptions Options { get; private set; }
 
         public IDictionary<string, object> PackageSettings { get; } = new Dictionary<string, object>();
 
@@ -190,23 +187,6 @@ namespace TestCentric.Gui.Model
 
 
         #region Methods
-
-        public void OnStartup()
-        {
-            if (Options.InputFiles.Count > 0)
-            {
-                LoadTests(Options.InputFiles);
-            }
-            else if (!Options.NoLoad && Services.RecentFiles.Entries.Count > 0)
-            {
-                var entry = Services.RecentFiles.Entries[0];
-                if (!string.IsNullOrEmpty(entry) && System.IO.File.Exists(entry))
-                    LoadTests(new[] { entry });
-            }
-
-            if (Options.RunAllTests && IsPackageLoaded)
-                RunAllTests();
-        }
 
         public void Dispose()
         {
@@ -294,9 +274,6 @@ namespace TestCentric.Gui.Model
 
             // We use AddSetting rather than just setting the value because
             // it propagates the setting to all subprojects.
-
-            if (Options.InternalTraceLevel != null)
-                package.AddSetting(EnginePackageSettings.InternalTraceLevel, Options.InternalTraceLevel);
 
             // We use shadow copy so that the user may re-compile while the gui is running.
             package.AddSetting(EnginePackageSettings.ShadowCopyFiles, true);

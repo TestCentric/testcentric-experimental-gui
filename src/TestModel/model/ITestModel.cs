@@ -53,8 +53,6 @@ namespace TestCentric.Gui.Model
 
         bool IsPackageLoaded { get; }
 
-        CommandLineOptions Options { get; }
-
         IDictionary<string, object> PackageSettings { get; }
 
         // TestNode hierarchy representing the discovered tests
@@ -72,9 +70,6 @@ namespace TestCentric.Gui.Model
         #endregion
 
         #region Methods
-
-        // Perform initial actions on startup, loading and possibly running tests
-        void OnStartup();
 
         // Create a new empty project using a default name
         void NewProject();

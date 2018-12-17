@@ -36,8 +36,7 @@ namespace TestCentric.Gui.Model
         public void CreateModel()
         {
             var engine = Substitute.For<ITestEngine>();
-            var options = new CommandLineOptions();
-            _model = new TestModel(engine, options);
+            _model = new TestModel(engine);
         }
 
         [TestCase("my.test.assembly.dll")]
