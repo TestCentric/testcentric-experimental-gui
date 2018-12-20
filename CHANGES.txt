@@ -1,14 +1,41 @@
-﻿NUnit-Gui 0.6 - September 10, 2017
+﻿NUnit-Gui 0.7 - December 20, 2018
+
+General
+
+This is expected to be the last independent release of the experimental GUI, which is being
+merged into the testcentric-gui project.
 
 Issues Resolved
 
- * 96	Show message of some kind while tests are loading.
- * 189	Move View to a separate Assembly
- * 199	Some compilation problem in tests...
- * 206	Use GitVersion for the GUI builds
- * 209	Utilise IAvailableFrameworks interface over RuntimeFramework class in engine
- * 223	ReportContainsStartAndEndDateAndDuration is dependent on the culture
- * 229	Create separate assembly for the model alone
+ * 247  Update to use NUnit 3.8
+ * 258  Upgrade experimental gui to 3.9 version of the engine is:build pri:normal
+ * 259  Upgrade to NUnit framework 3.11 is:build pri:normal
+ * 261  Upgrade experimental GUI to nunit framework 3.11
+ * 262  Run tests under Travis CI
+ * 263  Update experimental GUI to NUnit Engine 3.9
+ * 264  Fix build to use MsBuild under Mono 5 or greater
+ * 265  Use console 3.9
+ * 266  Exp Gui: Rename nunit.uikit assembly to refer to TestCentric closed:done is:build pri:normal
+ * 268  Exp GUI: Create separate exe project closed:done is:build pri:normal
+ * 270  Exp GUI: Split tests between model and gui. closed:done is:build pri:normal
+ * 271  Exp GUI: Review and merge model closed:done is:enhancement pri:normal
+ * 272  Exp GUI: Review and merge build scripts closed:done is:build pri:high
+ * 276  Exp Gui: Review and merge components assembly closed:done is:enhancement pri:normal
+ * 280  Revise GUI Element interfaces closed:done is:enhancement pri:high
+ * 282  Result panel not displaying after test run is:bug linux pri:low
+ * 287  Exp GUI: Rename menu classes to avoid conflicts with standard GUI closed:done is:feature pri:normal
+
+NUnit-Gui 0.6 - September 10, 2017
+
+Issues Resolved
+
+ * 96   Show message of some kind while tests are loading.
+ * 189  Move View to a separate Assembly
+ * 199  Some compilation problem in tests...
+ * 206  Use GitVersion for the GUI builds
+ * 209  Utilise IAvailableFrameworks interface over RuntimeFramework class in engine
+ * 223  ReportContainsStartAndEndDateAndDuration is dependent on the culture
+ * 229  Create separate assembly for the model alone
 
 NUnit-Gui 0.5 - August 12, 2017
 

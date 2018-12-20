@@ -17,7 +17,7 @@ var configuration = Argument("configuration", "Debug");
 //GitVersion GitVersionInfo { get; set; }
 //BuildInfo Build { get; set;} = new BuildInfo();
 
-string version = "0.6.0";
+string version = "0.7.0";
 string modifier = "";
 string dbgSuffix = configuration == "Debug" ? "-dbg" : "";
 
