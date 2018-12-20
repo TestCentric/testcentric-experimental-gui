@@ -78,7 +78,7 @@ var PACKAGE_VERSION = version + modifier + dbgSuffix;
 var GUI_SOLUTION = PROJECT_DIR + "experimental-gui.sln";
 
 // Test Assembly
-var GUI_TESTS = BIN_DIR + "TestCentric.Gui.Tests.dll";
+var ALL_TESTS = BIN_DIR + "*.Tests.dll";
 
 //////////////////////////////////////////////////////////////////////
 // CLEAN
@@ -151,7 +151,7 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        NUnit3(GUI_TESTS);
+        NUnit3(ALL_TESTS);
     });
 
 //////////////////////////////////////////////////////////////////////
