@@ -8,22 +8,22 @@ merged into the testcentric-gui project.
 Issues Resolved
 
  * 247  Update to use NUnit 3.8
- * 258  Upgrade experimental gui to 3.9 version of the engine is:build pri:normal
- * 259  Upgrade to NUnit framework 3.11 is:build pri:normal
+ * 258  Upgrade experimental gui to 3.9 version of the engine
+ * 259  Upgrade to NUnit framework 3.11
  * 261  Upgrade experimental GUI to nunit framework 3.11
  * 262  Run tests under Travis CI
  * 263  Update experimental GUI to NUnit Engine 3.9
  * 264  Fix build to use MsBuild under Mono 5 or greater
  * 265  Use console 3.9
- * 266  Exp Gui: Rename nunit.uikit assembly to refer to TestCentric closed:done is:build pri:normal
- * 268  Exp GUI: Create separate exe project closed:done is:build pri:normal
- * 270  Exp GUI: Split tests between model and gui. closed:done is:build pri:normal
- * 271  Exp GUI: Review and merge model closed:done is:enhancement pri:normal
- * 272  Exp GUI: Review and merge build scripts closed:done is:build pri:high
- * 276  Exp Gui: Review and merge components assembly closed:done is:enhancement pri:normal
- * 280  Revise GUI Element interfaces closed:done is:enhancement pri:high
- * 282  Result panel not displaying after test run is:bug linux pri:low
- * 287  Exp GUI: Rename menu classes to avoid conflicts with standard GUI closed:done is:feature pri:normal
+ * 266  Exp Gui: Rename nunit.uikit assembly to refer to TestCentric
+ * 268  Exp GUI: Create separate exe project
+ * 270  Exp GUI: Split tests between model and gui.
+ * 271  Exp GUI: Review and merge model
+ * 272  Exp GUI: Review and merge build scripts
+ * 276  Exp Gui: Review and merge components assembly
+ * 280  Revise GUI Element interfaces
+ * 282  Result panel not displaying after test run
+ * 287  Exp GUI: Rename menu classes to avoid conflicts with standard GUI
 
 NUnit-Gui 0.6 - September 10, 2017
 
