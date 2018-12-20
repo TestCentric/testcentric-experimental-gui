@@ -91,7 +91,11 @@ namespace TestCentric.Gui.Presenters
             }
 
             _view.TestPanel.Visible = testNode != null;
-            _view.ResultPanel.Visible = resultNode != null;
+            // HACK: results won't display on Linux otherwise
+            if (Path.DirectorySeparatorChar == '/') // Running on Linux or Unix
+                _view.ResultPanel.Visible = true;
+            else
+                _view.ResultPanel.Visible = resultNode != null;
 
             // TODO: We should actually try to set the font for bold items
             // dynamically, since the global application font may be changed.
