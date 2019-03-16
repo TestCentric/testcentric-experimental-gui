@@ -94,8 +94,13 @@ namespace TestCentric.Gui.Presenters
             };
 
             // View context commands
-            _view.Tree.ContextMenu.Popup += () =>
-                _view.RunCheckedCommand.Visible = _view.Tree.CheckBoxes && _view.Tree.CheckedNodes.Count > 0;
+            _view.Tree.ContextMenu.Popup += delegate
+            {
+                bool checkedRunAvailable = _view.Tree.CheckBoxes && _view.Tree.CheckedNodes.Count > 0;
+                _view.RunCheckedCommand.Visible = checkedRunAvailable;
+                _view.DebugCheckedCommand.Visible = checkedRunAvailable;
+            };
+
             _view.CollapseAllCommand.Execute += () => _view.CollapseAll();
             _view.ExpandAllCommand.Execute += () => _view.ExpandAll();
             _view.CollapseToFixturesCommand.Execute += () => _strategy.CollapseToFixtures();
@@ -106,6 +111,11 @@ namespace TestCentric.Gui.Presenters
                     _model.RunTests(_selectedTestItem);
             };
             _view.RunCheckedCommand.Execute += RunCheckedTests;
+            _view.DebugContextCommand.Execute += () =>
+            {
+                if (_selectedTestItem != null) _model.DebugTests(_selectedTestItem);
+            };
+            _view.DebugCheckedCommand.Execute += DebugCheckedTests;
 
             // Node selected in tree
             _view.Tree.SelectedNodeChanged += (tn) =>
@@ -125,6 +135,17 @@ namespace TestCentric.Gui.Presenters
             _view.RunSelectedCommand.Execute += () => _model.RunTests(_selectedTestItem);
             _view.RunFailedCommand.Execute += () => _model.RunAllTests(); // NYI
             _view.StopRunCommand.Execute += () => _model.CancelTestRun();
+
+            // Debug button and dropdowns
+            _view.DebugButton.Execute += () =>
+            {
+                // Necessary test because we don't disable the button click
+                if (_model.HasTests && !_model.IsTestRunning)
+                    _model.DebugAllTests();
+            };
+            _view.DebugAllCommand.Execute += () => _model.DebugAllTests();
+            _view.DebugSelectedCommand.Execute += () => _model.DebugTests(_selectedTestItem);
+            _view.DebugFailedCommand.Execute += () => _model.DebugAllTests(); // NYI
 
             // Change of display format
             _view.DisplayFormat.SelectionChanged += () =>
@@ -153,6 +174,24 @@ namespace TestCentric.Gui.Presenters
             }
 
             _model.RunTests(tests);
+        }
+
+        private void DebugCheckedTests()
+        {
+            var tests = new TestGroup("DebugTests");
+
+            foreach (var treeNode in _view.Tree.CheckedNodes)
+            {
+                var testNode = treeNode.Tag as TestNode;
+                if (testNode != null) tests.Add(testNode);
+                else
+                {
+                    var group = treeNode.Tag as TestGroup;
+                    if (group != null) tests.AddRange(group);
+                }
+            }
+
+            _model.DebugTests(tests);
         }
 
         private void InitializeRunCommands()

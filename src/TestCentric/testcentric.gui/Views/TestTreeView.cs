@@ -52,6 +52,11 @@ namespace TestCentric.Gui.Views
             RunFailedCommand = new ToolStripMenuElement(runFailedMenuItem);
             StopRunCommand = new ToolStripMenuElement(stopRunMenuItem);
 
+            DebugButton = new SplitButtonElement(debugButton);
+            DebugAllCommand = new ToolStripMenuElement(debugAllMenuItem);
+            DebugSelectedCommand = new ToolStripMenuElement(debugSelectedMenuItem);
+            DebugFailedCommand = new ToolStripMenuElement(debugFailedMenuItem);
+
             FormatButton = new ToolStripElement(formatButton);
             DisplayFormat = new CheckedMenuGroup(
                 "displayFormat",
@@ -62,6 +67,8 @@ namespace TestCentric.Gui.Views
 
             RunContextCommand = new ToolStripMenuElement(this.runMenuItem);
             RunCheckedCommand = new ToolStripMenuElement(this.runCheckedMenuItem);
+            DebugContextCommand = new ToolStripMenuElement(this.debugMenuItem);
+            DebugCheckedCommand = new ToolStripMenuElement(this.debugCheckedMenuItem);
             ShowCheckBoxes = new ToolStripMenuElement(showCheckboxesMenuItem);
             ExpandAllCommand = new ToolStripMenuElement(expandAllMenuItem);
             CollapseAllCommand = new ToolStripMenuElement(collapseAllMenuItem);
@@ -78,8 +85,15 @@ namespace TestCentric.Gui.Views
         public ICommand RunFailedCommand { get; private set; }
         public ICommand StopRunCommand { get; private set; }
 
+        public ICommand DebugButton { get; private set; }
+        public ICommand DebugAllCommand { get; private set; }
+        public ICommand DebugSelectedCommand { get; private set; }
+        public ICommand DebugFailedCommand { get; private set; }
+
         public ICommand RunContextCommand { get; private set; }
         public ICommand RunCheckedCommand { get; private set; }
+        public ICommand DebugContextCommand { get; private set; }
+        public ICommand DebugCheckedCommand { get; private set; }
         public IChecked ShowCheckBoxes { get; private set; }
         public ICommand ExpandAllCommand { get; private set; }
         public ICommand CollapseAllCommand { get; private set; }

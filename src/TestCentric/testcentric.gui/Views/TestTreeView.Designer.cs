@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
+            System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+            System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestTreeView));
             this.treeView = new System.Windows.Forms.TreeView();
             this.testTreeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.runMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runCheckedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
+            this.debugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugCheckedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showCheckboxesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.expandAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.collapseToFixturesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,9 +61,31 @@
             this.byCategoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byOutcomeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.byDurationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.debugAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugSelectedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugFailedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.testTreeContextMenu.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStripMenuItem13
+            // 
+            toolStripMenuItem13.Name = "toolStripMenuItem13";
+            toolStripMenuItem13.Size = new System.Drawing.Size(187, 6);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(187, 6);
             // 
             // treeView
             // 
@@ -80,60 +105,65 @@
             this.testTreeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.runMenuItem,
             this.runCheckedMenuItem,
-            this.toolStripMenuItem13,
+            toolStripSeparator2,
+            this.debugMenuItem,
+            this.debugCheckedMenuItem,
+            toolStripMenuItem13,
             this.showCheckboxesMenuItem,
-            this.toolStripSeparator1,
+            toolStripSeparator1,
             this.expandAllMenuItem,
             this.collapseAllMenuItem,
             this.collapseToFixturesMenuItem});
             this.testTreeContextMenu.Name = "testTreeContextMenu";
-            this.testTreeContextMenu.Size = new System.Drawing.Size(177, 148);
+            this.testTreeContextMenu.Size = new System.Drawing.Size(191, 198);
             // 
             // runMenuItem
             // 
             this.runMenuItem.Name = "runMenuItem";
-            this.runMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.runMenuItem.Size = new System.Drawing.Size(190, 22);
             this.runMenuItem.Text = "Run";
             // 
             // runCheckedMenuItem
             // 
             this.runCheckedMenuItem.Name = "runCheckedMenuItem";
-            this.runCheckedMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.runCheckedMenuItem.Size = new System.Drawing.Size(190, 22);
             this.runCheckedMenuItem.Text = "Run Checked Items";
             // 
-            // toolStripMenuItem13
+            // debugMenuItem
             // 
-            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(173, 6);
+            this.debugMenuItem.Name = "debugMenuItem";
+            this.debugMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.debugMenuItem.Text = "Debug";
+            // 
+            // debugCheckedMenuItem
+            // 
+            this.debugCheckedMenuItem.Name = "debugCheckedMenuItem";
+            this.debugCheckedMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.debugCheckedMenuItem.Text = "Debug Checked Items";
             // 
             // showCheckboxesMenuItem
             // 
             this.showCheckboxesMenuItem.CheckOnClick = true;
             this.showCheckboxesMenuItem.Name = "showCheckboxesMenuItem";
-            this.showCheckboxesMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.showCheckboxesMenuItem.Size = new System.Drawing.Size(190, 22);
             this.showCheckboxesMenuItem.Text = "Show Checkboxes";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(173, 6);
             // 
             // expandAllMenuItem
             // 
             this.expandAllMenuItem.Name = "expandAllMenuItem";
-            this.expandAllMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.expandAllMenuItem.Size = new System.Drawing.Size(190, 22);
             this.expandAllMenuItem.Text = "Expand All";
             // 
             // collapseAllMenuItem
             // 
             this.collapseAllMenuItem.Name = "collapseAllMenuItem";
-            this.collapseAllMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.collapseAllMenuItem.Size = new System.Drawing.Size(190, 22);
             this.collapseAllMenuItem.Text = "Collapse All";
             // 
             // collapseToFixturesMenuItem
             // 
             this.collapseToFixturesMenuItem.Name = "collapseToFixturesMenuItem";
-            this.collapseToFixturesMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.collapseToFixturesMenuItem.Size = new System.Drawing.Size(190, 22);
             this.collapseToFixturesMenuItem.Text = "Collapse to Fixtures";
             // 
             // treeImages
@@ -151,6 +181,7 @@
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.runButton,
+            this.debugButton,
             this.formatButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
@@ -230,63 +261,100 @@
             // nunitTreeMenuItem
             // 
             this.nunitTreeMenuItem.Name = "nunitTreeMenuItem";
-            this.nunitTreeMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.nunitTreeMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nunitTreeMenuItem.Tag = "NUNIT_TREE";
             this.nunitTreeMenuItem.Text = "NUnit Tree";
             // 
             // fixtureListMenuItem
             // 
             this.fixtureListMenuItem.Name = "fixtureListMenuItem";
-            this.fixtureListMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.fixtureListMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fixtureListMenuItem.Tag = "FIXTURE_LIST";
             this.fixtureListMenuItem.Text = "Fixture List";
             // 
             // testListMenuItem
             // 
             this.testListMenuItem.Name = "testListMenuItem";
-            this.testListMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.testListMenuItem.Size = new System.Drawing.Size(152, 22);
             this.testListMenuItem.Tag = "TEST_LIST";
             this.testListMenuItem.Text = "Test List";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // byAssemblyMenuItem
             // 
             this.byAssemblyMenuItem.Name = "byAssemblyMenuItem";
-            this.byAssemblyMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.byAssemblyMenuItem.Size = new System.Drawing.Size(152, 22);
             this.byAssemblyMenuItem.Tag = "ASSEMBLY";
             this.byAssemblyMenuItem.Text = "By Assembly";
             // 
             // byFixtureMenuItem
             // 
             this.byFixtureMenuItem.Name = "byFixtureMenuItem";
-            this.byFixtureMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.byFixtureMenuItem.Size = new System.Drawing.Size(152, 22);
             this.byFixtureMenuItem.Tag = "FIXTURE";
             this.byFixtureMenuItem.Text = "By Fixture";
             // 
             // byCategoryMenuItem
             // 
             this.byCategoryMenuItem.Name = "byCategoryMenuItem";
-            this.byCategoryMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.byCategoryMenuItem.Size = new System.Drawing.Size(152, 22);
             this.byCategoryMenuItem.Tag = "CATEGORY";
             this.byCategoryMenuItem.Text = "By Category";
             // 
             // byOutcomeMenuItem
             // 
             this.byOutcomeMenuItem.Name = "byOutcomeMenuItem";
-            this.byOutcomeMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.byOutcomeMenuItem.Size = new System.Drawing.Size(152, 22);
             this.byOutcomeMenuItem.Tag = "OUTCOME";
             this.byOutcomeMenuItem.Text = "By Outcome";
             // 
             // byDurationMenuItem
             // 
             this.byDurationMenuItem.Name = "byDurationMenuItem";
-            this.byDurationMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.byDurationMenuItem.Size = new System.Drawing.Size(152, 22);
             this.byDurationMenuItem.Tag = "DURATION";
             this.byDurationMenuItem.Text = "By Duration";
+            // 
+            // debugButton
+            // 
+            this.debugButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.debugButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.debugAllMenuItem,
+            this.debugSelectedMenuItem,
+            this.debugFailedMenuItem});
+            this.debugButton.Image = ((System.Drawing.Image)(resources.GetObject("debugButton.Image")));
+            this.debugButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.debugButton.Name = "debugButton";
+            this.debugButton.Size = new System.Drawing.Size(32, 22);
+            this.debugButton.ToolTipText = "Debug All Tests";
+            // 
+            // debugAllMenuItem
+            // 
+            this.debugAllMenuItem.Name = "debugAllMenuItem";
+            this.debugAllMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+            this.debugAllMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.debugAllMenuItem.Text = "Debug All";
+            this.debugAllMenuItem.ToolTipText = "Debug all tests displayed";
+            // 
+            // debugSelectedMenuItem
+            // 
+            this.debugSelectedMenuItem.Name = "debugSelectedMenuItem";
+            this.debugSelectedMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F6)));
+            this.debugSelectedMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.debugSelectedMenuItem.Text = "Debug Selected";
+            this.debugSelectedMenuItem.ToolTipText = "Debug the selected tests";
+            // 
+            // debugFailedMenuItem
+            // 
+            this.debugFailedMenuItem.Name = "debugFailedMenuItem";
+            this.debugFailedMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F7)));
+            this.debugFailedMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.debugFailedMenuItem.Text = "Debug Failed";
+            this.debugFailedMenuItem.ToolTipText = "Debug the tests that failed on the last run";
             // 
             // TestTreeView
             // 
@@ -315,7 +383,6 @@
         private System.Windows.Forms.ToolStripMenuItem stopRunMenuItem;
         private System.Windows.Forms.ContextMenuStrip testTreeContextMenu;
         private System.Windows.Forms.ToolStripMenuItem runMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem expandAllMenuItem;
         private System.Windows.Forms.ToolStripMenuItem collapseAllMenuItem;
         private System.Windows.Forms.ToolStripMenuItem collapseToFixturesMenuItem;
@@ -331,7 +398,12 @@
         private System.Windows.Forms.ToolStripMenuItem byDurationMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fixtureListMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showCheckboxesMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem runCheckedMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem debugMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem debugCheckedMenuItem;
+        private System.Windows.Forms.ToolStripSplitButton debugButton;
+        private System.Windows.Forms.ToolStripMenuItem debugAllMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem debugSelectedMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem debugFailedMenuItem;
     }
 }
